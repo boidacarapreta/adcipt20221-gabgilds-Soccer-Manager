@@ -1,11 +1,12 @@
-Aula 04/04/2022:
+04/04/22 ADC60808:
 Javascript -> Síncrona e Assíncrona | Cliente-servidor 
 Cliente -> Navegador -> JS (Javascript)
 Servidor -> Node.js
-
 
 Camadas de rede:
 Aplicação - HTTP/HTML/URL
 Transporte - TCP
 Internet - IP
 Rede local
+
+----------------------------------------------------------------------------------
