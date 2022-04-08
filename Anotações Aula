@@ -10,3 +10,6 @@ Internet - IP
 Rede local
 
 ----------------------------------------------------------------------------------
+
+Sprite -> Objeto que interage com outros corpos
+Spritesheet -> Matriz de sprites
