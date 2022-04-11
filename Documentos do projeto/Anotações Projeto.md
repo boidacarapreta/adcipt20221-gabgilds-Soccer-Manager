@@ -1,3 +1,5 @@
+Phaser Editor 2D
+
 Código-base -> Letters to Johnson
 
 Botão de host na tela inicial para conseguir criar o código, pedir permissões.
@@ -26,3 +28,4 @@ Opcionais:
 - QR Code;
 - Contador de jogadores;
 - Trilha sonora.
+
