@@ -1,5 +1,7 @@
 Phaser Editor 2D
 
+Tutorial HTML -> https://www.w3schools.com/html/
+
 Código-base -> Letters to Johnson
 
 Botão de host na tela inicial para conseguir criar o código, pedir permissões.
