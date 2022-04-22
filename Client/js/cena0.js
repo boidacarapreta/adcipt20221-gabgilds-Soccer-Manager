@@ -6,12 +6,12 @@ var cena0 = new Phaser.Scene("Cena 0");
 
 cena0.preload = function () {
   // Imagem de fundo
-  this.load.image("cadeado", "assets/cena0.png");
+  this.load.image("fundo", "./assets/1 tela.png");
 };
 
 cena0.create = function () {
   // Botão com a imagem de fundo
-  var button = this.add.image(400, 300, "cadeado", 0).setInteractive();
+  var button = this.add.image(400, 300, "fundo", 0).setInteractive();
 
   // Ao clicar no botão, inicia a cena 1
   button.on(
