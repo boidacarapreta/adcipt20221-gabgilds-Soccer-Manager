@@ -18,7 +18,7 @@ cena0.create = function () {
     },
     this
   );
-};/*  */
+};
 
 cena0.update = function () {};
 
