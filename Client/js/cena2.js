@@ -9,7 +9,7 @@ var nomebayern;
 var fundo2;
 var cronometro;
 var passagemTempo;
-var fonteTextoCena2 = { font: "35px Arial", fill: "#000000"};
+var fonteTextoCena2 = { font: "bold 35px Mont", fill: "#000000"};
 var placar;
 var posseBola;
 var minutos;
@@ -41,7 +41,7 @@ cena2.create = function () {
 
     /* <--- Cronômetro do jogo ---> */
     //define o tempo inicial
-    this.initialTime = 5400;
+    this.initialTime = 0;
     //adiciona o cronômetro
     cronometro = this.add.text(347, 165, formatarTempo(this.initialTime), fonteTextoCena2);
     // A cada 100 ms chama tempoPassado
@@ -67,7 +67,7 @@ function formatarTempo(segundos) {
 
 
 function tempoPassado () {
-    this.initialTime -= 15; //A cada 100 ms tira 15 segundos do tempo inicial
+    this.initialTime += 15; //A cada 100 ms tira 15 segundos do tempo inicial
     cronometro.setText(formatarTempo(this.initialTime)); //Atualiza o relógio
 };
 
