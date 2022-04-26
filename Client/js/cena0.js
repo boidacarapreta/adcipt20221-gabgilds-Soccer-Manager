@@ -2,6 +2,10 @@ import { cena1 } from "./cena1.js";
 
 var cena0 = new Phaser.Scene("cena0");
 
+var fundo0;
+var botao0;
+var soundtrack;
+
 cena0.preload = function () {
   //baixando as imagens e áudio que serão usados na cena0
   this.load.image("fundo0", "./assets/fundo0.png");
@@ -9,14 +13,13 @@ cena0.preload = function () {
   this.load.audio('soundtrack', './assets/soundtrack.mp3');
 };
 
-var soundtrack;
 
 cena0.create = function () {
   //define imagem de fundo
-  var fundo0 = this.add.image(400, 300, "fundo0", 0);
+  fundo0 = this.add.image(400, 300, "fundo0", 0);
   
-  //define o botão
-  var botao0 = this.add.image(400, 300, "botao0", 100).setInteractive();
+  //define e adiciona o botão
+  botao0 = this.add.image(400, 300, "botao0", 100).setInteractive();
   
   //colocando a musica no jogo
   soundtrack = this.sound.add('soundtrack');
@@ -32,6 +35,7 @@ cena0.create = function () {
     this
   );
 };
+
 
 cena0.update = function () {};
 

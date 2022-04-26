@@ -2,6 +2,28 @@ import { cena2 } from "./cena2.js";
 
 var cena1 = new Phaser.Scene("Cena 1");
 
+var fundo1;
+var botao0;
+var botao1;
+var botao2;
+var real0;
+var city0;
+var bayern0;
+var psg0;
+var nomebayern0;
+var nomecity0;
+var nomepsg0;
+var nomereal0;
+var real1;
+var city1;
+var bayern1;
+var psg1;
+var nomebayern1;
+var nomecity1;
+var nomepsg1;
+var nomereal1;
+
+
 cena1.preload = function () {
     //baixando as imagens e áudio que serão usados na cena1
     this.load.image("fundo1", "./assets/fundo1.png");
@@ -19,22 +41,32 @@ cena1.preload = function () {
 
 cena1.create = function () { 
     //definindo imagem de fundo da cena1
-    var fundo1 = this.add.image(400, 300, "fundo1");
+    fundo1 = this.add.image(400, 300, "fundo1");
 
-    //define o botão
-    var botao0 = this.add.image(400, 300, "botao0", 100).setInteractive();
+    //define e adiciona os botões da cena1
+    botao0 = this.add.image(400, 300, "botao0", 100).setInteractive();
+    botao1 = this.add.image(280, 70, "botao1").setInteractive();
+    botao2 = this.add.image(735, 70, "botao1", 100).setInteractive();
 
     //colocando os textos de seleção dos times do lado esquerdo
-    var real0 = this.add.image(120, 70, "real");
-    var city0 = this.add.image(110, 70, "city");
-    var psg0 = this.add.image(100, 70, "psg");
-    var bayern0 = this.add.image(155, 70, "bayern");
-    var bayern0 = this.add.image(300, 200, "nomebayern");
+    real0 = this.add.image(120, 70, "real");
+    //city0 = this.add.image(110, 70, "city");
+    //psg0 = this.add.image(100, 70, "psg");
+    //bayern0 = this.add.image(145, 70, "bayern");
+    //nomebayern0 = this.add.image(175, 335, "nomebayern");
+    //nomecity0 = this.add.image(175, 335, "nomecity");
+    //nomepsg0 = this.add.image(175, 335, "nomepsg");
+    nomereal0 = this.add.image(175, 335, "nomereal");
+
     //colocando os textos de seleção dos times do lado direito
-    var real1 = this.add.image(575, 70, "real");
-    var city1 = this.add.image(565, 70, "city");
-    var psg1 = this.add.image(555, 70, "psg");
-    var bayern1 = this.add.image(610, 70, "bayern");
+    //real1 = this.add.image(575, 70, "real");
+    //city1 = this.add.image(565, 70, "city");
+    //psg1 = this.add.image(555, 70, "psg");
+    bayern1 = this.add.image(600, 70, "bayern");
+    nomebayern1 = this.add.image(630, 335, "nomebayern");
+    //nomecity1 = this.add.image(630, 335, "nomecity");
+    //nomepsg1 = this.add.image(630, 335, "nomepsg");
+    //nomereal1 = this.add.image(630, 335, "nomereal");
 
     //clique do botão para ir para a próxima cena
     botao0.on(
@@ -44,8 +76,19 @@ cena1.create = function () {
       },
     this
     );
+    
+    /*
+    botao1.on(
+      "pointerdown",
+      function () {
+        bayern1.disableBody();
+      }
+    )
+    */
+
 };
 
 cena1.update = function () {};
+
 
 export { cena1 };
