@@ -7,7 +7,13 @@ var nomereal;
 var bayern1;
 var nomebayern;
 var fundo2;
-var timer;
+var cronometro;
+var passagemTempo;
+var fonteTextoCena2 = { font: "35px Arial", fill: "#000000"};
+var placar;
+var posseBola;
+var minutos;
+var parteEmSegundos;
 
 
 cena2.preload = function () {
@@ -32,8 +38,37 @@ cena2.create = function () {
     bayern1 = this.add.image(600, 70, "bayern");
     nomebayern = this.add.image(630, 335, "nomebayern");
 
-    //relógio
-    timer = game.time.create(false);
+
+    /* <--- Cronômetro do jogo ---> */
+    //define o tempo inicial
+    this.initialTime = 5400;
+    //adiciona o cronômetro
+    cronometro = this.add.text(347, 165, formatarTempo(this.initialTime), fonteTextoCena2);
+    // A cada 100 ms chama tempoPassado
+    passagemTempo = this.time.addEvent({ delay: 100, callback: tempoPassado, callbackScope: this, loop: true });
+
+    /* <--- Placar do jogo ---> */
+    placar = this.add.text(362, 287,"0    0", fonteTextoCena2);
+
+    /* <--- Posse de bola do jogo ---> */
+    posseBola = this.add.text(355, 458, "50  50", fonteTextoCena2);
+};
+
+function formatarTempo(segundos) {
+    // Minutos
+    minutos = Math.floor(segundos/60);
+    // Segundos
+    parteEmSegundos = segundos%60;
+    // Adiciona zeros à esquerda para os segundos
+    parteEmSegundos = parteEmSegundos.toString().padStart(2,'0');
+    // Retorna o tempo formato para a função
+    return `${minutos} : ${parteEmSegundos}`;
+};
+
+
+function tempoPassado () {
+    this.initialTime -= 15; //A cada 100 ms tira 15 segundos do tempo inicial
+    cronometro.setText(formatarTempo(this.initialTime)); //Atualiza o relógio
 };
 
 cena2.update = function () {};
