@@ -1,3 +1,5 @@
+//import { disable, enable } from "express/lib/application"; (não sei de onde isso veio, mas se pah é pra conseguir usar o disable.body)
+
 import { cena2 } from "./cena2.js";
 
 var cena1 = new Phaser.Scene("Cena 1");
@@ -22,6 +24,97 @@ var nomebayern1;
 var nomecity1;
 var nomepsg1;
 var nomereal1;
+var contagem;
+
+/*
+function escolhapsg0() {
+  disable.body(psg0);
+  disable.body(nomepsg0);
+  disable.body(bayern0);
+  disable.body(nomebayern0);
+  disable.body(real0);
+  disable.body(nomereal0);
+  disable.body(city0);
+  disable.body(nomecity0);
+}
+
+function escolhabayern0() {
+  disable.body(psg0);
+  disable.body(nomepsg0);
+  disable.body(bayern0);
+  disable.body(nomebayern0);
+  disable.body(real0);
+  disable.body(nomereal0);
+  disable.body(city0);
+  disable.body(nomecity0);
+}
+
+function escolhacity0() {
+  disable.body(psg0);
+  disable.body(nomepsg0);
+  disable.body(bayern0);
+  disable.body(nomebayern0);
+  disable.body(real0);
+  disable.body(nomereal0);
+  disable.body(city0);
+  disable.body(nomecity0);
+}
+
+function escolhareal0() {
+  disable.body(psg0);
+  disable.body(nomepsg0);
+  disable.body(bayern0);
+  disable.body(nomebayern0);
+  disable.body(real0);
+  disable.body(nomereal0);
+  disable.body(city0);
+  disable.body(nomecity0);
+}
+
+function escolhapsg1() {
+  disable.body(psg1);
+  disable.body(nomepsg1);
+  disable.body(bayern1);
+  disable.body(nomebayern1);
+  disable.body(real1);
+  disable.body(nomereal1);
+  disable.body(city1);
+  disable.body(nomecity1);
+}
+
+function escolhabayern1() {
+  disable.body(psg1);
+  disable.body(nomepsg1);
+  disable.body(bayern1);
+  disable.body(nomebayern1);
+  disable.body(real1);
+  disable.body(nomereal1);
+  disable.body(city1);
+  disable.body(nomecity1);
+}
+
+function escolhacity1() {
+  disable.body(psg1);
+  disable.body(nomepsg1);
+  disable.body(bayern1);
+  disable.body(nomebayern1);
+  disable.body(real1);
+  disable.body(nomereal1);
+  disable.body(city1);
+  disable.body(nomecity1);
+}
+
+function escolhareal1() {
+  disable.body(psg1);
+  disable.body(nomepsg1);
+  disable.body(bayern1);
+  disable.body(nomebayern1);
+  disable.body(real1);
+  disable.body(nomereal1);
+  disable.body(city1);
+  disable.body(nomecity1);
+}
+*/
 
 
 cena1.preload = function () {
@@ -81,14 +174,33 @@ cena1.create = function () {
     botao1.on(
       "pointerdown",
       function () {
-        bayern1.disableBody();
+        if (contagem = 0) {
+          escolhabayern0();
+          contagem++;
+        }
+
+        else if (contagem = 1) {
+          escolhacity0();
+          contagem++;
+        }
+
+        else if (contagem = 2) {
+          escolhareal0();
+          contagem++;
+        }
+
+        else if (contagem = 3) {
+          escolhapsg0();
+          contagem = 0;
+        }
       }
     )
     */
 
 };
 
-cena1.update = function () {};
+cena1.update = function () {
+};
 
 
 export { cena1 };

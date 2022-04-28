@@ -43,7 +43,7 @@ cena2.create = function () {
     //define o tempo inicial
     this.initialTime = 0;
     //adiciona o cronômetro
-    cronometro = this.add.text(347, 165, formatarTempo(this.initialTime), fonteTextoCena2);
+    cronometro = this.add.text(356, 170, formatarTempo(this.initialTime), fonteTextoCena2);
     // A cada 100 ms chama tempoPassado
     passagemTempo = this.time.addEvent({ delay: 100, callback: tempoPassado, callbackScope: this, loop: true });
 
