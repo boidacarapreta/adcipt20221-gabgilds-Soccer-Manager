@@ -143,23 +143,23 @@ cena1.create = function () {
 
     //colocando os textos de seleção dos times do lado esquerdo
     real0 = this.add.image(120, 70, "real");
-    //city0 = this.add.image(110, 70, "city");
-    //psg0 = this.add.image(100, 70, "psg");
-    //bayern0 = this.add.image(145, 70, "bayern");
-    //nomebayern0 = this.add.image(175, 335, "nomebayern");
-    //nomecity0 = this.add.image(175, 335, "nomecity");
-    //nomepsg0 = this.add.image(175, 335, "nomepsg");
+    city0 = this.add.image(110, 70, "city");
+    psg0 = this.add.image(100, 70, "psg");
+    bayern0 = this.add.image(145, 70, "bayern");
+    nomebayern0 = this.add.image(175, 335, "nomebayern");
+    nomecity0 = this.add.image(175, 335, "nomecity");
+    nomepsg0 = this.add.image(175, 335, "nomepsg");
     nomereal0 = this.add.image(175, 335, "nomereal");
 
     //colocando os textos de seleção dos times do lado direito
-    //real1 = this.add.image(575, 70, "real");
-    //city1 = this.add.image(565, 70, "city");
-    //psg1 = this.add.image(555, 70, "psg");
+    real1 = this.add.image(575, 70, "real");
+    city1 = this.add.image(565, 70, "city");
+    psg1 = this.add.image(555, 70, "psg");
     bayern1 = this.add.image(600, 70, "bayern");
     nomebayern1 = this.add.image(630, 335, "nomebayern");
-    //nomecity1 = this.add.image(630, 335, "nomecity");
-    //nomepsg1 = this.add.image(630, 335, "nomepsg");
-    //nomereal1 = this.add.image(630, 335, "nomereal");
+    nomecity1 = this.add.image(630, 335, "nomecity");
+    nomepsg1 = this.add.image(630, 335, "nomepsg");
+    nomereal1 = this.add.image(630, 335, "nomereal");
 
     //clique do botão para ir para a próxima cena
     botao0.on(
@@ -169,8 +169,13 @@ cena1.create = function () {
       },
     this
     );
-    
+
     /*
+    //colocando os dois times que sempre irão aparecer primeiro
+    escolhabayern0();
+    escolhacity1();
+
+    //fazendo a escolha dos times por meio dos botões
     botao1.on(
       "pointerdown",
       function () {
