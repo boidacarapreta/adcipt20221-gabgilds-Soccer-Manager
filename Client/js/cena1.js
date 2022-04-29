@@ -1,5 +1,3 @@
-//import { disable, enable } from "express/lib/application"; (não sei de onde isso veio, mas se pah é pra conseguir usar o disable.body)
-
 import { cena2 } from "./cena2.js";
 
 var cena1 = new Phaser.Scene("Cena 1");
@@ -8,6 +6,7 @@ var fundo1;
 var botao0;
 var botao1;
 var botao2;
+
 var real0;
 var city0;
 var bayern0;
@@ -24,97 +23,100 @@ var nomebayern1;
 var nomecity1;
 var nomepsg1;
 var nomereal1;
-var contagem;
+var somMouse;
 
-/*
+var contagem0 = 0;
+var contagem1 = 0;
+
+
 function escolhapsg0() {
-  disable.body(psg0);
-  disable.body(nomepsg0);
-  disable.body(bayern0);
-  disable.body(nomebayern0);
-  disable.body(real0);
-  disable.body(nomereal0);
-  disable.body(city0);
-  disable.body(nomecity0);
+  psg0.setVisible(true);
+  nomepsg0.setVisible(true);
+  bayern0.setVisible(false);
+  nomebayern0.setVisible(false);
+  real0.setVisible(false);
+  nomereal0.setVisible(false);
+  city0.setVisible(false);
+  nomecity0.setVisible(false);
 }
 
 function escolhabayern0() {
-  disable.body(psg0);
-  disable.body(nomepsg0);
-  disable.body(bayern0);
-  disable.body(nomebayern0);
-  disable.body(real0);
-  disable.body(nomereal0);
-  disable.body(city0);
-  disable.body(nomecity0);
+  psg0.setVisible(false);
+  nomepsg0.setVisible(false);
+  bayern0.setVisible(true);
+  nomebayern0.setVisible(true);
+  real0.setVisible(false);
+  nomereal0.setVisible(false);
+  city0.setVisible(false);
+  nomecity0.setVisible(false);
 }
 
 function escolhacity0() {
-  disable.body(psg0);
-  disable.body(nomepsg0);
-  disable.body(bayern0);
-  disable.body(nomebayern0);
-  disable.body(real0);
-  disable.body(nomereal0);
-  disable.body(city0);
-  disable.body(nomecity0);
+  psg0.setVisible(false);
+  nomepsg0.setVisible(false);
+  bayern0.setVisible(false);
+  nomebayern0.setVisible(false);
+  real0.setVisible(false);
+  nomereal0.setVisible(false);
+  city0.setVisible(true);
+  nomecity0.setVisible(true);
 }
 
 function escolhareal0() {
-  disable.body(psg0);
-  disable.body(nomepsg0);
-  disable.body(bayern0);
-  disable.body(nomebayern0);
-  disable.body(real0);
-  disable.body(nomereal0);
-  disable.body(city0);
-  disable.body(nomecity0);
+  psg0.setVisible(false);
+  nomepsg0.setVisible(false);
+  bayern0.setVisible(false);
+  nomebayern0.setVisible(false);
+  real0.setVisible(true);
+  nomereal0.setVisible(true);
+  city0.setVisible(false);
+  nomecity0.setVisible(false);
 }
 
 function escolhapsg1() {
-  disable.body(psg1);
-  disable.body(nomepsg1);
-  disable.body(bayern1);
-  disable.body(nomebayern1);
-  disable.body(real1);
-  disable.body(nomereal1);
-  disable.body(city1);
-  disable.body(nomecity1);
+  psg1.setVisible(true);
+  nomepsg1.setVisible(true);
+  bayern1.setVisible(false);
+  nomebayern1.setVisible(false);
+  real1.setVisible(false);
+  nomereal1.setVisible(false);
+  city1.setVisible(false);
+  nomecity1.setVisible(false);
 }
 
 function escolhabayern1() {
-  disable.body(psg1);
-  disable.body(nomepsg1);
-  disable.body(bayern1);
-  disable.body(nomebayern1);
-  disable.body(real1);
-  disable.body(nomereal1);
-  disable.body(city1);
-  disable.body(nomecity1);
+  psg1.setVisible(false);
+  nomepsg1.setVisible(false);
+  bayern1.setVisible(true);
+  nomebayern1.setVisible(true);
+  real1.setVisible(false);
+  nomereal1.setVisible(false);
+  city1.setVisible(false);
+  nomecity1.setVisible(false);
 }
 
 function escolhacity1() {
-  disable.body(psg1);
-  disable.body(nomepsg1);
-  disable.body(bayern1);
-  disable.body(nomebayern1);
-  disable.body(real1);
-  disable.body(nomereal1);
-  disable.body(city1);
-  disable.body(nomecity1);
+  psg1.setVisible(false);
+  nomepsg1.setVisible(false);
+  bayern1.setVisible(false);
+  nomebayern1.setVisible(false);
+  real1.setVisible(false);
+  nomereal1.setVisible(false);
+  city1.setVisible(true);
+  nomecity1.setVisible(true);
 }
 
 function escolhareal1() {
-  disable.body(psg1);
-  disable.body(nomepsg1);
-  disable.body(bayern1);
-  disable.body(nomebayern1);
-  disable.body(real1);
-  disable.body(nomereal1);
-  disable.body(city1);
-  disable.body(nomecity1);
+  psg1.setVisible(false);
+  nomepsg1.setVisible(false);
+  bayern1.setVisible(false);
+  nomebayern1.setVisible(false);
+  real1.setVisible(true);
+  nomereal1.setVisible(true);
+  city1.setVisible(false);
+  nomecity1.setVisible(false);
 }
-*/
+
 
 
 cena1.preload = function () {
@@ -130,16 +132,18 @@ cena1.preload = function () {
     this.load.image("nomecity", "./assets/times/nomecity.png");
     this.load.image("nomepsg", "./assets/times/nomepsg.png");
     this.load.image("nomebayern", "./assets/times/nomebayern.png");
+    this.load.audio('somMouse', './assets/somMouse.mp3');
 };
 
 cena1.create = function () { 
     //definindo imagem de fundo da cena1
     fundo1 = this.add.image(400, 300, "fundo1");
+    fundo1.setVisible(true);
 
     //define e adiciona os botões da cena1
     botao0 = this.add.image(400, 300, "botao0", 100).setInteractive();
     botao1 = this.add.image(280, 70, "botao1").setInteractive();
-    botao2 = this.add.image(735, 70, "botao1", 100).setInteractive();
+    botao2 = this.add.image(735, 70, "botao1").setInteractive();
 
     //colocando os textos de seleção dos times do lado esquerdo
     real0 = this.add.image(120, 70, "real");
@@ -161,6 +165,9 @@ cena1.create = function () {
     nomepsg1 = this.add.image(630, 335, "nomepsg");
     nomereal1 = this.add.image(630, 335, "nomereal");
 
+    //colocando o som do mouse
+    somMouse = this.sound.add('somMouse');
+
     //clique do botão para ir para a próxima cena
     botao0.on(
       "pointerdown",
@@ -170,42 +177,71 @@ cena1.create = function () {
     this
     );
 
-    /*
     //colocando os dois times que sempre irão aparecer primeiro
     escolhabayern0();
     escolhacity1();
-
-    //fazendo a escolha dos times por meio dos botões
+    
+    //fazendo a escolha dos times da esquerda por meio dos botões
     botao1.on(
       "pointerdown",
       function () {
-        if (contagem = 0) {
-          escolhabayern0();
-          contagem++;
-        }
+        //som de click do mouse
+        somMouse.play();
 
-        else if (contagem = 1) {
-          escolhacity0();
-          contagem++;
+          switch (contagem0)
+          {
+            case 0:
+              escolhabayern0();
+              break;
+    
+            case 1:
+              escolhareal0();
+              break;
+    
+            case 2:
+              escolhacity0();
+              break;
+    
+            case 3:
+              escolhapsg0();
+              break;
+          }
+          contagem0++;
+          contagem0 = contagem0 % 4;
         }
+      )
 
-        else if (contagem = 2) {
-          escolhareal0();
-          contagem++;
-        }
+    //fazendo a escolha dos times da direita por meio dos botões
+    botao2.on(
+    "pointerdown",
+    function () {
+      //som de click do mouse
+      somMouse.play();
 
-        else if (contagem = 3) {
-          escolhapsg0();
-          contagem = 0;
+        switch (contagem1)
+        {
+          case 0:
+            escolhabayern1();
+            break;
+  
+          case 1:
+            escolhareal1();
+            break;
+  
+          case 2:
+            escolhacity1();
+            break;
+  
+          case 3:
+            escolhapsg1();
+            break;
         }
+        contagem1++;
+        contagem1 = contagem1 % 4;
       }
     )
-    */
-
 };
 
-cena1.update = function () {
-};
-
+cena1.update = function () {};
 
 export { cena1 };
