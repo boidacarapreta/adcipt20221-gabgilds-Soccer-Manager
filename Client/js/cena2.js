@@ -11,6 +11,10 @@ var placar;
 var posseBola;
 var minutos;
 var parteEmSegundos;
+var bayern0;
+var city1;
+var nomebayern0;
+var nomecity1;
 
 
 cena2.preload = function () {
@@ -36,6 +40,12 @@ cena2.create = function () {
         escolhabayern0();
     }
     */
+    
+    //colocando um exemplo de partida
+    bayern0 = this.add.image(145, 70, "bayern");
+    nomebayern0 = this.add.image(175, 335, "nomebayern");
+    city1 = this.add.image(565, 70, "city");
+    nomecity1 = this.add.image(630, 335, "nomecity");
 
     /* <--- Cronômetro do jogo ---> */
     //define o tempo inicial
