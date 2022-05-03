@@ -1,5 +1,6 @@
 /*
 <- AVISO PAROQUIAL ->
+
 O código está cheio de comentários por conta da mudança que faremos posteriormente no jogo, 
 onde a cena 2 e a cena 3 terão os códigos englobados em uma cena só, para que as variáveis 
 estejam todas juntas, sem precisar puxar variáveis de uma cena para outra.
