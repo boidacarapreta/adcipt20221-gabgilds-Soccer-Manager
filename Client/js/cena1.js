@@ -42,7 +42,7 @@ var bayern0;
 var city1;
 var nomebayern0;
 var nomecity1;
-var initialTime;
+var tempoInicial;
 var time;
 
 //variáveis da cena do fim de jogo
@@ -144,7 +144,7 @@ function escolhareal1() {
 }
 
 //função para retirar todos os clubes da tela
-function retirarTodosTimes() {
+function retirarTodosClubes() {
   psg0.setVisible(false);
   nomepsg0.setVisible(false);
   bayern0.setVisible(false);
@@ -161,6 +161,12 @@ function retirarTodosTimes() {
   nomereal1.setVisible(false);
   city1.setVisible(false);
   nomecity1.setVisible(false);
+}
+
+//função para definir os clubes que aparecem por padrão
+function escolhaClubePadrao() {
+  escolhabayern0();
+  escolhacity1();
 }
 
 //funções para mostrar as telas do jogo
@@ -202,8 +208,8 @@ function aparecerFundo2() {
   passagemTempo = time.addEvent({
     delay: 100,
     callback: function () {
-      initialTime += 15; //A cada 100 ms tira 15 segundos do tempo inicial
-      cronometro.setText(formatarTempo(initialTime));
+      tempoInicial += 15; //A cada 100 ms tira 15 segundos do tempo inicial
+      cronometro.setText(formatarTempo(tempoInicial));
     },
     callbackScope: this,
     loop: true,
@@ -228,22 +234,51 @@ function aparecerFundo3() {
   muller.setVisible(true);
   somVitoria.play();
 
-  retirarTodosTimes();
+  retirarTodosClubes();
+}
+
+function aparecerFundo1Novamente() {
+  fundo1.setVisible(true);
+  fundo2.setVisible(false);
+  fundo3.setVisible(false);
+
+  cronometro.setVisible(false);
+  placar.setVisible(false);
+  posseBola.setVisible(false);
+
+  botaoSim.setInteractive(false);
+  botaoSim.setVisible(false);
+  botaoNao.setInteractive(false);
+  botaoNao.setVisible(false);
+  botaoJogarDeNovo.setVisible(false);
+  parabensbayern0.setVisible(false);
+  muller.setVisible(false);
+
+  botao0.setVisible(true);
+  botao0.setInteractive(true);
+  botao1.setVisible(true);
+  botao1.setInteractive(true);
+  botao2.setVisible(true);
+  botao2.setInteractive(true);
+
+  escolhaClubePadrao();
+
+  tempoInicial = 0;
 }
 
 cena1.preload = function () {
-  //carregando as imagens e áudio que serão usados na cena de escolhendo os times
+  //carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
   this.load.image("fundo1", "./assets/fundo1.png");
   this.load.image("botao0", "./assets/botao0.png");
-  this.load.image("real", "./assets/times/real.png");
-  this.load.image("city", "./assets/times/city.png");
-  this.load.image("psg", "./assets/times/psg.png");
-  this.load.image("bayern", "./assets/times/bayern.png");
+  this.load.image("real", "./assets/clubes/real.png");
+  this.load.image("city", "./assets/clubes/city.png");
+  this.load.image("psg", "./assets/clubes/psg.png");
+  this.load.image("bayern", "./assets/clubes/bayern.png");
   this.load.image("botao1", "./assets/botao1.png");
-  this.load.image("nomereal", "./assets/times/nomereal.png");
-  this.load.image("nomecity", "./assets/times/nomecity.png");
-  this.load.image("nomepsg", "./assets/times/nomepsg.png");
-  this.load.image("nomebayern", "./assets/times/nomebayern.png");
+  this.load.image("nomereal", "./assets/clubes/nomereal.png");
+  this.load.image("nomecity", "./assets/clubes/nomecity.png");
+  this.load.image("nomepsg", "./assets/clubes/nomepsg.png");
+  this.load.image("nomebayern", "./assets/clubes/nomebayern.png");
   this.load.audio("somMouse", "./assets/somMouse.mp3");
 
   //carregando as imagens e áudio que serão usados na cena do jogo
@@ -251,9 +286,9 @@ cena1.preload = function () {
 
   //carregando as imagens e áudio que serão usados na cena de fim do jogo
   this.load.image("fundo3", "./assets/fundo3.png");
-  this.load.image("bayern0", "./assets/times/parabens/bayern0.png");
+  this.load.image("bayern0", "./assets/clubes/parabens/bayern0.png");
   this.load.audio("somVitoria", "./assets/somVitoria.mp3");
-  this.load.spritesheet("muller", "assets/times/jogadores/muller.png", {
+  this.load.spritesheet("muller", "assets/clubes/jogadores/muller.png", {
     frameWidth: 32,
     frameHeight: 32,
   });
@@ -297,10 +332,6 @@ cena1.create = function () {
   nomecity1 = this.add.image(630, 335, "nomecity");
   nomepsg1 = this.add.image(630, 335, "nomepsg");
   nomereal1 = this.add.image(630, 335, "nomereal");
-
-  //colocando os dois clubes que sempre irão aparecer primeiro
-  escolhabayern0();
-  escolhacity1();
 
   //colocando o som do mouse para sair clicar nos botões
   somMouse = this.sound.add("somMouse");
@@ -369,12 +400,12 @@ cena1.create = function () {
   //    |Cronômetro do jogo|
 
   //define o tempo inicial
-  initialTime = 0;
+  tempoInicial = 0;
   //adiciona o cronômetro
   cronometro = this.add.text(
     356,
     170,
-    formatarTempo(this.initialTime),
+    formatarTempo(this.tempoInicial),
     fonteTextoCena2
   );
 
@@ -417,7 +448,7 @@ cena1.create = function () {
   botaoSim.on(
     "pointerdown",
     function () {
-      aparecerFundo1();
+      aparecerFundo1Novamente();
       somVitoria.pause();
     },
     this
@@ -444,6 +475,9 @@ cena1.create = function () {
 
   //mostra no início apenas a tela de escolha de clubes
   aparecerFundo1();
+
+  //colocando os dois clubes que sempre irão aparecer primeiro
+  escolhaClubePadrao();
 };
 
 function formatarTempo(segundos) {
@@ -458,8 +492,8 @@ function formatarTempo(segundos) {
 }
 
 function tempoPassado() {
-  this.initialTime += 15; //A cada 100 ms tira 15 segundos do tempo inicial
-  cronometro.setText(formatarTempo(this.initialTime)); //Atualiza o relógio
+  this.tempoInicial += 15; //A cada 100 ms tira 15 segundos do tempo inicial
+  cronometro.setText(formatarTempo(this.tempoInicial)); //Atualiza o relógio
 }
 
 cena1.update = function () {
