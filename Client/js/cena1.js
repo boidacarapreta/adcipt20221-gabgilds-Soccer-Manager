@@ -48,7 +48,14 @@ var time;
 
 //variáveis da cena do fim de jogo
 var fundo3;
-var parabensbayern0;
+var parabensBayern0;
+var parabensCity0;
+var parabensPsg0;
+var parabensReal0;
+var parabensBayern1;
+var parabensCity1;
+var parabensPsg1;
+var parabensReal1;
 var somVitoria;
 var muller;
 var botaoSim;
@@ -193,8 +200,16 @@ function aparecerFundo1() {
   botaoNao.setInteractive(false);
   botaoNao.setVisible(false);
   botaoJogarDeNovo.setVisible(false);
-  parabensbayern0.setVisible(false);
   muller.setVisible(false);
+
+  parabensBayern0.setVisible(false);
+  parabensBayern1.setVisible(false);
+  parabensCity0.setVisible(false);
+  parabensCity1.setVisible(false);
+  parabensPsg0.setVisible(false);
+  parabensPsg1.setVisible(false);
+  parabensReal0.setVisible(false);
+  parabensReal1.setVisible(false);
 }
 
 function aparecerFundo2() {
@@ -229,7 +244,10 @@ function aparecerFundo2() {
     time0vencendo();
   } else if (time0.ovr < time1.ovr) {
     time1vencendo();
-  } //fazer empate?
+  } else if (time0.ovr = time1.ovr) {
+    time0vencendo();
+    console.log("aleluia");
+  }
 }  
 
 function aparecerFundo3() {
@@ -246,7 +264,6 @@ function aparecerFundo3() {
   botaoNao.setInteractive(true);
   botaoNao.setVisible(true);
   botaoJogarDeNovo.setVisible(true);
-  parabensbayern0.setVisible(true);
   muller.setVisible(true);
   somVitoria.play();
 
@@ -267,7 +284,6 @@ function aparecerFundo1Novamente() {
   botaoNao.setInteractive(false);
   botaoNao.setVisible(false);
   botaoJogarDeNovo.setVisible(false);
-  parabensbayern0.setVisible(false);
   muller.setVisible(false);
 
   botao0.setVisible(true);
@@ -289,14 +305,37 @@ var statusCity = { atk: 85, mid: 85, def: 86, ovr: 85 };
 var statusReal = { atk: 84, mid: 85, def: 83, ovr: 84 };
 var time0;
 var time1;
+var ganhador;
+
 
 function time0vencendo() {
   //aqui vai ser o decorrer da partida que no final o time da esquerda vai ganhar, com aleatoriedades
+  ganhador = 0;
+  if (time0 = statusPsg) {
+  parabensPsg0.setVisible(true);
+  } else if (time0 = statusBayern) {
+  parabensBayern0.setVisible(true);
+  } else if (time0 = statusCity) {
+  parabensCity0.setVisible(true);
+  } else if (time0 = statusReal) {
+  parabensReal0.setVisible(true);
+  }
 }
 
 function time1vencendo() {
   //aqui vai ser o decorrer da partida que no final o time da direita vai ganhar, com aleatoriedades
+  ganhador = 1;
+  if (time1 = statusPsg) {
+  parabensPsg1.setVisible(true);
+  } else if (time1 = statusBayern) {
+  parabensBayern1.setVisible(true);
+  } else if (time1 = statusCity) {
+  parabensCity1.setVisible(true);
+  } else if (time1 = statusReal) {
+  parabensReal1.setVisible(true);
+  }
 }
+
 
 cena1.preload = function () {
   //carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
@@ -318,12 +357,22 @@ cena1.preload = function () {
 
   //carregando as imagens e áudio que serão usados na cena de fim do jogo
   this.load.image("fundo3", "./assets/fundo3.png");
+
   this.load.image("bayern0", "./assets/clubes/parabens/bayern0.png");
+  this.load.image("bayern1", "./assets/clubes/parabens/bayern1.png");
+  this.load.image("city0", "./assets/clubes/parabens/city0.png");
+  this.load.image("city1", "./assets/clubes/parabens/city1.png");
+  this.load.image("psg0", "./assets/clubes/parabens/psg0.png");
+  this.load.image("psg1", "./assets/clubes/parabens/psg1.png");
+  this.load.image("real0", "./assets/clubes/parabens/real0.png");
+  this.load.image("real1", "./assets/clubes/parabens/real1.png");
+  
   this.load.audio("somVitoria", "./assets/somVitoria.mp3");
   this.load.spritesheet("muller", "assets/clubes/jogadores/muller.png", {
     frameWidth: 32,
     frameHeight: 32,
   });
+
   this.load.image("botaoJogarDeNovo", "./assets/texto/botaoJogarDeNovo.png");
   this.load.image("botaoSim", "./assets/texto/botaoSim.png");
   this.load.image("botaoNao", "./assets/texto/botaoNao.png");
@@ -387,6 +436,16 @@ cena1.create = function () {
   nomecity1 = this.add.image(630, 335, "nomecity");
   nomepsg1 = this.add.image(630, 335, "nomepsg");
   nomereal1 = this.add.image(630, 335, "nomereal");
+
+  //colocando os textos de vitórias de cada clube
+  parabensBayern0 = this.add.image(400, 120, "bayern0");
+  parabensBayern1 = this.add.image(400, 120, "bayern1");
+  parabensCity0 = this.add.image(400, 120, "city0");
+  parabensCity1 = this.add.image(400, 120, "city1");
+  parabensPsg0 = this.add.image(400, 120, "psg0");
+  parabensPsg1 = this.add.image(400, 120, "psg1");
+  parabensReal0 = this.add.image(400, 120, "real0");
+  parabensReal1 = this.add.image(400, 120, "real1"); 
 
   //colocando o som do mouse para sair clicar nos botões
   somMouse = this.sound.add("somMouse");
@@ -469,9 +528,6 @@ cena1.create = function () {
   botaoNao = this.add.image(470, 580, "botaoNao").setInteractive();
   botaoJogarDeNovo = this.add.image(200, 580, "botaoJogarDeNovo");
 
-  //mostrando o vencedor
-  parabensbayern0 = this.add.image(400, 120, "bayern0");
-
   //animação do vencedor
   muller = this.physics.add.sprite(400, 60, "muller");
 
@@ -484,6 +540,8 @@ cena1.create = function () {
     frameRate: 5,
     repeat: -1,
   });
+
+  
 
   muller.anims.play("vitoria", true);
 
