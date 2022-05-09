@@ -7,7 +7,6 @@ var fundo1;
 var botao0;
 var botao1;
 var botao2;
-var teclaF = this.input.keyboard.addKey("F");
 
 var real0;
 var city0;
@@ -26,6 +25,7 @@ var nomecity1;
 var nomepsg1;
 var nomereal1;
 var somMouse;
+
 
 var contagem0 = 0;
 var contagem1 = 0;
@@ -65,6 +65,7 @@ function escolhapsg0() {
   nomereal0.setVisible(false);
   city0.setVisible(false);
   nomecity0.setVisible(false);
+  time0 = statusPsg;
 }
 
 function escolhabayern0() {
@@ -76,6 +77,7 @@ function escolhabayern0() {
   nomereal0.setVisible(false);
   city0.setVisible(false);
   nomecity0.setVisible(false);
+  time0 = statusBayern;
 }
 
 function escolhacity0() {
@@ -87,6 +89,7 @@ function escolhacity0() {
   nomereal0.setVisible(false);
   city0.setVisible(true);
   nomecity0.setVisible(true);
+  time0 = statusCity;
 }
 
 function escolhareal0() {
@@ -98,6 +101,7 @@ function escolhareal0() {
   nomereal0.setVisible(true);
   city0.setVisible(false);
   nomecity0.setVisible(false);
+  time0 = statusReal;
 }
 
 function escolhapsg1() {
@@ -109,6 +113,7 @@ function escolhapsg1() {
   nomereal1.setVisible(false);
   city1.setVisible(false);
   nomecity1.setVisible(false);
+  time1 = statusPsg;
 }
 
 function escolhabayern1() {
@@ -120,6 +125,7 @@ function escolhabayern1() {
   nomereal1.setVisible(false);
   city1.setVisible(false);
   nomecity1.setVisible(false);
+  time1 = statusBayern;
 }
 
 function escolhacity1() {
@@ -131,6 +137,7 @@ function escolhacity1() {
   nomereal1.setVisible(false);
   city1.setVisible(true);
   nomecity1.setVisible(true);
+  time1 = statusCity;
 }
 
 function escolhareal1() {
@@ -142,6 +149,7 @@ function escolhareal1() {
   nomereal1.setVisible(true);
   city1.setVisible(false);
   nomecity1.setVisible(false);
+  time1 = statusReal;
 }
 
 //função para retirar todos os clubes da tela
@@ -215,7 +223,14 @@ function aparecerFundo2() {
     callbackScope: this,
     loop: true,
   });
-}
+
+  //definindo o resultado da partida
+  if (time0.ovr > time1.ovr) {
+    time0vencendo();
+  } else if (time0.ovr < time1.ovr) {
+    time1vencendo();
+  } //fazer empate?
+}  
 
 function aparecerFundo3() {
   fundo1.setVisible(false);
@@ -267,6 +282,22 @@ function aparecerFundo1Novamente() {
   tempoInicial = 0;
 }
 
+//variáveis e funções para o funcionamento da partida
+var statusBayern = { atk: 92, mid: 85, def: 81, ovr: 84 };
+var statusPsg = { atk: 89, mid: 83, def: 85, ovr: 86 };
+var statusCity = { atk: 85, mid: 85, def: 86, ovr: 85 };
+var statusReal = { atk: 84, mid: 85, def: 83, ovr: 84 };
+var time0;
+var time1;
+
+function time0vencendo() {
+  //aqui vai ser o decorrer da partida que no final o time da esquerda vai ganhar, com aleatoriedades
+}
+
+function time1vencendo() {
+  //aqui vai ser o decorrer da partida que no final o time da direita vai ganhar, com aleatoriedades
+}
+
 cena1.preload = function () {
   //carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
   this.load.image("fundo1", "./assets/fundo1.png");
@@ -303,16 +334,22 @@ cena1.create = function () {
   time = this.time;
 
   // Tecla "F" ativa/desativa tela cheia
-    teclaF.on(
-      "down",
-      function () {
-          if (this.scale.isFullscreen) {
-              button.setFrame(0);
-              this.scale.stopFullscreen();
-          } else {
-              button.setFrame(1);
-              this.scale.startFullscreen();
-            }
+  var telaCheia = this.add
+    .image(800 - 16, 16, "fullscreen", 0)
+    .setOrigin(1, 0)
+    .setInteractive();
+  
+  var teclaF = this.input.keyboard.addKey("F");
+  teclaF.on(
+    "down",
+    function () {
+        if (this.scale.isFullscreen) {
+            telaCheia.setFrame(0);
+            this.scale.stopFullscreen();
+        } else {
+            telaCheia.setFrame(1);
+            this.scale.startFullscreen();
+          }
       },
       this
     );
@@ -407,14 +444,6 @@ cena1.create = function () {
   });
 
   // <------ Cena do jogo acontecendo ------->
-
-  /*
-    if (contagem0 == 0 && contagem1 == 0) {
-        escolhabayern0();
-        escolhabayern1();
-    }
-    */
-
   //    |Cronômetro do jogo|
 
   //define o tempo inicial
