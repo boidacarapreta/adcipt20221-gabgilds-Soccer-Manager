@@ -7,6 +7,7 @@ var fundo1;
 var botao0;
 var botao1;
 var botao2;
+var teclaF = this.input.keyboard.addKey("F");
 
 var real0;
 var city0;
@@ -300,6 +301,23 @@ cena1.preload = function () {
 cena1.create = function () {
   //deixando a variável tempo utilizável para o cena1
   time = this.time;
+
+  // Tecla "F" ativa/desativa tela cheia
+    teclaF.on(
+      "down",
+      function () {
+          if (this.scale.isFullscreen) {
+              button.setFrame(0);
+              this.scale.stopFullscreen();
+          } else {
+              button.setFrame(1);
+              this.scale.startFullscreen();
+            }
+      },
+      this
+    );
+
+
 
   //definindo as imagens de fundo da cena de escolhendo os clubes, da partida e do fim do jogo
   fundo1 = this.add.image(400, 300, "fundo1");
