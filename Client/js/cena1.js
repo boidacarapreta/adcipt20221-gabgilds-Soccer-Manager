@@ -56,8 +56,11 @@ var parabensBayern1;
 var parabensCity1;
 var parabensPsg1;
 var parabensReal1;
-var somVitoria;
+var somVencedor;
 var muller;
+var deBruyne;
+var benzema;
+var neymar;
 var botaoSim;
 var botaoNao;
 var botaoJogarDeNovo;
@@ -202,6 +205,9 @@ function aparecerFundo1() {
   botaoNao.setVisible(false);
   botaoJogarDeNovo.setVisible(false);
   muller.setVisible(false);
+  neymar.setVisible(false);
+  benzema.setVisible(false);
+  deBruyne.setVisible(false);
 
   parabensBayern0.setVisible(false);
   parabensBayern1.setVisible(false);
@@ -257,10 +263,21 @@ function aparecerFundo3() {
   botaoNao.setInteractive(true);
   botaoNao.setVisible(true);
   botaoJogarDeNovo.setVisible(true);
-  muller.setVisible(true);
-  somVitoria.play();
 
+  //toca o som da tela de vitória e retira todas as informações do clube
+  somVencedor.play();
   retirarTodosClubes();
+
+  //mostrando o sprite correspondente do vencedoor
+  if (time1Escolhido == statusPsg || time0Escolhido == statusPsg) {
+    neymar.setVisible(true);
+  } else if (ime1Escolhido == statusBayern || time0Escolhido == statusBayern) {
+    muller.setVisible(true);
+  } else if (time1Escolhido == statusCity || time0Escolhido == statusCity) {
+    benzema.setVisible(true);
+  } else if (time1Escolhido == statusReal || time0Escolhido == statusReal) {
+    deBruyne.setVisible(true);
+  }
 
   //mostrando o resultado da partida
   if (time0Escolhido.atk > time1Escolhido.atk) {
@@ -300,6 +317,9 @@ function aparecerFundo1Novamente() {
   botaoNao.setVisible(false);
   botaoJogarDeNovo.setVisible(false);
   muller.setVisible(false);
+  neymar.setVisible(false);
+  benzema.setVisible(false);
+  deBruyne.setVisible(false);
 
   botao0.setVisible(true);
   botao0.setInteractive(true);
@@ -317,7 +337,7 @@ function aparecerFundo1Novamente() {
   parabensCity1.setVisible(false);
   parabensReal1.setVisible(false);
 
-  somVitoria.pause();
+  somVencedor.pause();
 
   escolhaClubePadrao();
 
@@ -393,8 +413,20 @@ cena1.preload = function () {
   this.load.image("real0", "./assets/clubes/parabens/real0.png");
   this.load.image("real1", "./assets/clubes/parabens/real1.png");
   
-  this.load.audio("somVitoria", "./assets/somVitoria.mp3");
+  this.load.audio("somVencedor", "./assets/somVencedor.mp3");
   this.load.spritesheet("muller", "assets/clubes/jogadores/muller.png", {
+    frameWidth: 32,
+    frameHeight: 32,
+  });
+  this.load.spritesheet("neymar", "assets/clubes/jogadores/neymar.png", {
+    frameWidth: 32,
+    frameHeight: 32,
+  });
+  this.load.spritesheet("deBruyne", "assets/clubes/jogadores/deBruyne.png", {
+    frameWidth: 32,
+    frameHeight: 32,
+  });
+  this.load.spritesheet("benzema", "assets/clubes/jogadores/benzema.png", {
     frameWidth: 32,
     frameHeight: 32,
   });
@@ -408,7 +440,7 @@ cena1.create = function () {
   //deixando a variável tempo utilizável para o cena1
   time = this.time;
 
-  // Tecla "F" ativa/desativa tela cheia
+  //Tecla "F" ativa/desativa tela cheia
   var telaCheia = this.add
     .image(800 - 16, 16, "fullscreen", 0)
     .setOrigin(1, 0)
@@ -552,11 +584,14 @@ cena1.create = function () {
   botaoNao = this.add.image(470, 580, "botaoNao").setInteractive();
   botaoJogarDeNovo = this.add.image(200, 580, "botaoJogarDeNovo");
 
-  //animação do vencedor
+  //animação dos vencedores
   muller = this.physics.add.sprite(400, 60, "muller");
+  neymar = this.physics.add.sprite(400, 60, "neymar");
+  deBruyne = this.physics.add.sprite(400, 60, "deBruyne");
+  benzema = this.physics.add.sprite(400, 60, "benzema");
 
   this.anims.create({
-    key: "vitoria",
+    key: "vitoriaMuller",
     frames: this.anims.generateFrameNumbers("muller", {
       start: 0,
       end: 4,
@@ -565,11 +600,44 @@ cena1.create = function () {
     repeat: -1,
   });
 
-  muller.anims.play("vitoria", true);
+  this.anims.create({
+    key: "vitoriaNeymar",
+    frames: this.anims.generateFrameNumbers("neymar", {
+      start: 0,
+      end: 4,
+    }),
+    frameRate: 5,
+    repeat: -1,
+  });
+
+  this.anims.create({
+    key: "vitoriaDeBruyne",
+    frames: this.anims.generateFrameNumbers("deBruyne", {
+      start: 0,
+      end: 4,
+    }),
+    frameRate: 5,
+    repeat: -1,
+  });
+  
+  this.anims.create({
+    key: "vitoriaBenzema",
+    frames: this.anims.generateFrameNumbers("benzema", {
+      start: 0,
+      end: 4,
+    }),
+    frameRate: 5,
+    repeat: -1,
+  });  
+  
+  muller.anims.play("vitoriaMuller", true);
+  deBruyne.anims.play("vitoriaDeBruyne", true);
+  benzema.anims.play("vitoriaBenzema", true);
+  neymar.anims.play("vitoriaNeymar", true);  
 
   //colocando o som final
-  somVitoria = this.sound.add("somVitoria");
-  somVitoria.loop = true;
+  somVencedor = this.sound.add("somVencedor");
+  somVencedor.loop = true;
 
   //adicionando os botões de sim e não de jogar novamente
   botaoSim.on(
@@ -584,7 +652,7 @@ cena1.create = function () {
     "pointerdown",
     function () {
       this.scene.start(cena2);
-      somVitoria.pause();
+      somVencedor.pause();
     },
     this
   );
