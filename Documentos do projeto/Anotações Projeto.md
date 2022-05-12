@@ -12,3 +12,5 @@ Melhorias jogo:
 - Intervalo do jogo;
 - Substituição;
 - Narração do jogo;
+- Empate;
+- Aumentar tamanho do sprite do jogador.
