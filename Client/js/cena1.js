@@ -4,7 +4,8 @@ var cena1 = new Phaser.Scene("Cena 1");
 
 //variáveis gerais da cena1
 var contadorPartidas = 0;
-var textoContadorPartidas;
+var textoContadorPartidas0;
+var textoContadorPartidas1;
 
 //variáveis da cena de escolher os clubes
 var fundo1;
@@ -38,7 +39,7 @@ var fundo2;
 var cronometro;
 var passagemTempo;
 var fonteTexto0 = { font: "bold 35px Mont", fill: "#000000" };
-var fonteTexto1 = { font: "bold 28px Arial", fill: "#000000" };
+var fonteTexto1 = { font: "bold 28px Arial", fill: "#FFFFFF" };
 var placar;
 var posseBola;
 var minutos;
@@ -347,7 +348,8 @@ function aparecerFundo1Novamente() {
 
   //adicionando valor no contador de partidas
   contadorPartidas++;
-  textoContadorPartidas.setText("Partidas jogadas: " + contadorPartidas);
+  textoContadorPartidas1.setText(contadorPartidas);
+
 }
 
 //variáveis e funções para o funcionamento da partida
@@ -396,6 +398,9 @@ function clube1vencendo() {
 }
 
 cena1.preload = function () {
+  //carregando as imagens gerais que serão usados na cena1
+  this.load.image("textoContadorPartidas", "./assets/texto/textoContadorPartidas.png");
+
   //carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
   this.load.image("fundo1", "./assets/fundo1.png");
   this.load.image("botao0", "./assets/botao0.png");
@@ -519,12 +524,13 @@ cena1.create = function () {
   somMouse = this.sound.add("somMouse");
 
   //colocando o contador de partidas jogadas
-  textoContadorPartidas = this.add.text(
-    500,
-    560,
-    "Partidas jogadas: 0",
+  textoContadorPartidas0 = this.add.image(630, 570, "textoContadorPartidas");
+  textoContadorPartidas1 = this.add.text(
+    732,
+    554,
+    "0",
     fonteTexto1,
-  );
+  );  
 
   //fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
