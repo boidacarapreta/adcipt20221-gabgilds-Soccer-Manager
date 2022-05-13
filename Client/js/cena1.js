@@ -524,10 +524,10 @@ cena1.create = function () {
   somMouse = this.sound.add("somMouse");
 
   //colocando o contador de partidas jogadas
-  textoContadorPartidas0 = this.add.image(630, 570, "textoContadorPartidas");
+  textoContadorPartidas0 = this.add.image(630, 580, "textoContadorPartidas");
   textoContadorPartidas1 = this.add.text(
     732,
-    554,
+    564,
     "0",
     fonteTexto1,
   );  
