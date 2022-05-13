@@ -611,7 +611,7 @@ cena1.create = function () {
   botaoJogarDeNovo = this.add.image(180, 580, "botaoJogarDeNovo");
 
   //animação dos vencedores
-  muller = this.physics.add.sprite(400, 60, "muller");
+  muller = this.physics.add.sprite(400, 60, "muller").setScale(2).refreshBody();
   neymar = this.physics.add.sprite(400, 60, "neymar");
   deBruyne = this.physics.add.sprite(400, 60, "deBruyne");
   benzema = this.physics.add.sprite(400, 60, "benzema");
