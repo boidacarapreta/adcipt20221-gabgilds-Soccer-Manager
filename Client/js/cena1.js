@@ -2,6 +2,10 @@ import { cena2 } from "./cena2.js";
 
 var cena1 = new Phaser.Scene("Cena 1");
 
+//variáveis gerais da cena1
+var contadorPartidas = 0;
+var textoContadorPartidas;
+
 //variáveis da cena de escolher os clubes
 var fundo1;
 var botao0;
@@ -26,7 +30,6 @@ var nomepsg1;
 var nomereal1;
 var somMouse;
 
-
 var contagemClube0 = 0;
 var contagemClube1 = 0;
 
@@ -34,7 +37,8 @@ var contagemClube1 = 0;
 var fundo2;
 var cronometro;
 var passagemTempo;
-var fonteTextoCena2 = { font: "bold 35px Mont", fill: "#000000" };
+var fonteTexto0 = { font: "bold 35px Mont", fill: "#000000" };
+var fonteTexto1 = { font: "bold 28px Arial", fill: "#000000" };
 var placar;
 var posseBola;
 var minutos;
@@ -64,7 +68,6 @@ var neymar;
 var botaoSim;
 var botaoNao;
 var botaoJogarDeNovo;
-var contagemPartidas; //para poder jogar repetidas vezes a partida | Adicionar um contador de quantas partidas teve
 
 //funções da cena de escolher os clubes
 function escolhapsg0() {
@@ -245,8 +248,6 @@ function aparecerFundo2() {
     callbackScope: this,
     loop: true,
   });
-
-
 }  
 
 function aparecerFundo3() {
@@ -269,13 +270,13 @@ function aparecerFundo3() {
   retirarTodosClubes();
 
   //mostrando o sprite correspondente do vencedoor
-  if (clube1Escolhido == statusPsg || clube0Escolhido == statusPsg) {
+  if (ganhador === statusPsg) {
     neymar.setVisible(true);
-  } else if (clube1Escolhido == statusBayern || clube0Escolhido == statusBayern) {
+  } else if (ganhador === statusBayern) {
     muller.setVisible(true);
-  } else if (clube1Escolhido == statusCity || clube0Escolhido == statusCity) {
+  } else if (ganhador === statusCity) {
     deBruyne.setVisible(true);
-  } else if (clube1Escolhido == statusReal || clube0Escolhido == statusReal) {
+  } else if (ganhador === statusReal) {
     benzema.setVisible(true);
   }
 
@@ -341,7 +342,12 @@ function aparecerFundo1Novamente() {
 
   escolhaClubePadrao();
 
+  //resetando o tempo do cronômetro do jogo
   tempoInicial = 0;
+
+  //adicionando valor no contador de partidas
+  contadorPartidas++;
+  textoContadorPartidas.setText("Partidas jogadas: " + contadorPartidas);
 }
 
 //variáveis e funções para o funcionamento da partida
@@ -388,7 +394,6 @@ function clube1vencendo() {
     ganhador = statusReal;
   }
 }
-
 
 cena1.preload = function () {
   //carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
@@ -466,7 +471,7 @@ cena1.create = function () {
           }
       },
       this
-    );
+  );
 
   //definindo as imagens de fundo da cena de escolhendo os clubes, da partida e do fim do jogo
   fundo1 = this.add.image(400, 300, "fundo1");
@@ -512,6 +517,14 @@ cena1.create = function () {
 
   //colocando o som do mouse para sair clicar nos botões
   somMouse = this.sound.add("somMouse");
+
+  //colocando o contador de partidas jogadas
+  textoContadorPartidas = this.add.text(
+    500,
+    560,
+    "Partidas jogadas: 0",
+    fonteTexto1,
+  );
 
   //fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
@@ -575,21 +588,21 @@ cena1.create = function () {
     356,
     170,
     formatarTempo(this.tempoInicial),
-    fonteTextoCena2
+    fonteTexto0,
   );
 
   //     |Placar do jogo|
-  placar = this.add.text(362, 287, "0    0", fonteTextoCena2);
+  placar = this.add.text(362, 287, "0    0", fonteTexto0);
 
   //     |Posse de bola do jogo|
-  posseBola = this.add.text(355, 458, "50  50", fonteTextoCena2);
+  posseBola = this.add.text(355, 458, "50  50", fonteTexto0);
 
   // <------ Cena do fim do jogo ------->
 
   //botões para jogar novamente
-  botaoSim = this.add.image(380, 580, "botaoSim").setInteractive();
-  botaoNao = this.add.image(470, 580, "botaoNao").setInteractive();
-  botaoJogarDeNovo = this.add.image(200, 580, "botaoJogarDeNovo");
+  botaoSim = this.add.image(360, 580, "botaoSim").setInteractive();
+  botaoNao = this.add.image(440, 580, "botaoNao").setInteractive();
+  botaoJogarDeNovo = this.add.image(180, 580, "botaoJogarDeNovo");
 
   //animação dos vencedores
   muller = this.physics.add.sprite(400, 60, "muller");
@@ -650,6 +663,7 @@ cena1.create = function () {
   botaoSim.on(
     "pointerdown",
     function () {
+      //volta para escolher os clubes para jogar a partida novamente
       aparecerFundo1Novamente();
     },
     this
@@ -658,6 +672,7 @@ cena1.create = function () {
   botaoNao.on(
     "pointerdown",
     function () {
+      //finaliza o jogo
       this.scene.start(cena2);
       somVencedor.pause();
     },
@@ -682,13 +697,13 @@ cena1.create = function () {
 };
 
 function formatarTempo(segundos) {
-  // Minutos
+  //Minutos
   minutos = Math.floor(segundos / 60);
-  // Segundos
+  //Segundos
   parteEmSegundos = segundos % 60;
-  // Adiciona zeros à esquerda para os segundos
+  //Adiciona zeros à esquerda para os segundos
   parteEmSegundos = parteEmSegundos.toString().padStart(2, "0");
-  // Retorna o tempo formato para a função
+  //Retorna o tempo formato para a função
   return `${minutos} : ${parteEmSegundos}`;
 }
 
