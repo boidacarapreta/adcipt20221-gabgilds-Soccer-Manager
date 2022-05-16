@@ -4,7 +4,7 @@ var cena0 = new Phaser.Scene("cena0");
 
 var fundo0;
 var botao0;
-var soundtrack;
+//var soundtrack;
 
 cena0.preload = function () {
   //baixando as imagens e áudio que serão usados na cena0
@@ -21,15 +21,19 @@ cena0.create = function () {
   //define e adiciona o botão
   botao0 = this.add.image(400, 300, "botao0", 100).setInteractive();
   
+  /*
+  Por enquanto é desnecessário
   //colocando a musica no jogo
   soundtrack = this.sound.add('soundtrack');
   soundtrack.loop = true;
   soundtrack.play();
+  */
 
   //clique do botão para ir para a próxima cena
   botao0.on(
     "pointerdown",
     function () {
+      //soundtrack.pause();
       this.scene.start(cena1);
     },
     this

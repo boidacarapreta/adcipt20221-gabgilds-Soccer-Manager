@@ -6,6 +6,7 @@ var cena1 = new Phaser.Scene("Cena 1");
 var contadorPartidas = 0;
 var textoContadorPartidas0;
 var textoContadorPartidas1;
+var soundtrack;
 
 //variáveis da cena de escolher os clubes
 var fundo1;
@@ -62,10 +63,14 @@ var parabensCity1;
 var parabensPsg1;
 var parabensReal1;
 var somVencedor;
-var muller;
-var deBruyne;
-var benzema;
-var neymar;
+var muller0;
+var deBruyne0;
+var benzema0;
+var neymar0;
+var muller1;
+var deBruyne1;
+var benzema1;
+var neymar1;
 var botaoSim;
 var botaoNao;
 var botaoJogarDeNovo;
@@ -203,15 +208,17 @@ function aparecerFundo1() {
   placar.setVisible(false);
   posseBola.setVisible(false);
 
-  botaoSim.setInteractive(false);
   botaoSim.setVisible(false);
-  botaoNao.setInteractive(false);
   botaoNao.setVisible(false);
   botaoJogarDeNovo.setVisible(false);
-  muller.setVisible(false);
-  neymar.setVisible(false);
-  benzema.setVisible(false);
-  deBruyne.setVisible(false);
+  muller0.setVisible(false);
+  neymar0.setVisible(false);
+  benzema0.setVisible(false);
+  deBruyne0.setVisible(false);
+  muller1.setVisible(false);
+  neymar1.setVisible(false);
+  benzema1.setVisible(false);
+  deBruyne1.setVisible(false);
 
   parabensBayern0.setVisible(false);
   parabensBayern1.setVisible(false);
@@ -229,17 +236,16 @@ function aparecerFundo2() {
   fundo3.setVisible(false);
 
   botao0.setVisible(false);
-  botao0.setInteractive(false);
   botao1.setVisible(false);
-  botao1.setInteractive(false);
   botao2.setVisible(false);
-  botao2.setInteractive(false);
 
   cronometro.setVisible(true);
   placar.setVisible(true);
   posseBola.setVisible(true);
 
   //iniciando o cronometro
+  //define o tempo inicial
+  tempoInicial = 0;
   passagemTempo = time.addEvent({
     delay: 100,
     callback: function () {
@@ -260,25 +266,52 @@ function aparecerFundo3() {
   placar.setVisible(false);
   posseBola.setVisible(false);
 
-  botaoSim.setInteractive(true);
   botaoSim.setVisible(true);
-  botaoNao.setInteractive(true);
   botaoNao.setVisible(true);
   botaoJogarDeNovo.setVisible(true);
-
-  //toca o som da tela de vitória e retira todas as informações do clube
+  
+  //toca o som da tela de vitória, retira todas as informações do clube e o soundtrack
   somVencedor.play();
+  soundtrack.pause();
   retirarTodosClubes();
 
   //mostrando o sprite correspondente do vencedoor
   if (ganhador === statusPsg) {
-    neymar.setVisible(true);
+    neymar0.setVisible(true);
+    neymar1.setVisible(true);
+    muller0.setVisible(false);
+    muller1.setVisible(false);
+    deBruyne0.setVisible(false);
+    deBruyne1.setVisible(false);
+    benzema0.setVisible(false);
+    benzema1.setVisible(false);    
   } else if (ganhador === statusBayern) {
-    muller.setVisible(true);
+    neymar0.setVisible(false);
+    neymar1.setVisible(false);
+    muller0.setVisible(true);
+    muller1.setVisible(true);
+    deBruyne0.setVisible(false);
+    deBruyne1.setVisible(false);
+    benzema0.setVisible(false);
+    benzema1.setVisible(false);  
   } else if (ganhador === statusCity) {
-    deBruyne.setVisible(true);
+    neymar0.setVisible(false);
+    neymar1.setVisible(false);
+    muller0.setVisible(false);
+    muller1.setVisible(false);
+    deBruyne0.setVisible(true);
+    deBruyne1.setVisible(true);
+    benzema0.setVisible(false);
+    benzema1.setVisible(false);  
   } else if (ganhador === statusReal) {
-    benzema.setVisible(true);
+    neymar0.setVisible(false);
+    neymar1.setVisible(false);
+    muller0.setVisible(false);
+    muller1.setVisible(false);
+    deBruyne0.setVisible(false);
+    deBruyne1.setVisible(false);
+    benzema0.setVisible(true);
+    benzema1.setVisible(true);  
   }
 
   //mostrando o resultado da partida
@@ -289,19 +322,6 @@ function aparecerFundo3() {
   } else if ((clube0Escolhido.atk = clube1Escolhido.atk)) {
     clube0vencendo();
   }
-
-  /* Para ser possível jogar repetidas vezes as partidas
-  if (contagemPartidas > 0) {
-    botao1.setVisible(false);
-    botao1.setInteractive(false);
-    botao0.setVisible(false);
-    botao0.setInteractive(false);
-    botao2.setVisible(false);
-    botao2.setInteractive(false);    
-  }
-
-  contagemPartidas++;
-  */
 }
 
 function aparecerFundo1Novamente() {
@@ -313,22 +333,21 @@ function aparecerFundo1Novamente() {
   placar.setVisible(false);
   posseBola.setVisible(false);
 
-  botaoSim.setInteractive(false);
   botaoSim.setVisible(false);
-  botaoNao.setInteractive(false);
   botaoNao.setVisible(false);
   botaoJogarDeNovo.setVisible(false);
-  muller.setVisible(false);
-  neymar.setVisible(false);
-  benzema.setVisible(false);
-  deBruyne.setVisible(false);
+  muller0.setVisible(false);
+  neymar0.setVisible(false);
+  benzema0.setVisible(false);
+  deBruyne0.setVisible(false);
+  muller1.setVisible(false);
+  neymar1.setVisible(false);
+  benzema1.setVisible(false);
+  deBruyne1.setVisible(false);  
 
   botao0.setVisible(true);
-  botao0.setInteractive(true);
   botao1.setVisible(true);
-  botao1.setInteractive(true);
   botao2.setVisible(true);
-  botao2.setInteractive(true);
 
   parabensPsg0.setVisible(false);
   parabensBayern0.setVisible(false);
@@ -339,12 +358,14 @@ function aparecerFundo1Novamente() {
   parabensCity1.setVisible(false);
   parabensReal1.setVisible(false);
 
+  //colocando o soundtrack novamente e tirando a música de vitória
   somVencedor.pause();
+  soundtrack.play();
 
   escolhaClubePadrao();
 
   //resetando o tempo do cronômetro do jogo
-  tempoInicial = 0;
+  tempoInicial = undefined;
 
   //adicionando valor no contador de partidas
   contadorPartidas++;
@@ -400,6 +421,7 @@ function clube1vencendo() {
 cena1.preload = function () {
   //carregando as imagens gerais que serão usados na cena1
   this.load.image("textoContadorPartidas", "./assets/texto/textoContadorPartidas.png");
+  this.load.audio("soundtrack", "./assets/soundtrack.mp3");
 
   //carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
   this.load.image("fundo1", "./assets/fundo1.png");
@@ -444,8 +466,8 @@ cena1.preload = function () {
     frameHeight: 32,
   });
   this.load.spritesheet("benzema", "assets/clubes/jogadores/benzema.png", {
-    frameWidth: 32,
-    frameHeight: 32,
+    frameWidth: 64,
+    frameHeight: 64,
   });
 
   this.load.image("botaoJogarDeNovo", "./assets/texto/botaoJogarDeNovo.png");
@@ -456,6 +478,11 @@ cena1.preload = function () {
 cena1.create = function () {
   //deixando a variável tempo utilizável para o cena1
   time = this.time;
+
+  //colocando a musica no jogo
+  soundtrack = this.sound.add("soundtrack");
+  soundtrack.loop = true;
+  soundtrack.play();  
 
   //Tecla "F" ativa/desativa tela cheia
   var telaCheia = this.add
@@ -486,7 +513,7 @@ cena1.create = function () {
   // <------ Cena de escolhendo os clubes ------->
 
   //define e adiciona os botões da cena1
-  botao0 = this.add.image(400, 300, "botao0", 100).setInteractive();
+  botao0 = this.add.image(400, 300, "botao0").setInteractive();
   botao1 = this.add.image(280, 70, "botao1").setInteractive();
   botao2 = this.add.image(735, 70, "botao1").setInteractive();
 
@@ -511,14 +538,14 @@ cena1.create = function () {
   nomereal1 = this.add.image(630, 335, "nomereal");
 
   //colocando os textos de vitórias de cada clube
-  parabensBayern0 = this.add.image(400, 120, "bayern0");
-  parabensBayern1 = this.add.image(400, 120, "bayern1");
-  parabensCity0 = this.add.image(400, 120, "city0");
-  parabensCity1 = this.add.image(400, 120, "city1");
-  parabensPsg0 = this.add.image(400, 120, "psg0");
-  parabensPsg1 = this.add.image(400, 120, "psg1");
-  parabensReal0 = this.add.image(400, 120, "real0");
-  parabensReal1 = this.add.image(400, 120, "real1"); 
+  parabensBayern0 = this.add.image(400, 105, "bayern0");
+  parabensBayern1 = this.add.image(400, 105, "bayern1");
+  parabensCity0 = this.add.image(400, 105, "city0");
+  parabensCity1 = this.add.image(400, 105, "city1");
+  parabensPsg0 = this.add.image(400, 100, "psg0");
+  parabensPsg1 = this.add.image(400, 100, "psg1");
+  parabensReal0 = this.add.image(400, 100, "real0");
+  parabensReal1 = this.add.image(400, 100, "real1"); 
 
   //colocando o som do mouse para sair clicar nos botões
   somMouse = this.sound.add("somMouse");
@@ -587,8 +614,6 @@ cena1.create = function () {
   // <------ Cena do jogo acontecendo ------->
   //    |Cronômetro do jogo|
 
-  //define o tempo inicial
-  tempoInicial = 0;
   //adiciona o cronômetro
   cronometro = this.add.text(
     356,
@@ -610,12 +635,17 @@ cena1.create = function () {
   botaoNao = this.add.image(440, 580, "botaoNao").setInteractive();
   botaoJogarDeNovo = this.add.image(180, 580, "botaoJogarDeNovo");
 
-  //animação dos vencedores
-  muller = this.physics.add.sprite(400, 60, "muller").setScale(2).refreshBody();
-  neymar = this.physics.add.sprite(400, 60, "neymar");
-  deBruyne = this.physics.add.sprite(400, 60, "deBruyne");
-  benzema = this.physics.add.sprite(400, 60, "benzema");
-
+  //animação dos vencedores (2 bonecos para cada clube) -> Ineficiente mas funcional
+  
+  muller0 = this.physics.add.sprite(499, 200, "muller");
+  neymar0 = this.physics.add.sprite(499, 200, "neymar");
+  deBruyne0 = this.physics.add.sprite(499, 200, "deBruyne");
+  benzema0 = this.physics.add.sprite(499, 200, "benzema")
+  muller1 = this.physics.add.sprite(299, 200, "muller");
+  neymar1 = this.physics.add.sprite(299, 200, "neymar");
+  deBruyne1 = this.physics.add.sprite(299, 200, "deBruyne");
+  benzema1 = this.physics.add.sprite(299, 200, "benzema")    
+  
   this.anims.create({
     key: "vitoriaMuller",
     frames: this.anims.generateFrameNumbers("muller", {
@@ -656,10 +686,14 @@ cena1.create = function () {
     repeat: -1,
   });  
   
-  muller.anims.play("vitoriaMuller", true);
-  deBruyne.anims.play("vitoriaDeBruyne", true);
-  benzema.anims.play("vitoriaBenzema", true);
-  neymar.anims.play("vitoriaNeymar", true);  
+  muller0.anims.play("vitoriaMuller", true);
+  deBruyne0.anims.play("vitoriaDeBruyne", true);
+  benzema0.anims.play("vitoriaBenzema", true);
+  neymar0.anims.play("vitoriaNeymar", true);  
+  muller1.anims.play("vitoriaMuller", true);
+  deBruyne1.anims.play("vitoriaDeBruyne", true);
+  benzema1.anims.play("vitoriaBenzema", true);
+  neymar1.anims.play("vitoriaNeymar", true);    
 
   //colocando o som final
   somVencedor = this.sound.add("somVencedor");
