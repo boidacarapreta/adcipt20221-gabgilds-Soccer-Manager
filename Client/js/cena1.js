@@ -295,6 +295,7 @@ function aparecerFundo3() {
   console.log("bayern: " + forçaBayern);
   console.log("city: " + forçaCity);
   console.log("real: " + forçaReal);
+  console.log("-----");
 }
 
 function aparecerFundo1Novamente() {
