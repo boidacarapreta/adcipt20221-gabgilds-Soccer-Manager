@@ -14,3 +14,8 @@ Melhorias jogo:
 - Intervalo do jogo;
 - Botar uma bolhinha do lado do jogador quando fazer gol;
 - Empate.
+
+Problemas jogo:
+- Tempo depois de determinadas partidas não para;
+- Aleatoriadade bugando os vecendores;
+- Varias vezes aparece no console -> If (minutos === 2 && parteEmSegundos === 0) {}.
