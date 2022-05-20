@@ -59,10 +59,6 @@ var statusCity = { atk: 85, mid: 85, def: 86, ovr: 85 };
 var statusReal = { atk: 84, mid: 85, def: 83, ovr: 84 };
 var clube0Escolhido;
 var clube1Escolhido;
-var randomBayern;
-var randomPsg;
-var randomReal;
-var randomCity;
 var forçaBayern;
 var forçaPsg;
 var forçaCity;
@@ -290,6 +286,9 @@ function aparecerFundo3() {
 }
 
 function aparecerFundo1Novamente() {
+  //definindo a força dos clubes de novo para definir o resultado da nova partida
+  definindoForçaClubes();
+
   fundo1.setVisible(true);
   fundo2.setVisible(false);
   fundo3.setVisible(false);
@@ -331,9 +330,6 @@ function aparecerFundo1Novamente() {
   //adicionando valor no contador de partidas
   contadorPartidas++;
   textoContadorPartidas1.setText(contadorPartidas);
-
-  //definindo a força dos clubes de novo para definir o resultado da nova partida
-  definindoForçaClubes();
 }
 
 function clube0vencendo() {
@@ -397,20 +393,10 @@ function clube1vencendo() {
 
 //definindo os valores que serão usados na partida para decidir o vencedor, adicionado a um valor aleatório
 function definindoForçaClubes() {
-  randomBayern = Phaser.Math.Between(0, 10);
-  randomPsg = Phaser.Math.Between(0, 10);
-  randomCity = Phaser.Math.Between(0, 10);
-  randomReal = Phaser.Math.Between(0, 10);
-  //forçaBayern = statusBayern.atk + randomBayern;
-  //forçaPsg = statusPsg.atk + randomPsg;
-  //forçaCity = statusCity.atk + randomCity;
-  //forçaReal = statusReal.atk + randomReal;
-  forçaBayern = statusBayern.atk;
-  forçaPsg = statusPsg.atk;
-  forçaCity = statusCity.atk;
-  forçaReal = statusReal.atk;
-
-  console.log(forçaBayern, forçaPsg, forçaCity, forçaReal);
+  forçaBayern = statusBayern.atk + Phaser.Math.Between(0, 10);
+  forçaPsg = statusPsg.atk + Phaser.Math.Between(0, 10);
+  forçaCity = statusCity.atk + Phaser.Math.Between(0, 10);
+  forçaReal = statusReal.atk + Phaser.Math.Between(0, 10);
 }
 
 cena1.preload = function () {
