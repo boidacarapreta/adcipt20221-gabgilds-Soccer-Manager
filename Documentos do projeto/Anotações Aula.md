@@ -55,3 +55,8 @@ Tradução de endereços
  -> Transporte PAT } PNAT
  -> Rede       NAT }
 
+----------------------------------------------------------------------------------
+
+20/05/2022:
+
+Pode utilizar redundâncias físicas em um dispositivo virtual. 5 Switches são 1 switch virtual.

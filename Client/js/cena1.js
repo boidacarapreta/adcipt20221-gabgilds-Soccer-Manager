@@ -241,7 +241,6 @@ function aparecerFundo1() {
 function aparecerFundo2() {
   fundo1.setVisible(false);
   fundo2.setVisible(true);
-  fundo3.setVisible(false);
 
   botao0.setVisible(false);
   botao1.setVisible(false);
@@ -264,8 +263,8 @@ function aparecerFundo2() {
     loop: true,
   });
 }  
+
 function aparecerFundo3() {
-  fundo1.setVisible(false);
   fundo2.setVisible(false);
   fundo3.setVisible(true);
 
