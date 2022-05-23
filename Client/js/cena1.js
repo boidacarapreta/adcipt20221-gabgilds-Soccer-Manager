@@ -59,10 +59,14 @@ var statusCity = { atk: 85, mid: 85, def: 86, ovr: 85 };
 var statusReal = { atk: 84, mid: 85, def: 83, ovr: 84 };
 var clube0Escolhido;
 var clube1Escolhido;
-var forçaBayern;
-var forçaPsg;
-var forçaCity;
-var forçaReal;
+var forçaBayern0;
+var forçaPsg0;
+var forçaCity0;
+var forçaReal0;
+var forçaBayern1;
+var forçaPsg1;
+var forçaCity1;
+var forçaReal1;
 
 //variáveis da cena do fim de jogo
 var fundo3;
@@ -93,7 +97,7 @@ function escolhapsg0() {
   nomereal0.setVisible(false);
   city0.setVisible(false);
   nomecity0.setVisible(false);
-  clube0Escolhido = forçaPsg;
+  clube0Escolhido = forçaPsg0;
 }
 function escolhabayern0() {
   psg0.setVisible(false);
@@ -104,7 +108,7 @@ function escolhabayern0() {
   nomereal0.setVisible(false);
   city0.setVisible(false);
   nomecity0.setVisible(false);
-  clube0Escolhido = forçaBayern;
+  clube0Escolhido = forçaBayern0;
 }
 function escolhacity0() {
   psg0.setVisible(false);
@@ -115,7 +119,7 @@ function escolhacity0() {
   nomereal0.setVisible(false);
   city0.setVisible(true);
   nomecity0.setVisible(true);
-  clube0Escolhido = forçaCity;
+  clube0Escolhido = forçaCity0;
 }
 function escolhareal0() {
   psg0.setVisible(false);
@@ -126,7 +130,7 @@ function escolhareal0() {
   nomereal0.setVisible(true);
   city0.setVisible(false);
   nomecity0.setVisible(false);
-  clube0Escolhido = forçaReal;
+  clube0Escolhido = forçaReal0;
 }
 function escolhapsg1() {
   psg1.setVisible(true);
@@ -137,7 +141,7 @@ function escolhapsg1() {
   nomereal1.setVisible(false);
   city1.setVisible(false);
   nomecity1.setVisible(false);
-  clube1Escolhido = forçaPsg;
+  clube1Escolhido = forçaPsg1;
 }
 function escolhabayern1() {
   psg1.setVisible(false);
@@ -148,7 +152,7 @@ function escolhabayern1() {
   nomereal1.setVisible(false);
   city1.setVisible(false);
   nomecity1.setVisible(false);
-  clube1Escolhido = forçaBayern;
+  clube1Escolhido = forçaBayern1;
 }
 function escolhacity1() {
   psg1.setVisible(false);
@@ -159,7 +163,7 @@ function escolhacity1() {
   nomereal1.setVisible(false);
   city1.setVisible(true);
   nomecity1.setVisible(true);
-  clube1Escolhido = forçaCity;
+  clube1Escolhido = forçaCity1;
 }
 function escolhareal1() {
   psg1.setVisible(false);
@@ -170,7 +174,7 @@ function escolhareal1() {
   nomereal1.setVisible(true);
   city1.setVisible(false);
   nomecity1.setVisible(false);
-  clube1Escolhido = forçaReal;
+  clube1Escolhido = forçaReal1;
 }
 
 //função para retirar todos os clubes da tela
@@ -278,11 +282,15 @@ function aparecerFundo3() {
     clube0vencendo();
   }
 
-  console.log("psg: " + forçaPsg);
-  console.log("bayern: " + forçaBayern);
-  console.log("city: " + forçaCity);
-  console.log("real: " + forçaReal);
-  console.log("-----");
+  console.log("psg0: " + forçaPsg0);
+  console.log("bayern0: " + forçaBayern0);
+  console.log("city0: " + forçaCity0);
+  console.log("real0: " + forçaReal0);
+  console.log("psg1: " + forçaPsg1);
+  console.log("bayern1: " + forçaBayern1);
+  console.log("city1: " + forçaCity1);
+  console.log("real1: " + forçaReal1);
+  console.log("-----");  
 }
 
 function aparecerFundo1Novamente() {
@@ -334,25 +342,25 @@ function aparecerFundo1Novamente() {
 
 function clube0vencendo() {
   //aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
-  if (clube0Escolhido === forçaPsg) {
+  if (clube0Escolhido === forçaPsg0) {
     parabensPsg0.setVisible(true);
     neymar.setVisible(true);
     muller.setVisible(false);
     deBruyne.setVisible(false);
     benzema.setVisible(false);
-  } else if (clube0Escolhido === forçaBayern) {
+  } else if (clube0Escolhido === forçaBayern0) {
     parabensBayern0.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(true);
     deBruyne.setVisible(false);
     benzema.setVisible(false);
-  } else if (clube0Escolhido === forçaCity) {
+  } else if (clube0Escolhido === forçaCity0) {
     parabensCity0.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(false);
     deBruyne.setVisible(true);
     benzema.setVisible(false);
-  } else if (clube0Escolhido === forçaReal) {
+  } else if (clube0Escolhido === forçaReal0) {
     parabensReal0.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(false);
@@ -364,25 +372,25 @@ function clube0vencendo() {
 
 function clube1vencendo() {
   //aqui vai ser o decorrer da partida que no final o clube da direita vai ganhar, com aleatoriedades
-  if (clube1Escolhido === forçaPsg) {
+  if (clube1Escolhido === forçaPsg1) {
     parabensPsg1.setVisible(true);
     neymar.setVisible(true);
     muller.setVisible(false);
     deBruyne.setVisible(false);
     benzema.setVisible(false);
-  } else if (clube1Escolhido === forçaBayern) {
+  } else if (clube1Escolhido === forçaBayern1) {
     parabensBayern1.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(true);
     deBruyne.setVisible(false);
     benzema.setVisible(false);
-  } else if (clube1Escolhido === forçaCity) {
+  } else if (clube1Escolhido === forçaCity1) {
     parabensCity1.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(false);
     deBruyne.setVisible(true);
     benzema.setVisible(false);
-  } else if (clube1Escolhido === forçaReal) {
+  } else if (clube1Escolhido === forçaReal1) {
     parabensReal1.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(false);
@@ -393,10 +401,14 @@ function clube1vencendo() {
 
 //definindo os valores que serão usados na partida para decidir o vencedor, adicionado a um valor aleatório
 function definindoForçaClubes() {
-  forçaBayern = statusBayern.atk + Phaser.Math.Between(0, 10);
-  forçaPsg = statusPsg.atk + Phaser.Math.Between(0, 10);
-  forçaCity = statusCity.atk + Phaser.Math.Between(0, 10);
-  forçaReal = statusReal.atk + Phaser.Math.Between(0, 10);
+  forçaBayern0 = statusBayern.atk + Phaser.Math.Between(0, 10);
+  forçaPsg0 = statusPsg.atk + Phaser.Math.Between(0, 10);
+  forçaCity0 = statusCity.atk + Phaser.Math.Between(0, 10);
+  forçaReal0 = statusReal.atk + Phaser.Math.Between(0, 10);
+  forçaBayern1 = statusBayern.atk + Phaser.Math.Between(0, 10);
+  forçaPsg1 = statusPsg.atk + Phaser.Math.Between(0, 10);
+  forçaCity1 = statusCity.atk + Phaser.Math.Between(0, 10);
+  forçaReal1 = statusReal.atk + Phaser.Math.Between(0, 10);  
 }
 
 cena1.preload = function () {
