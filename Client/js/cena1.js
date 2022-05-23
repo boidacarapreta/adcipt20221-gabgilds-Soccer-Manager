@@ -41,8 +41,10 @@ var cronometro;
 var passagemTempo;
 var fonteTexto0 = { font: "bold 35px Mont", fill: "#000000" };
 var fonteTexto1 = { font: "bold 28px Arial", fill: "#FFFFFF" };
-var placar;
-var posseBola;
+var textoPlacar;
+var textoPosseBola;
+var posseBola0;
+var posseBola1;
 var minutos;
 var parteEmSegundos;
 var bayern0;
@@ -51,6 +53,7 @@ var nomebayern0;
 var nomecity1;
 var tempoInicial;
 var time;
+var chanceGol;
 
 //variáveis e funções para o funcionamento da partida
 var statusBayern = { atk: 92, mid: 85, def: 81, ovr: 84 };
@@ -210,8 +213,8 @@ function aparecerFundo1() {
   fundo3.setVisible(false);
 
   cronometro.setVisible(false);
-  placar.setVisible(false);
-  posseBola.setVisible(false);
+  textoPlacar.setVisible(false);
+  textoPosseBola.setVisible(false);
 
   botaoSim.setVisible(false);
   botaoNao.setVisible(false);
@@ -239,16 +242,16 @@ function aparecerFundo2() {
   botao2.setVisible(false);
 
   cronometro.setVisible(true);
-  placar.setVisible(true);
-  posseBola.setVisible(true);
+  textoPlacar.setVisible(true);
+  textoPosseBola.setVisible(true);
 
   //iniciando o cronometro
   //define o tempo inicial
   tempoInicial = 0;
   passagemTempo = time.addEvent({
-    delay: 100,
+    delay: 80,
     callback: function () {
-      tempoInicial += 15; //A cada 100 ms tira 15 segundos do tempo inicial
+      tempoInicial += 15; //A cada 50 ms adiciona 15 segundos do tempo inicial
       cronometro.setText(formatarTempo(tempoInicial));
     },
     callbackScope: this,
@@ -261,8 +264,8 @@ function aparecerFundo3() {
   fundo3.setVisible(true);
 
   cronometro.setVisible(false);
-  placar.setVisible(false);
-  posseBola.setVisible(false);
+  textoPlacar.setVisible(false);
+  textoPosseBola.setVisible(false);
 
   botaoSim.setVisible(true);
   botaoNao.setVisible(true);
@@ -293,6 +296,7 @@ function aparecerFundo3() {
   console.log("-----");  
 }
 
+//função quando clica em jogar novamente
 function aparecerFundo1Novamente() {
   //definindo a força dos clubes de novo para definir o resultado da nova partida
   definindoForçaClubes();
@@ -302,8 +306,8 @@ function aparecerFundo1Novamente() {
   fundo3.setVisible(false);
 
   cronometro.setVisible(false);
-  placar.setVisible(false);
-  posseBola.setVisible(false);
+  textoPlacar.setVisible(false);
+  textoPosseBola.setVisible(false);
 
   botaoSim.setVisible(false);
   botaoNao.setVisible(false);
@@ -334,6 +338,10 @@ function aparecerFundo1Novamente() {
 
   //resetando o tempo do cronômetro do jogo
   tempoInicial = undefined;
+
+  //resetando a posse de bola
+  posseBola0 = 50;
+  posseBola1 = 50;
 
   //adicionando valor no contador de partidas
   contadorPartidas++;
@@ -409,6 +417,31 @@ function definindoForçaClubes() {
   forçaPsg1 = statusPsg.atk + Phaser.Math.Between(0, 10);
   forçaCity1 = statusCity.atk + Phaser.Math.Between(0, 10);
   forçaReal1 = statusReal.atk + Phaser.Math.Between(0, 10);  
+}
+
+function formatarTempo(segundos) {
+  //Minutos
+  minutos = Math.floor(segundos / 60);
+  //Segundos
+  parteEmSegundos = segundos % 60;
+  //Adiciona zeros à esquerda para os segundos
+  parteEmSegundos = parteEmSegundos.toString().padStart(2, "0");
+  //Retorna o tempo formato para a função
+  return `${minutos} : ${parteEmSegundos}`;
+}
+
+function atualizarPosseBola() { 
+  //determina os valores de posse de bola dos clubes
+  posseBola0 = Phaser.Math.Between(20, 80);
+  posseBola1 = 100 - posseBola0;
+  textoPosseBola.setText(posseBola0 + '  ' + posseBola1); //Atualiza os valores de posse de bola
+}
+
+function atualizarGol() {
+  //determina os valores de posse de bola dos clubes
+  posseBola0 = Phaser.Math.Between(20, 80);
+  posseBola1 = 100 - posseBola0;
+  textoPosseBola.setText(posseBola0 + "  " + posseBola1); //Atualiza os valores de posse de bola
 }
 
 cena1.preload = function () {
@@ -517,24 +550,24 @@ cena1.create = function () {
   botao2 = this.add.image(735, 70, "botao1").setInteractive();
 
   //colocando os textos de seleção dos clubes do lado esquerdo
-  real0 = this.add.image(120, 70, "real");
-  city0 = this.add.image(110, 70, "city");
-  psg0 = this.add.image(100, 70, "psg");
+  real0 = this.add.image(110, 70, "real");
+  city0 = this.add.image(100, 70, "city");
+  psg0 = this.add.image(94, 70, "psg");
   bayern0 = this.add.image(145, 70, "bayern");
-  nomebayern0 = this.add.image(175, 335, "nomebayern");
+  nomebayern0 = this.add.image(173, 335, "nomebayern");
   nomecity0 = this.add.image(175, 335, "nomecity");
   nomepsg0 = this.add.image(175, 335, "nomepsg");
-  nomereal0 = this.add.image(175, 335, "nomereal");
+  nomereal0 = this.add.image(170, 335, "nomereal");
 
   //colocando os textos de seleção dos clubes do lado direito
-  real1 = this.add.image(575, 70, "real");
-  city1 = this.add.image(565, 70, "city");
-  psg1 = this.add.image(555, 70, "psg");
+  real1 = this.add.image(566, 70, "real");
+  city1 = this.add.image(553, 70, "city");
+  psg1 = this.add.image(552, 70, "psg");
   bayern1 = this.add.image(600, 70, "bayern");
-  nomebayern1 = this.add.image(630, 335, "nomebayern");
+  nomebayern1 = this.add.image(628, 335, "nomebayern");
   nomecity1 = this.add.image(630, 335, "nomecity");
-  nomepsg1 = this.add.image(630, 335, "nomepsg");
-  nomereal1 = this.add.image(630, 335, "nomereal");
+  nomepsg1 = this.add.image(629, 335, "nomepsg");
+  nomereal1 = this.add.image(625, 335, "nomereal");
 
   //colocando os textos de vitórias de cada clube
   parabensBayern0 = this.add.image(400, 105, "bayern0");
@@ -617,10 +650,10 @@ cena1.create = function () {
   );
 
   //     |Placar do jogo|
-  placar = this.add.text(362, 287, "0    0", fonteTexto0);
+  textoPlacar = this.add.text(362, 287, "0    0", fonteTexto0);
 
   //     |Posse de bola do jogo|
-  posseBola = this.add.text(355, 458, "50  50", fonteTexto0);
+  textoPosseBola = this.add.text(355, 458, "50  50", fonteTexto0);
 
   // <------ Cena do fim do jogo ------->
 
@@ -722,26 +755,19 @@ cena1.create = function () {
   escolhaClubePadrao();
 };
 
-function formatarTempo(segundos) {
-  //Minutos
-  minutos = Math.floor(segundos / 60);
-  //Segundos
-  parteEmSegundos = segundos % 60;
-  //Adiciona zeros à esquerda para os segundos
-  parteEmSegundos = parteEmSegundos.toString().padStart(2, "0");
-  //Retorna o tempo formato para a função
-  return `${minutos} : ${parteEmSegundos}`;
-}
-
-function tempoPassado() {
-  this.tempoInicial += 15; //A cada 100 ms tira 15 segundos do tempo inicial
-  cronometro.setText(formatarTempo(this.tempoInicial)); //Atualiza o relógio
-}
-
 cena1.update = function () {
   //Fim da partida
-  if (minutos === 2) {
+  if (minutos === 20) {
     aparecerFundo3();
+  }
+  //atualização da posse de bola
+  if (minutos === 10 || minutos === 20 || minutos === 30 || minutos === 40 || minutos === 50 || minutos === 60 || minutos === 70 || minutos === 80) {
+    atualizarPosseBola();
+  }
+  //atualização do placar do jogo
+  chanceGol = Phaser.Math.Between(0, 10);
+  if (minutos % 2 === 0 && chanceGol === 1) {
+    atualizarGol();
   }
 };
 
