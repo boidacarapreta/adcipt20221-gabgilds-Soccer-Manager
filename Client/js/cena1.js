@@ -37,7 +37,7 @@ var contagemClube1 = 0;
 
 //variáveis da cena do jogo acontecendo
 var fundo2;
-var cronometro;
+var textoCronometro;
 var passagemTempo;
 var fonteTexto0 = { font: "bold 35px Mont", fill: "#000000" };
 var fonteTexto1 = { font: "bold 28px Arial", fill: "#FFFFFF" };
@@ -55,8 +55,10 @@ var nomecity1;
 var tempoInicial;
 var time;
 var chanceGol;
-var gols0;
-var gols1;
+var gols0 = 0;
+var gols1 = 0;
+var segundos;
+var contagem0 = 0;
 
 //variáveis e funções para o funcionamento da partida
 var statusBayern = { atk: 92, mid: 85, def: 81, ovr: 84 };
@@ -215,7 +217,7 @@ function aparecerFundo1() {
   fundo2.setVisible(false);
   fundo3.setVisible(false);
 
-  cronometro.setVisible(false);
+  textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
 
@@ -244,7 +246,7 @@ function aparecerFundo2() {
   botao1.setVisible(false);
   botao2.setVisible(false);
 
-  cronometro.setVisible(true);
+  textoCronometro.setVisible(true);
   textoPlacar.setVisible(true);
   textoPosseBola.setVisible(true);
 
@@ -255,7 +257,7 @@ function aparecerFundo2() {
     delay: 80,
     callback: function () {
       tempoInicial += 15; //A cada 50 ms adiciona 15 segundos do tempo inicial
-      cronometro.setText(formatarTempo(tempoInicial));
+      textoCronometro.setText(formatarTempo(tempoInicial));
     },
     callbackScope: this,
     loop: true,
@@ -266,7 +268,7 @@ function aparecerFundo3() {
   fundo2.setVisible(false);
   fundo3.setVisible(true);
 
-  cronometro.setVisible(false);
+  textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
 
@@ -288,6 +290,15 @@ function aparecerFundo3() {
     clube0vencendo();
   }
 
+  //resetando o tempo do cronômetro do jogo
+  tempoInicial = undefined;
+
+  //resetando a posse de bola e o placar
+  posseBola0 = 50;
+  posseBola1 = 50;
+  gols0 = 0;
+  gols1 = 0;
+
   console.log("psg0: " + forçaPsg0);
   console.log("bayern0: " + forçaBayern0);
   console.log("city0: " + forçaCity0);
@@ -296,7 +307,7 @@ function aparecerFundo3() {
   console.log("bayern1: " + forçaBayern1);
   console.log("city1: " + forçaCity1);
   console.log("real1: " + forçaReal1);
-  console.log("-----");  
+  console.log("-----");
 }
 
 //função quando clica em jogar novamente
@@ -308,7 +319,7 @@ function aparecerFundo1Novamente() {
   fundo2.setVisible(false);
   fundo3.setVisible(false);
 
-  cronometro.setVisible(false);
+  textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
 
@@ -338,13 +349,6 @@ function aparecerFundo1Novamente() {
   soundtrack.play();
 
   escolhaClubePadrao();
-
-  //resetando o tempo do cronômetro do jogo
-  tempoInicial = undefined;
-
-  //resetando a posse de bola
-  posseBola0 = 50;
-  posseBola1 = 50;
 
   //adicionando valor no contador de partidas
   contadorPartidas++;
@@ -434,25 +438,47 @@ function formatarTempo(segundos) {
 }
 
 function atualizarPosseBola() { 
-  //determina os valores de posse de bola dos clubes
-  posseBola0 = Phaser.Math.Between(20, 80);
-  posseBola1 = 100 - posseBola0;
-  textoPosseBola.setText(posseBola0 + '%  ' + posseBola1 + '%'); //Atualiza os valores de posse de bola
+  //determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
+  if (contagem0 < 2) {
+    posseBola0 = Phaser.Math.Between(20, 80);
+    posseBola1 = 100 - posseBola0;
+    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+  } else if (1 < contagem0 < 5) {
+    posseBola0 = Phaser.Math.Between(40, 60);
+    posseBola1 = 100 - posseBola0;
+    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+  } else if (contagem > 5) {
+    posseBola0 = Phaser.Math.Between(45, 55);
+    posseBola1 = 100 - posseBola0;
+    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+  }
+  contagem0++;
 }
 
 function atualizarPlacar() {
-  if (clube0Escolhido > clube1Escolhido) {
-    gols0 = Phaser.Math.Between(0, 7);
-    gols1 = Phaser.Math.Between(0, 7 - gols0);
+  if (clube0Escolhido > clube1Escolhido) { //se o clube0 for ganhar
+    gols0++;
     textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
-  } else if (clube0Escolhido < clube1Escolhido) {
-    gols1 = Phaser.Math.Between(0, 7);
-    gols0 = Phaser.Math.Between(0, 7 - gols1);
-    textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
-  } else if (clube0Escolhido === clube1Escolhido) {    
-    gols0 = Phaser.Math.Between(0, 7);
-    gols1 = Phaser.Math.Between(0, 7 - gols0);
-    textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
+    if (gols0 > 3) {
+      gols1++;
+      textoPlacar.setText(gols0 + "     " + gols1); 
+    }
+    
+  } else if (clube0Escolhido < clube1Escolhido) { //se o clube1 for ganhar
+    gols1++;
+    textoPlacar.setText(gols0 + "     " + gols1); 
+    if (gols1 > 4) {
+      gols0++;
+      textoPlacar.setText(gols0 + "     " + gols1); 
+    }      
+
+  } else if (clube0Escolhido === clube1Escolhido) { //se tiver um empate nas forças, por enquanto o clube0 ganha    
+    gols0++;
+    textoPlacar.setText(gols0 + "     " + gols1); 
+    if (gols0 < 4) {
+      gols1++;
+      textoPlacar.setText(gols0 + "     " + gols1); 
+    }  
   }
 }
 
@@ -654,7 +680,7 @@ cena1.create = function () {
   //    |Cronômetro do jogo|
 
   //adiciona o cronômetro
-  cronometro = this.add.text(
+  textoCronometro = this.add.text(
     356,
     170,
     formatarTempo(this.tempoInicial),
@@ -662,7 +688,7 @@ cena1.create = function () {
   );
 
   //     |Placar do jogo|
-  textoPlacar = this.add.text(360, 287, "0     0", fonteTexto0);
+  textoPlacar = this.add.text(360, 287, gols0 + "     " + gols1, fonteTexto0);
 
   //     |Posse de bola do jogo|
   textoPosseBola = this.add.text(342, 462, "50%  50%", fonteTexto2);
@@ -769,7 +795,7 @@ cena1.create = function () {
 
 cena1.update = function () {
   //Fim da partida
-  if (minutos === 20 && parteEmSegundos === 60) {
+  if (minutos === 40) {
     aparecerFundo3();
   }
   //atualização da posse de bola
@@ -781,8 +807,7 @@ cena1.update = function () {
     minutos === 50 ||
     minutos === 60 ||
     minutos === 70 ||
-    minutos === 80 &&
-    parteEmSegundos === 60
+    minutos === 80 
   ) {
     atualizarPosseBola();
   }
@@ -796,8 +821,7 @@ cena1.update = function () {
     minutos === 60 ||
     minutos === 70 ||
     minutos === 80 ||
-    minutos === 85 &&
-    parteEmSegundos === 60
+    minutos === 85 
   ) {
     chanceGol = Phaser.Math.Between(0, 10); //A ideia é que é improvável que ocorra um gol
     console.log("chanceGol:" + chanceGol);
@@ -805,6 +829,19 @@ cena1.update = function () {
     if (chanceGol === 1) {
       atualizarPlacar();
     } 
+    //se não tiver ocorrido nenhum gol
+    if (minutos === 85 && gols0 === 0 && gols1 === 0) {
+      if (clube0Escolhido > clube1Escolhido) {
+        gols0++;
+        textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
+      } else if (clube0Escolhido < clube1Escolhido) {
+        gols1++;
+        textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
+      } else if (clube0Escolhido === clube1Escolhido) {
+        gols0++;
+        textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
+      }
+    }
   }
 };
 
