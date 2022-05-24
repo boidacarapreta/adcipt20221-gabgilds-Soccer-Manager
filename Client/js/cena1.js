@@ -624,6 +624,93 @@ cena1.create = function () {
   textoContadorPartidas0 = this.add.image(630, 580, "textoContadorPartidas");
   textoContadorPartidas1 = this.add.text(732, 564, "0", fonteTexto1);
 
+  // Conectar no servidor via WebSocket
+  this.socket = io();
+
+  // Disparar evento quando jogador entrar na partida
+  var self = this;
+  var physics = this.physics;
+  var cameras = this.cameras;
+  var time = this.time;
+  var socket = this.socket;
+
+  this.socket.on("jogadores", function (jogadores) {
+    if (jogadores.primeiro === self.socket.id) {
+      // Define jogador como o primeiro
+      jogador = 1;
+
+      // Personagens colidem com os limites da cena
+      player1.setCollideWorldBounds(true);
+
+      // Detecção de colisão: terreno
+      physics.add.collider(player1, terreno, hitCave, null, this);
+
+      // Detecção de colisão e disparo de evento: ARCas
+      physics.add.collider(player1, ARCas, hitARCa, null, this);
+
+      // Câmera seguindo o personagem 1
+      cameras.main.startFollow(player1);
+
+    } else if (jogadores.segundo === self.socket.id) {
+      // Define jogador como o segundo
+      jogador = 2;
+
+      // Personagens colidem com os limites da cena
+      player2.setCollideWorldBounds(true);
+
+      // Detecção de colisão: terreno
+      physics.add.collider(player2, terreno, hitCave, null, this);
+
+      // Detecção de colisão e disparo de evento: ARCas
+      physics.add.collider(player2, ARCas, hitARCa, null, this);
+
+      // Câmera seguindo o personagem 2
+      cameras.main.startFollow(player2);
+
+      navigator.mediaDevices
+        .getUserMedia({ video: false, audio: true })
+        .then((stream) => {
+          midias = stream;
+          localConnection = new RTCPeerConnection(ice_servers);
+          midias
+            .getTracks()
+            .forEach((track) => localConnection.addTrack(track, midias));
+          localConnection.onicecandidate = ({ candidate }) => {
+            candidate &&
+              socket.emit("candidate", jogadores.primeiro, candidate);
+          };
+          console.log(midias);
+          localConnection.ontrack = ({ streams: [midias] }) => {
+            audio.srcObject = midias;
+          };
+          localConnection
+            .createOffer()
+            .then((offer) => localConnection.setLocalDescription(offer))
+            .then(() => {
+              socket.emit(
+                "offer",
+                jogadores.primeiro,
+                localConnection.localDescription
+              );
+            });
+        })
+        .catch((error) => console.log(error));
+    }
+
+    // Os dois jogadores estão conectados
+    console.log(jogadores);
+    if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
+      // Contagem regressiva em segundos (1.000 milissegundos)
+      timer = 60;
+      timedEvent = time.addEvent({
+        delay: 1000,
+        callback: countdown,
+        callbackScope: this,
+        loop: true,
+      });
+    }
+  });
+
   //fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
     //som de click do mouse
