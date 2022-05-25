@@ -625,7 +625,7 @@ cena1.create = function () {
   textoContadorPartidas1 = this.add.text(732, 564, "0", fonteTexto1);
 
   // Conectar no servidor via WebSocket
-  this.socket = io();
+  //this.socket = io();
 
   // Disparar evento quando jogador entrar na partida
   var self = this;
@@ -633,7 +633,7 @@ cena1.create = function () {
   var cameras = this.cameras;
   var time = this.time;
   var socket = this.socket;
-
+/*
   this.socket.on("jogadores", function (jogadores) {
     if (jogadores.primeiro === self.socket.id) {
       // Define jogador como o primeiro
@@ -661,9 +661,7 @@ cena1.create = function () {
       // Detecção de colisão: terreno
       physics.add.collider(player2, terreno, hitCave, null, this);
 
-      // Detecção de colisão e disparo de evento: ARCas
-      physics.add.collider(player2, ARCas, hitARCa, null, this);
-
+ 
       // Câmera seguindo o personagem 2
       cameras.main.startFollow(player2);
 
@@ -697,7 +695,7 @@ cena1.create = function () {
         .catch((error) => console.log(error));
     }
 
-    // Os dois jogadores estão conectados
+    // Os dois jogadores precisam estar conectado para o jogo começar
     console.log(jogadores);
     if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
       // Contagem regressiva em segundos (1.000 milissegundos)
@@ -710,7 +708,7 @@ cena1.create = function () {
       });
     }
   });
-
+*/
   //fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
     //som de click do mouse
