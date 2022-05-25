@@ -7,6 +7,13 @@ var contadorPartidas = 0;
 var textoContadorPartidas0;
 var textoContadorPartidas1;
 var soundtrack;
+var ice_servers = {
+  iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+};
+var localConnection;
+var remoteConnection;
+var midias;
+const audio = document.querySelector("audio");
 
 //variáveis da cena de escolher os clubes
 var fundo1;
@@ -624,8 +631,10 @@ cena1.create = function () {
   textoContadorPartidas0 = this.add.image(630, 580, "textoContadorPartidas");
   textoContadorPartidas1 = this.add.text(732, 564, "0", fonteTexto1);
 
+  
+  // <------------------------------------------------------------------------------------------------------------------------------->
   // Conectar no servidor via WebSocket
-  //this.socket = io();
+  this.socket = io();
 
   // Disparar evento quando jogador entrar na partida
   var self = this;
@@ -633,37 +642,21 @@ cena1.create = function () {
   var cameras = this.cameras;
   var time = this.time;
   var socket = this.socket;
-/*
+
   this.socket.on("jogadores", function (jogadores) {
     if (jogadores.primeiro === self.socket.id) {
       // Define jogador como o primeiro
       jogador = 1;
 
-      // Personagens colidem com os limites da cena
-      player1.setCollideWorldBounds(true);
-
-      // Detecção de colisão: terreno
-      physics.add.collider(player1, terreno, hitCave, null, this);
-
-      // Detecção de colisão e disparo de evento: ARCas
-      physics.add.collider(player1, ARCas, hitARCa, null, this);
-
-      // Câmera seguindo o personagem 1
-      cameras.main.startFollow(player1);
-
+      navigator.mediaDevices
+        .getUserMedia({ video: false, audio: true })
+        .then((stream) => {
+          midias = stream;
+        })
+        .catch((error) => console.log(error));
     } else if (jogadores.segundo === self.socket.id) {
       // Define jogador como o segundo
       jogador = 2;
-
-      // Personagens colidem com os limites da cena
-      player2.setCollideWorldBounds(true);
-
-      // Detecção de colisão: terreno
-      physics.add.collider(player2, terreno, hitCave, null, this);
-
- 
-      // Câmera seguindo o personagem 2
-      cameras.main.startFollow(player2);
 
       navigator.mediaDevices
         .getUserMedia({ video: false, audio: true })
@@ -695,7 +688,7 @@ cena1.create = function () {
         .catch((error) => console.log(error));
     }
 
-    // Os dois jogadores precisam estar conectado para o jogo começar
+    // Os dois jogadores precisam estar conectados para o jogo começar
     console.log(jogadores);
     if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
       // Contagem regressiva em segundos (1.000 milissegundos)
@@ -708,7 +701,51 @@ cena1.create = function () {
       });
     }
   });
-*/
+
+  this.socket.on("offer", (socketId, description) => {
+    remoteConnection = new RTCPeerConnection(ice_servers);
+    midias
+      .getTracks()
+      .forEach((track) => remoteConnection.addTrack(track, midias));
+    remoteConnection.onicecandidate = ({ candidate }) => {
+      candidate && socket.emit("candidate", socketId, candidate);
+    };
+    remoteConnection.ontrack = ({ streams: [midias] }) => {
+      audio.srcObject = midias;
+    };
+    remoteConnection
+      .setRemoteDescription(description)
+      .then(() => remoteConnection.createAnswer())
+      .then((answer) => remoteConnection.setLocalDescription(answer))
+      .then(() => {
+        socket.emit("answer", socketId, remoteConnection.localDescription);
+      });
+  });
+
+  socket.on("answer", (description) => {
+    localConnection.setRemoteDescription(description);
+  });
+
+  socket.on("candidate", (candidate) => {
+    const conn = localConnection || remoteConnection;
+    conn.addIceCandidate(new RTCIceCandidate(candidate));
+  });
+
+  // VOU PRECISAR DESSA LÓGICA DE CÓDIGO PARA ENVIAR A ESCOLHA DE CADA JOGADOR PARA O OUTRO
+  this.socket.on("desenharOutroJogador", ({ frame, x, y }) => {
+    if (jogador === 1) {
+      player2.setFrame(frame);
+      player2.x = x;
+      player2.y = y;
+    } else if (jogador === 2) {
+      player1.setFrame(frame);
+      player1.x = x;
+      player1.y = y;
+    }
+  });
+
+  // <------------------------------------------------------------------------------------------------------------------------------->
+
   //fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
     //som de click do mouse
