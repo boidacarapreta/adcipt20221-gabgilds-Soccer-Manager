@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
 const server = require("http").Server(app);
-const io = require("socket.io")(server);
-const PORT = process.env.PORT || 3000;
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "https://boidacarapreta.github.io",
+  },
+});const PORT = process.env.PORT || 3000;
 var jogadores = {
   primeiro: undefined,
   segundo: undefined,
@@ -50,5 +53,5 @@ io.on("connection", function (socket) {
   });
 });
 
-app.use(express.static("./Client"));
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}!`));
+app.use(express.static("./"));
+server.listen(PORT, () => console.log(`Server listening on port ${PORT}!`));

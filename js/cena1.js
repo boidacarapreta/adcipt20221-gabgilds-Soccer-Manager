@@ -66,6 +66,7 @@ var gols0 = 0;
 var gols1 = 0;
 var segundos;
 var contagem0 = 0;
+var jogador;
 
 //variáveis e funções para o funcionamento da partida
 var statusBayern = { atk: 92, mid: 85, def: 81, ovr: 84 };
@@ -430,7 +431,7 @@ function definindoForçaClubes() {
   forçaBayern1 = statusBayern.atk + Phaser.Math.Between(0, 10);
   forçaPsg1 = statusPsg.atk + Phaser.Math.Between(0, 10);
   forçaCity1 = statusCity.atk + Phaser.Math.Between(0, 10);
-  forçaReal1 = statusReal.atk + Phaser.Math.Between(0, 10);  
+  forçaReal1 = statusReal.atk + Phaser.Math.Between(0, 10);
 }
 
 function formatarTempo(segundos) {
@@ -444,7 +445,7 @@ function formatarTempo(segundos) {
   return `${minutos} : ${parteEmSegundos}`;
 }
 
-function atualizarPosseBola() { 
+function atualizarPosseBola() {
   //determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
   if (contagem0 < 2) {
     posseBola0 = Phaser.Math.Between(20, 80);
@@ -463,29 +464,30 @@ function atualizarPosseBola() {
 }
 
 function atualizarPlacar() {
-  if (clube0Escolhido > clube1Escolhido) { //se o clube0 for ganhar
+  if (clube0Escolhido > clube1Escolhido) {
+    //se o clube0 for ganhar
     gols0++;
     textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
     if (gols0 > 3) {
       gols1++;
-      textoPlacar.setText(gols0 + "     " + gols1); 
+      textoPlacar.setText(gols0 + "     " + gols1);
     }
-    
-  } else if (clube0Escolhido < clube1Escolhido) { //se o clube1 for ganhar
+  } else if (clube0Escolhido < clube1Escolhido) {
+    //se o clube1 for ganhar
     gols1++;
-    textoPlacar.setText(gols0 + "     " + gols1); 
+    textoPlacar.setText(gols0 + "     " + gols1);
     if (gols1 > 4) {
       gols0++;
-      textoPlacar.setText(gols0 + "     " + gols1); 
-    }      
-
-  } else if (clube0Escolhido === clube1Escolhido) { //se tiver um empate nas forças, por enquanto o clube0 ganha    
+      textoPlacar.setText(gols0 + "     " + gols1);
+    }
+  } else if (clube0Escolhido === clube1Escolhido) {
+    //se tiver um empate nas forças, por enquanto o clube0 ganha
     gols0++;
-    textoPlacar.setText(gols0 + "     " + gols1); 
+    textoPlacar.setText(gols0 + "     " + gols1);
     if (gols0 < 4) {
       gols1++;
-      textoPlacar.setText(gols0 + "     " + gols1); 
-    }  
+      textoPlacar.setText(gols0 + "     " + gols1);
+    }
   }
 }
 
@@ -527,19 +529,19 @@ cena1.preload = function () {
   this.load.image("real1", "./assets/clubes/parabens/real1.png");
 
   this.load.audio("somVencedor", "./assets/somVencedor.mp3");
-  this.load.spritesheet("muller", "assets/clubes/jogadores/muller.png", {
+  this.load.spritesheet("muller", "./assets/clubes/jogadores/muller.png", {
     frameWidth: 200,
     frameHeight: 200,
   });
-  this.load.spritesheet("neymar", "assets/clubes/jogadores/neymar.png", {
+  this.load.spritesheet("neymar", "./assets/clubes/jogadores/neymar.png", {
     frameWidth: 200,
     frameHeight: 200,
   });
-  this.load.spritesheet("deBruyne", "assets/clubes/jogadores/deBruyne.png", {
+  this.load.spritesheet("deBruyne", "./assets/clubes/jogadores/deBruyne.png", {
     frameWidth: 200,
     frameHeight: 200,
   });
-  this.load.spritesheet("benzema", "assets/clubes/jogadores/benzema.png", {
+  this.load.spritesheet("benzema", "./assets/clubes/jogadores/benzema.png", {
     frameWidth: 200,
     frameHeight: 200,
   });
@@ -631,10 +633,9 @@ cena1.create = function () {
   textoContadorPartidas0 = this.add.image(630, 580, "textoContadorPartidas");
   textoContadorPartidas1 = this.add.text(732, 564, "0", fonteTexto1);
 
-  
   // <------------------------------------------------------------------------------------------------------------------------------->
   // Conectar no servidor via WebSocket
-  this.socket = io();
+  this.socket = io("wss://stormy-beach-26933.herokuapp.com");
 
   // Disparar evento quando jogador entrar na partida
   var self = this;
@@ -690,16 +691,6 @@ cena1.create = function () {
 
     // Os dois jogadores precisam estar conectados para o jogo começar
     console.log(jogadores);
-    if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
-      // Contagem regressiva em segundos (1.000 milissegundos)
-      timer = 60;
-      timedEvent = time.addEvent({
-        delay: 1000,
-        callback: countdown,
-        callbackScope: this,
-        loop: true,
-      });
-    }
   });
 
   this.socket.on("offer", (socketId, description) => {
@@ -929,7 +920,7 @@ cena1.update = function () {
     minutos === 50 ||
     minutos === 60 ||
     minutos === 70 ||
-    minutos === 80 
+    minutos === 80
   ) {
     atualizarPosseBola();
   }
@@ -943,14 +934,14 @@ cena1.update = function () {
     minutos === 60 ||
     minutos === 70 ||
     minutos === 80 ||
-    minutos === 85 
+    minutos === 85
   ) {
     chanceGol = Phaser.Math.Between(0, 10); //A ideia é que é improvável que ocorra um gol
     console.log("chanceGol:" + chanceGol);
     //se o gol ocorrer, atualiza o placar
     if (chanceGol === 1) {
       atualizarPlacar();
-    } 
+    }
     //se não tiver ocorrido nenhum gol
     if (minutos === 85 && gols0 === 0 && gols1 === 0) {
       if (clube0Escolhido > clube1Escolhido) {
