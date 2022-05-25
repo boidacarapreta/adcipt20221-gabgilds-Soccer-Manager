@@ -3,7 +3,7 @@ const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "boidacarapreta.github.io",
+    origin: "https://boidacarapreta.github.io",
   },
 });const PORT = process.env.PORT || 3000;
 var jogadores = {
