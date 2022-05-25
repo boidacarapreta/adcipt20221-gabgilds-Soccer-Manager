@@ -10,17 +10,16 @@ cena0.preload = function () {
   //baixando as imagens e áudio que serão usados na cena0
   this.load.image("fundo0", "./assets/fundo0.png");
   this.load.image("botao0", "./assets/botao0.png");
-  this.load.audio('soundtrack', './assets/soundtrack.mp3');
+  this.load.audio("soundtrack", "./assets/soundtrack.mp3");
 };
-
 
 cena0.create = function () {
   //define imagem de fundo
   fundo0 = this.add.image(400, 300, "fundo0", 0);
-  
+
   //define e adiciona o botão
   botao0 = this.add.image(400, 300, "botao0", 100).setInteractive();
-  
+
   /*
   Por enquanto é desnecessário
   //colocando a musica no jogo
@@ -39,7 +38,6 @@ cena0.create = function () {
     this
   );
 };
-
 
 cena0.update = function () {};
 
