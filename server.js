@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
 const server = require("http").Server(app);
-const io = require("socket.io")(server);
-const PORT = process.env.PORT || 3000;
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "boidacarapreta.github.io",
+  },
+});const PORT = process.env.PORT || 3000;
 var jogadores = {
   primeiro: undefined,
   segundo: undefined,
