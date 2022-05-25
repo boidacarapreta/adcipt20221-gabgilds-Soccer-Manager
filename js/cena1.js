@@ -529,19 +529,19 @@ cena1.preload = function () {
   this.load.image("real1", "./assets/clubes/parabens/real1.png");
 
   this.load.audio("somVencedor", "./assets/somVencedor.mp3");
-  this.load.spritesheet("muller", "assets/clubes/jogadores/muller.png", {
+  this.load.spritesheet("muller", "./assets/clubes/jogadores/muller.png", {
     frameWidth: 200,
     frameHeight: 200,
   });
-  this.load.spritesheet("neymar", "assets/clubes/jogadores/neymar.png", {
+  this.load.spritesheet("neymar", "./assets/clubes/jogadores/neymar.png", {
     frameWidth: 200,
     frameHeight: 200,
   });
-  this.load.spritesheet("deBruyne", "assets/clubes/jogadores/deBruyne.png", {
+  this.load.spritesheet("deBruyne", "./assets/clubes/jogadores/deBruyne.png", {
     frameWidth: 200,
     frameHeight: 200,
   });
-  this.load.spritesheet("benzema", "assets/clubes/jogadores/benzema.png", {
+  this.load.spritesheet("benzema", "./assets/clubes/jogadores/benzema.png", {
     frameWidth: 200,
     frameHeight: 200,
   });
