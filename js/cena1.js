@@ -652,7 +652,7 @@ cena1.create = function () {
 
   // <------------------------------------------------------------------------------------------------------------------------------->
   // Conectar no servidor via WebSocket
-  /*
+  
   this.socket = io("wss://stormy-beach-26933.herokuapp.com");
 
   // Disparar evento quando jogador entrar na partida
@@ -754,7 +754,7 @@ cena1.create = function () {
   });
 
   // <------------------------------------------------------------------------------------------------------------------------------->
-  */
+  
   //fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
     //som de click do mouse
