@@ -24,3 +24,13 @@ Melhorias do jogo:
 
 Informação do jogo:
 - Cada partida dura 28,8 segundos na vida real.
+
+
+Falar com o Boi:
+- Heroku;
+- Github pages (já foi feito?);
+- Trocar mensagens do próprio jogo entre os jogadores;
+- Video 2 tarefa 5 -> Verificar se foi tudo realizado (fazer servidor para trocar mensagens entre os clientes);
+- Voz funciona?;
+- Varias vezes aparece no console -> If (minutos === 2 && parteEmSegundos === 0) {}; 
+- Operador % não funcionando com a variável minutos.

@@ -14,6 +14,8 @@ var localConnection;
 var remoteConnection;
 var midias;
 const audio = document.querySelector("audio");
+var botaoTelaCheia;
+var teclaF;
 
 //variáveis da cena de escolher os clubes
 var fundo1;
@@ -452,11 +454,11 @@ function atualizarPosseBola() {
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
   } else if (1 < contagem0 < 5) {
-    posseBola0 = Phaser.Math.Between(40, 60);
+    posseBola0 = Phaser.Math.Between(45, 55);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
   } else if (contagem > 5) {
-    posseBola0 = Phaser.Math.Between(45, 55);
+    posseBola0 = Phaser.Math.Between(47, 53);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
   }
@@ -476,7 +478,7 @@ function atualizarPlacar() {
     //se o clube1 for ganhar
     gols1++;
     textoPlacar.setText(gols0 + "     " + gols1);
-    if (gols1 > 4) {
+    if (gols1 > 3) {
       gols0++;
       textoPlacar.setText(gols0 + "     " + gols1);
     }
@@ -498,6 +500,7 @@ cena1.preload = function () {
     "./assets/texto/textoContadorPartidas.png"
   );
   this.load.audio("soundtrack", "./assets/soundtrack.mp3");
+  this.load.image("botaoTelaCheia", "./assets/botaoTelaCheia.png");
 
   //carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
   this.load.image("fundo1", "./assets/fundo1.png");
@@ -563,27 +566,6 @@ cena1.create = function () {
   soundtrack.loop = true;
   soundtrack.play();
 
-  //Tecla "F" ativa/desativa tela cheia
-  var telaCheia = this.add
-    .image(800 - 16, 16, "fullscreen", 0)
-    .setOrigin(1, 0)
-    .setInteractive();
-
-  var teclaF = this.input.keyboard.addKey("F");
-  teclaF.on(
-    "down",
-    function () {
-      if (this.scale.isFullscreen) {
-        telaCheia.setFrame(0);
-        this.scale.stopFullscreen();
-      } else {
-        telaCheia.setFrame(1);
-        this.scale.startFullscreen();
-      }
-    },
-    this
-  );
-
   //definindo as imagens de fundo da cena de escolhendo os clubes, da partida e do fim do jogo
   fundo1 = this.add.image(400, 300, "fundo1");
   fundo2 = this.add.image(400, 300, "fundo2");
@@ -633,8 +615,44 @@ cena1.create = function () {
   textoContadorPartidas0 = this.add.image(630, 580, "textoContadorPartidas");
   textoContadorPartidas1 = this.add.text(732, 564, "0", fonteTexto1);
 
+  // Botão de ativar/desativar tela cheia
+  botaoTelaCheia = this.add
+    .image(55, 600 - 55, "botaoTelaCheia", 0)
+    .setOrigin(1, 0)
+    .setInteractive()
+    .setScrollFactor(0);
+
+  botaoTelaCheia.on(
+    "pointerup",
+    function () {
+      if (this.scale.isFullscreen) {
+        this.scale.stopFullscreen();
+      } else {
+        this.scale.startFullscreen();
+      }
+    },
+    this
+  );
+
+  //Tecla "F" ativa/desativa tela cheia
+  teclaF = this.input.keyboard.addKey("F");
+  teclaF.on(
+    "down",
+    function () {
+      if (this.scale.isFullscreen) {
+        botaoTelaCheia.setFrame(0);
+        this.scale.stopFullscreen();
+      } else {
+        botaoTelaCheia.setFrame(1);
+        this.scale.startFullscreen();
+      }
+    },
+    this
+  );
+
   // <------------------------------------------------------------------------------------------------------------------------------->
   // Conectar no servidor via WebSocket
+  /*
   this.socket = io("wss://stormy-beach-26933.herokuapp.com");
 
   // Disparar evento quando jogador entrar na partida
@@ -736,7 +754,7 @@ cena1.create = function () {
   });
 
   // <------------------------------------------------------------------------------------------------------------------------------->
-
+  */
   //fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
     //som de click do mouse
@@ -908,7 +926,7 @@ cena1.create = function () {
 
 cena1.update = function () {
   //Fim da partida
-  if (minutos === 40) {
+  if (minutos === 90) {
     aparecerFundo3();
   }
   //atualização da posse de bola
@@ -936,7 +954,7 @@ cena1.update = function () {
     minutos === 80 ||
     minutos === 85
   ) {
-    chanceGol = Phaser.Math.Between(0, 10); //A ideia é que é improvável que ocorra um gol
+    chanceGol = Phaser.Math.Between(0, 50); //A ideia é que é improvável que ocorra um gol
     console.log("chanceGol:" + chanceGol);
     //se o gol ocorrer, atualiza o placar
     if (chanceGol === 1) {
