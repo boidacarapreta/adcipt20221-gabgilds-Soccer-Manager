@@ -500,7 +500,10 @@ cena1.preload = function () {
     "./assets/texto/textoContadorPartidas.png"
   );
   this.load.audio("soundtrack", "./assets/soundtrack.mp3");
-  this.load.image("botaoTelaCheia", "./assets/botaoTelaCheia.png");
+  this.load.spritesheet("botaoTelaCheia", "./assets/botaoTelaCheia.png", {
+    frameWidth: 50,
+    frameHeight: 50,
+  });
 
   //carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
   this.load.image("fundo1", "./assets/fundo1.png");
@@ -626,8 +629,10 @@ cena1.create = function () {
     "pointerup",
     function () {
       if (this.scale.isFullscreen) {
+        botaoTelaCheia.setFrame(0);
         this.scale.stopFullscreen();
       } else {
+        botaoTelaCheia.setFrame(1);
         this.scale.startFullscreen();
       }
     },
@@ -650,6 +655,7 @@ cena1.create = function () {
     this
   );
 
+  /*
   // <------------------------------------------------------------------------------------------------------------------------------->
   // Conectar no servidor via WebSocket
   
@@ -754,6 +760,7 @@ cena1.create = function () {
   });
 
   // <------------------------------------------------------------------------------------------------------------------------------->
+  */
   
   //fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
