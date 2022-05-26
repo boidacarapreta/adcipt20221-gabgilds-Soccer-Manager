@@ -300,25 +300,18 @@ function aparecerFundo3() {
     clube0vencendo();
   }
 
-  //resetando o tempo do cronômetro do jogo
-  tempoInicial = undefined;
-
-  //resetando a posse de bola e o placar
+  //resetando as variáveis necessárias para conseguir rejogar 
   posseBola0 = 50;
   posseBola1 = 50;
+  textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
   gols0 = 0;
   gols1 = 0;
+  textoPlacar.setText(gols0 + "     " + gols1); //Atualiza o valor de placar
+  contagem0 = 0; //contagem para função de atualizar posse de bola
+  tempoInicial = undefined; //resetando o tempo do cronômetro do jogo
 
-  console.log("psg0: " + forçaPsg0);
-  console.log("bayern0: " + forçaBayern0);
-  console.log("city0: " + forçaCity0);
-  console.log("real0: " + forçaReal0);
-  console.log("psg1: " + forçaPsg1);
-  console.log("bayern1: " + forçaBayern1);
-  console.log("city1: " + forçaCity1);
-  console.log("real1: " + forçaReal1);
-  console.log("-----");
-}
+  console.log(`psg0: ${forçaPsg0} \nbayern0: ${forçaBayern0} \ncity0: ${forçaCity0} \nreal0: ${forçaReal0} \npsg1: ${forçaPsg1} \nbayern1: ${forçaBayern1} \ncity1: ${forçaCity1} \nreal1: ${forçaReal1} \n-----`);
+  }
 
 //função quando clica em jogar novamente
 function aparecerFundo1Novamente() {
@@ -392,7 +385,6 @@ function clube0vencendo() {
     deBruyne.setVisible(false);
     benzema.setVisible(true);
   }
-  console.log(clube0Escolhido);
 }
 
 function clube1vencendo() {
@@ -933,7 +925,7 @@ cena1.create = function () {
 
 cena1.update = function () {
   //Fim da partida
-  if (minutos === 90) {
+  if (minutos === 30) {
     aparecerFundo3();
   }
   //atualização da posse de bola
@@ -962,7 +954,7 @@ cena1.update = function () {
     minutos === 85
   ) {
     chanceGol = Phaser.Math.Between(0, 50); //A ideia é que é improvável que ocorra um gol
-    console.log("chanceGol:" + chanceGol);
+    console.log(`chanceGol: ${chanceGol}`);
     //se o gol ocorrer, atualiza o placar
     if (chanceGol === 1) {
       atualizarPlacar();
