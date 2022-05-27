@@ -716,6 +716,7 @@ cena1.create = function () {
           midias = stream;
         })
         .catch((error) => console.log(error));
+      
     } else if (jogadores.segundo === self.socket.id) {
       //Define jogador como o segundo
       jogador = 2;
