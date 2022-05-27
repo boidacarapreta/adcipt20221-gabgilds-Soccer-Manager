@@ -697,7 +697,7 @@ cena1.create = function () {
 
   //Conectar no servidor via WebSocket
   
-  this.socket = io("wss://stormy-beach-26933.herokuapp.com");
+  this.socket = io("https://secure-meadow-69283.herokuapp.com/");
 
   //Disparar evento quando jogador entrar na partida
   var self = this;
