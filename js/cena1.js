@@ -66,9 +66,10 @@ var time;
 var chanceGol;
 var gols0 = 0;
 var gols1 = 0;
-var segundos;
-var contagem0 = 0;
+var contagem0 = 0; //variável para a posse de bola
+var contagem1 = 0; // variável para o placar
 var jogador;
+var tipoDeJogo;
 
 //variáveis e funções para o funcionamento da partida
 var statusBayern = { atk: 92, mid: 85, def: 81, ovr: 84 };
@@ -272,6 +273,10 @@ function aparecerFundo2() {
     callbackScope: this,
     loop: true,
   });
+
+  //Aleatoriedade para definir o tipo de jogo que vai ocorrer, uma goleada, jogo pegado, virada
+  tipoDeJogo = Phaser.Math.Between(0, 10);
+  console.log(`tipoDeJogo: ${tipoDeJogo}`);
 }
 
 function aparecerFundo3() {
@@ -458,30 +463,98 @@ function atualizarPosseBola() {
 }
 
 function atualizarPlacar() {
-  if (clube0Escolhido > clube1Escolhido) {
-    //se o clube0 for ganhar
-    gols0++;
-    textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
-    if (gols0 > 3) {
-      gols1++;
-      textoPlacar.setText(gols0 + "     " + gols1);
+  if (clube0Escolhido > clube1Escolhido) { //se o clube0 for ganhar
+    //Vitória tranquila do time vencedor
+    if (tipoDeJogo > 2) {
+      if (gols0 < 2) {
+        gols0++;
+        textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
+      }
     }
-  } else if (clube0Escolhido < clube1Escolhido) {
-    //se o clube1 for ganhar
-    gols1++;
-    textoPlacar.setText(gols0 + "     " + gols1);
-    if (gols1 > 3) {
-      gols0++;
-      textoPlacar.setText(gols0 + "     " + gols1);
+    //Virada do time vencedor
+    if (tipoDeJogo === 0) {
+      if (gols1 < 2) {
+        gols1++;
+        textoPlacar.setText(gols0 + "     " + gols1);
+      } else if (gols0 < gols1) {
+        gols0++;
+        textoPlacar.setText(gols0 + "     " + gols1);
+      }
     }
-  } else if (clube0Escolhido === clube1Escolhido) {
-    //se tiver um empate nas forças, por enquanto o clube0 ganha
-    gols0++;
-    textoPlacar.setText(gols0 + "     " + gols1);
-    if (gols0 < 4) {
-      gols1++;
-      textoPlacar.setText(gols0 + "     " + gols1);
+    //Goleada do time vencedor
+    if (tipoDeJogo === 1) {
+      if (gols0 < 5) {
+        gols0++;
+        textoPlacar.setText(gols0 + "     " + gols1);
+      }
     }
+    //Vitória no final do jogo
+    if (tipoDeJogo === 2) {
+      //não precisa fazer nada, o código já está feito no cena1.update
+    }
+    contagem1++;
+
+  } else if (clube0Escolhido < clube1Escolhido) { //se o clube1 for ganhar
+    //Vitória tranquila do time vencedor
+    if (tipoDeJogo > 2) {
+      if (gols1 < 2) {
+        gols1++;
+        textoPlacar.setText(gols0 + "     " + gols1);
+      }
+    }
+    //Virada do time vencedor
+    if (tipoDeJogo === 0) {
+      if (gols0 < 2) {
+        gols++;
+        textoPlacar.setText(gols0 + "     " + gols1);
+      } else if (gols1 < gols0) {
+        gols1++;
+        textoPlacar.setText(gols0 + "     " + gols1);
+      }
+    }
+    //Goleada do time vencedor
+    if (tipoDeJogo === 1) {
+      if (gols1 < 5) {
+        gols1++;
+        textoPlacar.setText(gols0 + "     " + gols1);
+      }
+    }
+    //Vitória no final do jogo
+    if (tipoDeJogo === 2) {
+      //não precisa fazer nada, o código já está feito no cena1.update
+    }
+    contagem1++;
+
+  } else if (clube0Escolhido === clube1Escolhido) { //se tiver um empate nas forças, por enquanto o clube0 ganha
+    //Vitória tranquila do time vencedor
+    if (tipoDeJogo > 2) {
+      if (gols0 < 2) {
+        gols0++;
+        textoPlacar.setText(gols0 + "     " + gols1);
+      }
+    }
+    //Virada do time vencedor
+    if (tipoDeJogo === 0) {
+      if (gols1 < 2) {
+        gols1++;
+        textoPlacar.setText(gols0 + "     " + gols1);
+      } else if (gols0 < gols1) {
+        gols0++;
+        textoPlacar.setText(gols0 + "     " + gols1);
+      }
+    }
+    //Goleada do time vencedor
+    if (tipoDeJogo === 1) {
+      if (gols0 < 5) {
+        gols0++;
+        textoPlacar.setText(gols0 + "     " + gols1);
+      }
+    }
+    //Vitória no final do jogo
+    if (tipoDeJogo === 2) {
+      //não precisa fazer nada, o código já está feito no cena1.update
+    }
+    contagem1++;
   }
 }
 
@@ -647,7 +720,6 @@ cena1.create = function () {
     this
   );
 
-
   // Conectar no servidor via WebSocket
   
   this.socket = io("wss://stormy-beach-26933.herokuapp.com");
@@ -736,7 +808,7 @@ cena1.create = function () {
     conn.addIceCandidate(new RTCIceCandidate(candidate));
   });
 
-  // VOU PRECISAR DESSA LÓGICA DE CÓDIGO PARA ENVIAR A ESCOLHA DE CADA JOGADOR PARA O OUTRO
+  // Lógica de enviar infos de um jogador para o outro
   this.socket.on("desenharOutroJogador", ({ frame, x, y }) => {
     if (jogador === 1) {
       player2.setFrame(frame);
@@ -748,8 +820,6 @@ cena1.create = function () {
       player1.y = y;
     }
   });
-
-  // <------------------------------------------------------------------------------------------------------------------------------->
   
   //fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
@@ -907,7 +977,7 @@ cena1.create = function () {
   botao0.on(
     "pointerdown",
     function () {
-      //inicia a cena e o cronometro
+      //inicia a partida
       aparecerFundo2();
     },
     this
@@ -922,36 +992,20 @@ cena1.create = function () {
 
 cena1.update = function () {
   //Fim da partida
-  if (minutos === 30) {
+  if (minutos === 30 && parteEmSegundos === 15 || minutos === 90) {
     aparecerFundo3();
   }
   //atualização da posse de bola
-  if (
-    minutos === 10 ||
-    minutos === 20 ||
-    minutos === 30 ||
-    minutos === 40 ||
-    minutos === 50 ||
-    minutos === 60 ||
-    minutos === 70 ||
-    minutos === 80
-  ) {
+  if (minutos % 10 === 0) {
     atualizarPosseBola();
   }
   //atualização do placar do jogo
-  if (
-    minutos === 10 ||
-    minutos === 20 ||
-    minutos === 30 ||
-    minutos === 40 ||
-    minutos === 50 ||
-    minutos === 60 ||
-    minutos === 70 ||
-    minutos === 80 ||
-    minutos === 85
-  ) {
-    chanceGol = Phaser.Math.Between(0, 50); //A ideia é que é improvável que ocorra um gol
+  if (minutos % 2 === 0) {
+    chanceGol = Phaser.Math.Between(0, 30); //Improvável que ocorra um gol
     console.log(`chanceGol: ${chanceGol}`);
+
+    console.log(`parteEmSegundos: ${parteEmSegundos}`); //Para resolver o problema do cronômetro
+
     //se o gol ocorrer, atualiza o placar
     if (chanceGol === 1) {
       atualizarPlacar();
