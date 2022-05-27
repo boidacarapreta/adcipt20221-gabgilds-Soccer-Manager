@@ -2,7 +2,7 @@ import { cena2 } from "./cena2.js";
 
 var cena1 = new Phaser.Scene("Cena 1");
 
-//variáveis gerais da cena1
+//Variáveis gerais da cena1
 var contadorPartidas = 0;
 var textoContadorPartidas0;
 var textoContadorPartidas1;
@@ -16,13 +16,11 @@ var midias;
 const audio = document.querySelector("audio");
 var botaoTelaCheia;
 var teclaF;
-
-//variáveis da cena de escolher os clubes
+//Variáveis da cena de escolher os clubes
 var fundo1;
 var botao0;
 var botao1;
 var botao2;
-
 var real0;
 var city0;
 var bayern0;
@@ -40,11 +38,9 @@ var nomecity1;
 var nomepsg1;
 var nomereal1;
 var somMouse;
-
 var contagemClube0 = 0;
 var contagemClube1 = 0;
-
-//variáveis da cena do jogo acontecendo
+//Variáveis da cena do jogo acontecendo
 var fundo2;
 var textoCronometro;
 var passagemTempo;
@@ -66,12 +62,11 @@ var time;
 var chanceGol;
 var gols0 = 0;
 var gols1 = 0;
-var contagem0 = 0; //variável para a posse de bola
-var contagem1 = 0; // variável para o placar
+var contagem0 = 0; //Variável para a posse de bola
+var contagem1 = 0; //variável para o placar
 var jogador;
 var tipoDeJogo;
-
-//variáveis e funções para o funcionamento da partida
+//Variáveis e funções para o funcionamento da partida
 var statusBayern = { atk: 92, mid: 85, def: 81, ovr: 84 };
 var statusPsg = { atk: 89, mid: 83, def: 85, ovr: 86 };
 var statusCity = { atk: 85, mid: 85, def: 86, ovr: 85 };
@@ -86,8 +81,7 @@ var forçaBayern1;
 var forçaPsg1;
 var forçaCity1;
 var forçaReal1;
-
-//variáveis da cena do fim de jogo
+//Variáveis da cena do fim de jogo
 var fundo3;
 var parabensBayern0;
 var parabensCity0;
@@ -105,8 +99,7 @@ var neymar;
 var botaoSim;
 var botaoNao;
 var botaoJogarDeNovo;
-
-//funções da cena de escolher os clubes
+//Funções da cena de escolher os clubes
 function escolhapsg0() {
   psg0.setVisible(true);
   nomepsg0.setVisible(true);
@@ -195,8 +188,7 @@ function escolhareal1() {
   nomecity1.setVisible(false);
   clube1Escolhido = forçaReal1;
 }
-
-//função para retirar todos os clubes da tela
+//Função para retirar todos os clubes da tela
 function retirarTodosClubes() {
   psg0.setVisible(false);
   nomepsg0.setVisible(false);
@@ -215,14 +207,12 @@ function retirarTodosClubes() {
   city1.setVisible(false);
   nomecity1.setVisible(false);
 }
-
-//função para definir os clubes que aparecem por padrão
+//Função para definir os clubes que aparecem por padrão
 function escolhaClubePadrao() {
   escolhabayern0();
   escolhacity1();
 }
-
-//funções para mostrar as telas do jogo
+//Funções para mostrar as telas do jogo
 function aparecerFundo1() {
   fundo1.setVisible(true);
   fundo2.setVisible(false);
@@ -261,8 +251,8 @@ function aparecerFundo2() {
   textoPlacar.setVisible(true);
   textoPosseBola.setVisible(true);
 
-  //iniciando o cronometro
-  //define o tempo inicial
+  //Iniciando o cronometro
+  //Define o tempo inicial
   tempoInicial = 0;
   passagemTempo = time.addEvent({
     delay: 80,
@@ -278,7 +268,6 @@ function aparecerFundo2() {
   tipoDeJogo = Phaser.Math.Between(0, 10);
   console.log(`tipoDeJogo: ${tipoDeJogo}`);
 }
-
 function aparecerFundo3() {
   fundo2.setVisible(false);
   fundo3.setVisible(true);
@@ -291,12 +280,12 @@ function aparecerFundo3() {
   botaoNao.setVisible(true);
   botaoJogarDeNovo.setVisible(true);
 
-  //toca o som da tela de vitória, retira todas as informações do clube e o soundtrack
+  //Toca o som da tela de vitória, retira todas as informações do clube e o soundtrack
   somVencedor.play();
   soundtrack.pause();
   retirarTodosClubes();
 
-  //definindo o resultado da partida
+  //Definindo o resultado da partida
   if (clube0Escolhido > clube1Escolhido) {
     clube0vencendo();
   } else if (clube0Escolhido < clube1Escolhido) {
@@ -305,22 +294,22 @@ function aparecerFundo3() {
     clube0vencendo();
   }
 
-  //resetando as variáveis necessárias para conseguir rejogar 
+  //Resetando as variáveis necessárias para conseguir rejogar 
   posseBola0 = 50;
   posseBola1 = 50;
   textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
   gols0 = 0;
   gols1 = 0;
   textoPlacar.setText(gols0 + "     " + gols1); //Atualiza o valor de placar
-  contagem0 = 0; //contagem para função de atualizar posse de bola
-  tempoInicial = undefined; //resetando o tempo do cronômetro do jogo
+  contagem0 = 0;
+  contagem1 = 0;
+  tempoInicial = undefined; //Resetando o tempo do cronômetro do jogo
 
   console.log(`psg0: ${forçaPsg0} \nbayern0: ${forçaBayern0} \ncity0: ${forçaCity0} \nreal0: ${forçaReal0} \npsg1: ${forçaPsg1} \nbayern1: ${forçaBayern1} \ncity1: ${forçaCity1} \nreal1: ${forçaReal1} \n-----`);
-  }
-
-//função quando clica em jogar novamente
+}
+//Função quando clica em jogar novamente
 function aparecerFundo1Novamente() {
-  //definindo a força dos clubes de novo para definir o resultado da nova partida
+  //Definindo a força dos clubes de novo para definir o resultado da nova partida
   definindoForçaClubes();
 
   fundo1.setVisible(true);
@@ -352,19 +341,18 @@ function aparecerFundo1Novamente() {
   parabensCity1.setVisible(false);
   parabensReal1.setVisible(false);
 
-  //colocando o soundtrack novamente e tirando a música de vitória
+  //Colocando o soundtrack novamente e tirando a música de vitória
   somVencedor.pause();
   soundtrack.play();
 
   escolhaClubePadrao();
 
-  //adicionando valor no contador de partidas
+  //Adicionando valor no contador de partidas
   contadorPartidas++;
   textoContadorPartidas1.setText(contadorPartidas);
 }
-
 function clube0vencendo() {
-  //aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
+  //Aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
   if (clube0Escolhido === forçaPsg0) {
     parabensPsg0.setVisible(true);
     neymar.setVisible(true);
@@ -391,9 +379,8 @@ function clube0vencendo() {
     benzema.setVisible(true);
   }
 }
-
 function clube1vencendo() {
-  //aqui vai ser o decorrer da partida que no final o clube da direita vai ganhar, com aleatoriedades
+  //Decorrer da partida que no final o clube da direita vai ganhar, com aleatoriedades
   if (clube1Escolhido === forçaPsg1) {
     parabensPsg1.setVisible(true);
     neymar.setVisible(true);
@@ -420,8 +407,7 @@ function clube1vencendo() {
     benzema.setVisible(true);
   }
 }
-
-//definindo os valores que serão usados na partida para decidir o vencedor, adicionado a um valor aleatório
+//Definindo os valores que serão usados na partida para decidir o vencedor, adicionado a um valor aleatório
 function definindoForçaClubes() {
   forçaBayern0 = statusBayern.atk + Phaser.Math.Between(0, 10);
   forçaPsg0 = statusPsg.atk + Phaser.Math.Between(0, 10);
@@ -432,7 +418,6 @@ function definindoForçaClubes() {
   forçaCity1 = statusCity.atk + Phaser.Math.Between(0, 10);
   forçaReal1 = statusReal.atk + Phaser.Math.Between(0, 10);
 }
-
 function formatarTempo(segundos) {
   //Minutos
   minutos = Math.floor(segundos / 60);
@@ -443,9 +428,8 @@ function formatarTempo(segundos) {
   //Retorna o tempo formato para a função
   return `${minutos} : ${parteEmSegundos}`;
 }
-
 function atualizarPosseBola() {
-  //determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
+  //Determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
   if (contagem0 < 2) {
     posseBola0 = Phaser.Math.Between(20, 80);
     posseBola1 = 100 - posseBola0;
@@ -454,24 +438,23 @@ function atualizarPosseBola() {
     posseBola0 = Phaser.Math.Between(45, 55);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
-  } else if (contagem > 5) {
+  } else if (contagem > 4) {
     posseBola0 = Phaser.Math.Between(47, 53);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
   }
   contagem0++;
 }
-
 function atualizarPlacar() {
-  if (clube0Escolhido > clube1Escolhido) { //se o clube0 for ganhar
-    //Vitória tranquila do time vencedor
+  if (clube0Escolhido > clube1Escolhido) { //Se o clube0 for ganhar
+    //Vitória tranquila do clube vencedor
     if (tipoDeJogo > 2) {
       if (gols0 < 2) {
         gols0++;
         textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
       }
     }
-    //Virada do time vencedor
+    //Virada do clube vencedor
     if (tipoDeJogo === 0) {
       if (gols1 < 2) {
         gols1++;
@@ -481,7 +464,7 @@ function atualizarPlacar() {
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
-    //Goleada do time vencedor
+    //Goleada do clube vencedor
     if (tipoDeJogo === 1) {
       if (gols0 < 5) {
         gols0++;
@@ -490,19 +473,19 @@ function atualizarPlacar() {
     }
     //Vitória no final do jogo
     if (tipoDeJogo === 2) {
-      //não precisa fazer nada, o código já está feito no cena1.update
+      //Não precisa fazer nada, o código já está feito no cena1.update
     }
     contagem1++;
 
-  } else if (clube0Escolhido < clube1Escolhido) { //se o clube1 for ganhar
-    //Vitória tranquila do time vencedor
+  } else if (clube0Escolhido < clube1Escolhido) { //Se o clube1 for ganhar
+    //Vitória tranquila do clube vencedor
     if (tipoDeJogo > 2) {
       if (gols1 < 2) {
         gols1++;
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
-    //Virada do time vencedor
+    //Virada do clube vencedor
     if (tipoDeJogo === 0) {
       if (gols0 < 2) {
         gols++;
@@ -512,7 +495,7 @@ function atualizarPlacar() {
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
-    //Goleada do time vencedor
+    //Goleada do clube vencedor
     if (tipoDeJogo === 1) {
       if (gols1 < 5) {
         gols1++;
@@ -521,19 +504,19 @@ function atualizarPlacar() {
     }
     //Vitória no final do jogo
     if (tipoDeJogo === 2) {
-      //não precisa fazer nada, o código já está feito no cena1.update
+      //Não precisa fazer nada, o código já está feito no cena1.update
     }
     contagem1++;
 
-  } else if (clube0Escolhido === clube1Escolhido) { //se tiver um empate nas forças, por enquanto o clube0 ganha
-    //Vitória tranquila do time vencedor
+  } else if (clube0Escolhido === clube1Escolhido) { //Se tiver um empate nas forças, por enquanto o clube0 ganha
+    //Vitória tranquila do clube vencedor
     if (tipoDeJogo > 2) {
       if (gols0 < 2) {
         gols0++;
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
-    //Virada do time vencedor
+    //Virada do clube vencedor
     if (tipoDeJogo === 0) {
       if (gols1 < 2) {
         gols1++;
@@ -543,7 +526,7 @@ function atualizarPlacar() {
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
-    //Goleada do time vencedor
+    //Goleada do clube vencedor
     if (tipoDeJogo === 1) {
       if (gols0 < 5) {
         gols0++;
@@ -552,14 +535,13 @@ function atualizarPlacar() {
     }
     //Vitória no final do jogo
     if (tipoDeJogo === 2) {
-      //não precisa fazer nada, o código já está feito no cena1.update
+      //Não precisa fazer nada, o código já está feito no cena1.update
     }
     contagem1++;
   }
 }
-
 cena1.preload = function () {
-  //carregando as imagens gerais que serão usados na cena1
+  //Carregando as imagens gerais que serão usados na cena1
   this.load.image(
     "textoContadorPartidas",
     "./assets/texto/textoContadorPartidas.png"
@@ -569,8 +551,7 @@ cena1.preload = function () {
     frameWidth: 50,
     frameHeight: 50,
   });
-
-  //carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
+  //Carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
   this.load.image("fundo1", "./assets/fundo1.png");
   this.load.image("botao0", "./assets/botao0.png");
   this.load.image("real", "./assets/clubes/real.png");
@@ -583,13 +564,10 @@ cena1.preload = function () {
   this.load.image("nomepsg", "./assets/clubes/nomepsg.png");
   this.load.image("nomebayern", "./assets/clubes/nomebayern.png");
   this.load.audio("somMouse", "./assets/somMouse.mp3");
-
-  //carregando as imagens e áudio que serão usados na cena do jogo
+  //Carregando as imagens e áudio que serão usados na cena do jogo
   this.load.image("fundo2", "./assets/fundo2.png");
-
-  //carregando as imagens e áudio que serão usados na cena de fim do jogo
+  //Carregando as imagens e áudio que serão usados na cena de fim do jogo
   this.load.image("fundo3", "./assets/fundo3.png");
-
   this.load.image("bayern0", "./assets/clubes/parabens/bayern0.png");
   this.load.image("bayern1", "./assets/clubes/parabens/bayern1.png");
   this.load.image("city0", "./assets/clubes/parabens/city0.png");
@@ -598,7 +576,6 @@ cena1.preload = function () {
   this.load.image("psg1", "./assets/clubes/parabens/psg1.png");
   this.load.image("real0", "./assets/clubes/parabens/real0.png");
   this.load.image("real1", "./assets/clubes/parabens/real1.png");
-
   this.load.audio("somVencedor", "./assets/somVencedor.mp3");
   this.load.spritesheet("muller", "./assets/clubes/jogadores/muller.png", {
     frameWidth: 200,
@@ -616,37 +593,35 @@ cena1.preload = function () {
     frameWidth: 200,
     frameHeight: 200,
   });
-
   this.load.image("botaoJogarDeNovo", "./assets/texto/botaoJogarDeNovo.png");
   this.load.image("botaoSim", "./assets/texto/botaoSim.png");
   this.load.image("botaoNao", "./assets/texto/botaoNao.png");
 };
-
 cena1.create = function () {
-  //definindo a força dos clubes para definir o resultado da partida
+  //Definindo a força dos clubes para definir o resultado da partida
   definindoForçaClubes();
 
-  //deixando a variável tempo utilizável para o cena1
+  //Deixando a variável tempo utilizável para o cena1
   time = this.time;
 
-  //colocando a musica no jogo
+  //Colocando a musica no jogo
   soundtrack = this.sound.add("soundtrack");
   soundtrack.loop = true;
   soundtrack.play();
 
-  //definindo as imagens de fundo da cena de escolhendo os clubes, da partida e do fim do jogo
+  //Definindo as imagens de fundo da cena de escolhendo os clubes, da partida e do fim do jogo
   fundo1 = this.add.image(400, 300, "fundo1");
   fundo2 = this.add.image(400, 300, "fundo2");
   fundo3 = this.add.image(400, 300, "fundo3");
 
   // <------ Cena de escolhendo os clubes ------->
 
-  //define e adiciona os botões da cena1
+  //Define e adiciona os botões da cena1
   botao0 = this.add.image(400, 300, "botao0").setInteractive();
   botao1 = this.add.image(280, 70, "botao1").setInteractive();
   botao2 = this.add.image(735, 70, "botao1").setInteractive();
 
-  //colocando os textos de seleção dos clubes do lado esquerdo
+  //Colocando os textos de seleção dos clubes do lado esquerdo
   real0 = this.add.image(110, 70, "real");
   city0 = this.add.image(100, 70, "city");
   psg0 = this.add.image(94, 70, "psg");
@@ -656,7 +631,7 @@ cena1.create = function () {
   nomepsg0 = this.add.image(175, 335, "nomepsg");
   nomereal0 = this.add.image(170, 335, "nomereal");
 
-  //colocando os textos de seleção dos clubes do lado direito
+  //Colocando os textos de seleção dos clubes do lado direito
   real1 = this.add.image(566, 70, "real");
   city1 = this.add.image(553, 70, "city");
   psg1 = this.add.image(552, 70, "psg");
@@ -666,7 +641,7 @@ cena1.create = function () {
   nomepsg1 = this.add.image(629, 335, "nomepsg");
   nomereal1 = this.add.image(625, 335, "nomereal");
 
-  //colocando os textos de vitórias de cada clube
+  //Colocando os textos de vitórias de cada clube
   parabensBayern0 = this.add.image(400, 105, "bayern0");
   parabensBayern1 = this.add.image(400, 105, "bayern1");
   parabensCity0 = this.add.image(400, 105, "city0");
@@ -676,14 +651,14 @@ cena1.create = function () {
   parabensReal0 = this.add.image(400, 100, "real0");
   parabensReal1 = this.add.image(400, 100, "real1");
 
-  //colocando o som do mouse para sair clicar nos botões
+  //Colocando o som do mouse para sair clicar nos botões
   somMouse = this.sound.add("somMouse");
 
-  //colocando o contador de partidas jogadas
+  //Colocando o contador de partidas jogadas
   textoContadorPartidas0 = this.add.image(630, 580, "textoContadorPartidas");
   textoContadorPartidas1 = this.add.text(732, 564, "0", fonteTexto1);
 
-  // Botão de ativar/desativar tela cheia
+  //Botão de ativar/desativar tela cheia
   botaoTelaCheia = this.add
     .image(55, 600 - 55, "botaoTelaCheia", 0)
     .setOrigin(1, 0)
@@ -720,11 +695,11 @@ cena1.create = function () {
     this
   );
 
-  // Conectar no servidor via WebSocket
+  //Conectar no servidor via WebSocket
   
   this.socket = io("wss://stormy-beach-26933.herokuapp.com");
 
-  // Disparar evento quando jogador entrar na partida
+  //Disparar evento quando jogador entrar na partida
   var self = this;
   var physics = this.physics;
   var cameras = this.cameras;
@@ -732,7 +707,7 @@ cena1.create = function () {
 
   this.socket.on("jogadores", function (jogadores) {
     if (jogadores.primeiro === self.socket.id) {
-      // Define jogador como o primeiro
+      //Define jogador como o primeiro
       jogador = 1;
 
       navigator.mediaDevices
@@ -742,7 +717,7 @@ cena1.create = function () {
         })
         .catch((error) => console.log(error));
     } else if (jogadores.segundo === self.socket.id) {
-      // Define jogador como o segundo
+      //Define jogador como o segundo
       jogador = 2;
 
       navigator.mediaDevices
@@ -775,7 +750,7 @@ cena1.create = function () {
         .catch((error) => console.log(error));
     }
 
-    // Os dois jogadores precisam estar conectados para o jogo começar
+    //Os dois jogadores precisam estar conectados para o jogo começar
     console.log(jogadores);
   });
 
@@ -808,7 +783,7 @@ cena1.create = function () {
     conn.addIceCandidate(new RTCIceCandidate(candidate));
   });
 
-  // Lógica de enviar infos de um jogador para o outro
+  //Lógica de enviar informações de um jogador para o outro
   this.socket.on("desenharOutroJogador", ({ frame, x, y }) => {
     if (jogador === 1) {
       player2.setFrame(frame);
@@ -821,9 +796,9 @@ cena1.create = function () {
     }
   });
   
-  //fazendo a escolha dos clubes da esquerda por meio dos botões
+  //Fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
-    //som de click do mouse
+    //Som de click do mouse
     somMouse.play();
 
     switch (contagemClube0) {
@@ -847,9 +822,9 @@ cena1.create = function () {
     contagemClube0 = contagemClube0 % 4;
   });
 
-  //fazendo a escolha dos clubes da direita por meio dos botões
+  //Fazendo a escolha dos clubes da direita por meio dos botões
   botao2.on("pointerdown", function () {
-    //som de click do mouse
+    //Som de click do mouse
     somMouse.play();
 
     switch (contagemClube1) {
@@ -874,31 +849,24 @@ cena1.create = function () {
   });
 
   // <------ Cena do jogo acontecendo ------->
-  //    |Cronômetro do jogo|
-
-  //adiciona o cronômetro
+  //Adiciona o cronômetro
   textoCronometro = this.add.text(
     356,
     170,
     formatarTempo(this.tempoInicial),
     fonteTexto0
   );
-
-  //     |Placar do jogo|
+  //Adiciona o placar
   textoPlacar = this.add.text(360, 287, gols0 + "     " + gols1, fonteTexto0);
-
-  //     |Posse de bola do jogo|
+  //Adiciona o texto da posse de bola
   textoPosseBola = this.add.text(342, 462, "50%  50%", fonteTexto2);
 
   // <------ Cena do fim do jogo ------->
-
-  //botões para jogar novamente
+  //Botões para jogar novamente
   botaoSim = this.add.image(360, 580, "botaoSim").setInteractive();
   botaoNao = this.add.image(440, 580, "botaoNao").setInteractive();
   botaoJogarDeNovo = this.add.image(180, 580, "botaoJogarDeNovo");
-
-  //animação dos vencedores (2 bonecos para cada clube) -> Ineficiente mas funcional
-
+  //Animação dos vencedores
   muller = this.physics.add.sprite(600, 450, "muller");
   neymar = this.physics.add.sprite(600, 450, "neymar");
   deBruyne = this.physics.add.sprite(600, 450, "deBruyne");
@@ -949,15 +917,15 @@ cena1.create = function () {
   benzema.anims.play("vitoriaBenzema", true);
   neymar.anims.play("vitoriaNeymar", true);
 
-  //colocando o som final
+  //Colocando o som final
   somVencedor = this.sound.add("somVencedor");
   somVencedor.loop = true;
 
-  //adicionando os botões de sim e não de jogar novamente
+  //Adicionando os botões de sim e não de jogar novamente
   botaoSim.on(
     "pointerdown",
     function () {
-      //volta para escolher os clubes para jogar a partida novamente
+      //Volta para escolher os clubes para jogar a partida novamente
       aparecerFundo1Novamente();
     },
     this
@@ -966,51 +934,47 @@ cena1.create = function () {
   botaoNao.on(
     "pointerdown",
     function () {
-      //finaliza o jogo
+      //Finaliza o jogo
       this.scene.start(cena2);
       somVencedor.pause();
     },
     this
   );
 
-  //clique do botão para ir para a próxima tela
+  //Clique do botão para ir para a próxima tela
   botao0.on(
     "pointerdown",
     function () {
-      //inicia a partida
+      //Inicia a partida
       aparecerFundo2();
     },
     this
   );
 
-  //mostra no início apenas a tela de escolha de clubes
+  //Mostra no início apenas a tela de escolha de clubes e os dois primeiros clubes
   aparecerFundo1();
-
-  //colocando os dois clubes que sempre irão aparecer primeiro
   escolhaClubePadrao();
 };
-
 cena1.update = function () {
   //Fim da partida
   if (minutos === 30 && parteEmSegundos === 15 || minutos === 90) {
     aparecerFundo3();
   }
-  //atualização da posse de bola
+  //Atualização da posse de bola
   if (minutos % 10 === 0) {
     atualizarPosseBola();
   }
-  //atualização do placar do jogo
+  //Atualização do placar do jogo
   if (minutos % 2 === 0) {
     chanceGol = Phaser.Math.Between(0, 30); //Improvável que ocorra um gol
     console.log(`chanceGol: ${chanceGol}`);
-
     console.log(`parteEmSegundos: ${parteEmSegundos}`); //Para resolver o problema do cronômetro
 
-    //se o gol ocorrer, atualiza o placar
+    //Se o gol ocorrer, atualiza o placar
     if (chanceGol === 1) {
       atualizarPlacar();
     }
-    //se não tiver ocorrido nenhum gol
+    //Se não tiver ocorrido nenhum gol
     if (minutos === 85 && gols0 === 0 && gols1 === 0) {
       if (clube0Escolhido > clube1Escolhido) {
         gols0++;
@@ -1025,5 +989,4 @@ cena1.update = function () {
     }
   }
 };
-
 export { cena1 };
