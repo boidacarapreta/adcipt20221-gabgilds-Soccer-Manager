@@ -259,9 +259,13 @@ function aparecerFundo2() {
     callback: function () {
       tempoInicial += 15; //A cada 50 ms adiciona 15 segundos do tempo inicial
       textoCronometro.setText(formatarTempo(tempoInicial));
+      if (tempoInicial === 150) {
+        aparecerFundo3();
+      }
     },
     callbackScope: this,
     loop: true,
+
   });
 
   //Aleatoriedade para definir o tipo de jogo que vai ocorrer, uma goleada, jogo pegado, virada
@@ -785,7 +789,7 @@ cena1.create = function () {
   });
 
   //Lógica de enviar informações de um jogador para o outro
-  this.socket.on("desenharOutroJogador", ({ frame, x, y }) => {
+  this.socket.on("escolherTime", ({ frame, x, y }) => {
     if (jogador === 1) {
       player2.setFrame(frame);
       player2.x = x;
@@ -831,6 +835,7 @@ cena1.create = function () {
     switch (contagemClube1) {
       case 0:
         escolhabayern1();
+        socket.emit
         break;
 
       case 1:
@@ -958,9 +963,11 @@ cena1.create = function () {
 };
 cena1.update = function () {
   //Fim da partida
+  /*
   if (minutos === 30 && parteEmSegundos === 15 || minutos === 90) {
     aparecerFundo3();
   }
+  */
   //Atualização da posse de bola
   if (minutos % 10 === 0) {
     atualizarPosseBola();
