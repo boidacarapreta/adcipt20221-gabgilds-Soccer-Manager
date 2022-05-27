@@ -3,7 +3,9 @@ const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "https://boidacarapreta.github.io",
+    // Lista de URLs permitidas. Para permitir Gitpod.io,
+    // basta adicionar "https://*.gitpod.io" a essa lista.
+    origins: ["https://boidacarapreta.github.io"]
   },
 });const PORT = process.env.PORT || 3000;
 var jogadores = {
