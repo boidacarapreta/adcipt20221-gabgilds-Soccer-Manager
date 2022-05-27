@@ -647,8 +647,7 @@ cena1.create = function () {
     this
   );
 
-  /*
-  // <------------------------------------------------------------------------------------------------------------------------------->
+
   // Conectar no servidor via WebSocket
   
   this.socket = io("wss://stormy-beach-26933.herokuapp.com");
@@ -657,7 +656,6 @@ cena1.create = function () {
   var self = this;
   var physics = this.physics;
   var cameras = this.cameras;
-  var time = this.time;
   var socket = this.socket;
 
   this.socket.on("jogadores", function (jogadores) {
@@ -752,7 +750,6 @@ cena1.create = function () {
   });
 
   // <------------------------------------------------------------------------------------------------------------------------------->
-  */
   
   //fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
