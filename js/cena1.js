@@ -259,13 +259,43 @@ function aparecerFundo2() {
     callback: function () {
       tempoInicial += 15; //A cada 50 ms adiciona 15 segundos do tempo inicial
       textoCronometro.setText(formatarTempo(tempoInicial));
-      if (tempoInicial === 150) {
+      //Fim da partida
+      if (tempoInicial === 5400) {
         aparecerFundo3();
+      }
+
+      //Atualização da posse de bola
+      if (tempoInicial % 300 === 0) {
+        atualizarPosseBola();
+      }
+
+      //Atualização do placar do jogo
+      if (tempoInicial % 120 === 0) {
+        chanceGol = Phaser.Math.Between(0, 2); //Improvável que ocorra um gol
+        console.log(`chanceGol: ${chanceGol}`);
+
+        //Se o gol ocorrer, atualiza o placar
+        if (chanceGol === 1) {
+          atualizarPlacar();
+        }
+
+        //Se não tiver ocorrido nenhum gol
+        if (tempoInicial === 5100 && gols0 === 0 && gols1 === 0) {
+          if (clube0Escolhido > clube1Escolhido) {
+            gols0++;
+            textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
+          } else if (clube0Escolhido < clube1Escolhido) {
+            gols1++;
+            textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
+          } else if (clube0Escolhido === clube1Escolhido) {
+            gols0++;
+            textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
+          }
+        }
       }
     },
     callbackScope: this,
     loop: true,
-
   });
 
   //Aleatoriedade para definir o tipo de jogo que vai ocorrer, uma goleada, jogo pegado, virada
@@ -309,7 +339,7 @@ function aparecerFundo3() {
   contagem1 = 0;
   tempoInicial = undefined; //Resetando o tempo do cronômetro do jogo
 
-  console.log(`psg0: ${forçaPsg0} \nbayern0: ${forçaBayern0} \ncity0: ${forçaCity0} \nreal0: ${forçaReal0} \npsg1: ${forçaPsg1} \nbayern1: ${forçaBayern1} \ncity1: ${forçaCity1} \nreal1: ${forçaReal1} \n-----`);
+  console.log(`psg0: ${forçaPsg0} \nbayern0: ${forçaBayern0} \ncity0: ${forçaCity0} \nreal0: ${forçaReal0} \npsg1: ${forçaPsg1} \nbayern1: ${forçaBayern1} \ncity1: ${forçaCity1} \nreal1: ${forçaReal1}`);
 }
 //Função quando clica em jogar novamente
 function aparecerFundo1Novamente() {
@@ -961,40 +991,5 @@ cena1.create = function () {
   aparecerFundo1();
   escolhaClubePadrao();
 };
-cena1.update = function () {
-  //Fim da partida
-  /*
-  if (minutos === 30 && parteEmSegundos === 15 || minutos === 90) {
-    aparecerFundo3();
-  }
-  */
-  //Atualização da posse de bola
-  if (minutos % 10 === 0) {
-    atualizarPosseBola();
-  }
-  //Atualização do placar do jogo
-  if (minutos % 2 === 0) {
-    chanceGol = Phaser.Math.Between(0, 30); //Improvável que ocorra um gol
-    console.log(`chanceGol: ${chanceGol}`);
-    console.log(`parteEmSegundos: ${parteEmSegundos}`); //Para resolver o problema do cronômetro
-
-    //Se o gol ocorrer, atualiza o placar
-    if (chanceGol === 1) {
-      atualizarPlacar();
-    }
-    //Se não tiver ocorrido nenhum gol
-    if (minutos === 85 && gols0 === 0 && gols1 === 0) {
-      if (clube0Escolhido > clube1Escolhido) {
-        gols0++;
-        textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
-      } else if (clube0Escolhido < clube1Escolhido) {
-        gols1++;
-        textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
-      } else if (clube0Escolhido === clube1Escolhido) {
-        gols0++;
-        textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
-      }
-    }
-  }
-};
+cena1.update = function () {};
 export { cena1 };
