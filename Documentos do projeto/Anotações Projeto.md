@@ -1,26 +1,22 @@
-Phaser Editor 2D
+Fontes dos códigos:
+
+Cronômetro da partida: https://phaser.discourse.group/t/countdown-timer/2471
 
 --------------------------------------------------------------------------------------------------
 
-Fontes dos códigos:
+Essencial para o jogo (até dia 31/05/2022):
+- Fazer o multiplayer.
 
-Relógio da cena2: https://phaser.discourse.group/t/countdown-timer/2471
-
+Bugs do jogo:
+- Cronômetro acelera cada vez que se repete a partida;
+- Parabéns do PSG aparece no Bayern0xCity1 -> Acontece quando forçaPSG0 = forçaBayern0.
 
 Melhorias do jogo:
-
-- Intervalo do jogo;
-- Botar uma bolhinha do lado do jogador quando fazer gol;
-- Tempo depois de determinadas partidas não para;
-- Empate.
+1º Aperfeiçoar sistema de posse de bola e gols;
+2º Botar uma bolhinha do lado do jogador quando fazer gol;
+3º Empate;
+4º Intervalo do jogo (difícil).
 
 Informação do jogo:
-- Cada partida dura 28,8 segundos na vida real.
-
-
-Falar com o Boi:
-- Trocar mensagens do próprio jogo entre os jogadores;
-- Video 2 tarefa 5 -> Verificar se foi tudo realizado (fazer servidor para trocar mensagens entre os clientes) -> https://www.youtube.com/watch?v=ePI7IiyJDTo&list=PLje9mMro7hT2FxaPGIFWKO7KFcrmZgucv&index=2&t=2650s
-
-
-
+- Cada partida dura 28,8 segundos na vida real;
+- TempoInicial === 5400 para ter 90 minutos de partida.

@@ -214,14 +214,13 @@ function escolhaClubePadrao() {
 }
 //Funções para mostrar as telas do jogo
 function aparecerFundo1() {
+  //Coloca as imagens corretas
   fundo1.setVisible(true);
   fundo2.setVisible(false);
   fundo3.setVisible(false);
-
   textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
-
   botaoSim.setVisible(false);
   botaoNao.setVisible(false);
   botaoJogarDeNovo.setVisible(false);
@@ -229,7 +228,6 @@ function aparecerFundo1() {
   neymar.setVisible(false);
   benzema.setVisible(false);
   deBruyne.setVisible(false);
-
   parabensBayern0.setVisible(false);
   parabensBayern1.setVisible(false);
   parabensCity0.setVisible(false);
@@ -240,13 +238,12 @@ function aparecerFundo1() {
   parabensReal1.setVisible(false);
 }
 function aparecerFundo2() {
+  //Coloca as imagens corretas
   fundo1.setVisible(false);
   fundo2.setVisible(true);
-
   botao0.setVisible(false);
   botao1.setVisible(false);
   botao2.setVisible(false);
-
   textoCronometro.setVisible(true);
   textoPlacar.setVisible(true);
   textoPosseBola.setVisible(true);
@@ -257,7 +254,7 @@ function aparecerFundo2() {
   passagemTempo = time.addEvent({
     delay: 80,
     callback: function () {
-      tempoInicial += 15; //A cada 50 ms adiciona 15 segundos do tempo inicial
+      tempoInicial += 15; //A cada x ms (delay) adiciona 15 segundos do tempo inicial
       textoCronometro.setText(formatarTempo(tempoInicial));
       //Fim da partida
       if (tempoInicial === 5400) {
@@ -265,13 +262,13 @@ function aparecerFundo2() {
       }
 
       //Atualização da posse de bola
-      if (tempoInicial % 300 === 0) {
+      if (tempoInicial % 495 === 0) {
         atualizarPosseBola();
       }
 
       //Atualização do placar do jogo
       if (tempoInicial % 120 === 0) {
-        chanceGol = Phaser.Math.Between(0, 2); //Improvável que ocorra um gol
+        chanceGol = Phaser.Math.Between(0, 20); //Possibilidade de ocorrer um gol
         console.log(`chanceGol: ${chanceGol}`);
 
         //Se o gol ocorrer, atualiza o placar
@@ -280,7 +277,7 @@ function aparecerFundo2() {
         }
 
         //Se não tiver ocorrido nenhum gol
-        if (tempoInicial === 5100 && gols0 === 0 && gols1 === 0) {
+        if (tempoInicial === 4800 && gols0 === 0 && gols1 === 0) {
           if (clube0Escolhido > clube1Escolhido) {
             gols0++;
             textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
@@ -303,13 +300,12 @@ function aparecerFundo2() {
   console.log(`tipoDeJogo: ${tipoDeJogo}`);
 }
 function aparecerFundo3() {
+  //Coloca as imagens corretas
   fundo2.setVisible(false);
   fundo3.setVisible(true);
-
   textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
-
   botaoSim.setVisible(true);
   botaoNao.setVisible(true);
   botaoJogarDeNovo.setVisible(true);
@@ -328,7 +324,8 @@ function aparecerFundo3() {
     clube0vencendo();
   }
 
-  //Resetando as variáveis necessárias para conseguir rejogar 
+  //Resetando as variáveis necessárias para conseguir rejogar
+  tempoInicial = undefined;
   posseBola0 = 50;
   posseBola1 = 50;
   textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
@@ -337,23 +334,23 @@ function aparecerFundo3() {
   textoPlacar.setText(gols0 + "     " + gols1); //Atualiza o valor de placar
   contagem0 = 0;
   contagem1 = 0;
-  tempoInicial = undefined; //Resetando o tempo do cronômetro do jogo
 
-  console.log(`psg0: ${forçaPsg0} \nbayern0: ${forçaBayern0} \ncity0: ${forçaCity0} \nreal0: ${forçaReal0} \npsg1: ${forçaPsg1} \nbayern1: ${forçaBayern1} \ncity1: ${forçaCity1} \nreal1: ${forçaReal1}`);
+  console.log(
+    `Forças dos clubes:\npsg0: ${forçaPsg0} \nbayern0: ${forçaBayern0} \ncity0: ${forçaCity0} \nreal0: ${forçaReal0} \npsg1: ${forçaPsg1} \nbayern1: ${forçaBayern1} \ncity1: ${forçaCity1} \nreal1: ${forçaReal1}`
+  );
 }
 //Função quando clica em jogar novamente
 function aparecerFundo1Novamente() {
   //Definindo a força dos clubes de novo para definir o resultado da nova partida
   definindoForçaClubes();
 
+  //Coloca as imagens corretas
   fundo1.setVisible(true);
   fundo2.setVisible(false);
   fundo3.setVisible(false);
-
   textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
-
   botaoSim.setVisible(false);
   botaoNao.setVisible(false);
   botaoJogarDeNovo.setVisible(false);
@@ -361,11 +358,9 @@ function aparecerFundo1Novamente() {
   neymar.setVisible(false);
   benzema.setVisible(false);
   deBruyne.setVisible(false);
-
   botao0.setVisible(true);
   botao1.setVisible(true);
   botao2.setVisible(true);
-
   parabensPsg0.setVisible(false);
   parabensBayern0.setVisible(false);
   parabensCity0.setVisible(false);
@@ -379,11 +374,17 @@ function aparecerFundo1Novamente() {
   somVencedor.pause();
   soundtrack.play();
 
+  //Coloca os clubes que aparecem primeiro para serem escolhidos
   escolhaClubePadrao();
 
   //Adicionando valor no contador de partidas
-  contadorPartidas++;
-  textoContadorPartidas1.setText(contadorPartidas);
+  if (contadorPartidas % 100 !== 0) { 
+    contadorPartidas++;
+    textoContadorPartidas1.setText(contadorPartidas); 
+  } else if (contadorPartidas % 100 === 0) { //Contador de partidas reseta quando chega a 100
+    contadorPartidas = 0;
+    textoContadorPartidas1.setText(contadorPartidas);    
+  }
 }
 function clube0vencendo() {
   //Aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
@@ -464,15 +465,15 @@ function formatarTempo(segundos) {
 }
 function atualizarPosseBola() {
   //Determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
-  if (contagem0 < 2) {
-    posseBola0 = Phaser.Math.Between(20, 80);
+  if (contagem0 < 3) {
+    posseBola0 = Phaser.Math.Between(35, 65);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
-  } else if (1 < contagem0 < 5) {
+  } else if (2 < contagem0 < 6) {
     posseBola0 = Phaser.Math.Between(45, 55);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
-  } else if (contagem > 4) {
+  } else if (contagem > 5) {
     posseBola0 = Phaser.Math.Between(47, 53);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
@@ -522,7 +523,7 @@ function atualizarPlacar() {
     //Virada do clube vencedor
     if (tipoDeJogo === 0) {
       if (gols0 < 2) {
-        gols++;
+        gols0++;
         textoPlacar.setText(gols0 + "     " + gols1);
       } else if (gols1 < gols0) {
         gols1++;
