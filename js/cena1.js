@@ -63,7 +63,7 @@ var chanceGol;
 var gols0 = 0;
 var gols1 = 0;
 var contagem0 = 0; //Variável para a posse de bola
-var contagem1 = 0; //variável para o placar
+var contagem1 = 0; //Variável para o placar
 var jogador;
 var tipoDeJogo;
 //Variáveis e funções para o funcionamento da partida
@@ -73,6 +73,8 @@ var statusCity = { atk: 85, mid: 85, def: 86, ovr: 85 };
 var statusReal = { atk: 84, mid: 85, def: 83, ovr: 84 };
 var clube0Escolhido;
 var clube1Escolhido;
+var forçaClube0Escolhido;
+var forçaClube1Escolhido;
 var forçaBayern0;
 var forçaPsg0;
 var forçaCity0;
@@ -100,17 +102,6 @@ var botaoSim;
 var botaoNao;
 var botaoJogarDeNovo;
 //Funções da cena de escolher os clubes
-function escolhapsg0() {
-  psg0.setVisible(true);
-  nomepsg0.setVisible(true);
-  bayern0.setVisible(false);
-  nomebayern0.setVisible(false);
-  real0.setVisible(false);
-  nomereal0.setVisible(false);
-  city0.setVisible(false);
-  nomecity0.setVisible(false);
-  clube0Escolhido = forçaPsg0;
-}
 function escolhabayern0() {
   psg0.setVisible(false);
   nomepsg0.setVisible(false);
@@ -120,7 +111,20 @@ function escolhabayern0() {
   nomereal0.setVisible(false);
   city0.setVisible(false);
   nomecity0.setVisible(false);
-  clube0Escolhido = forçaBayern0;
+  forçaClube0Escolhido = forçaBayern0;
+  clube0Escolhido = "bayern";
+}
+function escolhapsg0() {
+  psg0.setVisible(true);
+  nomepsg0.setVisible(true);
+  bayern0.setVisible(false);
+  nomebayern0.setVisible(false);
+  real0.setVisible(false);
+  nomereal0.setVisible(false);
+  city0.setVisible(false);
+  nomecity0.setVisible(false);
+  forçaClube0Escolhido = forçaPsg0;
+  clube0Escolhido = "psg";
 }
 function escolhacity0() {
   psg0.setVisible(false);
@@ -131,7 +135,8 @@ function escolhacity0() {
   nomereal0.setVisible(false);
   city0.setVisible(true);
   nomecity0.setVisible(true);
-  clube0Escolhido = forçaCity0;
+  forçaClube0Escolhido = forçaCity0;
+  clube0Escolhido = "city";
 }
 function escolhareal0() {
   psg0.setVisible(false);
@@ -142,7 +147,8 @@ function escolhareal0() {
   nomereal0.setVisible(true);
   city0.setVisible(false);
   nomecity0.setVisible(false);
-  clube0Escolhido = forçaReal0;
+  forçaClube0Escolhido = forçaReal0;
+  clube0Escolhido = "real";
 }
 function escolhapsg1() {
   psg1.setVisible(true);
@@ -153,7 +159,8 @@ function escolhapsg1() {
   nomereal1.setVisible(false);
   city1.setVisible(false);
   nomecity1.setVisible(false);
-  clube1Escolhido = forçaPsg1;
+  forçaClube1Escolhido = forçaPsg1;
+  clube1Escolhido = "psg";
 }
 function escolhabayern1() {
   psg1.setVisible(false);
@@ -164,7 +171,8 @@ function escolhabayern1() {
   nomereal1.setVisible(false);
   city1.setVisible(false);
   nomecity1.setVisible(false);
-  clube1Escolhido = forçaBayern1;
+  forçaClube1Escolhido = forçaBayern1;
+  clube1Escolhido = "bayern";
 }
 function escolhacity1() {
   psg1.setVisible(false);
@@ -175,7 +183,8 @@ function escolhacity1() {
   nomereal1.setVisible(false);
   city1.setVisible(true);
   nomecity1.setVisible(true);
-  clube1Escolhido = forçaCity1;
+  forçaClube1Escolhido = forçaCity1;
+  clube1Escolhido = "city";
 }
 function escolhareal1() {
   psg1.setVisible(false);
@@ -186,7 +195,8 @@ function escolhareal1() {
   nomereal1.setVisible(true);
   city1.setVisible(false);
   nomecity1.setVisible(false);
-  clube1Escolhido = forçaReal1;
+  forçaClube1Escolhido = forçaReal1;
+  clube1Escolhido = "real";
 }
 //Função para retirar todos os clubes da tela
 function retirarTodosClubes() {
@@ -276,17 +286,17 @@ function aparecerFundo2() {
           atualizarPlacar();
         }
 
-        //Se não tiver ocorrido nenhum gol
+        //Se não tiver ocorrido nenhum gol durante a partida
         if (tempoInicial === 4800 && gols0 === 0 && gols1 === 0) {
-          if (clube0Escolhido > clube1Escolhido) {
+          if (forçaClube0Escolhido > forçaClube1Escolhido) {
             gols0++;
             textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
-          } else if (clube0Escolhido < clube1Escolhido) {
+          } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
             gols1++;
-            textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
-          } else if (clube0Escolhido === clube1Escolhido) {
+            textoPlacar.setText(gols0 + "     " + gols1);
+          } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
             gols0++;
-            textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
+            textoPlacar.setText(gols0 + "     " + gols1);
           }
         }
       }
@@ -316,11 +326,11 @@ function aparecerFundo3() {
   retirarTodosClubes();
 
   //Definindo o resultado da partida
-  if (clube0Escolhido > clube1Escolhido) {
+  if (gols0 > gols1) {
     clube0vencendo();
-  } else if (clube0Escolhido < clube1Escolhido) {
+  } else if (gols0 < gols1) {
     clube1vencendo();
-  } else if (clube0Escolhido === clube1Escolhido) {
+  } else if (gols0 === gols1) { //Por enquanto não tem empate
     clube0vencendo();
   }
 
@@ -378,35 +388,30 @@ function aparecerFundo1Novamente() {
   escolhaClubePadrao();
 
   //Adicionando valor no contador de partidas
-  if (contadorPartidas % 100 !== 0) { 
-    contadorPartidas++;
-    textoContadorPartidas1.setText(contadorPartidas); 
-  } else if (contadorPartidas % 100 === 0) { //Contador de partidas reseta quando chega a 100
-    contadorPartidas = 0;
-    textoContadorPartidas1.setText(contadorPartidas);    
-  }
+  contadorPartidas++;
+  textoContadorPartidas1.setText(contadorPartidas);
 }
 function clube0vencendo() {
   //Aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
-  if (clube0Escolhido === forçaPsg0) {
+  if (clube0Escolhido === "psg") {
     parabensPsg0.setVisible(true);
     neymar.setVisible(true);
     muller.setVisible(false);
     deBruyne.setVisible(false);
     benzema.setVisible(false);
-  } else if (clube0Escolhido === forçaBayern0) {
+  } else if (clube0Escolhido === "bayern") {
     parabensBayern0.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(true);
     deBruyne.setVisible(false);
     benzema.setVisible(false);
-  } else if (clube0Escolhido === forçaCity0) {
+  } else if (clube0Escolhido === "city") {
     parabensCity0.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(false);
     deBruyne.setVisible(true);
     benzema.setVisible(false);
-  } else if (clube0Escolhido === forçaReal0) {
+  } else if (clube0Escolhido === "real") {
     parabensReal0.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(false);
@@ -416,25 +421,25 @@ function clube0vencendo() {
 }
 function clube1vencendo() {
   //Decorrer da partida que no final o clube da direita vai ganhar, com aleatoriedades
-  if (clube1Escolhido === forçaPsg1) {
+  if (clube1Escolhido === "psg") {
     parabensPsg1.setVisible(true);
     neymar.setVisible(true);
     muller.setVisible(false);
     deBruyne.setVisible(false);
     benzema.setVisible(false);
-  } else if (clube1Escolhido === forçaBayern1) {
+  } else if (clube1Escolhido === "bayern") {
     parabensBayern1.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(true);
     deBruyne.setVisible(false);
     benzema.setVisible(false);
-  } else if (clube1Escolhido === forçaCity1) {
+  } else if (clube1Escolhido === "city") {
     parabensCity1.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(false);
     deBruyne.setVisible(true);
     benzema.setVisible(false);
-  } else if (clube1Escolhido === forçaReal1) {
+  } else if (clube1Escolhido === "real") {
     parabensReal1.setVisible(true);
     neymar.setVisible(false);
     muller.setVisible(false);
@@ -481,7 +486,7 @@ function atualizarPosseBola() {
   contagem0++;
 }
 function atualizarPlacar() {
-  if (clube0Escolhido > clube1Escolhido) { //Se o clube0 for ganhar
+  if (forçaClube0Escolhido > forçaClube1Escolhido) { //Se o clube0 for ganhar
     //Vitória tranquila do clube vencedor
     if (tipoDeJogo > 2) {
       if (gols0 < 2) {
@@ -512,7 +517,7 @@ function atualizarPlacar() {
     }
     contagem1++;
 
-  } else if (clube0Escolhido < clube1Escolhido) { //Se o clube1 for ganhar
+  } else if (forçaClube0Escolhido < forçaClube1Escolhido) { //Se o clube1 for ganhar
     //Vitória tranquila do clube vencedor
     if (tipoDeJogo > 2) {
       if (gols1 < 2) {
@@ -543,7 +548,7 @@ function atualizarPlacar() {
     }
     contagem1++;
 
-  } else if (clube0Escolhido === clube1Escolhido) { //Se tiver um empate nas forças, por enquanto o clube0 ganha
+  } else if (forçaClube0Escolhido === forçaClube1Escolhido) { //Se tiver um empate nas forças, por enquanto o clube0 ganha
     //Vitória tranquila do clube vencedor
     if (tipoDeJogo > 2) {
       if (gols0 < 2) {
