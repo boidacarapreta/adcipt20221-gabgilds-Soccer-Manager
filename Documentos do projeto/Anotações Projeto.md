@@ -1,3 +1,12 @@
+Shortcuts importantes para o projeto:
+
+'Ctrl + Shift + P' -> Mostra todos os comandos;
+'Ctrl + Shift + E' -> Mostra o explorador;
+'Ctrl + Shift + G' -> Mostra o controlador de versões;
+'Ctrl + "' -> Abrir o terminal.
+
+-------------------------------------------------------------------------------
+
 Enviando o código para o servidor Heroku:
 
 'heroku login -i';
@@ -5,13 +14,13 @@ Enviando o código para o servidor Heroku:
 'heroku git:remote -a secure-meadow-69283' (caso não tenha um link atrelado ao heroku);
 'git push heroku main'.
 
---------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
 Fontes dos códigos:
 
 Cronômetro da partida: https://phaser.discourse.group/t/countdown-timer/2471
 
---------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
 Essencial para o jogo (até dia 31/05/2022):
 1º Fazer o multiplayer;

@@ -25,18 +25,18 @@ var real0;
 var city0;
 var bayern0;
 var psg0;
-var nomebayern0;
-var nomecity0;
-var nomepsg0;
-var nomereal0;
+var nomeBayern0;
+var nomeCity0;
+var nomePsg0;
+var nomeReal0;
 var real1;
 var city1;
 var bayern1;
 var psg1;
-var nomebayern1;
-var nomecity1;
-var nomepsg1;
-var nomereal1;
+var nomeBayern1;
+var nomeCity1;
+var nomePsg1;
+var nomeReal1;
 var somMouse;
 var contagemClube0 = 0;
 var contagemClube1 = 0;
@@ -53,10 +53,6 @@ var posseBola0;
 var posseBola1;
 var minutos;
 var parteEmSegundos;
-var bayern0;
-var city1;
-var nomebayern0;
-var nomecity1;
 var tempoInicial;
 var time;
 var chanceGol;
@@ -102,125 +98,125 @@ var botaoSim;
 var botaoNao;
 var botaoJogarDeNovo;
 //Funções da cena de escolher os clubes
-function escolhabayern0() {
+function escolhaBayern0() {
   psg0.setVisible(false);
-  nomepsg0.setVisible(false);
+  nomePsg0.setVisible(false);
   bayern0.setVisible(true);
-  nomebayern0.setVisible(true);
+  nomeBayern0.setVisible(true);
   real0.setVisible(false);
-  nomereal0.setVisible(false);
+  nomeReal0.setVisible(false);
   city0.setVisible(false);
-  nomecity0.setVisible(false);
+  nomeCity0.setVisible(false);
   forçaClube0Escolhido = forçaBayern0;
   clube0Escolhido = "bayern";
 }
-function escolhapsg0() {
+function escolhaPsg0() {
   psg0.setVisible(true);
-  nomepsg0.setVisible(true);
+  nomePsg0.setVisible(true);
   bayern0.setVisible(false);
-  nomebayern0.setVisible(false);
+  nomeBayern0.setVisible(false);
   real0.setVisible(false);
-  nomereal0.setVisible(false);
+  nomeReal0.setVisible(false);
   city0.setVisible(false);
-  nomecity0.setVisible(false);
+  nomeCity0.setVisible(false);
   forçaClube0Escolhido = forçaPsg0;
   clube0Escolhido = "psg";
 }
-function escolhacity0() {
+function escolhaCity0() {
   psg0.setVisible(false);
-  nomepsg0.setVisible(false);
+  nomePsg0.setVisible(false);
   bayern0.setVisible(false);
-  nomebayern0.setVisible(false);
+  nomeBayern0.setVisible(false);
   real0.setVisible(false);
-  nomereal0.setVisible(false);
+  nomeReal0.setVisible(false);
   city0.setVisible(true);
-  nomecity0.setVisible(true);
+  nomeCity0.setVisible(true);
   forçaClube0Escolhido = forçaCity0;
   clube0Escolhido = "city";
 }
-function escolhareal0() {
+function escolhaReal0() {
   psg0.setVisible(false);
-  nomepsg0.setVisible(false);
+  nomePsg0.setVisible(false);
   bayern0.setVisible(false);
-  nomebayern0.setVisible(false);
+  nomeBayern0.setVisible(false);
   real0.setVisible(true);
-  nomereal0.setVisible(true);
+  nomeReal0.setVisible(true);
   city0.setVisible(false);
-  nomecity0.setVisible(false);
+  nomeCity0.setVisible(false);
   forçaClube0Escolhido = forçaReal0;
   clube0Escolhido = "real";
 }
-function escolhapsg1() {
+function escolhaPsg1() {
   psg1.setVisible(true);
-  nomepsg1.setVisible(true);
+  nomePsg1.setVisible(true);
   bayern1.setVisible(false);
-  nomebayern1.setVisible(false);
+  nomeBayern1.setVisible(false);
   real1.setVisible(false);
-  nomereal1.setVisible(false);
+  nomeReal1.setVisible(false);
   city1.setVisible(false);
-  nomecity1.setVisible(false);
+  nomeCity1.setVisible(false);
   forçaClube1Escolhido = forçaPsg1;
   clube1Escolhido = "psg";
 }
-function escolhabayern1() {
+function escolhaBayern1() {
   psg1.setVisible(false);
-  nomepsg1.setVisible(false);
+  nomePsg1.setVisible(false);
   bayern1.setVisible(true);
-  nomebayern1.setVisible(true);
+  nomeBayern1.setVisible(true);
   real1.setVisible(false);
-  nomereal1.setVisible(false);
+  nomeReal1.setVisible(false);
   city1.setVisible(false);
-  nomecity1.setVisible(false);
+  nomeCity1.setVisible(false);
   forçaClube1Escolhido = forçaBayern1;
   clube1Escolhido = "bayern";
 }
-function escolhacity1() {
+function escolhaCity1() {
   psg1.setVisible(false);
-  nomepsg1.setVisible(false);
+  nomePsg1.setVisible(false);
   bayern1.setVisible(false);
-  nomebayern1.setVisible(false);
+  nomeBayern1.setVisible(false);
   real1.setVisible(false);
-  nomereal1.setVisible(false);
+  nomeReal1.setVisible(false);
   city1.setVisible(true);
-  nomecity1.setVisible(true);
+  nomeCity1.setVisible(true);
   forçaClube1Escolhido = forçaCity1;
   clube1Escolhido = "city";
 }
-function escolhareal1() {
+function escolhaReal1() {
   psg1.setVisible(false);
-  nomepsg1.setVisible(false);
+  nomePsg1.setVisible(false);
   bayern1.setVisible(false);
-  nomebayern1.setVisible(false);
+  nomeBayern1.setVisible(false);
   real1.setVisible(true);
-  nomereal1.setVisible(true);
+  nomeReal1.setVisible(true);
   city1.setVisible(false);
-  nomecity1.setVisible(false);
+  nomeCity1.setVisible(false);
   forçaClube1Escolhido = forçaReal1;
   clube1Escolhido = "real";
 }
 //Função para retirar todos os clubes da tela
 function retirarTodosClubes() {
   psg0.setVisible(false);
-  nomepsg0.setVisible(false);
+  nomePsg0.setVisible(false);
   bayern0.setVisible(false);
-  nomebayern0.setVisible(false);
+  nomeBayern0.setVisible(false);
   real0.setVisible(false);
-  nomereal0.setVisible(false);
+  nomeReal0.setVisible(false);
   city0.setVisible(false);
-  nomecity0.setVisible(false);
+  nomeCity0.setVisible(false);
   psg1.setVisible(false);
-  nomepsg1.setVisible(false);
+  nomePsg1.setVisible(false);
   bayern1.setVisible(false);
-  nomebayern1.setVisible(false);
+  nomeBayern1.setVisible(false);
   real1.setVisible(false);
-  nomereal1.setVisible(false);
+  nomeReal1.setVisible(false);
   city1.setVisible(false);
-  nomecity1.setVisible(false);
+  nomeCity1.setVisible(false);
 }
 //Função para definir os clubes que aparecem por padrão
 function escolhaClubePadrao() {
-  escolhabayern0();
-  escolhacity1();
+  escolhaBayern0();
+  escolhaCity1();
 }
 //Funções para mostrar as telas do jogo
 function aparecerFundo1() {
@@ -599,10 +595,10 @@ cena1.preload = function () {
   this.load.image("psg", "./assets/clubes/psg.png");
   this.load.image("bayern", "./assets/clubes/bayern.png");
   this.load.image("botao1", "./assets/botao1.png");
-  this.load.image("nomereal", "./assets/clubes/nomereal.png");
-  this.load.image("nomecity", "./assets/clubes/nomecity.png");
-  this.load.image("nomepsg", "./assets/clubes/nomepsg.png");
-  this.load.image("nomebayern", "./assets/clubes/nomebayern.png");
+  this.load.image("nomeReal", "./assets/clubes/nomeReal.png");
+  this.load.image("nomeCity", "./assets/clubes/nomeCity.png");
+  this.load.image("nomePsg", "./assets/clubes/nomePsg.png");
+  this.load.image("nomeBayern", "./assets/clubes/nomeBayern.png");
   this.load.audio("somMouse", "./assets/somMouse.mp3");
   //Carregando as imagens e áudio que serão usados na cena do jogo
   this.load.image("fundo2", "./assets/fundo2.png");
@@ -666,20 +662,20 @@ cena1.create = function () {
   city0 = this.add.image(100, 70, "city");
   psg0 = this.add.image(94, 70, "psg");
   bayern0 = this.add.image(145, 70, "bayern");
-  nomebayern0 = this.add.image(173, 335, "nomebayern");
-  nomecity0 = this.add.image(175, 335, "nomecity");
-  nomepsg0 = this.add.image(175, 335, "nomepsg");
-  nomereal0 = this.add.image(170, 335, "nomereal");
+  nomeBayern0 = this.add.image(173, 335, "nomeBayern");
+  nomeCity0 = this.add.image(175, 335, "nomeCity");
+  nomePsg0 = this.add.image(175, 335, "nomePsg");
+  nomeReal0 = this.add.image(170, 335, "nomeReal");
 
   //Colocando os textos de seleção dos clubes do lado direito
   real1 = this.add.image(566, 70, "real");
   city1 = this.add.image(553, 70, "city");
   psg1 = this.add.image(552, 70, "psg");
   bayern1 = this.add.image(600, 70, "bayern");
-  nomebayern1 = this.add.image(628, 335, "nomebayern");
-  nomecity1 = this.add.image(630, 335, "nomecity");
-  nomepsg1 = this.add.image(629, 335, "nomepsg");
-  nomereal1 = this.add.image(625, 335, "nomereal");
+  nomeBayern1 = this.add.image(628, 335, "nomeBayern");
+  nomeCity1 = this.add.image(630, 335, "nomeCity");
+  nomePsg1 = this.add.image(629, 335, "nomePsg");
+  nomeReal1 = this.add.image(625, 335, "nomeReal");
 
   //Colocando os textos de vitórias de cada clube
   parabensBayern0 = this.add.image(400, 105, "bayern0");
@@ -735,18 +731,16 @@ cena1.create = function () {
     this
   );
 
-  //Conectar no servidor via WebSocket
-  
-  this.socket = io("https://secure-meadow-69283.herokuapp.com/");
+  this.socket = io("https://secure-meadow-69283.herokuapp.com/"); //Conectar ao servidor do Heroku via WebSocket
 
-  //Disparar evento quando jogador entrar na partida
+  //Tornar as variáveis utilizáveis dentro desse escopo
   var self = this;
   var physics = this.physics;
   var cameras = this.cameras;
   var socket = this.socket;
 
-  this.socket.on("jogadores", function (jogadores) {
-    if (jogadores.primeiro === self.socket.id) {
+  this.socket.on("jogadores", function (jogadores) { 
+    if (jogadores.primeiro === self.socket.id) { //Dispara evento quando jogador entrar na partida
       //Define jogador como o primeiro
       jogador = 1;
 
@@ -756,11 +750,11 @@ cena1.create = function () {
           midias = stream;
         })
         .catch((error) => console.log(error));
-      
     } else if (jogadores.segundo === self.socket.id) {
       //Define jogador como o segundo
       jogador = 2;
 
+      //Conectando a comunicação dos jogadores
       navigator.mediaDevices
         .getUserMedia({ video: false, audio: true })
         .then((stream) => {
@@ -836,7 +830,7 @@ cena1.create = function () {
       player1.y = y;
     }
   });
-  
+
   //Fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
     //Som de click do mouse
@@ -844,19 +838,22 @@ cena1.create = function () {
 
     switch (contagemClube0) {
       case 0:
-        escolhabayern0();
+        escolhaBayern0();
+        this.socket.emit("escolhaBayern", ({psg0, nomePsg0, bayern0, nome}) => {
+
+        });
         break;
 
       case 1:
-        escolhareal0();
+        escolhaReal0();
         break;
 
       case 2:
-        escolhacity0();
+        escolhaCity0();
         break;
 
       case 3:
-        escolhapsg0();
+        escolhaPsg0();
         break;
     }
     contagemClube0++;
@@ -870,20 +867,20 @@ cena1.create = function () {
 
     switch (contagemClube1) {
       case 0:
-        escolhabayern1();
-        socket.emit
+        escolhaBayern1();
+        socket.emit;
         break;
 
       case 1:
-        escolhareal1();
+        escolhaReal1();
         break;
 
       case 2:
-        escolhacity1();
+        escolhaCity1();
         break;
 
       case 3:
-        escolhapsg1();
+        escolhaPsg1();
         break;
     }
     contagemClube1++;
