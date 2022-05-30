@@ -654,8 +654,8 @@ cena1.create = function () {
 
   //Define e adiciona os botões da cena1
   botao0 = this.add.image(400, 300, "botao0").setInteractive().setVisible(false);
-  botao1 = this.add.image(280, 70, "botao1").setInteractive();
-  botao2 = this.add.image(735, 70, "botao1").setInteractive();
+  botao1 = this.add.image(280, 70, "botao1").setInteractive().setVisible(false);
+  botao2 = this.add.image(735, 70, "botao1").setInteractive().setVisible(false);
 
   //Colocando os textos de seleção dos clubes do lado esquerdo
   real0 = this.add.image(110, 70, "real");
@@ -785,12 +785,18 @@ cena1.create = function () {
         .catch((error) => console.log(error));
     }
 
+    console.log(jogadores); //Mostra os jogadores conectados
     //Os dois jogadores precisam estar conectados para o jogo começar
-    console.log(jogadores);
     if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
       botao0.setVisible(true);
     } else {
       botao0.setVisible(false);
+    }
+    //Cada jogador seleciona o seu clube
+    if (jogador === 1) {
+    botao1.setVisible(true);
+    } else if (jogador === 2) {
+    botao1.setVisible(true);
     }
   });
 
@@ -824,6 +830,7 @@ cena1.create = function () {
   });
 
   //Lógica de enviar informações de um jogador para o outro
+  /*
   this.socket.on("escolherTime", ({ frame, x, y }) => {
     if (jogador === 1) {
       player2.setFrame(frame);
@@ -835,6 +842,7 @@ cena1.create = function () {
       player1.y = y;
     }
   });
+  */
 
   //Fazendo a escolha dos clubes da esquerda por meio dos botões
   botao1.on("pointerdown", function () {
@@ -1014,15 +1022,7 @@ cena1.create = function () {
       city0.setVisible(false);
       nomeCity0.setVisible(false);
     }
-    });
-  
-  this.socket.on("escolhaClubes", ({botao1, botao2}) => {
-    if (jogador === 1) {
-      botao2.setVisible(false);
-    } else if (jogador === 2) {
-      botao1.setVisible(false);
-    }
-  })
+  });
 
   this.socket.emit("variáveis", ({tempoInicial, }))
 
