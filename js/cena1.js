@@ -653,7 +653,7 @@ cena1.create = function () {
   // <------ Cena de escolhendo os clubes ------->
 
   //Define e adiciona os botões da cena1
-  botao0 = this.add.image(400, 300, "botao0").setInteractive();
+  botao0 = this.add.image(400, 300, "botao0").setInteractive().setVisible(false);
   botao1 = this.add.image(280, 70, "botao1").setInteractive();
   botao2 = this.add.image(735, 70, "botao1").setInteractive();
 
@@ -787,10 +787,10 @@ cena1.create = function () {
 
     //Os dois jogadores precisam estar conectados para o jogo começar
     console.log(jogadores);
-    if (jogadores.primeiro === undefined && jogadores.segundo === undefined) {
-      botao0.setVisible(false);
-    } else if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
+    if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
       botao0.setVisible(true);
+    } else {
+      botao0.setVisible(false);
     }
   });
 
@@ -894,7 +894,7 @@ cena1.create = function () {
     contagemClube1 = contagemClube1 % 4;
   });
 
-  // <------ Cena do jogo acontecendo ------->
+  //Cena do jogo acontecendo
   //Adiciona o cronômetro
   textoCronometro = this.add.text(
     356,
@@ -907,7 +907,7 @@ cena1.create = function () {
   //Adiciona o texto da posse de bola
   textoPosseBola = this.add.text(342, 462, "50%  50%", fonteTexto2);
 
-  // <------ Cena do fim do jogo ------->
+  //Cena do fim do jogo
   //Botões para jogar novamente
   botaoSim = this.add.image(360, 580, "botaoSim").setInteractive();
   botaoNao = this.add.image(440, 580, "botaoNao").setInteractive();
@@ -1002,7 +1002,7 @@ cena1.create = function () {
   escolhaClubePadrao();
 
   //Multiplayer do jogo
-  /*
+  
   this.socket.on("escolhaBayern0", ({ psg0, nomePsg0, bayern0, nomeBayern0, city0, nomeCity0, real0, nomeReal0 }) => {
     if (jogador === 2) {
       psg0.setVisible(false);
@@ -1023,7 +1023,10 @@ cena1.create = function () {
       botao1.setVisible(false);
     }
   })
-  */
+
+  this.socket.emit("variáveis", ({tempoInicial, }))
+
+  this.socket.emit("", ({}))
 };
 cena1.update = function () {};
 export { cena1 };
