@@ -799,7 +799,7 @@ cena1.create = function () {
     botao1.setVisible(true);
 
     //Sicronizando as escolhas dos clubes
-    this.socket.on("contagemClube0", contagemClube0 => {
+    this.socket.on("recebendoContagemClube0", contagemClube0 => {
       if (contagemClube0 === 0) {
         escolhaBayern0();
       } else if (contagemClube0 === 1) {
@@ -815,7 +815,7 @@ cena1.create = function () {
     botao2.setVisible(true);
 
     //Sicronizando as escolhas dos clubes
-    this.socket.on("contagemClube1", contagemClube1 => {
+    this.socket.on("recebendoContagemClube1", contagemClube1 => {
       if (contagemClube1 === 0) {
         escolhaBayern1();
       } else if (contagemClube1 === 1) {
@@ -880,7 +880,7 @@ cena1.create = function () {
         escolhaPsg0();
         break;
     }
-    this.socket.emit("contagemClube0", contagemClube0);
+    this.socket.emit("enviandoContagemClube0", contagemClube0);
     contagemClube0++;
     contagemClube0 = contagemClube0 % 4;
   });
@@ -907,7 +907,7 @@ cena1.create = function () {
         escolhaPsg1();
         break;
     }
-    this.socket.emit("contagemClube0", contagemClube0);    
+    this.socket.emit("enviandoContagemClube1", contagemClube1);    
     contagemClube1++;
     contagemClube1 = contagemClube1 % 4;
   });
