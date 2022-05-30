@@ -878,7 +878,7 @@ cena1.create = function () {
         escolhaPsg0();
         break;
     }
-    this.socket.emit("enviandoContagemClube0", {
+    socket.emit("enviandoContagemClube0", {
       contagemClube0,
     });
     contagemClube0++;
@@ -907,7 +907,7 @@ cena1.create = function () {
         escolhaPsg1();
         break;
     }
-    this.socket.emit("enviandoContagemClube1", {
+    socket.emit("enviandoContagemClube1", {
       contagemClube1,
     });   
     contagemClube1++;
@@ -1020,27 +1020,6 @@ cena1.create = function () {
   //Mostra no início apenas a tela de escolha de clubes e os dois primeiros clubes
   aparecerFundo1();
   escolhaClubePadrao();
-
-  //Multiplayer do jogo
-  
-  /*
-  this.socket.on("escolhaBayern0", ({ psg0, nomePsg0, bayern0, nomeBayern0, city0, nomeCity0, real0, nomeReal0 }) => {
-    if (jogador === 2) {
-      psg0.setVisible(false);
-      nomePsg0.setVisible(false);
-      bayern0.setVisible(true);
-      nomeBayern0.setVisible(true);
-      real0.setVisible(false);
-      nomeReal0.setVisible(false);
-      city0.setVisible(false);
-      nomeCity0.setVisible(false);
-    }
-  });
-
-  this.socket.emit("variáveis", ({tempoInicial, }))
-
-  this.socket.emit("", ({}))
-  */
 };
 cena1.update = function () {};
 export { cena1 };
