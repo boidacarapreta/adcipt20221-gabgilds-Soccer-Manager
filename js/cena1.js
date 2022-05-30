@@ -792,34 +792,41 @@ cena1.create = function () {
     } else {
       botao0.setVisible(false);
     }
+
     //Cada jogador seleciona o seu clube
     if (jogador === 1) {
     //Deixando apenas o botão específico do jogador
     botao1.setVisible(true);
+
     //Sicronizando as escolhas dos clubes
-    if (contagemClube1 === 0) {
-      escolhaBayern1();
-    } else if (contagemClube1 === 1) {
-      escolhaReal1();
-    } else if (contagemClube1 === 2) {
-      escolhaCity1();
-    } else if (contagemClube1 === 3) {
-      escolhaPsg1();
-    }  
+    this.socket.on("contagemClube0", contagemClube0 => {
+      if (contagemClube0 === 0) {
+        escolhaBayern0();
+      } else if (contagemClube0 === 1) {
+        escolhaReal0();
+      } else if (contagemClube0 === 2) {
+        escolhaCity0();
+      } else if (contagemClube0 === 3) {
+        escolhaPsg0();
+      }
+    })
     } else if (jogador === 2) {
     //Deixando apenas o botão específico do jogador
     botao2.setVisible(true);
+
     //Sicronizando as escolhas dos clubes
-    if (contagemClube0 === 0) {
-      escolhaBayern0();
-    } else if (contagemClube0 === 1) {
-      escolhaReal0();
-    } else if (contagemClube0 === 2) {
-      escolhaCity0();
-    } else if (contagemClube0 === 3) {
-      escolhaPsg0();
-    }
-    }
+    this.socket.on("contagemClube1", contagemClube1 => {
+      if (contagemClube1 === 0) {
+        escolhaBayern1();
+      } else if (contagemClube1 === 1) {
+        escolhaReal1();
+      } else if (contagemClube1 === 2) {
+        escolhaCity1();
+      } else if (contagemClube1 === 3) {
+        escolhaPsg1();
+      }
+    })
+  } 
   });
 
   this.socket.on("offer", (socketId, description) => {
@@ -873,6 +880,7 @@ cena1.create = function () {
         escolhaPsg0();
         break;
     }
+    this.socket.emit("contagemClube0", contagemClube0);
     contagemClube0++;
     contagemClube0 = contagemClube0 % 4;
   });
@@ -899,6 +907,7 @@ cena1.create = function () {
         escolhaPsg1();
         break;
     }
+    this.socket.emit("contagemClube0", contagemClube0);    
     contagemClube1++;
     contagemClube1 = contagemClube1 % 4;
   });
