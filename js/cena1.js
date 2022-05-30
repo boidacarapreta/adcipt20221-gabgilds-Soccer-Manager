@@ -798,6 +798,30 @@ cena1.create = function () {
     } else if (jogador === 2) {
     botao2.setVisible(true);
     }
+
+    this.socket.on("escolhaClubes", (contagemClube0) => {
+      switch (contagemClube0) {
+        case 0:
+          escolhaBayern0();
+          break;
+  
+        case 1:
+          escolhaReal0();
+          break;
+  
+        case 2:
+          escolhaCity0();
+          break;
+  
+        case 3:
+          escolhaPsg0();
+          break;
+      }
+      /*
+      contagemClube0++;
+      contagemClube0 = contagemClube0 % 4;
+      */
+    })
   });
 
   this.socket.on("offer", (socketId, description) => {
@@ -852,24 +876,30 @@ cena1.create = function () {
     switch (contagemClube0) {
       case 0:
         escolhaBayern0();
-        /*
-        this.socket.emit("escolhaBayern0", ({forçaBayern0, forçaClube0Escolhido, clube0Escolhido}) => {
-          forçaClube0Escolhido = forçaBayern0;
-          clube0Escolhido = "bayern";
+        this.socket.emit("escolhaClubes", (contagemClube0) => {
+          contagemClube0 = 0;
         });
-        */
         break;
 
       case 1:
         escolhaReal0();
+        this.socket.emit("escolhaClubes", (contagemClube0) => {
+          contagemClube0 = 1;
+        });
         break;
 
       case 2:
         escolhaCity0();
+        this.socket.emit("escolhaClubes", (contagemClube0) => {
+          contagemClube0 = 2;
+        });
         break;
 
       case 3:
         escolhaPsg0();
+        this.socket.emit("escolhaClubes", (contagemClube0) => {
+          contagemClube0 = 3;
+        });
         break;
     }
     contagemClube0++;
