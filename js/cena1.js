@@ -650,7 +650,7 @@ cena1.create = function () {
   fundo2 = this.add.image(400, 300, "fundo2");
   fundo3 = this.add.image(400, 300, "fundo3");
 
-  // <------ Cena de escolhendo os clubes ------->
+  // Cena de escolhendo os clubes
 
   //Define e adiciona os botões da cena1
   botao0 = this.add.image(400, 300, "botao0").setInteractive().setVisible(false);
@@ -741,7 +741,7 @@ cena1.create = function () {
 
   this.socket.on("jogadores", function (jogadores) { 
     if (jogadores.primeiro === self.socket.id) { //Dispara evento quando jogador entrar na partida
-      //Define jogador como o primeiro
+      //Define o primeiro jogador
       jogador = 1;
 
       navigator.mediaDevices
@@ -751,7 +751,7 @@ cena1.create = function () {
         })
         .catch((error) => console.log(error));
     } else if (jogadores.segundo === self.socket.id) {
-      //Define jogador como o segundo
+      //Define o segundo jogador
       jogador = 2;
 
       //Conectando a comunicação dos jogadores
@@ -794,98 +794,32 @@ cena1.create = function () {
     }
     //Cada jogador seleciona o seu clube
     if (jogador === 1) {
+    //Deixando apenas o botão específico do jogador
     botao1.setVisible(true);
+    //Sicronizando as escolhas dos clubes
+    if (contagemClube1 === 0) {
+      escolhaBayern1();
+    } else if (contagemClube1 === 1) {
+      escolhaReal1();
+    } else if (contagemClube1 === 2) {
+      escolhaCity1();
+    } else if (contagemClube1 === 3) {
+      escolhaPsg1();
+    }  
     } else if (jogador === 2) {
+    //Deixando apenas o botão específico do jogador
     botao2.setVisible(true);
+    //Sicronizando as escolhas dos clubes
+    if (contagemClube0 === 0) {
+      escolhaBayern0();
+    } else if (contagemClube0 === 1) {
+      escolhaReal0();
+    } else if (contagemClube0 === 2) {
+      escolhaCity0();
+    } else if (contagemClube0 === 3) {
+      escolhaPsg0();
     }
-    
-    //Fazendo a escolha dos clubes da esquerda por meio dos botões
-    botao1.on("pointerdown", function () {
-      //Som de click do mouse
-      somMouse.play();
-  
-      switch (contagemClube0) {
-        case 0:
-          escolhaBayern0();
-          this.socket.emit("escolhaClubes", (contagemClube0) => {
-            contagemClube0 = 0;
-          });
-          break;
-  
-        case 1:
-          escolhaReal0();
-          this.socket.emit("escolhaClubes", (contagemClube0) => {
-            contagemClube0 = 1;
-          });
-          break;
-  
-        case 2:
-          escolhaCity0();
-          this.socket.emit("escolhaClubes", (contagemClube0) => {
-            contagemClube0 = 2;
-          });
-          break;
-  
-        case 3:
-          escolhaPsg0();
-          this.socket.emit("escolhaClubes", (contagemClube0) => {
-            contagemClube0 = 3;
-          });
-          break;
-      }
-      contagemClube0++;
-      contagemClube0 = contagemClube0 % 4;
-    });
-
-    this.socket.on("escolhaClubes", (contagemClube0) => {
-      switch (contagemClube0) {
-        case 0:
-          escolhaBayern0();
-          break;
-  
-        case 1:
-          escolhaReal0();
-          break;
-  
-        case 2:
-          escolhaCity0();
-          break;
-  
-        case 3:
-          escolhaPsg0();
-          break;
-      }
-      /*
-      contagemClube0++;
-      contagemClube0 = contagemClube0 % 4;
-      */
-    })
-
-  //Fazendo a escolha dos clubes da direita por meio dos botões
-  botao2.on("pointerdown", function () {
-    //Som de click do mouse
-    somMouse.play();
-
-    switch (contagemClube1) {
-      case 0:
-        escolhaBayern1();
-        break;
-
-      case 1:
-        escolhaReal1();
-        break;
-
-      case 2:
-        escolhaCity1();
-        break;
-
-      case 3:
-        escolhaPsg1();
-        break;
     }
-    contagemClube1++;
-    contagemClube1 = contagemClube1 % 4;
-  });
   });
 
   this.socket.on("offer", (socketId, description) => {
@@ -917,24 +851,7 @@ cena1.create = function () {
     conn.addIceCandidate(new RTCIceCandidate(candidate));
   });
 
-  //Lógica de enviar informações de um jogador para o outro
-  /*
-  this.socket.on("escolherTime", ({ frame, x, y }) => {
-    if (jogador === 1) {
-      player2.setFrame(frame);
-      player2.x = x;
-      player2.y = y;
-    } else if (jogador === 2) {
-      player1.setFrame(frame);
-      player1.x = x;
-      player1.y = y;
-    }
-  });
-  */
-
-  /*
   //Fazendo a escolha dos clubes da esquerda por meio dos botões
-
   botao1.on("pointerdown", function () {
     //Som de click do mouse
     somMouse.play();
@@ -942,30 +859,18 @@ cena1.create = function () {
     switch (contagemClube0) {
       case 0:
         escolhaBayern0();
-        this.socket.emit("escolhaClubes", (contagemClube0) => {
-          contagemClube0 = 0;
-        });
         break;
 
       case 1:
         escolhaReal0();
-        this.socket.emit("escolhaClubes", (contagemClube0) => {
-          contagemClube0 = 1;
-        });
         break;
 
       case 2:
         escolhaCity0();
-        this.socket.emit("escolhaClubes", (contagemClube0) => {
-          contagemClube0 = 2;
-        });
         break;
 
       case 3:
         escolhaPsg0();
-        this.socket.emit("escolhaClubes", (contagemClube0) => {
-          contagemClube0 = 3;
-        });
         break;
     }
     contagemClube0++;
@@ -997,7 +902,7 @@ cena1.create = function () {
     contagemClube1++;
     contagemClube1 = contagemClube1 % 4;
   });
-*/
+
   //Cena do jogo acontecendo
   //Adiciona o cronômetro
   textoCronometro = this.add.text(
