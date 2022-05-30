@@ -796,7 +796,7 @@ cena1.create = function () {
     if (jogador === 1) {
     botao1.setVisible(true);
     } else if (jogador === 2) {
-    botao1.setVisible(true);
+    botao2.setVisible(true);
     }
   });
 
