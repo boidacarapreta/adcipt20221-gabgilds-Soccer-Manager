@@ -257,6 +257,11 @@ function aparecerFundo2() {
   //Iniciando o cronometro
   //Define o tempo inicial
   tempoInicial = 0;
+  
+  if (contadorPartidas > 0) {
+    time.removeEvent(passagemTempo); //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
+  }
+
   passagemTempo = time.addEvent({
     delay: 80,
     callback: function () {
@@ -737,7 +742,7 @@ cena1.create = function () {
   var self = this;
   var socket = this.socket;
 
-  this.socket.on("jogadores", function (jogadores) { 
+  socket.on("jogadores", function (jogadores) { 
     if (jogadores.primeiro === self.socket.id) { //Dispara evento quando jogador entrar na partida
       //Define o primeiro jogador
       jogador = 1;
@@ -797,7 +802,7 @@ cena1.create = function () {
     botao1.setVisible(true);
 
     //Sicronizando as escolhas dos clubes da esquerda
-    this.socket.on("recebendoContagemClube0", (contagemClube0) => {
+    socket.on("recebendoContagemClube0", (contagemClube0) => {
       if (contagemClube0 === 0) {
         escolhaBayern0();
       } else if (contagemClube0 === 1) {
@@ -813,7 +818,7 @@ cena1.create = function () {
     botao2.setVisible(true);
 
     //Sicronizando as escolhas dos clubes da direita
-    this.socket.on("recebendoContagemClube1", (contagemClube1) => {
+    socket.on("recebendoContagemClube1", (contagemClube1) => {
       if (contagemClube1 === 0) {
         escolhaBayern1();
       } else if (contagemClube1 === 1) {
@@ -827,7 +832,7 @@ cena1.create = function () {
   } 
   });
 
-  this.socket.on("offer", (socketId, description) => {
+  socket.on("offer", (socketId, description) => {
     remoteConnection = new RTCPeerConnection(ice_servers);
     midias
       .getTracks()
