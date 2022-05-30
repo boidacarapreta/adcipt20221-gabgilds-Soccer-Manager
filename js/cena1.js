@@ -735,8 +735,6 @@ cena1.create = function () {
 
   //Tornar as variáveis utilizáveis dentro desse escopo
   var self = this;
-  var physics = this.physics;
-  var cameras = this.cameras;
   var socket = this.socket;
 
   this.socket.on("jogadores", function (jogadores) { 
@@ -798,7 +796,7 @@ cena1.create = function () {
     //Deixando apenas o botão específico do jogador
     botao1.setVisible(true);
 
-    //Sicronizando as escolhas dos clubes
+    //Sicronizando as escolhas dos clubes da esquerda
     this.socket.on("recebendoContagemClube0", (contagemClube0) => {
       if (contagemClube0 === 0) {
         escolhaBayern0();
@@ -814,7 +812,7 @@ cena1.create = function () {
     //Deixando apenas o botão específico do jogador
     botao2.setVisible(true);
 
-    //Sicronizando as escolhas dos clubes
+    //Sicronizando as escolhas dos clubes da direita
     this.socket.on("recebendoContagemClube1", (contagemClube1) => {
       if (contagemClube1 === 0) {
         escolhaBayern1();
