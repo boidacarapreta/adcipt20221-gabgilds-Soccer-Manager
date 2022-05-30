@@ -798,6 +798,44 @@ cena1.create = function () {
     } else if (jogador === 2) {
     botao2.setVisible(true);
     }
+    
+    //Fazendo a escolha dos clubes da esquerda por meio dos botões
+    botao1.on("pointerdown", function () {
+      //Som de click do mouse
+      somMouse.play();
+  
+      switch (contagemClube0) {
+        case 0:
+          escolhaBayern0();
+          this.socket.emit("escolhaClubes", (contagemClube0) => {
+            contagemClube0 = 0;
+          });
+          break;
+  
+        case 1:
+          escolhaReal0();
+          this.socket.emit("escolhaClubes", (contagemClube0) => {
+            contagemClube0 = 1;
+          });
+          break;
+  
+        case 2:
+          escolhaCity0();
+          this.socket.emit("escolhaClubes", (contagemClube0) => {
+            contagemClube0 = 2;
+          });
+          break;
+  
+        case 3:
+          escolhaPsg0();
+          this.socket.emit("escolhaClubes", (contagemClube0) => {
+            contagemClube0 = 3;
+          });
+          break;
+      }
+      contagemClube0++;
+      contagemClube0 = contagemClube0 % 4;
+    });
 
     this.socket.on("escolhaClubes", (contagemClube0) => {
       switch (contagemClube0) {
@@ -822,6 +860,32 @@ cena1.create = function () {
       contagemClube0 = contagemClube0 % 4;
       */
     })
+
+  //Fazendo a escolha dos clubes da direita por meio dos botões
+  botao2.on("pointerdown", function () {
+    //Som de click do mouse
+    somMouse.play();
+
+    switch (contagemClube1) {
+      case 0:
+        escolhaBayern1();
+        break;
+
+      case 1:
+        escolhaReal1();
+        break;
+
+      case 2:
+        escolhaCity1();
+        break;
+
+      case 3:
+        escolhaPsg1();
+        break;
+    }
+    contagemClube1++;
+    contagemClube1 = contagemClube1 % 4;
+  });
   });
 
   this.socket.on("offer", (socketId, description) => {
@@ -868,7 +932,9 @@ cena1.create = function () {
   });
   */
 
+  /*
   //Fazendo a escolha dos clubes da esquerda por meio dos botões
+
   botao1.on("pointerdown", function () {
     //Som de click do mouse
     somMouse.play();
@@ -931,7 +997,7 @@ cena1.create = function () {
     contagemClube1++;
     contagemClube1 = contagemClube1 % 4;
   });
-
+*/
   //Cena do jogo acontecendo
   //Adiciona o cronômetro
   textoCronometro = this.add.text(
@@ -1041,6 +1107,7 @@ cena1.create = function () {
 
   //Multiplayer do jogo
   
+  /*
   this.socket.on("escolhaBayern0", ({ psg0, nomePsg0, bayern0, nomeBayern0, city0, nomeCity0, real0, nomeReal0 }) => {
     if (jogador === 2) {
       psg0.setVisible(false);
@@ -1057,6 +1124,7 @@ cena1.create = function () {
   this.socket.emit("variáveis", ({tempoInicial, }))
 
   this.socket.emit("", ({}))
+  */
 };
 cena1.update = function () {};
 export { cena1 };
