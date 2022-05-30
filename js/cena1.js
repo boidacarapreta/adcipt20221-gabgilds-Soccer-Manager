@@ -997,6 +997,13 @@ cena1.create = function () {
   escolhaClubePadrao();
 
   //Multiplayer do jogo
+  //Jogo só começa quando os dois jogadores entram
+  if (jogadores.primeiro === undefined && jogadores.segundo === undefined) {
+    botao0.setVisible(false);
+  } else if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
+    botao0.setVisible(true);
+  }
+
   /*
   this.socket.on("escolhaBayern0", ({ psg0, nomePsg0, bayern0, nomeBayern0, city0, nomeCity0, real0, nomeReal0 }) => {
     if (jogador === 2) {
