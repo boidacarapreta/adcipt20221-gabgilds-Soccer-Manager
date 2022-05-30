@@ -1,33 +1,41 @@
-Phaser Editor 2D
+Shortcuts importantes para o projeto:
 
---------------------------------------------------------------------------------------------------
+'Ctrl + Shift + P' -> Mostra todos os comandos;
+'Ctrl + Shift + E' -> Mostra o explorador;
+'Ctrl + Shift + G' -> Mostra o controlador de versões;
+'Ctrl + "' -> Abrir o terminal.
+
+-------------------------------------------------------------------------------
+
+Enviando o código para o servidor Heroku:
+
+'heroku login -i';
+'git remote -v';
+'heroku git:remote -a secure-meadow-69283' (caso não tenha um link atrelado ao heroku);
+'git push heroku main'.
+
+-------------------------------------------------------------------------------
 
 Fontes dos códigos:
 
-Relógio da cena2: https://phaser.discourse.group/t/countdown-timer/2471
+Cronômetro da partida: https://phaser.discourse.group/t/countdown-timer/2471
 
+-------------------------------------------------------------------------------
+
+Essencial para o jogo (até dia 31/05/2022):
+1º Fazer o multiplayer;
+2º Cronômetro acelera cada vez que se repete a partida.
 
 Melhorias do jogo:
-
-- Intervalo do jogo;
-- Botar uma bolhinha do lado do jogador quando fazer gol;
-- Tempo depois de determinadas partidas não para;
-- Empate.
+1º Aperfeiçoar sistema de posse de bola e gols*;
+2º Botar uma bolhinha do lado do jogador quando fazer gol;
+3º Empate;
+4º Intervalo do jogo (difícil);
+5º Contador de partidas resetar quando chega a 100.
 
 Informação do jogo:
-- Cada partida dura 28,8 segundos na vida real.
+- Cada partida dura 28,8 segundos na vida real;
+- TempoInicial === 5400 para ter 90 minutos de partida.
 
 
-Falar com o Boi:
-- Heroku;
-- Github pages (já foi feito?);
-- Trocar mensagens do próprio jogo entre os jogadores;
-- Video 2 tarefa 5 -> Verificar se foi tudo realizado (fazer servidor para trocar mensagens entre os clientes) -> https://www.youtube.com/watch?v=ePI7IiyJDTo&list=PLje9mMro7hT2FxaPGIFWKO7KFcrmZgucv&index=2&t=2650s
-
-- Voz funciona? -> https://www.youtube.com/watch?v=sthVh-wRZrg&list=PLje9mMro7hT0pDZWroVNyg-YbBGhJNsxU&index=34
-
-- Várias vezes aparece no console -> If (minutos === 2 && parteEmSegundos === 0) {};
-
-- Vários alertas/erros no console.
-
-
+*O sistema de gols pode levar em consideração a diferença de força entre os times para determinar a probabilidade de uma goleada.
