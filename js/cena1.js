@@ -3,9 +3,9 @@ import { cena2 } from "./cena2.js";
 var cena1 = new Phaser.Scene("Cena 1");
 
 //Variáveis para o multiplayer (bagunçado)
-var multiplayer0;
-var multiplayer1;
-var multiplayer2;
+var multiplayer0 = 0;
+var multiplayer1 = 0;
+var multiplayer2 = 0;
 
 //Variáveis gerais da cena1
 var contadorPartidas = 0;
@@ -275,8 +275,10 @@ function aparecerFundo2() {
 
       //Atualização da posse de bola
       if (tempoInicial % 495 === 0) {
-        atualizarPosseBola();
-        //this.socket.emit("posseBola", posseBola0, posseBola1);
+        if (jogador === 1) {
+          atualizarPosseBola();
+          multiplayer1 = 1;
+        }
       }
 
       //Atualização do placar do jogo
@@ -821,8 +823,6 @@ cena1.create = function () {
   somVencedor = this.sound.add("somVencedor");
   somVencedor.loop = true;
 
-
-
   //Mostra no início apenas a tela de escolha de clubes e os dois primeiros clubes
   aparecerFundo1();
   escolhaClubePadrao();  
@@ -913,6 +913,10 @@ cena1.create = function () {
     socket.on("iniciarCena2", () => {
       this.scene.start(cena2);
     });    
+
+    socket.on("posseBola", (posseBola0, posseBola1) => {
+      textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
+    });
 
     } else if (jogador === 1) {
     //Deixando apenas o botão específico do jogador
@@ -1068,6 +1072,11 @@ cena1.create = function () {
   if (multiplayer0 === 1) {
     socket.emit("fimDaPartida");
   }
+  if (multiplayer1 === 1) {
+    socket.emit("posseBola", posseBola0, posseBola1);
+    multiplayer1 = 0; //Para conseguir usar a variável apenas quando atualizar a posse de bola
+  }
+
 };
 cena1.update = function () {};
 export { cena1 };

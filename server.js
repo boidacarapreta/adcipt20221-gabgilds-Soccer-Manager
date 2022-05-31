@@ -74,6 +74,10 @@ io.on("connection", function (socket) {
   socket.on("iniciarCena2", () => {
     socket.broadcast.emit("iniciarCena2");
   });
+  
+  socket.on("posseBola", (posseBola0, posseBola1) => {
+    socket.broadcast.emit("posseBola", posseBola0, posseBola1);
+  });
 });
 
 app.use(express.static("./"));
