@@ -22,6 +22,12 @@ Cronômetro da partida: https://phaser.discourse.group/t/countdown-timer/2471
 
 -------------------------------------------------------------------------------
 
+Variáveis do jogador 1 que serão enviadas para o jogador 2:
+
+posseBola0, posseBola1, gols0, gols1, tempoInicial, escolhaClube0, escolhaClube1
+
+-------------------------------------------------------------------------------
+
 Essencial para o jogo (até dia 31/05/2022):
 1º Fazer o multiplayer.
 

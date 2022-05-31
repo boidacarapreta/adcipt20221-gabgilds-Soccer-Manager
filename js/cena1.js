@@ -8,7 +8,7 @@ var textoContadorPartidas0;
 var textoContadorPartidas1;
 var soundtrack;
 var ice_servers = {
-  iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+  iceServers: [{urls: "stun:stun.l.google.com:19302"}],
 };
 var localConnection;
 var remoteConnection;
@@ -44,9 +44,9 @@ var contagemClube1 = 0;
 var fundo2;
 var textoCronometro;
 var passagemTempo;
-var fonteTexto0 = { font: "bold 35px Mont", fill: "#000000" };
-var fonteTexto1 = { font: "bold 28px Arial", fill: "#FFFFFF" };
-var fonteTexto2 = { font: "bold 28px Mont", fill: "#000000" };
+var fonteTexto0 = {font: "bold 35px Mont", fill: "#000000"};
+var fonteTexto1 = {font: "bold 28px Arial", fill: "#FFFFFF"};
+var fonteTexto2 = {font: "bold 28px Mont", fill: "#000000"};
 var textoPlacar;
 var textoPosseBola;
 var posseBola0;
@@ -259,9 +259,9 @@ function aparecerFundo2() {
   tempoInicial = 0;
 
   //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
-  if (contadorPartidas > 0) {
-    time.removeEvent(passagemTempo);
-  }
+  //if (contadorPartidas > 0) {
+  //  time.removeEvent(passagemTempo);
+  //}
 
   passagemTempo = time.addEvent({
     delay: 80,
@@ -270,12 +270,14 @@ function aparecerFundo2() {
       textoCronometro.setText(formatarTempo(tempoInicial));
       //Fim da partida
       if (tempoInicial === 5400) {
+        //socket.emit("tempoInicial", tempoInicial);
         aparecerFundo3();
       }
 
       //Atualização da posse de bola
       if (tempoInicial % 495 === 0) {
         atualizarPosseBola();
+        //socket.emit("posseBola", posseBola0, posseBola1);
       }
 
       //Atualização do placar do jogo
@@ -286,6 +288,7 @@ function aparecerFundo2() {
         //Se o gol ocorrer, atualiza o placar
         if (chanceGol === 1) {
           atualizarPlacar();
+          //socket.emit("gols", gols0, gols1);
         }
 
         //Se não tiver ocorrido nenhum gol durante a partida
@@ -293,12 +296,15 @@ function aparecerFundo2() {
           if (forçaClube0Escolhido > forçaClube1Escolhido) {
             gols0++;
             textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
+            //socket.emit("gols", gols0, gols1);
           } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
             gols1++;
             textoPlacar.setText(gols0 + "     " + gols1);
+            //socket.emit("gols", gols0, gols1);
           } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
             gols0++;
             textoPlacar.setText(gols0 + "     " + gols1);
+            //socket.emit("gols", gols0, gols1);
           }
         }
       }
@@ -336,8 +342,10 @@ function aparecerFundo3() {
     clube0vencendo();
   }
 
+  time.removeEvent(passagemTempo);
+
   //Resetando as variáveis necessárias para conseguir rejogar
-  tempoInicial = undefined;
+  //tempoInicial = undefined;
   posseBola0 = 50;
   posseBola1 = 50;
   textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
@@ -476,18 +484,16 @@ function atualizarPosseBola() {
   if (contagem0 < 3) {
     posseBola0 = Phaser.Math.Between(35, 65);
     posseBola1 = 100 - posseBola0;
-    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
-    //socket.emit("posseBola", posseBola0, posseBola1);
+    //Atualiza os valores de posse de bola
+    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
   } else if (2 < contagem0 < 6) {
     posseBola0 = Phaser.Math.Between(45, 55);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
-    //socket.emit("posseBola", posseBola0, posseBola1);
   } else if (contagem > 5) {
     posseBola0 = Phaser.Math.Between(47, 53);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
-    //socket.emit("posseBola", posseBola0, posseBola1);
   }
   contagem0++;
 }
@@ -520,7 +526,7 @@ function atualizarPlacar() {
     }
     //Vitória no final do jogo
     if (tipoDeJogo === 2) {
-      //Não precisa fazer nada, o código já está feito no cena1.update
+      //Não precisa fazer nada, o código já está feito no evento "passagemTempo"
     }
     contagem1++;
 
@@ -742,6 +748,113 @@ cena1.create = function () {
     this
   );
 
+  //Cena do jogo acontecendo
+  //Adiciona o cronômetro
+  textoCronometro = this.add.text(
+    356,
+    170,
+    formatarTempo(this.tempoInicial),
+    fonteTexto0
+  );
+  //Adiciona o placar
+  textoPlacar = this.add.text(360, 287, gols0 + "     " + gols1, fonteTexto0);
+  //Adiciona o texto da posse de bola
+  textoPosseBola = this.add.text(342, 462, "50%  50%", fonteTexto2);
+
+  //Cena do fim do jogo
+  //Botões para jogar novamente
+  botaoSim = this.add.image(360, 580, "botaoSim").setInteractive();
+  botaoNao = this.add.image(440, 580, "botaoNao").setInteractive();
+  botaoJogarDeNovo = this.add.image(180, 580, "botaoJogarDeNovo");
+  //Animação dos vencedores
+  muller = this.physics.add.sprite(600, 450, "muller");
+  neymar = this.physics.add.sprite(600, 450, "neymar");
+  deBruyne = this.physics.add.sprite(600, 450, "deBruyne");
+  benzema = this.physics.add.sprite(600, 450, "benzema");
+
+  this.anims.create({
+    key: "vitoriaMuller",
+    frames: this.anims.generateFrameNumbers("muller", {
+      start: 0,
+      end: 4,
+    }),
+    frameRate: 5,
+    repeat: -1,
+  });
+
+  this.anims.create({
+    key: "vitoriaNeymar",
+    frames: this.anims.generateFrameNumbers("neymar", {
+      start: 0,
+      end: 4,
+    }),
+    frameRate: 5,
+    repeat: -1,
+  });
+
+  this.anims.create({
+    key: "vitoriaDeBruyne",
+    frames: this.anims.generateFrameNumbers("deBruyne", {
+      start: 0,
+      end: 4,
+    }),
+    frameRate: 5,
+    repeat: -1,
+  });
+
+  this.anims.create({
+    key: "vitoriaBenzema",
+    frames: this.anims.generateFrameNumbers("benzema", {
+      start: 0,
+      end: 4,
+    }),
+    frameRate: 5,
+    repeat: -1,
+  });
+
+  muller.anims.play("vitoriaMuller", true);
+  deBruyne.anims.play("vitoriaDeBruyne", true);
+  benzema.anims.play("vitoriaBenzema", true);
+  neymar.anims.play("vitoriaNeymar", true);
+
+  //Colocando o som final
+  somVencedor = this.sound.add("somVencedor");
+  somVencedor.loop = true;
+
+  //Adicionando os botões de sim e não de jogar novamente
+  botaoSim.on(
+    "pointerdown",
+    function () {
+      //Volta para escolher os clubes para jogar a partida novamente
+      aparecerFundo1Novamente();
+    },
+    this
+  );
+
+  botaoNao.on(
+    "pointerdown",
+    function () {
+      //Finaliza o jogo
+      this.scene.start(cena2);
+      somVencedor.pause();
+    },
+    this
+  );
+
+  //Clique do botão para ir para a próxima tela
+  botao0.on(
+    "pointerdown",
+    function () {
+      //Inicia a partida
+      aparecerFundo2();
+    },
+    this
+  );
+
+  //Mostra no início apenas a tela de escolha de clubes e os dois primeiros clubes
+  aparecerFundo1();
+  escolhaClubePadrao();  
+
   this.socket = io("https://secure-meadow-69283.herokuapp.com/"); //Conectar ao servidor do Heroku via WebSocket
 
   //Tornar as variáveis utilizáveis dentro desse escopo
@@ -922,113 +1035,6 @@ cena1.create = function () {
     contagemClube1++;
     contagemClube1 = contagemClube1 % 4;
   });
-
-  //Cena do jogo acontecendo
-  //Adiciona o cronômetro
-  textoCronometro = this.add.text(
-    356,
-    170,
-    formatarTempo(this.tempoInicial),
-    fonteTexto0
-  );
-  //Adiciona o placar
-  textoPlacar = this.add.text(360, 287, gols0 + "     " + gols1, fonteTexto0);
-  //Adiciona o texto da posse de bola
-  textoPosseBola = this.add.text(342, 462, "50%  50%", fonteTexto2);
-
-  //Cena do fim do jogo
-  //Botões para jogar novamente
-  botaoSim = this.add.image(360, 580, "botaoSim").setInteractive();
-  botaoNao = this.add.image(440, 580, "botaoNao").setInteractive();
-  botaoJogarDeNovo = this.add.image(180, 580, "botaoJogarDeNovo");
-  //Animação dos vencedores
-  muller = this.physics.add.sprite(600, 450, "muller");
-  neymar = this.physics.add.sprite(600, 450, "neymar");
-  deBruyne = this.physics.add.sprite(600, 450, "deBruyne");
-  benzema = this.physics.add.sprite(600, 450, "benzema");
-
-  this.anims.create({
-    key: "vitoriaMuller",
-    frames: this.anims.generateFrameNumbers("muller", {
-      start: 0,
-      end: 4,
-    }),
-    frameRate: 5,
-    repeat: -1,
-  });
-
-  this.anims.create({
-    key: "vitoriaNeymar",
-    frames: this.anims.generateFrameNumbers("neymar", {
-      start: 0,
-      end: 4,
-    }),
-    frameRate: 5,
-    repeat: -1,
-  });
-
-  this.anims.create({
-    key: "vitoriaDeBruyne",
-    frames: this.anims.generateFrameNumbers("deBruyne", {
-      start: 0,
-      end: 4,
-    }),
-    frameRate: 5,
-    repeat: -1,
-  });
-
-  this.anims.create({
-    key: "vitoriaBenzema",
-    frames: this.anims.generateFrameNumbers("benzema", {
-      start: 0,
-      end: 4,
-    }),
-    frameRate: 5,
-    repeat: -1,
-  });
-
-  muller.anims.play("vitoriaMuller", true);
-  deBruyne.anims.play("vitoriaDeBruyne", true);
-  benzema.anims.play("vitoriaBenzema", true);
-  neymar.anims.play("vitoriaNeymar", true);
-
-  //Colocando o som final
-  somVencedor = this.sound.add("somVencedor");
-  somVencedor.loop = true;
-
-  //Adicionando os botões de sim e não de jogar novamente
-  botaoSim.on(
-    "pointerdown",
-    function () {
-      //Volta para escolher os clubes para jogar a partida novamente
-      aparecerFundo1Novamente();
-    },
-    this
-  );
-
-  botaoNao.on(
-    "pointerdown",
-    function () {
-      //Finaliza o jogo
-      this.scene.start(cena2);
-      somVencedor.pause();
-    },
-    this
-  );
-
-  //Clique do botão para ir para a próxima tela
-  botao0.on(
-    "pointerdown",
-    function () {
-      //Inicia a partida
-      aparecerFundo2();
-    },
-    this
-  );
-
-  //Mostra no início apenas a tela de escolha de clubes e os dois primeiros clubes
-  aparecerFundo1();
-  escolhaClubePadrao();
 };
 cena1.update = function () {};
 export { cena1 };
