@@ -847,7 +847,7 @@ cena1.create = function () {
   aparecerFundo1();
   escolhaClubePadrao();  
 
-  this.socket = io("https://secure-meadow-69283.herokuapp.com/"); //Conectar ao servidor do Heroku via WebSocket
+  this.socket = io(); //Conectar ao servidor do Heroku via WebSocket
 
   //Tornar as variáveis utilizáveis dentro desse escopo
   var self = this;
