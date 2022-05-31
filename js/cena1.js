@@ -257,12 +257,6 @@ function aparecerFundo2() {
   //Iniciando o cronometro
   //Define o tempo inicial
   tempoInicial = 0;
-
-  //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
-  //if (contadorPartidas > 0) {
-  //  time.removeEvent(passagemTempo);
-  //}
-
   passagemTempo = time.addEvent({
     delay: 80,
     callback: function () {
@@ -342,10 +336,8 @@ function aparecerFundo3() {
     clube0vencendo();
   }
 
-  time.removeEvent(passagemTempo);
-
-  //Resetando as variáveis necessárias para conseguir rejogar
-  //tempoInicial = undefined;
+  //Resetando as variáveis necessárias e o tempo para conseguir rejogar
+  time.removeEvent(passagemTempo); //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
   posseBola0 = 50;
   posseBola1 = 50;
   textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
