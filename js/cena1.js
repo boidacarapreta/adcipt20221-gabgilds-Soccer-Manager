@@ -824,7 +824,7 @@ cena1.create = function () {
     function () {
       //Volta para escolher os clubes para jogar a partida novamente
       aparecerFundo1Novamente();
-      socket.emit("jogarNovamente");
+      this.socket.emit("jogarNovamente");
     },
     this
   );
@@ -835,7 +835,7 @@ cena1.create = function () {
       //Finaliza o jogo
       this.scene.start(cena2);
       somVencedor.pause();
-      socket.emit("iniciarCena2");
+      this.socket.emit("iniciarCena2");
     },
     this
   );
@@ -846,7 +846,7 @@ cena1.create = function () {
     function () {
       //Inicia a partida
       aparecerFundo2();
-      socket.emit("começarPartida");
+      this.socket.emit("começarPartida");
     },
     this
   );
