@@ -834,9 +834,8 @@ cena1.create = function () {
   } 
   });
 
-  io.on("connection", (socket) => {
-    socket.emit("hello", "world");
-  });
+  
+  socket.emit("hello", "world");
   
   socket.on("hello", (arg) => {
     console.log(arg); // world
