@@ -8,7 +8,7 @@ var textoContadorPartidas0;
 var textoContadorPartidas1;
 var soundtrack;
 var ice_servers = {
-  iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+  iceServers: [{urls: "stun:stun.l.google.com:19302"}],
 };
 var localConnection;
 var remoteConnection;
@@ -44,9 +44,9 @@ var contagemClube1 = 0;
 var fundo2;
 var textoCronometro;
 var passagemTempo;
-var fonteTexto0 = { font: "bold 35px Mont", fill: "#000000" };
-var fonteTexto1 = { font: "bold 28px Arial", fill: "#FFFFFF" };
-var fonteTexto2 = { font: "bold 28px Mont", fill: "#000000" };
+var fonteTexto0 = {font: "bold 35px Mont", fill: "#000000"};
+var fonteTexto1 = {font: "bold 28px Arial", fill: "#FFFFFF"};
+var fonteTexto2 = {font: "bold 28px Mont", fill: "#000000"};
 var textoPlacar;
 var textoPosseBola;
 var posseBola0;
@@ -264,12 +264,14 @@ function aparecerFundo2() {
       textoCronometro.setText(formatarTempo(tempoInicial));
       //Fim da partida
       if (tempoInicial === 5400) {
+        //this.socket.emit("tempoInicial", tempoInicial);
         aparecerFundo3();
       }
 
       //Atualização da posse de bola
       if (tempoInicial % 495 === 0) {
         atualizarPosseBola();
+        //this.socket.emit("posseBola", posseBola0, posseBola1);
       }
 
       //Atualização do placar do jogo
@@ -280,6 +282,7 @@ function aparecerFundo2() {
         //Se o gol ocorrer, atualiza o placar
         if (chanceGol === 1) {
           atualizarPlacar();
+          //this.socket.emit("gols", gols0, gols1);
         }
 
         //Se não tiver ocorrido nenhum gol durante a partida
@@ -287,12 +290,15 @@ function aparecerFundo2() {
           if (forçaClube0Escolhido > forçaClube1Escolhido) {
             gols0++;
             textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
+            //this.socket.emit("gols", gols0, gols1);
           } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
             gols1++;
             textoPlacar.setText(gols0 + "     " + gols1);
+            //this.socket.emit("gols", gols0, gols1);
           } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
             gols0++;
             textoPlacar.setText(gols0 + "     " + gols1);
+            //this.socket.emit("gols", gols0, gols1);
           }
         }
       }
@@ -330,8 +336,8 @@ function aparecerFundo3() {
     clube0vencendo();
   }
 
-  //Resetando as variáveis necessárias para conseguir rejogar
-  tempoInicial = undefined;
+  //Resetando as variáveis necessárias e o tempo para conseguir rejogar
+  time.removeEvent(passagemTempo); //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
   posseBola0 = 50;
   posseBola1 = 50;
   textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
@@ -464,23 +470,26 @@ function formatarTempo(segundos) {
   //Retorna o tempo formato para a função
   return `${minutos} : ${parteEmSegundos}`;
 }
+
 function atualizarPosseBola() {
   //Determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
   if (contagem0 < 3) {
     posseBola0 = Phaser.Math.Between(35, 65);
     posseBola1 = 100 - posseBola0;
-    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+    //Atualiza os valores de posse de bola
+    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
   } else if (2 < contagem0 < 6) {
     posseBola0 = Phaser.Math.Between(45, 55);
     posseBola1 = 100 - posseBola0;
-    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
   } else if (contagem > 5) {
     posseBola0 = Phaser.Math.Between(47, 53);
     posseBola1 = 100 - posseBola0;
-    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
   }
   contagem0++;
 }
+
 function atualizarPlacar() {
   if (forçaClube0Escolhido > forçaClube1Escolhido) { //Se o clube0 for ganhar
     //Vitória tranquila do clube vencedor
@@ -490,7 +499,7 @@ function atualizarPlacar() {
         textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
       }
     }
-    //Virada do clube vencedor
+    //Zebra que pode ser uma virada do clube mais forte se der tempo
     if (tipoDeJogo === 0) {
       if (gols1 < 2) {
         gols1++;
@@ -509,7 +518,7 @@ function atualizarPlacar() {
     }
     //Vitória no final do jogo
     if (tipoDeJogo === 2) {
-      //Não precisa fazer nada, o código já está feito no cena1.update
+      //Não precisa fazer nada, o código já está feito no evento "passagemTempo"
     }
     contagem1++;
 
@@ -650,7 +659,7 @@ cena1.create = function () {
   fundo2 = this.add.image(400, 300, "fundo2");
   fundo3 = this.add.image(400, 300, "fundo3");
 
-  // Cena de escolhendo os clubes
+  //Cena de escolhendo os clubes
 
   //Define e adiciona os botões da cena1
   botao0 = this.add.image(400, 300, "botao0").setInteractive().setVisible(false);
@@ -730,189 +739,6 @@ cena1.create = function () {
     },
     this
   );
-
-  this.socket = io("https://secure-meadow-69283.herokuapp.com/"); //Conectar ao servidor do Heroku via WebSocket
-
-  //Tornar as variáveis utilizáveis dentro desse escopo
-  var self = this;
-  var socket = this.socket;
-
-  this.socket.on("jogadores", function (jogadores) { 
-    if (jogadores.primeiro === self.socket.id) { //Dispara evento quando jogador entrar na partida
-      //Define o primeiro jogador
-      jogador = 1;
-
-      navigator.mediaDevices
-        .getUserMedia({ video: false, audio: true })
-        .then((stream) => {
-          midias = stream;
-        })
-        .catch((error) => console.log(error));
-    } else if (jogadores.segundo === self.socket.id) {
-      //Define o segundo jogador
-      jogador = 2;
-
-      //Conectando a comunicação dos jogadores
-      navigator.mediaDevices
-        .getUserMedia({ video: false, audio: true })
-        .then((stream) => {
-          midias = stream;
-          localConnection = new RTCPeerConnection(ice_servers);
-          midias
-            .getTracks()
-            .forEach((track) => localConnection.addTrack(track, midias));
-          localConnection.onicecandidate = ({ candidate }) => {
-            candidate &&
-              socket.emit("candidate", jogadores.primeiro, candidate);
-          };
-          console.log(midias);
-          localConnection.ontrack = ({ streams: [midias] }) => {
-            audio.srcObject = midias;
-          };
-          localConnection
-            .createOffer()
-            .then((offer) => localConnection.setLocalDescription(offer))
-            .then(() => {
-              socket.emit(
-                "offer",
-                jogadores.primeiro,
-                localConnection.localDescription
-              );
-            });
-        })
-        .catch((error) => console.log(error));
-    }
-
-    console.log(jogadores); //Mostra os jogadores conectados
-    //Os dois jogadores precisam estar conectados para o jogo começar
-    if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
-      botao0.setVisible(true);
-    } else {
-      botao0.setVisible(false);
-    }
-
-    //Cada jogador seleciona o seu clube
-    if (jogador === 1) {
-    //Deixando apenas o botão específico do jogador
-    botao1.setVisible(true);
-
-    //Sicronizando as escolhas dos clubes da esquerda
-    this.socket.on("recebendoContagemClube0", (contagemClube0) => {
-      if (contagemClube0 === 0) {
-        escolhaBayern0();
-      } else if (contagemClube0 === 1) {
-        escolhaReal0();
-      } else if (contagemClube0 === 2) {
-        escolhaCity0();
-      } else if (contagemClube0 === 3) {
-        escolhaPsg0();
-      }
-    })
-    } else if (jogador === 2) {
-    //Deixando apenas o botão específico do jogador
-    botao2.setVisible(true);
-
-    //Sicronizando as escolhas dos clubes da direita
-    this.socket.on("recebendoContagemClube1", (contagemClube1) => {
-      if (contagemClube1 === 0) {
-        escolhaBayern1();
-      } else if (contagemClube1 === 1) {
-        escolhaReal1();
-      } else if (contagemClube1 === 2) {
-        escolhaCity1();
-      } else if (contagemClube1 === 3) {
-        escolhaPsg1();
-      }
-    })
-  } 
-  });
-
-  this.socket.on("offer", (socketId, description) => {
-    remoteConnection = new RTCPeerConnection(ice_servers);
-    midias
-      .getTracks()
-      .forEach((track) => remoteConnection.addTrack(track, midias));
-    remoteConnection.onicecandidate = ({ candidate }) => {
-      candidate && socket.emit("candidate", socketId, candidate);
-    };
-    remoteConnection.ontrack = ({ streams: [midias] }) => {
-      audio.srcObject = midias;
-    };
-    remoteConnection
-      .setRemoteDescription(description)
-      .then(() => remoteConnection.createAnswer())
-      .then((answer) => remoteConnection.setLocalDescription(answer))
-      .then(() => {
-        socket.emit("answer", socketId, remoteConnection.localDescription);
-      });
-  });
-
-  socket.on("answer", (description) => {
-    localConnection.setRemoteDescription(description);
-  });
-
-  socket.on("candidate", (candidate) => {
-    const conn = localConnection || remoteConnection;
-    conn.addIceCandidate(new RTCIceCandidate(candidate));
-  });
-
-  //Fazendo a escolha dos clubes da esquerda por meio dos botões
-  botao1.on("pointerdown", function () {
-    //Som de click do mouse
-    somMouse.play();
-
-    switch (contagemClube0) {
-      case 0:
-        escolhaBayern0();
-        break;
-
-      case 1:
-        escolhaReal0();
-        break;
-
-      case 2:
-        escolhaCity0();
-        break;
-
-      case 3:
-        escolhaPsg0();
-        break;
-    }
-    socket.emit("enviandoContagemClube0", {
-      contagemClube0,
-    });
-    contagemClube0++;
-    contagemClube0 = contagemClube0 % 4;
-  });
-
-  //Fazendo a escolha dos clubes da direita por meio dos botões
-  botao2.on("pointerdown", function () {
-    //Som de click do mouse
-    somMouse.play();
-
-    switch (contagemClube1) {
-      case 0:
-        escolhaBayern1();
-        break;
-
-      case 1:
-        escolhaReal1();
-        break;
-
-      case 2:
-        escolhaCity1();
-        break;
-
-      case 3:
-        escolhaPsg1();
-        break;
-    }
-    socket.emit("enviandoContagemClube1", {
-      contagemClube1,
-    });   
-    contagemClube1++;
-    contagemClube1 = contagemClube1 % 4;
-  });
 
   //Cena do jogo acontecendo
   //Adiciona o cronômetro
@@ -1019,7 +845,188 @@ cena1.create = function () {
 
   //Mostra no início apenas a tela de escolha de clubes e os dois primeiros clubes
   aparecerFundo1();
-  escolhaClubePadrao();
+  escolhaClubePadrao();  
+
+  this.socket = io("https://secure-meadow-69283.herokuapp.com/"); //Conectar ao servidor do Heroku via WebSocket
+
+  //Tornar as variáveis utilizáveis dentro desse escopo
+  var self = this;
+  var socket = this.socket;
+
+  socket.on("jogadores", function (jogadores) { 
+    if (jogadores.primeiro === self.socket.id) { //Dispara evento quando jogador entrar na partida
+      //Define o primeiro jogador
+      jogador = 1;
+
+      navigator.mediaDevices
+        .getUserMedia({ video: false, audio: true })
+        .then((stream) => {
+          midias = stream;
+        })
+        .catch((error) => console.log(error));
+    } else if (jogadores.segundo === self.socket.id) {
+      //Define o segundo jogador
+      jogador = 2;
+
+      //Conectando a comunicação dos jogadores
+      navigator.mediaDevices
+        .getUserMedia({ video: false, audio: true })
+        .then((stream) => {
+          midias = stream;
+          localConnection = new RTCPeerConnection(ice_servers);
+          midias
+            .getTracks()
+            .forEach((track) => localConnection.addTrack(track, midias));
+          localConnection.onicecandidate = ({ candidate }) => {
+            candidate &&
+              socket.emit("candidate", jogadores.primeiro, candidate);
+          };
+          console.log(midias);
+          localConnection.ontrack = ({ streams: [midias] }) => {
+            audio.srcObject = midias;
+          };
+          localConnection
+            .createOffer()
+            .then((offer) => localConnection.setLocalDescription(offer))
+            .then(() => {
+              socket.emit(
+                "offer",
+                jogadores.primeiro,
+                localConnection.localDescription
+              );
+            });
+        })
+        .catch((error) => console.log(error));
+    }
+
+    //Cada jogador seleciona o seu clube
+    if (jogador === 2) {
+    //Deixando apenas o botão específico do jogador
+    botao2.setVisible(true);
+
+    //Sicronizando as escolhas dos clubes da esquerda
+    socket.on("contagemClube0", (contagemClube0) => {
+      if (contagemClube0 === 0) {
+        escolhaBayern0();
+      } else if (contagemClube0 === 1) {
+        escolhaReal0();
+      } else if (contagemClube0 === 2) {
+        escolhaCity0();
+      } else if (contagemClube0 === 3) {
+        escolhaPsg0();
+      }
+    })
+    } else if (jogador === 1) {
+    //Deixando apenas o botão específico do jogador
+    botao1.setVisible(true);
+
+    //Sicronizando as escolhas dos clubes da direita
+    socket.on("contagemClube1", (contagemClube1) => {
+      if (contagemClube1 === 0) {
+        escolhaBayern1();
+      } else if (contagemClube1 === 1) {
+        escolhaReal1();
+      } else if (contagemClube1 === 2) {
+        escolhaCity1();
+      } else if (contagemClube1 === 3) {
+        escolhaPsg1();
+      }
+    })
+
+    console.log(jogadores); //Mostra os jogadores conectados
+    //Os dois jogadores precisam estar conectados para o jogo começar
+    if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
+      botao0.setVisible(true);
+    } else if (jogadores.primeiro === undefined || jogadores.segundo === undefined) {
+      botao0.setVisible(false);
+      botao1.setVisible(false);
+      botao2.setVisible(false);
+    }
+  } 
+  });
+
+  socket.on("offer", (socketId, description) => {
+    remoteConnection = new RTCPeerConnection(ice_servers);
+    midias
+      .getTracks()
+      .forEach((track) => remoteConnection.addTrack(track, midias));
+    remoteConnection.onicecandidate = ({ candidate }) => {
+      candidate && socket.emit("candidate", socketId, candidate);
+    };
+    remoteConnection.ontrack = ({ streams: [midias] }) => {
+      audio.srcObject = midias;
+    };
+    remoteConnection
+      .setRemoteDescription(description)
+      .then(() => remoteConnection.createAnswer())
+      .then((answer) => remoteConnection.setLocalDescription(answer))
+      .then(() => {
+        socket.emit("answer", socketId, remoteConnection.localDescription);
+      });
+  });
+
+  socket.on("answer", (description) => {
+    localConnection.setRemoteDescription(description);
+  });
+
+  socket.on("candidate", (candidate) => {
+    const conn = localConnection || remoteConnection;
+    conn.addIceCandidate(new RTCIceCandidate(candidate));
+  });
+
+  //Fazendo a escolha dos clubes da esquerda por meio dos botões
+  botao1.on("pointerdown", function () {
+    //Som de click do mouse
+    somMouse.play();
+
+    switch (contagemClube0) {
+      case 0:
+        escolhaBayern0();
+        break;
+
+      case 1:
+        escolhaReal0();
+        break;
+
+      case 2:
+        escolhaCity0();
+        break;
+
+      case 3:
+        escolhaPsg0();
+        break;
+    }
+    socket.emit("contagemClube0", contagemClube0);
+    contagemClube0++;
+    contagemClube0 = contagemClube0 % 4;
+  });
+
+  //Fazendo a escolha dos clubes da direita por meio dos botões
+  botao2.on("pointerdown", function () {
+    //Som de click do mouse
+    somMouse.play();
+
+    switch (contagemClube1) {
+      case 0:
+        escolhaBayern1();
+        break;
+
+      case 1:
+        escolhaReal1();
+        break;
+
+      case 2:
+        escolhaCity1();
+        break;
+
+      case 3:
+        escolhaPsg1();
+        break;
+    }
+    socket.emit("contagemClube1", contagemClube1);   
+    contagemClube1++;
+    contagemClube1 = contagemClube1 % 4;
+  });
 };
 cena1.update = function () {};
 export { cena1 };
