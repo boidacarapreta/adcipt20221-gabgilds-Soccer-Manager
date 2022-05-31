@@ -2,6 +2,11 @@ import { cena2 } from "./cena2.js";
 
 var cena1 = new Phaser.Scene("Cena 1");
 
+//Variáveis para o multiplayer (bagunçado)
+var multiplayer0;
+var multiplayer1;
+var multiplayer2;
+
 //Variáveis gerais da cena1
 var contadorPartidas = 0;
 var textoContadorPartidas0;
@@ -264,8 +269,8 @@ function aparecerFundo2() {
       textoCronometro.setText(formatarTempo(tempoInicial));
       //Fim da partida
       if (tempoInicial === 5400) {
-        //this.socket.emit("tempoInicial", tempoInicial);
-        aparecerFundo3();
+        multiplayer0 = 1;
+        aparecerFundo3(); 
       }
 
       //Atualização da posse de bola
@@ -918,10 +923,15 @@ cena1.create = function () {
       }
     })
 
-    socket.on("começarPartida", (inicioPartida) => {
+    //Começando a partida do outro jogador
+    socket.on("começarPartida", () => {
       aparecerFundo2();
     });
-    
+
+    socket.on("fimDaPartida", () => {
+      aparecerFundo3();
+    })
+
     } else if (jogador === 1) {
     //Deixando apenas o botão específico do jogador
     botao1.setVisible(true);
@@ -1033,6 +1043,11 @@ cena1.create = function () {
     contagemClube1++;
     contagemClube1 = contagemClube1 % 4;
   });
+
+  //Enviando as variáveis geradas pelo jogador 1 para o jogador 2 via variáveis de intermediação
+  if (multiplayer0 === 1) {
+    socket.emit("fimDaPartida");
+  }
 };
 cena1.update = function () {};
 export { cena1 };
