@@ -269,8 +269,10 @@ function aparecerFundo2() {
       textoCronometro.setText(formatarTempo(tempoInicial));
       //Fim da partida
       if (tempoInicial === 5400) {
+        if (jogador === 1) {
+          aparecerFundo3(); 
+        }
         multiplayer0 = 1;
-        aparecerFundo3(); 
       }
 
       //Atualização da posse de bola
