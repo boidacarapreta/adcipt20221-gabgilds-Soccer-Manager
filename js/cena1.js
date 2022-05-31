@@ -824,6 +824,7 @@ cena1.create = function () {
     function () {
       //Volta para escolher os clubes para jogar a partida novamente
       aparecerFundo1Novamente();
+      socket.emit("jogarNovamente");
     },
     this
   );
@@ -834,6 +835,7 @@ cena1.create = function () {
       //Finaliza o jogo
       this.scene.start(cena2);
       somVencedor.pause();
+      socket.emit("iniciarCena2");
     },
     this
   );
@@ -930,7 +932,15 @@ cena1.create = function () {
 
     socket.on("fimDaPartida", () => {
       aparecerFundo3();
-    })
+    });
+
+    socket.on("jogarNovamente", () => {
+      aparecerFundo1Novamente();
+    });
+
+    socket.on("iniciarCena2", () => {
+      this.scene.start(cena2);
+    });    
 
     } else if (jogador === 1) {
     //Deixando apenas o botão específico do jogador

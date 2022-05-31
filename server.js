@@ -61,12 +61,18 @@ io.on("connection", function (socket) {
     socket.broadcast.emit("contagemClube1", contagemClube1);
   });
 
-  //Servidor recebendo a informação de quando começar e acabar a partida
+  //Servidor recebendo a informação de quando começar, acabar e repetir a partida
   socket.on("começarPartida", () => {
     socket.broadcast.emit("começarPartida");
   });
   socket.on("fimDaPartida", () => {
     socket.broadcast.emit("fimDaPartida");
+  });
+  socket.on("jogarNovamente", () => {
+    socket.broadcast.emit("jogarNovamente");
+  });
+  socket.on("iniciarCena2", () => {
+    socket.broadcast.emit("iniciarCena2");
   });
 });
 
