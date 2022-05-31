@@ -788,21 +788,13 @@ cena1.create = function () {
         .catch((error) => console.log(error));
     }
 
-    console.log(jogadores); //Mostra os jogadores conectados
-    //Os dois jogadores precisam estar conectados para o jogo começar
-    if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
-      botao0.setVisible(true);
-    } else {
-      botao0.setVisible(false);
-    }
-
     //Cada jogador seleciona o seu clube
     if (jogador === 2) {
     //Deixando apenas o botão específico do jogador
     botao2.setVisible(true);
 
     //Sicronizando as escolhas dos clubes da esquerda
-    socket.on("recebendoContagemClube0", (contagemClube0) => {
+    socket.on("contagemClube0", (contagemClube0) => {
       if (contagemClube0 === 0) {
         escolhaBayern0();
       } else if (contagemClube0 === 1) {
@@ -818,7 +810,7 @@ cena1.create = function () {
     botao1.setVisible(true);
 
     //Sicronizando as escolhas dos clubes da direita
-    socket.on("recebendoContagemClube1", (contagemClube1) => {
+    socket.on("contagemClube1", (contagemClube1) => {
       if (contagemClube1 === 0) {
         escolhaBayern1();
       } else if (contagemClube1 === 1) {
@@ -829,6 +821,16 @@ cena1.create = function () {
         escolhaPsg1();
       }
     })
+
+    console.log(jogadores); //Mostra os jogadores conectados
+    //Os dois jogadores precisam estar conectados para o jogo começar
+    if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
+      botao0.setVisible(true);
+    } else if (jogadores.primeiro === undefined || jogadores.segundo === undefined) {
+      botao0.setVisible(false);
+      botao1.setVisible(false);
+      botao2.setVisible(false);
+    }
   } 
   });
 
@@ -883,7 +885,7 @@ cena1.create = function () {
         escolhaPsg0();
         break;
     }
-    socket.emit("enviandoContagemClube0", {
+    socket.emit("contagemClube0", {
       contagemClube0,
     });
     contagemClube0++;
@@ -912,7 +914,7 @@ cena1.create = function () {
         escolhaPsg1();
         break;
     }
-    socket.emit("enviandoContagemClube1", {
+    socket.emit("contagemClube1", {
       contagemClube1,
     });   
     contagemClube1++;
