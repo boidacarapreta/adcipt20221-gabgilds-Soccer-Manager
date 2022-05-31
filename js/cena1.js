@@ -794,7 +794,7 @@ cena1.create = function () {
     botao2.setVisible(true);
 
     //Sicronizando as escolhas dos clubes da esquerda
-    socket.on("contagemClube0", (contagemClube0) => {
+    socket.on("recebendoContagemClube0", (contagemClube0) => {
       if (contagemClube0 === 0) {
         escolhaBayern0();
       } else if (contagemClube0 === 1) {
@@ -804,13 +804,14 @@ cena1.create = function () {
       } else if (contagemClube0 === 3) {
         escolhaPsg0();
       }
+      console.log(contagemClube1);
     })
     } else if (jogador === 1) {
     //Deixando apenas o botão específico do jogador
     botao1.setVisible(true);
 
     //Sicronizando as escolhas dos clubes da direita
-    socket.on("contagemClube1", (contagemClube1) => {
+    socket.on("recebendoContagemClube1", (contagemClube1) => {
       if (contagemClube1 === 0) {
         escolhaBayern1();
       } else if (contagemClube1 === 1) {
@@ -820,6 +821,7 @@ cena1.create = function () {
       } else if (contagemClube1 === 3) {
         escolhaPsg1();
       }
+      console.log(contagemClube1);
     })
 
     console.log(jogadores); //Mostra os jogadores conectados
@@ -885,8 +887,8 @@ cena1.create = function () {
         escolhaPsg0();
         break;
     }
-    socket.emit("contagemClube0", {
-      contagemClube0,
+    socket.emit("EnviandoContagemClube0", {
+      contagemClube0: contagemClube0,
     });
     contagemClube0++;
     contagemClube0 = contagemClube0 % 4;
@@ -914,8 +916,8 @@ cena1.create = function () {
         escolhaPsg1();
         break;
     }
-    socket.emit("contagemClube1", {
-      contagemClube1,
+    socket.emit("EnviandoContagemClube1", {
+      contagemClube1: contagemClube1,
     });   
     contagemClube1++;
     contagemClube1 = contagemClube1 % 4;
