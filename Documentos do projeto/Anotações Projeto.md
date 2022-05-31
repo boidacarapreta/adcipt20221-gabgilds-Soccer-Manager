@@ -20,6 +20,8 @@ Fontes dos códigos:
 
 Cronômetro da partida: https://phaser.discourse.group/t/countdown-timer/2471
 
+(LER) Multiplayer do jogo: https://hannahrobot.com/2020/12/04/build-among-us-live-multiplayer-phaser-3-socket/
+
 -------------------------------------------------------------------------------
 
 Variáveis do jogador 1 que serão enviadas para o jogador 2:

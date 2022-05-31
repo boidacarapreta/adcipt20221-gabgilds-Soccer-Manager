@@ -264,14 +264,14 @@ function aparecerFundo2() {
       textoCronometro.setText(formatarTempo(tempoInicial));
       //Fim da partida
       if (tempoInicial === 5400) {
-        //socket.emit("tempoInicial", tempoInicial);
+        //this.socket.emit("tempoInicial", tempoInicial);
         aparecerFundo3();
       }
 
       //Atualização da posse de bola
       if (tempoInicial % 495 === 0) {
         atualizarPosseBola();
-        //socket.emit("posseBola", posseBola0, posseBola1);
+        //this.socket.emit("posseBola", posseBola0, posseBola1);
       }
 
       //Atualização do placar do jogo
@@ -282,7 +282,7 @@ function aparecerFundo2() {
         //Se o gol ocorrer, atualiza o placar
         if (chanceGol === 1) {
           atualizarPlacar();
-          //socket.emit("gols", gols0, gols1);
+          //this.socket.emit("gols", gols0, gols1);
         }
 
         //Se não tiver ocorrido nenhum gol durante a partida
@@ -290,15 +290,15 @@ function aparecerFundo2() {
           if (forçaClube0Escolhido > forçaClube1Escolhido) {
             gols0++;
             textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
-            //socket.emit("gols", gols0, gols1);
+            //this.socket.emit("gols", gols0, gols1);
           } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
             gols1++;
             textoPlacar.setText(gols0 + "     " + gols1);
-            //socket.emit("gols", gols0, gols1);
+            //this.socket.emit("gols", gols0, gols1);
           } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
             gols0++;
             textoPlacar.setText(gols0 + "     " + gols1);
-            //socket.emit("gols", gols0, gols1);
+            //this.socket.emit("gols", gols0, gols1);
           }
         }
       }
