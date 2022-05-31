@@ -477,17 +477,17 @@ function atualizarPosseBola() {
     posseBola0 = Phaser.Math.Between(35, 65);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
-    socket.emit("posseBola", posseBola0, posseBola1);
+    //socket.emit("posseBola", posseBola0, posseBola1);
   } else if (2 < contagem0 < 6) {
     posseBola0 = Phaser.Math.Between(45, 55);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
-    socket.emit("posseBola", posseBola0, posseBola1);
+    //socket.emit("posseBola", posseBola0, posseBola1);
   } else if (contagem > 5) {
     posseBola0 = Phaser.Math.Between(47, 53);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
-    socket.emit("posseBola", posseBola0, posseBola1);
+    //socket.emit("posseBola", posseBola0, posseBola1);
   }
   contagem0++;
 }
@@ -661,7 +661,7 @@ cena1.create = function () {
   fundo2 = this.add.image(400, 300, "fundo2");
   fundo3 = this.add.image(400, 300, "fundo3");
 
-  // Cena de escolhendo os clubes
+  //Cena de escolhendo os clubes
 
   //Define e adiciona os botões da cena1
   botao0 = this.add.image(400, 300, "botao0").setInteractive().setVisible(false);
