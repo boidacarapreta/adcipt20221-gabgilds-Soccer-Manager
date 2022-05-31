@@ -258,8 +258,9 @@ function aparecerFundo2() {
   //Define o tempo inicial
   tempoInicial = 0;
 
+  //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
   if (contadorPartidas > 0) {
-    time.removeEvent(passagemTempo); //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
+    time.removeEvent(passagemTempo);
   }
 
   passagemTempo = time.addEvent({
@@ -469,23 +470,28 @@ function formatarTempo(segundos) {
   //Retorna o tempo formato para a função
   return `${minutos} : ${parteEmSegundos}`;
 }
+
 function atualizarPosseBola() {
   //Determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
   if (contagem0 < 3) {
     posseBola0 = Phaser.Math.Between(35, 65);
     posseBola1 = 100 - posseBola0;
     textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+    socket.emit("posseBola", posseBola0, posseBola1);
   } else if (2 < contagem0 < 6) {
     posseBola0 = Phaser.Math.Between(45, 55);
     posseBola1 = 100 - posseBola0;
-    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
+    socket.emit("posseBola", posseBola0, posseBola1);
   } else if (contagem > 5) {
     posseBola0 = Phaser.Math.Between(47, 53);
     posseBola1 = 100 - posseBola0;
-    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
+    socket.emit("posseBola", posseBola0, posseBola1);
   }
   contagem0++;
 }
+
 function atualizarPlacar() {
   if (forçaClube0Escolhido > forçaClube1Escolhido) { //Se o clube0 for ganhar
     //Vitória tranquila do clube vencedor
@@ -832,13 +838,6 @@ cena1.create = function () {
       botao2.setVisible(false);
     }
   } 
-  });
-
-  
-  socket.emit("hello", "world");
-  
-  socket.on("hello", (arg) => {
-    console.log(arg); // world
   });
 
   socket.on("offer", (socketId, description) => {
