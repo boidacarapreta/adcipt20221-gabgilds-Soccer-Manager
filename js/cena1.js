@@ -799,7 +799,7 @@ cena1.create = function () {
     //Cada jogador seleciona o seu clube
     if (jogador === 2) {
     //Deixando apenas o botão específico do jogador
-    botao1.setVisible(true);
+    botao2.setVisible(true);
 
     //Sicronizando as escolhas dos clubes da esquerda
     socket.on("recebendoContagemClube0", (contagemClube0) => {
@@ -815,7 +815,7 @@ cena1.create = function () {
     })
     } else if (jogador === 1) {
     //Deixando apenas o botão específico do jogador
-    botao2.setVisible(true);
+    botao1.setVisible(true);
 
     //Sicronizando as escolhas dos clubes da direita
     socket.on("recebendoContagemClube1", (contagemClube1) => {
