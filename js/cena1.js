@@ -839,6 +839,7 @@ cena1.create = function () {
     function () {
       //Inicia a partida
       aparecerFundo2();
+      socket.emit("começarPartida");
     },
     this
   );
@@ -916,6 +917,11 @@ cena1.create = function () {
         escolhaPsg0();
       }
     })
+
+    socket.on("começarPartida", (inicioPartida) => {
+      aparecerFundo2();
+    });
+    
     } else if (jogador === 1) {
     //Deixando apenas o botão específico do jogador
     botao1.setVisible(true);

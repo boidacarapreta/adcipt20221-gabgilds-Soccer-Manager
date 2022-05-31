@@ -60,6 +60,10 @@ io.on("connection", function (socket) {
   socket.on("contagemClube1", (contagemClube1) => {
     socket.broadcast.emit("contagemClube1", contagemClube1);
   });
+
+  socket.on("começarPartida", () => {
+    socket.broadcast.emit("começarPartida");
+  });
 });
 
 app.use(express.static("./"));
