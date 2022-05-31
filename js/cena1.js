@@ -257,7 +257,7 @@ function aparecerFundo2() {
   //Iniciando o cronometro
   //Define o tempo inicial
   tempoInicial = 0;
-  
+
   if (contadorPartidas > 0) {
     time.removeEvent(passagemTempo); //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
   }
@@ -495,7 +495,7 @@ function atualizarPlacar() {
         textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
       }
     }
-    //Virada do clube vencedor
+    //Zebra que pode ser uma virada do clube mais forte se der tempo
     if (tipoDeJogo === 0) {
       if (gols1 < 2) {
         gols1++;
@@ -797,7 +797,7 @@ cena1.create = function () {
     }
 
     //Cada jogador seleciona o seu clube
-    if (jogador === 1) {
+    if (jogador === 2) {
     //Deixando apenas o botão específico do jogador
     botao1.setVisible(true);
 
@@ -813,7 +813,7 @@ cena1.create = function () {
         escolhaPsg0();
       }
     })
-    } else if (jogador === 2) {
+    } else if (jogador === 1) {
     //Deixando apenas o botão específico do jogador
     botao2.setVisible(true);
 
