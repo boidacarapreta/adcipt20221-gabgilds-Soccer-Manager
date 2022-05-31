@@ -358,8 +358,14 @@ function aparecerFundo3() {
 }
 //Função quando clica em jogar novamente
 function aparecerFundo1Novamente() {
-  //Definindo a força dos clubes de novo para definir o resultado da nova partida
-  definindoForçaClubes();
+  if (jogador === 1) {
+    //Definindo a força dos clubes de novo para definir o resultado da nova partida
+    definindoForçaClubes();
+    botao0.setVisible(true);
+    botao1.setVisible(true);
+  } else if (jogador === 2) {
+    botao2.setVisible(true);
+  }
 
   //Coloca as imagens corretas
   fundo1.setVisible(true);
@@ -375,9 +381,6 @@ function aparecerFundo1Novamente() {
   neymar.setVisible(false);
   benzema.setVisible(false);
   deBruyne.setVisible(false);
-  botao0.setVisible(true);
-  botao1.setVisible(true);
-  botao2.setVisible(true);
   parabensPsg0.setVisible(false);
   parabensBayern0.setVisible(false);
   parabensCity0.setVisible(false);
@@ -1022,6 +1025,11 @@ cena1.create = function () {
     contagemClube1++;
     contagemClube1 = contagemClube1 % 4;
   });
+
+  if (jogador === 2) {
+    botaoSim.setVisible(false);
+    botaoNao.setVisible(false);
+  }
 
   //Adicionando os botões de sim e não de jogar novamente
   botaoSim.on(
