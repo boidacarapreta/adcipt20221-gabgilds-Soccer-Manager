@@ -818,38 +818,7 @@ cena1.create = function () {
   somVencedor = this.sound.add("somVencedor");
   somVencedor.loop = true;
 
-  //Adicionando os botões de sim e não de jogar novamente
-  botaoSim.on(
-    "pointerdown",
-    function () {
-      //Volta para escolher os clubes para jogar a partida novamente
-      aparecerFundo1Novamente();
-      this.socket.emit("jogarNovamente");
-    },
-    this
-  );
 
-  botaoNao.on(
-    "pointerdown",
-    function () {
-      //Finaliza o jogo
-      this.scene.start(cena2);
-      somVencedor.pause();
-      this.socket.emit("iniciarCena2");
-    },
-    this
-  );
-
-  //Clique do botão para ir para a próxima tela
-  botao0.on(
-    "pointerdown",
-    function () {
-      //Inicia a partida
-      aparecerFundo2();
-      this.socket.emit("começarPartida");
-    },
-    this
-  );
 
   //Mostra no início apenas a tela de escolha de clubes e os dois primeiros clubes
   aparecerFundo1();
@@ -1053,6 +1022,39 @@ cena1.create = function () {
     contagemClube1++;
     contagemClube1 = contagemClube1 % 4;
   });
+
+  //Adicionando os botões de sim e não de jogar novamente
+  botaoSim.on(
+    "pointerdown",
+    function () {
+      //Volta para escolher os clubes para jogar a partida novamente
+      aparecerFundo1Novamente();
+      socket.emit("jogarNovamente");
+    },
+    this
+  );
+
+  botaoNao.on(
+    "pointerdown",
+    function () {
+      //Finaliza o jogo
+      this.scene.start(cena2);
+      somVencedor.pause();
+      socket.emit("iniciarCena2");
+    },
+    this
+  );
+
+  //Clique do botão para ir para a próxima tela
+  botao0.on(
+    "pointerdown",
+    function () {
+      //Inicia a partida
+      aparecerFundo2();
+      socket.emit("começarPartida");
+    },
+    this
+  );
 
   //Enviando as variáveis geradas pelo jogador 1 para o jogador 2 via variáveis de intermediação
   if (multiplayer0 === 1) {
