@@ -51,6 +51,15 @@ io.on("connection", function (socket) {
   socket.on("estadoDoJogador", function (estado) {
     socket.broadcast.emit("desenharOutroJogador", estado);
   });
+
+  //Servidor recebendo a variável para enviar para os jogadores
+  socket.on("contagemClube0", (contagemClube0) => {
+    socket.broadcast.emit("contagemClube0", contagemClube0);
+  });
+
+  socket.on("contagemClube1", (contagemClube1) => {
+    socket.broadcast.emit("contagemClube1", contagemClube1);
+  });
 });
 
 app.use(express.static("./"));
