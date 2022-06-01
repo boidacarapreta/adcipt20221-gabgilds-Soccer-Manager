@@ -49,8 +49,8 @@ var fonteTexto1 = {font: "bold 28px Arial", fill: "#FFFFFF"};
 var fonteTexto2 = {font: "bold 28px Mont", fill: "#000000"};
 var textoPlacar;
 var textoPosseBola;
-var posseBola0;
-var posseBola1;
+const posseBola0 = {a, b, c, d, e, f, g, h, i};
+const posseBola1 = {a, b, c, d, e, f, g, h, i};
 var minutos;
 var parteEmSegundos;
 var tempoInicial;
@@ -58,15 +58,15 @@ var time;
 var chanceGol;
 var gols0 = 0;
 var gols1 = 0;
-var contagem0 = 0; //Variável para a posse de bola
-var contagem1 = 0; //Variável para o placar
+var contagem0; //Variável para a posse de bola
+var contagem1; //Variável para o placar
 var jogador;
 var tipoDeJogo;
 //Variáveis e funções para o funcionamento da partida
-var statusBayern = { atk: 92, mid: 85, def: 81, ovr: 84 };
-var statusPsg = { atk: 89, mid: 83, def: 85, ovr: 86 };
-var statusCity = { atk: 85, mid: 85, def: 86, ovr: 85 };
-var statusReal = { atk: 84, mid: 85, def: 83, ovr: 84 };
+var statusBayern = {atk: 92, mid: 85, def: 81, ovr: 84};
+var statusPsg = {atk: 89, mid: 83, def: 85, ovr: 86};
+var statusCity = {atk: 85, mid: 85, def: 86, ovr: 85};
+var statusReal = {atk: 84, mid: 85, def: 83, ovr: 84};
 var clube0Escolhido;
 var clube1Escolhido;
 var forçaClube0Escolhido;
@@ -363,8 +363,6 @@ function aparecerFundo1Novamente() {
     botao0.setVisible(true);
     botao1.setVisible(true);
   } else if (jogador === 2) {
-    botao0.setVisible(false);
-    botao1.setVisible(false);
     botao2.setVisible(true);
   }
 
@@ -480,6 +478,7 @@ function formatarTempo(segundos) {
   return `${minutos} : ${parteEmSegundos}`;
 }
 
+/*
 function atualizarPosseBola() {
   //Determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
   if (contagem0 < 3) {
@@ -498,6 +497,7 @@ function atualizarPosseBola() {
   }
   contagem0++;
 }
+*/
 
 function atualizarPlacar() {
   if (forçaClube0Escolhido > forçaClube1Escolhido) { //Se o clube0 for ganhar
@@ -931,6 +931,7 @@ cena1.create = function () {
       });    
 
       socket.on("posseBola", (posseBola0, posseBola1) => {
+        
         textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
       });
 
@@ -951,6 +952,30 @@ cena1.create = function () {
           escolhaPsg1();
         }
       })
+      
+      //Criando os valores de posse de bola que serão usados na partida
+      posseBola0.a = Phaser.Math.Between(35, 65);
+      posseBola1.a = 100 - posseBola0.a;
+      posseBola0.b = Phaser.Math.Between(35, 65);
+      posseBola1.b = 100 - posseBola0.b;
+      posseBola0.c = Phaser.Math.Between(35, 65);
+      posseBola1.c = 100 - posseBola0.c;
+
+      console.log(`posseBola0.a: ${posseBola0.a}`);
+    
+      posseBola0.d = Phaser.Math.Between(45, 55);
+      posseBola1.d = 100 - posseBola0.d;
+      posseBola0.e = Phaser.Math.Between(45, 55);
+      posseBola1.e = 100 - posseBola0.e;
+      posseBola0.f = Phaser.Math.Between(45, 55);
+      posseBola1.f = 100 - posseBola0.f;
+
+      posseBola0.g = Phaser.Math.Between(47, 53);
+      posseBola1.g = 100 - posseBola0.g;
+      posseBola0.h = Phaser.Math.Between(47, 53);
+      posseBola1.h = 100 - posseBola0.h;
+      posseBola0.i = Phaser.Math.Between(47, 53);
+      posseBola1.i = 100 - posseBola0.i;
 
       socket.emit("posseBola", posseBola0, posseBola1);
       
