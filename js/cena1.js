@@ -1116,7 +1116,7 @@ cena1.create = function () {
   jogo3PosseBola1I = 100 - jogo3PosseBola0I;
   */
 
-  this.socket = io(); //"https://secure-meadow-69283.herokuapp.com/" Conectar ao servidor do Heroku via WebSocket
+  this.socket = io("https://secure-meadow-69283.herokuapp.com/"); //Conectar ao servidor do Heroku via WebSocket
 
   //Tornar as variáveis utilizáveis dentro desse escopo
   var self = this;
