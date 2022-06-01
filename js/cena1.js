@@ -986,8 +986,6 @@ cena1.create = function () {
       });
 
       socket.on("iniciarCena2", () => {
-        this.start.scene(cena2);
-        /*
         fundo1.setVisible(false);
         fundo2.setVisible(false);
         fundo3.setVisible(false);
@@ -1010,12 +1008,31 @@ cena1.create = function () {
         parabensReal0.setVisible(false);
         parabensReal1.setVisible(false);
         retirarTodosClubes();
-        */
+        botaoTelaCheia.setVisible(false);
+        textoContadorPartidas0.setVisible(false);
+        textoContadorPartidas1.setVisible(false);
       });    
 
       socket.on("posseBola", (posseBola0, posseBola1) => {        
-        posseBola0 = jogador2PosseBola0;
-        posseBola1 = jogador2PosseBola1;
+        posseBola0.a = jogador2PosseBola0.a;
+        posseBola0.b = jogador2PosseBola0.b;
+        posseBola0.c = jogador2PosseBola0.c;
+        posseBola0.d = jogador2PosseBola0.d;
+        posseBola0.e = jogador2PosseBola0.e;
+        posseBola0.f = jogador2PosseBola0.f;
+        posseBola0.g = jogador2PosseBola0.g;
+        posseBola0.h = jogador2PosseBola0.h;
+        posseBola0.i = jogador2PosseBola0.i;
+        
+        posseBola1.a = jogador2posseBola1.a;
+        posseBola1.b = jogador2posseBola1.b;
+        posseBola1.c = jogador2posseBola1.c;
+        posseBola1.d = jogador2posseBola1.d;
+        posseBola1.e = jogador2posseBola1.e;
+        posseBola1.f = jogador2posseBola1.f;
+        posseBola1.g = jogador2posseBola1.g;
+        posseBola1.h = jogador2posseBola1.h;
+        posseBola1.i = jogador2posseBola1.i;
       });
     } 
   });
