@@ -319,8 +319,8 @@ function aparecerFundo3() {
   botaoJogarDeNovo.setVisible(true);
 
   if (jogador === 1) {
-    botaoSim.setVisible(false);
-    botaoNao.setVisible(false);
+    botaoSim.setVisible(true);
+    botaoNao.setVisible(true);
   } else if (jogador === 2) {
     botaoSim.setVisible(false);
     botaoNao.setVisible(false);
