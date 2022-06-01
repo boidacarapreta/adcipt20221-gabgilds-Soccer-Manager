@@ -56,6 +56,40 @@ io.on("connection", (socket) => {
   socket.on("contagemClube1", (estado) => {
     socket.broadcast.emit("contagemClube1", estado);
   });
+
+  //Servidor recebendo a variável para enviar para os jogadores
+  socket.on("contagemClube0", (contagemClube0) => {
+    socket.broadcast.emit("contagemClube0", contagemClube0);
+  });
+
+  socket.on("contagemClube1", (contagemClube1) => {
+    socket.broadcast.emit("contagemClube1", contagemClube1);
+  });
+
+  //Servidor recebendo a informação de quando começar, acabar e repetir a partida
+  socket.on("começarPartida", () => {
+    socket.broadcast.emit("começarPartida");
+  });
+  socket.on("jogarNovamente", () => {
+    socket.broadcast.emit("jogarNovamente");
+  });
+  socket.on("fimDoJogo", () => {
+    socket.broadcast.emit("fimDoJogo");
+  });
+
+  socket.on("posseBola", (
+    //jogo0
+    jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
+    jogo0PosseBola0E, jogo0PosseBola0F, jogo0PosseBola0G, jogo0PosseBola0H, jogo0PosseBola0I, 
+    jogo0PosseBola1A, jogo0PosseBola1B, jogo0PosseBola1C, jogo0PosseBola1D, jogo0PosseBola1E, jogo0PosseBola1F, 
+    jogo0PosseBola1G, jogo0PosseBola1H, jogo0PosseBola1I) => {
+    
+    console.log("Server recebendo possebola");
+    socket.broadcast.emit("posseBola", jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
+    jogo0PosseBola0E, jogo0PosseBola0F, jogo0PosseBola0G, jogo0PosseBola0H, jogo0PosseBola0I, 
+    jogo0PosseBola1A, jogo0PosseBola1B, jogo0PosseBola1C, jogo0PosseBola1D, jogo0PosseBola1E, jogo0PosseBola1F, 
+    jogo0PosseBola1G, jogo0PosseBola1H, jogo0PosseBola1I);
+  });
 });
 
 app.use(express.static("./"));
