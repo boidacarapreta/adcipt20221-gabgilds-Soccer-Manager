@@ -2,11 +2,6 @@ import { cena2 } from "./cena2.js";
 
 var cena1 = new Phaser.Scene("Cena 1");
 
-//Variáveis para o multiplayer (bagunçado)
-var multiplayer0 = 0;
-var multiplayer1 = 0;
-var multiplayer2 = 0;
-
 //Variáveis gerais da cena1
 var contadorPartidas = 0;
 var textoContadorPartidas0;
@@ -269,18 +264,12 @@ function aparecerFundo2() {
       textoCronometro.setText(formatarTempo(tempoInicial));
       //Fim da partida
       if (tempoInicial === 5400) {
-        if (jogador === 1) {
-          aparecerFundo3(); 
-          multiplayer0 = 1;
-        }
+        aparecerFundo3();          
       }
 
       //Atualização da posse de bola
       if (tempoInicial % 495 === 0) {
-        if (jogador === 1) {
-          atualizarPosseBola();
-          multiplayer1 = 1;
-        }
+        atualizarPosseBola();
       }
 
       //Atualização do placar do jogo
@@ -891,7 +880,6 @@ cena1.create = function () {
 
     //Cada player seleciona o seu clube
     if (jogador === 2) {
-
       //Deixando apenas o botão específico do player
       botao2.setVisible(true);
 
@@ -913,31 +901,39 @@ cena1.create = function () {
         aparecerFundo2();
       });
 
-      socket.on("fimDaPartida", (fimDaPartida) => {
-        aparecerFundo3();
-      });
-
       socket.on("jogarNovamente", () => {
         aparecerFundo1Novamente();
       });
 
       socket.on("iniciarCena2", () => {
-        this.scene.start(cena2);
+        fundo1.setVisible(false);
+        fundo2.setVisible(false);
+        fundo3.setVisible(false);
+        textoCronometro.setVisible(false);
+        textoPlacar.setVisible(false);
+        textoPosseBola.setVisible(false);
+        botaoSim.setVisible(false);
+        botaoNao.setVisible(false);
+        botaoJogarDeNovo.setVisible(false);
+        muller.setVisible(false);
+        neymar.setVisible(false);
+        benzema.setVisible(false);
+        deBruyne.setVisible(false);
+        parabensBayern0.setVisible(false);
+        parabensBayern1.setVisible(false);
+        parabensCity0.setVisible(false);
+        parabensCity1.setVisible(false);
+        parabensPsg0.setVisible(false);
+        parabensPsg1.setVisible(false);
+        parabensReal0.setVisible(false);
+        parabensReal1.setVisible(false);
+        retirarTodosClubes();
       });    
 
       socket.on("posseBola", (posseBola0, posseBola1) => {
         textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
       });
 
-      console.log(`multiplayer0: ${multiplayer0}`);
-      //Enviando as variáveis geradas pelo player 1 para o player 2 via variáveis de intermediação
-      if (multiplayer0 === 1) {
-        socket.emit("fimDaPartida", fimDaPartida);
-      }
-      if (multiplayer1 === 1) {
-        socket.emit("posseBola", posseBola0, posseBola1);
-        multiplayer1 = 0; //Para conseguir usar a variável apenas quando atualizar a posse de bola
-      }
 
     } else if (jogador === 1) {
       //Deixando apenas o botão específico do player
@@ -955,6 +951,10 @@ cena1.create = function () {
           escolhaPsg1();
         }
       })
+
+      socket.emit("posseBola", posseBola0, posseBola1);
+      
+      socket.emit("gols", gols0, gols1);
 
       console.log(jogadores); //Mostra os players conectados
       //Os dois players precisam estar conectados para o jogo começar

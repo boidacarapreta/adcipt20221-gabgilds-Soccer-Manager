@@ -65,19 +65,16 @@ io.on("connection", function (socket) {
   socket.on("começarPartida", () => {
     socket.broadcast.emit("começarPartida");
   });
-  socket.on("fimDaPartida", (fimDaPartida) => {
-    socket.broadcast.emit("fimDaPartida", fimDaPartida);
-  });
   socket.on("jogarNovamente", () => {
     socket.broadcast.emit("jogarNovamente");
   });
   socket.on("iniciarCena2", () => {
     socket.broadcast.emit("iniciarCena2");
   });
-  
   socket.on("posseBola", (posseBola0, posseBola1) => {
     socket.broadcast.emit("posseBola", posseBola0, posseBola1);
   });
+  
 });
 
 app.use(express.static("./"));
