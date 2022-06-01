@@ -946,7 +946,10 @@ cena1.create = function () {
         }
       })
 
-      socket.emit("posseBola", posseBola0, posseBola1);
+      socket.emit("posseBola", posseBola0.a, posseBola0.b, posseBola0.c, posseBola0.d,
+      posseBola0.e, posseBola0.f, posseBola0.g, posseBola0.h, posseBola0.i, 
+      posseBola1.a, posseBola1.b, posseBola1.c, posseBola1.d, posseBola1.e,
+      posseBola1.f, posseBola1.g, posseBola1.h, posseBola1.i);
       
       socket.emit("gols", gols0, gols1);
 
@@ -1013,26 +1016,32 @@ cena1.create = function () {
         textoContadorPartidas1.setVisible(false);
       });    
 
-      socket.on("posseBola", (posseBola0, posseBola1) => {        
-        posseBola0.a = jogador2PosseBola0.a;
-        posseBola0.b = jogador2PosseBola0.b;
-        posseBola0.c = jogador2PosseBola0.c;
-        posseBola0.d = jogador2PosseBola0.d;
-        posseBola0.e = jogador2PosseBola0.e;
-        posseBola0.f = jogador2PosseBola0.f;
-        posseBola0.g = jogador2PosseBola0.g;
-        posseBola0.h = jogador2PosseBola0.h;
-        posseBola0.i = jogador2PosseBola0.i;
+      socket.on("posseBola", (posseBola0A, posseBola0B, posseBola0C, posseBola0D, 
+        posseBola0E, posseBola0F, posseBola0G, posseBola0H, posseBola0I, 
+        posseBola1A, posseBola1B, posseBola1C, posseBola1D, posseBola1E, posseBola1F, 
+        posseBola1G, posseBola1H, posseBola1I) => {    
         
-        posseBola1.a = jogador2PosseBola1.a;
-        posseBola1.b = jogador2PosseBola1.b;
-        posseBola1.c = jogador2PosseBola1.c;
-        posseBola1.d = jogador2PosseBola1.d;
-        posseBola1.e = jogador2PosseBola1.e;
-        posseBola1.f = jogador2PosseBola1.f;
-        posseBola1.g = jogador2PosseBola1.g;
-        posseBola1.h = jogador2PosseBola1.h;
-        posseBola1.i = jogador2PosseBola1.i;
+        posseBola0A = jogador2PosseBola0.a;
+        posseBola0B = jogador2PosseBola0.b;
+        posseBola0C = jogador2PosseBola0.c;
+        posseBola0D = jogador2PosseBola0.d;
+        posseBola0E = jogador2PosseBola0.e;
+        posseBola0F = jogador2PosseBola0.f;
+        posseBola0G = jogador2PosseBola0.g;
+        posseBola0H = jogador2PosseBola0.h;
+        posseBola0I = jogador2PosseBola0.i;
+        
+        posseBola1A = jogador2PosseBola1.a;
+        posseBola1B = jogador2PosseBola1.b;
+        posseBola1C = jogador2PosseBola1.c;
+        posseBola1D = jogador2PosseBola1.d;
+        posseBola1E = jogador2PosseBola1.e;
+        posseBola1F = jogador2PosseBola1.f;
+        posseBola1G = jogador2PosseBola1.g;
+        posseBola1H = jogador2PosseBola1.h;
+        posseBola1I = jogador2PosseBola1.i;
+
+        console.log(`posseBola0C: ${posseBola0C} \njogador2PosseBola0.c: ${jogador2PosseBola0.c}`);
       });
     } 
   });

@@ -71,8 +71,15 @@ io.on("connection", function (socket) {
   socket.on("iniciarCena2", () => {
     socket.broadcast.emit("iniciarCena2");
   });
-  socket.on("posseBola", (posseBola0, posseBola1) => {
-    socket.broadcast.emit("posseBola", posseBola0, posseBola1);
+  socket.on("posseBola", (posseBola0A, posseBola0B, posseBola0C, posseBola0D, 
+    posseBola0E, posseBola0F, posseBola0G, posseBola0H, posseBola0I, 
+    posseBola1A, posseBola1B, posseBola1C, posseBola1D, posseBola1E, posseBola1F, 
+    posseBola1G, posseBola1H, posseBola1I) => {
+
+    socket.broadcast.emit("posseBola", posseBola0A, posseBola0B, posseBola0C, posseBola0D, 
+    posseBola0E, posseBola0F, posseBola0G, posseBola0H, posseBola0I, 
+    posseBola1A, posseBola1B, posseBola1C, posseBola1D, posseBola1E, posseBola1F, 
+    posseBola1G, posseBola1H, posseBola1I, );
   });
 });
 
