@@ -271,8 +271,8 @@ function aparecerFundo2() {
       if (tempoInicial === 5400) {
         if (jogador === 1) {
           aparecerFundo3(); 
+          multiplayer0 = 1;
         }
-        multiplayer0 = 1;
       }
 
       //Atualização da posse de bola
@@ -327,9 +327,15 @@ function aparecerFundo3() {
   textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
-  botaoSim.setVisible(true);
-  botaoNao.setVisible(true);
   botaoJogarDeNovo.setVisible(true);
+
+  if (jogador === 1) {
+    botaoSim.setVisible(false);
+    botaoNao.setVisible(false);
+  } else if (jogador === 2) {
+    botaoSim.setVisible(false);
+    botaoNao.setVisible(false);
+  }
 
   //Toca o som da tela de vitória, retira todas as informações do clube e o soundtrack
   somVencedor.play();
@@ -368,6 +374,8 @@ function aparecerFundo1Novamente() {
     botao0.setVisible(true);
     botao1.setVisible(true);
   } else if (jogador === 2) {
+    botao0.setVisible(false);
+    botao1.setVisible(false);
     botao2.setVisible(true);
   }
 
@@ -836,8 +844,8 @@ cena1.create = function () {
   var socket = this.socket;
 
   socket.on("jogadores", function (jogadores) { 
-    if (jogadores.primeiro === self.socket.id) { //Dispara evento quando jogador entrar na partida
-      //Define o primeiro jogador
+    if (jogadores.primeiro === self.socket.id) { //Dispara evento quando player entrar na partida
+      //Define o primeiro player
       jogador = 1;
 
       navigator.mediaDevices
@@ -847,10 +855,10 @@ cena1.create = function () {
         })
         .catch((error) => console.log(error));
     } else if (jogadores.segundo === self.socket.id) {
-      //Define o segundo jogador
+      //Define o segundo player
       jogador = 2;
 
-      //Conectando a comunicação dos jogadores
+      //Conectando a comunicação dos players
       navigator.mediaDevices
         .getUserMedia({ video: false, audio: true })
         .then((stream) => {
@@ -881,72 +889,82 @@ cena1.create = function () {
         .catch((error) => console.log(error));
     }
 
-    //Cada jogador seleciona o seu clube
+    //Cada player seleciona o seu clube
     if (jogador === 2) {
-    //Deixando apenas o botão específico do jogador
-    botao2.setVisible(true);
 
-    //Sicronizando as escolhas dos clubes da esquerda
-    socket.on("contagemClube0", (contagemClube0) => {
-      if (contagemClube0 === 0) {
-        escolhaBayern0();
-      } else if (contagemClube0 === 1) {
-        escolhaReal0();
-      } else if (contagemClube0 === 2) {
-        escolhaCity0();
-      } else if (contagemClube0 === 3) {
-        escolhaPsg0();
+      //Deixando apenas o botão específico do player
+      botao2.setVisible(true);
+
+      //Sicronizando as escolhas dos clubes da esquerda
+      socket.on("contagemClube0", (contagemClube0) => {
+        if (contagemClube0 === 0) {
+          escolhaBayern0();
+        } else if (contagemClube0 === 1) {
+          escolhaReal0();
+        } else if (contagemClube0 === 2) {
+          escolhaCity0();
+        } else if (contagemClube0 === 3) {
+          escolhaPsg0();
+        }
+      })
+
+      //Começando a partida do outro player
+      socket.on("começarPartida", () => {
+        aparecerFundo2();
+      });
+
+      socket.on("fimDaPartida", () => {
+        aparecerFundo3();
+      });
+
+      socket.on("jogarNovamente", () => {
+        aparecerFundo1Novamente();
+      });
+
+      socket.on("iniciarCena2", () => {
+        this.scene.start(cena2);
+      });    
+
+      socket.on("posseBola", (posseBola0, posseBola1) => {
+        textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
+      });
+
+      //Enviando as variáveis geradas pelo player 1 para o player 2 via variáveis de intermediação
+      if (multiplayer0 === 1) {
+        socket.emit("fimDaPartida");
       }
-    })
-
-    //Começando a partida do outro jogador
-    socket.on("começarPartida", () => {
-      aparecerFundo2();
-    });
-
-    socket.on("fimDaPartida", () => {
-      aparecerFundo3();
-    });
-
-    socket.on("jogarNovamente", () => {
-      aparecerFundo1Novamente();
-    });
-
-    socket.on("iniciarCena2", () => {
-      this.scene.start(cena2);
-    });    
-
-    socket.on("posseBola", (posseBola0, posseBola1) => {
-      textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
-    });
+      if (multiplayer1 === 1) {
+        socket.emit("posseBola", posseBola0, posseBola1);
+        multiplayer1 = 0; //Para conseguir usar a variável apenas quando atualizar a posse de bola
+      }
 
     } else if (jogador === 1) {
-    //Deixando apenas o botão específico do jogador
-    botao1.setVisible(true);
+      //Deixando apenas o botão específico do player
+      botao1.setVisible(true);
 
-    //Sicronizando as escolhas dos clubes da direita
-    socket.on("contagemClube1", (contagemClube1) => {
-      if (contagemClube1 === 0) {
-        escolhaBayern1();
-      } else if (contagemClube1 === 1) {
-        escolhaReal1();
-      } else if (contagemClube1 === 2) {
-        escolhaCity1();
-      } else if (contagemClube1 === 3) {
-        escolhaPsg1();
+      //Sicronizando as escolhas dos clubes da direita
+      socket.on("contagemClube1", (contagemClube1) => {
+        if (contagemClube1 === 0) {
+          escolhaBayern1();
+        } else if (contagemClube1 === 1) {
+          escolhaReal1();
+        } else if (contagemClube1 === 2) {
+          escolhaCity1();
+        } else if (contagemClube1 === 3) {
+          escolhaPsg1();
+        }
+      })
+
+      console.log(jogadores); //Mostra os players conectados
+      //Os dois players precisam estar conectados para o jogo começar
+      if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
+        botao0.setVisible(true);
+      } else if (jogadores.primeiro === undefined || jogadores.segundo === undefined) {
+        botao0.setVisible(false);
+        botao1.setVisible(false);
+        botao2.setVisible(false);
       }
-    })
-
-    console.log(jogadores); //Mostra os jogadores conectados
-    //Os dois jogadores precisam estar conectados para o jogo começar
-    if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
-      botao0.setVisible(true);
-    } else if (jogadores.primeiro === undefined || jogadores.segundo === undefined) {
-      botao0.setVisible(false);
-      botao1.setVisible(false);
-      botao2.setVisible(false);
-    }
-  } 
+    } 
   });
 
   socket.on("offer", (socketId, description) => {
@@ -1032,10 +1050,7 @@ cena1.create = function () {
     contagemClube1 = contagemClube1 % 4;
   });
 
-  if (jogador === 2) {
-    botaoSim.setVisible(false);
-    botaoNao.setVisible(false);
-  }
+
 
   //Adicionando os botões de sim e não de jogar novamente
   botaoSim.on(
@@ -1069,16 +1084,6 @@ cena1.create = function () {
     },
     this
   );
-
-  //Enviando as variáveis geradas pelo jogador 1 para o jogador 2 via variáveis de intermediação
-  if (multiplayer0 === 1) {
-    socket.emit("fimDaPartida");
-  }
-  if (multiplayer1 === 1) {
-    socket.emit("posseBola", posseBola0, posseBola1);
-    multiplayer1 = 0; //Para conseguir usar a variável apenas quando atualizar a posse de bola
-  }
-
 };
 cena1.update = function () {};
 export { cena1 };
