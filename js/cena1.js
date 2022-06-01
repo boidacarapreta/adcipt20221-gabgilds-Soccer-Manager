@@ -69,7 +69,7 @@ var jogo0PosseBola1F = 0;
 var jogo0PosseBola1G = 0;
 var jogo0PosseBola1H = 0;
 var jogo0PosseBola1I = 0;
-
+/*
 var jogo1PosseBola0A = 0;
 var jogo1PosseBola0B = 0;
 var jogo1PosseBola0C = 0;
@@ -126,10 +126,12 @@ var jogo3PosseBola1F = 0;
 var jogo3PosseBola1G = 0;
 var jogo3PosseBola1H = 0;
 var jogo3PosseBola1I = 0;
+*/
 
 var jogador2Jogo0PosseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
 var jogador2Jogo0PosseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
 
+/*
 var jogador2Jogo1PosseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
 var jogador2Jogo1PosseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
 
@@ -138,6 +140,7 @@ var jogador2Jogo2PosseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i
 
 var jogador2Jogo3PosseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
 var jogador2Jogo3PosseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
+*/
 
 var minutos;
 var parteEmSegundos;
@@ -612,6 +615,7 @@ function atualizarPosseBola() {
         textoPosseBola.setText(jogo0PosseBola0I + "%  " + jogo0PosseBola1I + "%"); 
       }
       contagem0++;
+      /*
     } else if (contadorPartidas === 1) {
       if (contagem0 === 0) {
         textoPosseBola.setText(jogo1PosseBola0A + "%  " + jogo1PosseBola1A + "%"); 
@@ -675,8 +679,8 @@ function atualizarPosseBola() {
         textoPosseBola.setText(jogo3PosseBola0I + "%  " + jogo3PosseBola1I + "%");      
       }
       contagem0++;
+      */
     } 
-
   } else if (jogador === 2) {
     if (contagem0 === 0) {
       textoPosseBola.setText(jogador2Jogo0PosseBola0.a + "%  " + jogador2Jogo0PosseBola1.a + "%"); 
@@ -1050,6 +1054,7 @@ cena1.create = function () {
   jogo0PosseBola0I = Phaser.Math.Between(47, 53);
   jogo0PosseBola1I = 100 - jogo0PosseBola0I;
 
+  /*
   //Partida 1
   jogo1PosseBola0A = Phaser.Math.Between(35, 65);
   jogo1PosseBola1A = 100 - jogo1PosseBola0A;
@@ -1109,6 +1114,7 @@ cena1.create = function () {
   jogo3PosseBola1H = 100 - jogo3PosseBola0H;
   jogo3PosseBola0I = Phaser.Math.Between(47, 53);
   jogo3PosseBola1I = 100 - jogo3PosseBola0I;
+  */
 
   this.socket = io(); //"https://secure-meadow-69283.herokuapp.com/" Conectar ao servidor do Heroku via WebSocket
 
@@ -1185,21 +1191,7 @@ cena1.create = function () {
       jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
       jogo0PosseBola0E, jogo0PosseBola0F, jogo0PosseBola0G, jogo0PosseBola0H, jogo0PosseBola0I, 
       jogo0PosseBola1A, jogo0PosseBola1B, jogo0PosseBola1C, jogo0PosseBola1D, jogo0PosseBola1E, jogo0PosseBola1F, 
-      jogo0PosseBola1G, jogo0PosseBola1H, jogo0PosseBola1I, 
-      //jogo1
-      jogo1PosseBola0A, jogo1PosseBola0B, jogo1PosseBola0C, jogo1PosseBola0D, 
-      jogo1PosseBola0E, jogo1PosseBola0F, jogo1PosseBola0G, jogo1PosseBola0H, jogo1PosseBola0I, 
-      jogo1PosseBola1A, jogo1PosseBola1B, jogo1PosseBola1C, jogo1PosseBola1D, jogo1PosseBola1E, jogo1PosseBola1F, 
-      jogo1PosseBola1G, jogo1PosseBola1H, jogo1PosseBola1I,
-
-      jogo2PosseBola0A, jogo2PosseBola0B, jogo2PosseBola0C, jogo2PosseBola0D, 
-      jogo2PosseBola0E, jogo2PosseBola0F, jogo2PosseBola0G, jogo2PosseBola0H, jogo2PosseBola0I, 
-      jogo2PosseBola1A, jogo2PosseBola1B, jogo2PosseBola1C, jogo2PosseBola1D, jogo2PosseBola1E, jogo2PosseBola1F, 
-      jogo2PosseBola1G, jogo2PosseBola1H, jogo2PosseBola1I,
-      jogo3PosseBola0A, jogo3PosseBola0B, jogo3PosseBola0C, jogo3PosseBola0D, 
-      jogo3PosseBola0E, jogo3PosseBola0F, jogo3PosseBola0G, jogo3PosseBola0H, jogo3PosseBola0I, 
-      jogo3PosseBola1A, jogo3PosseBola1B, jogo3PosseBola1C, jogo3PosseBola1D, jogo3PosseBola1E, jogo3PosseBola1F, 
-      jogo3PosseBola1G, jogo3PosseBola1H, jogo3PosseBola1I);
+      jogo0PosseBola1G, jogo0PosseBola1H, jogo0PosseBola1I); 
       
       socket.emit("gols", gols0, gols1);
 
@@ -1269,19 +1261,7 @@ cena1.create = function () {
       socket.on("posseBola", (jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
         jogo0PosseBola0E, jogo0PosseBola0F, jogo0PosseBola0G, jogo0PosseBola0H, jogo0PosseBola0I, 
         jogo0PosseBola1A, jogo0PosseBola1B, jogo0PosseBola1C, jogo0PosseBola1D, jogo0PosseBola1E, jogo0PosseBola1F, 
-        jogo0PosseBola1G, jogo0PosseBola1H, jogo0PosseBola1I, 
-        jogo1PosseBola0A, jogo1PosseBola0B, jogo1PosseBola0C, jogo1PosseBola0D, 
-        jogo1PosseBola0E, jogo1PosseBola0F, jogo1PosseBola0G, jogo1PosseBola0H, jogo1PosseBola0I, 
-        jogo1PosseBola1A, jogo1PosseBola1B, jogo1PosseBola1C, jogo1PosseBola1D, jogo1PosseBola1E, jogo1PosseBola1F, 
-        jogo1PosseBola1G, jogo1PosseBola1H, jogo1PosseBola1I, 
-        jogo2PosseBola0A, jogo2PosseBola0B, jogo2PosseBola0C, jogo2PosseBola0D, 
-        jogo2PosseBola0E, jogo2PosseBola0F, jogo2PosseBola0G, jogo2PosseBola0H, jogo2PosseBola0I, 
-        jogo2PosseBola1A, jogo2PosseBola1B, jogo2PosseBola1C, jogo2PosseBola1D, jogo2PosseBola1E, jogo2PosseBola1F, 
-        jogo2PosseBola1G, jogo2PosseBola1H, jogo2PosseBola1I,
-        jogo3PosseBola0A, jogo3PosseBola0B, jogo3PosseBola0C, jogo3PosseBola0D, 
-        jogo3PosseBola0E, jogo3PosseBola0F, jogo3PosseBola0G, jogo3PosseBola0H, jogo3PosseBola0I, 
-        jogo3PosseBola1A, jogo3PosseBola1B, jogo3PosseBola1C, jogo3PosseBola1D, jogo3PosseBola1E, jogo3PosseBola1F, 
-        jogo3PosseBola1G, jogo3PosseBola1H, jogo3PosseBola1I) => {    
+        jogo0PosseBola1G, jogo0PosseBola1H, jogo0PosseBola1I) => {    
         
         console.log("jogador 2 recebendo possebola");
         
@@ -1305,7 +1285,8 @@ cena1.create = function () {
         jogo0PosseBola1G = jogador2Jogo0PosseBola1.g;
         jogo0PosseBola1H = jogador2Jogo0PosseBola1.h;
         jogo0PosseBola1I = jogador2Jogo0PosseBola1.i;
-
+        
+        /* Facilitando a vida
         //partida 1
         jogo1PosseBola0A = jogador2Jogo1PosseBola0.a;
         jogo1PosseBola0B = jogador2Jogo1PosseBola0.b;
@@ -1368,6 +1349,7 @@ cena1.create = function () {
         jogo3PosseBola1G = jogador2Jogo3PosseBola1.g;
         jogo3PosseBola1H = jogador2Jogo3PosseBola1.h;
         jogo3PosseBola1I = jogador2Jogo3PosseBola1.i;
+        */
       });
     } 
   });
