@@ -827,7 +827,32 @@ cena1.create = function () {
 
   //Mostra no início apenas a tela de escolha de clubes e os dois primeiros clubes
   aparecerFundo1();
-  escolhaClubePadrao();  
+  escolhaClubePadrao();
+  
+  //Criando os valores de posse de bola que serão usados na partida
+  posseBola0.a = Phaser.Math.Between(35, 65);
+  posseBola1.a = 100 - posseBola0.a;
+  posseBola0.b = Phaser.Math.Between(35, 65);
+  posseBola1.b = 100 - posseBola0.b;
+  posseBola0.c = Phaser.Math.Between(35, 65);
+  posseBola1.c = 100 - posseBola0.c;
+
+  console.log(`posseBola0.a: ${posseBola0.a}`);
+  console.log(`posseBola1.a: ${posseBola1.a}`);
+    
+  posseBola0.d = Phaser.Math.Between(45, 55);
+  posseBola1.d = 100 - posseBola0.d;
+  posseBola0.e = Phaser.Math.Between(45, 55);
+  posseBola1.e = 100 - posseBola0.e;
+  posseBola0.f = Phaser.Math.Between(45, 55);
+  posseBola1.f = 100 - posseBola0.f;
+
+  posseBola0.g = Phaser.Math.Between(47, 53);
+  posseBola1.g = 100 - posseBola0.g;
+  posseBola0.h = Phaser.Math.Between(47, 53);
+  posseBola1.h = 100 - posseBola0.h;
+  posseBola0.i = Phaser.Math.Between(47, 53);
+  posseBola1.i = 100 - posseBola0.i;
 
   this.socket = io("https://secure-meadow-69283.herokuapp.com/"); //Conectar ao servidor do Heroku via WebSocket
 
@@ -933,8 +958,7 @@ cena1.create = function () {
         retirarTodosClubes();
       });    
 
-      socket.on("posseBola", (posseBola0, posseBola1) => {
-        
+      socket.on("posseBola", (posseBola0, posseBola1) => {        
         textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
       });
 
@@ -955,30 +979,6 @@ cena1.create = function () {
           escolhaPsg1();
         }
       })
-      
-      //Criando os valores de posse de bola que serão usados na partida
-      posseBola0.a = Phaser.Math.Between(35, 65);
-      posseBola1.a = 100 - posseBola0.a;
-      posseBola0.b = Phaser.Math.Between(35, 65);
-      posseBola1.b = 100 - posseBola0.b;
-      posseBola0.c = Phaser.Math.Between(35, 65);
-      posseBola1.c = 100 - posseBola0.c;
-
-      console.log(`posseBola0.a: ${posseBola0.a}`);
-    
-      posseBola0.d = Phaser.Math.Between(45, 55);
-      posseBola1.d = 100 - posseBola0.d;
-      posseBola0.e = Phaser.Math.Between(45, 55);
-      posseBola1.e = 100 - posseBola0.e;
-      posseBola0.f = Phaser.Math.Between(45, 55);
-      posseBola1.f = 100 - posseBola0.f;
-
-      posseBola0.g = Phaser.Math.Between(47, 53);
-      posseBola1.g = 100 - posseBola0.g;
-      posseBola0.h = Phaser.Math.Between(47, 53);
-      posseBola1.h = 100 - posseBola0.h;
-      posseBola0.i = Phaser.Math.Between(47, 53);
-      posseBola1.i = 100 - posseBola0.i;
 
       socket.emit("posseBola", posseBola0, posseBola1);
       
