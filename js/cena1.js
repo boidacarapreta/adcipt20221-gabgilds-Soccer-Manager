@@ -701,7 +701,6 @@ function atualizarPosseBola() {
     } else if (contagem0 === 8) {
       textoPosseBola.setText(jogador2Jogo0PosseBola0.i + "%  " + jogador2Jogo0PosseBola1.i + "%"); 
     }
-    console.log(`jogador2PosseBola0: ${jogador2PosseBola0} \njogador2PosseBola0.a: ${jogador2PosseBola0.a}`)
   } 
   contagem0++;
 }
