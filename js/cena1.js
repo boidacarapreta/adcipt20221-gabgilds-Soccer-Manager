@@ -1015,7 +1015,7 @@ cena1.create = function () {
 
       socket.on("posseBola", (posseBola0, posseBola1) => {        
         posseBola0 = jogador2PosseBola0;
-        possebola1 = jogador2PosseBola1;
+        posseBola1 = jogador2PosseBola1;
       });
     } 
   });
