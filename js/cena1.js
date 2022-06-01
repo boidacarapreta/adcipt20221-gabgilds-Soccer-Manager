@@ -363,8 +363,27 @@ function aparecerFundo3() {
 
   //Resetando as variáveis necessárias e o tempo para conseguir rejogar
   time.removeEvent(passagemTempo); //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
-  posseBola0 = 50;
-  posseBola1 = 50;
+  
+  posseBola0A = 0;
+  posseBola0B = 0;
+  posseBola0C = 0;
+  posseBola0D = 0;
+  posseBola0E = 0;
+  posseBola0F = 0;
+  posseBola0G = 0;
+  posseBola0H = 0;
+  posseBola0I = 0;
+  
+  posseBola1A = 0;
+  posseBola1B = 0;
+  posseBola1C = 0;
+  posseBola1D = 0;
+  posseBola1E = 0;
+  posseBola1F = 0;
+  posseBola1G = 0;
+  posseBola1H = 0;
+  posseBola1I = 0;
+
   textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
   gols0 = 0;
   gols1 = 0;
