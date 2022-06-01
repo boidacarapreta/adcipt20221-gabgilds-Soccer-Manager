@@ -1110,7 +1110,7 @@ cena1.create = function () {
   jogo3PosseBola0I = Phaser.Math.Between(47, 53);
   jogo3PosseBola1I = 100 - jogo3PosseBola0I;
 
-  this.socket = io("https://secure-meadow-69283.herokuapp.com/"); //Conectar ao servidor do Heroku via WebSocket
+  this.socket = io(); //"https://secure-meadow-69283.herokuapp.com/" Conectar ao servidor do Heroku via WebSocket
 
   //Tornar as variáveis utilizáveis dentro desse escopo
   var self = this;
@@ -1180,14 +1180,18 @@ cena1.create = function () {
         }
       })
 
-      socket.emit("posseBola", jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
+      socket.emit("posseBola", 
+      //jogo0
+      jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
       jogo0PosseBola0E, jogo0PosseBola0F, jogo0PosseBola0G, jogo0PosseBola0H, jogo0PosseBola0I, 
       jogo0PosseBola1A, jogo0PosseBola1B, jogo0PosseBola1C, jogo0PosseBola1D, jogo0PosseBola1E, jogo0PosseBola1F, 
       jogo0PosseBola1G, jogo0PosseBola1H, jogo0PosseBola1I, 
+      //jogo1
       jogo1PosseBola0A, jogo1PosseBola0B, jogo1PosseBola0C, jogo1PosseBola0D, 
       jogo1PosseBola0E, jogo1PosseBola0F, jogo1PosseBola0G, jogo1PosseBola0H, jogo1PosseBola0I, 
       jogo1PosseBola1A, jogo1PosseBola1B, jogo1PosseBola1C, jogo1PosseBola1D, jogo1PosseBola1E, jogo1PosseBola1F, 
-      jogo1PosseBola1G, jogo1PosseBola1H, jogo1PosseBola1I, 
+      jogo1PosseBola1G, jogo1PosseBola1H, jogo1PosseBola1I,
+
       jogo2PosseBola0A, jogo2PosseBola0B, jogo2PosseBola0C, jogo2PosseBola0D, 
       jogo2PosseBola0E, jogo2PosseBola0F, jogo2PosseBola0G, jogo2PosseBola0H, jogo2PosseBola0I, 
       jogo2PosseBola1A, jogo2PosseBola1B, jogo2PosseBola1C, jogo2PosseBola1D, jogo2PosseBola1E, jogo2PosseBola1F, 

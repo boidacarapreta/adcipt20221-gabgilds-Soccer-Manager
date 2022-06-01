@@ -72,7 +72,9 @@ io.on("connection", function (socket) {
     socket.broadcast.emit("fimDoJogo");
   });
 
-  socket.on("posseBola", (jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
+  socket.on("posseBola", (
+    //jogo0
+    jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
     jogo0PosseBola0E, jogo0PosseBola0F, jogo0PosseBola0G, jogo0PosseBola0H, jogo0PosseBola0I, 
     jogo0PosseBola1A, jogo0PosseBola1B, jogo0PosseBola1C, jogo0PosseBola1D, jogo0PosseBola1E, jogo0PosseBola1F, 
     jogo0PosseBola1G, jogo0PosseBola1H, jogo0PosseBola1I, 
@@ -88,7 +90,8 @@ io.on("connection", function (socket) {
     jogo3PosseBola0E, jogo3PosseBola0F, jogo3PosseBola0G, jogo3PosseBola0H, jogo3PosseBola0I, 
     jogo3PosseBola1A, jogo3PosseBola1B, jogo3PosseBola1C, jogo3PosseBola1D, jogo3PosseBola1E, jogo3PosseBola1F, 
     jogo3PosseBola1G, jogo3PosseBola1H, jogo3PosseBola1I) => {
-      
+    
+    console.log("Server recebendo possebola");
     socket.broadcast.emit("posseBola", jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
     jogo0PosseBola0E, jogo0PosseBola0F, jogo0PosseBola0G, jogo0PosseBola0H, jogo0PosseBola0I, 
     jogo0PosseBola1A, jogo0PosseBola1B, jogo0PosseBola1C, jogo0PosseBola1D, jogo0PosseBola1E, jogo0PosseBola1F, 
