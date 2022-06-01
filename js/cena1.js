@@ -1255,6 +1255,7 @@ cena1.create = function () {
         botaoTelaCheia.setVisible(false);
         textoContadorPartidas0.setVisible(false);
         textoContadorPartidas1.setVisible(false);
+        somVencedor.pause();
       });    
 
       socket.on("posseBola", (jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
