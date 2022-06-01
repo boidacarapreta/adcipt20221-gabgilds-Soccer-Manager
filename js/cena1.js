@@ -913,7 +913,7 @@ cena1.create = function () {
         aparecerFundo2();
       });
 
-      socket.on("fimDaPartida", () => {
+      socket.on("fimDaPartida", (fimDaPartida) => {
         aparecerFundo3();
       });
 
@@ -929,9 +929,10 @@ cena1.create = function () {
         textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
       });
 
+      console.log(`multiplayer0: ${multiplayer0}`);
       //Enviando as variáveis geradas pelo player 1 para o player 2 via variáveis de intermediação
       if (multiplayer0 === 1) {
-        socket.emit("fimDaPartida");
+        socket.emit("fimDaPartida", fimDaPartida);
       }
       if (multiplayer1 === 1) {
         socket.emit("posseBola", posseBola0, posseBola1);
