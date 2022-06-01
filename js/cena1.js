@@ -1283,6 +1283,8 @@ cena1.create = function () {
         jogo3PosseBola1A, jogo3PosseBola1B, jogo3PosseBola1C, jogo3PosseBola1D, jogo3PosseBola1E, jogo3PosseBola1F, 
         jogo3PosseBola1G, jogo3PosseBola1H, jogo3PosseBola1I) => {    
         
+        console.log("jogador 2 recebendo possebola");
+        
         //partida 0
         jogo0PosseBola0A = jogador2Jogo0PosseBola0.a;
         jogo0PosseBola0B = jogador2Jogo0PosseBola0.b;
