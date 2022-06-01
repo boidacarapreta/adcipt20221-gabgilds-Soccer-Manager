@@ -72,14 +72,39 @@ io.on("connection", function (socket) {
     socket.broadcast.emit("fimDoJogo");
   });
 
-  socket.on("posseBola", (posseBola0A, posseBola0B, posseBola0C, posseBola0D, 
-  posseBola0E, posseBola0F, posseBola0G, posseBola0H, posseBola0I, 
-  posseBola1A, posseBola1B, posseBola1C, posseBola1D, posseBola1E, posseBola1F, 
-  posseBola1G, posseBola1H, posseBola1I) => {
-    socket.broadcast.emit("posseBola", posseBola0A, posseBola0B, posseBola0C, posseBola0D, 
-    posseBola0E, posseBola0F, posseBola0G, posseBola0H, posseBola0I, 
-    posseBola1A, posseBola1B, posseBola1C, posseBola1D, posseBola1E, posseBola1F, 
-    posseBola1G, posseBola1H, posseBola1I);
+  socket.on("posseBola", (jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
+    jogo0PosseBola0E, jogo0PosseBola0F, jogo0PosseBola0G, jogo0PosseBola0H, jogo0PosseBola0I, 
+    jogo0PosseBola1A, jogo0PosseBola1B, jogo0PosseBola1C, jogo0PosseBola1D, jogo0PosseBola1E, jogo0PosseBola1F, 
+    jogo0PosseBola1G, jogo0PosseBola1H, jogo0PosseBola1I, 
+    jogo1PosseBola0A, jogo1PosseBola0B, jogo1PosseBola0C, jogo1PosseBola0D, 
+    jogo1PosseBola0E, jogo1PosseBola0F, jogo1PosseBola0G, jogo1PosseBola0H, jogo1PosseBola0I, 
+    jogo1PosseBola1A, jogo1PosseBola1B, jogo1PosseBola1C, jogo1PosseBola1D, jogo1PosseBola1E, jogo1PosseBola1F, 
+    jogo1PosseBola1G, jogo1PosseBola1H, jogo1PosseBola1I, 
+    jogo2PosseBola0A, jogo2PosseBola0B, jogo2PosseBola0C, jogo2PosseBola0D, 
+    jogo2PosseBola0E, jogo2PosseBola0F, jogo2PosseBola0G, jogo2PosseBola0H, jogo2PosseBola0I, 
+    jogo2PosseBola1A, jogo2PosseBola1B, jogo2PosseBola1C, jogo2PosseBola1D, jogo2PosseBola1E, jogo2PosseBola1F, 
+    jogo2PosseBola1G, jogo2PosseBola1H, jogo2PosseBola1I,
+    jogo3PosseBola0A, jogo3PosseBola0B, jogo3PosseBola0C, jogo3PosseBola0D, 
+    jogo3PosseBola0E, jogo3PosseBola0F, jogo3PosseBola0G, jogo3PosseBola0H, jogo3PosseBola0I, 
+    jogo3PosseBola1A, jogo3PosseBola1B, jogo3PosseBola1C, jogo3PosseBola1D, jogo3PosseBola1E, jogo3PosseBola1F, 
+    jogo3PosseBola1G, jogo3PosseBola1H, jogo3PosseBola1I) => {
+      
+    socket.broadcast.emit("posseBola", jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
+    jogo0PosseBola0E, jogo0PosseBola0F, jogo0PosseBola0G, jogo0PosseBola0H, jogo0PosseBola0I, 
+    jogo0PosseBola1A, jogo0PosseBola1B, jogo0PosseBola1C, jogo0PosseBola1D, jogo0PosseBola1E, jogo0PosseBola1F, 
+    jogo0PosseBola1G, jogo0PosseBola1H, jogo0PosseBola1I, 
+    jogo1PosseBola0A, jogo1PosseBola0B, jogo1PosseBola0C, jogo1PosseBola0D, 
+    jogo1PosseBola0E, jogo1PosseBola0F, jogo1PosseBola0G, jogo1PosseBola0H, jogo1PosseBola0I, 
+    jogo1PosseBola1A, jogo1PosseBola1B, jogo1PosseBola1C, jogo1PosseBola1D, jogo1PosseBola1E, jogo1PosseBola1F, 
+    jogo1PosseBola1G, jogo1PosseBola1H, jogo1PosseBola1I, 
+    jogo2PosseBola0A, jogo2PosseBola0B, jogo2PosseBola0C, jogo2PosseBola0D, 
+    jogo2PosseBola0E, jogo2PosseBola0F, jogo2PosseBola0G, jogo2PosseBola0H, jogo2PosseBola0I, 
+    jogo2PosseBola1A, jogo2PosseBola1B, jogo2PosseBola1C, jogo2PosseBola1D, jogo2PosseBola1E, jogo2PosseBola1F, 
+    jogo2PosseBola1G, jogo2PosseBola1H, jogo2PosseBola1I,
+    jogo3PosseBola0A, jogo3PosseBola0B, jogo3PosseBola0C, jogo3PosseBola0D, 
+    jogo3PosseBola0E, jogo3PosseBola0F, jogo3PosseBola0G, jogo3PosseBola0H, jogo3PosseBola0I, 
+    jogo3PosseBola1A, jogo3PosseBola1B, jogo3PosseBola1C, jogo3PosseBola1D, jogo3PosseBola1E, jogo3PosseBola1F, 
+    jogo3PosseBola1G, jogo3PosseBola1H, jogo3PosseBola1I);
   });
 });
 
