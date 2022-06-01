@@ -49,8 +49,8 @@ var fonteTexto1 = {font: "bold 28px Arial", fill: "#FFFFFF"};
 var fonteTexto2 = {font: "bold 28px Mont", fill: "#000000"};
 var textoPlacar;
 var textoPosseBola;
-const posseBola0 = {a, b, c, d, e, f, g, h, i};
-const posseBola1 = {a, b, c, d, e, f, g, h, i};
+var posseBola0 = {a, b, c, d, e, f, g, h, i};
+var posseBola1 = {a, b, c, d, e, f, g, h, i};
 var minutos;
 var parteEmSegundos;
 var tempoInicial;
@@ -478,26 +478,29 @@ function formatarTempo(segundos) {
   return `${minutos} : ${parteEmSegundos}`;
 }
 
-/*
 function atualizarPosseBola() {
   //Determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
-  if (contagem0 < 3) {
-    posseBola0 = Phaser.Math.Between(35, 65);
-    posseBola1 = 100 - posseBola0;
-    //Atualiza os valores de posse de bola
-    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
-  } else if (2 < contagem0 < 6) {
-    posseBola0 = Phaser.Math.Between(45, 55);
-    posseBola1 = 100 - posseBola0;
-    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
-  } else if (contagem > 5) {
-    posseBola0 = Phaser.Math.Between(47, 53);
-    posseBola1 = 100 - posseBola0;
-    textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
+  if (contagem0 === 0) {
+    textoPosseBola.setText(posseBola0.a + "%  " + posseBola1.a + "%"); 
+  } else if (contagem0 === 1) {
+    textoPosseBola.setText(posseBola0.b + "%  " + posseBola1.b + "%"); 
+  } else if (contagem0 === 2) {
+    textoPosseBola.setText(posseBola0.c + "%  " + posseBola1.c + "%"); 
+  } else if (contagem0 === 3) {
+    textoPosseBola.setText(posseBola0.d + "%  " + posseBola1.d + "%"); 
+  } else if (contagem0 === 4) {
+    textoPosseBola.setText(posseBola0.e + "%  " + posseBola1.e + "%"); 
+  } else if (contagem0 === 5) {
+    textoPosseBola.setText(posseBola0.f + "%  " + posseBola1.f + "%"); 
+  } else if (contagem0 === 6) {
+    textoPosseBola.setText(posseBola0.g + "%  " + posseBola1.g + "%"); 
+  } else if (contagem0 === 7) {
+    textoPosseBola.setText(posseBola0.h + "%  " + posseBola1.h + "%"); 
+  } else if (contagem0 === 8) {
+    textoPosseBola.setText(posseBola0.i + "%  " + posseBola1.i + "%"); 
   }
   contagem0++;
 }
-*/
 
 function atualizarPlacar() {
   if (forçaClube0Escolhido > forçaClube1Escolhido) { //Se o clube0 for ganhar
