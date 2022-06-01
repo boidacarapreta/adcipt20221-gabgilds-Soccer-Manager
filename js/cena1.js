@@ -51,6 +51,8 @@ var textoPlacar;
 var textoPosseBola;
 var posseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
 var posseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
+var jogador2PosseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
+var jogador2PosseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
 var minutos;
 var parteEmSegundos;
 var tempoInicial;
@@ -480,25 +482,48 @@ function formatarTempo(segundos) {
 
 function atualizarPosseBola() {
   //Determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
-  if (contagem0 === 0) {
-    textoPosseBola.setText(posseBola0.a + "%  " + posseBola1.a + "%"); 
-  } else if (contagem0 === 1) {
-    textoPosseBola.setText(posseBola0.b + "%  " + posseBola1.b + "%"); 
-  } else if (contagem0 === 2) {
-    textoPosseBola.setText(posseBola0.c + "%  " + posseBola1.c + "%"); 
-  } else if (contagem0 === 3) {
-    textoPosseBola.setText(posseBola0.d + "%  " + posseBola1.d + "%"); 
-  } else if (contagem0 === 4) {
-    textoPosseBola.setText(posseBola0.e + "%  " + posseBola1.e + "%"); 
-  } else if (contagem0 === 5) {
-    textoPosseBola.setText(posseBola0.f + "%  " + posseBola1.f + "%"); 
-  } else if (contagem0 === 6) {
-    textoPosseBola.setText(posseBola0.g + "%  " + posseBola1.g + "%"); 
-  } else if (contagem0 === 7) {
-    textoPosseBola.setText(posseBola0.h + "%  " + posseBola1.h + "%"); 
-  } else if (contagem0 === 8) {
-    textoPosseBola.setText(posseBola0.i + "%  " + posseBola1.i + "%"); 
-  }
+  if (jogador === 1) {
+    if (contagem0 === 0) {
+      textoPosseBola.setText(posseBola0.a + "%  " + posseBola1.a + "%"); 
+    } else if (contagem0 === 1) {
+      textoPosseBola.setText(posseBola0.b + "%  " + posseBola1.b + "%"); 
+    } else if (contagem0 === 2) {
+      textoPosseBola.setText(posseBola0.c + "%  " + posseBola1.c + "%"); 
+    } else if (contagem0 === 3) {
+      textoPosseBola.setText(posseBola0.d + "%  " + posseBola1.d + "%"); 
+    } else if (contagem0 === 4) {
+      textoPosseBola.setText(posseBola0.e + "%  " + posseBola1.e + "%"); 
+    } else if (contagem0 === 5) {
+      textoPosseBola.setText(posseBola0.f + "%  " + posseBola1.f + "%"); 
+    } else if (contagem0 === 6) {
+      textoPosseBola.setText(posseBola0.g + "%  " + posseBola1.g + "%"); 
+    } else if (contagem0 === 7) {
+      textoPosseBola.setText(posseBola0.h + "%  " + posseBola1.h + "%"); 
+    } else if (contagem0 === 8) {
+      textoPosseBola.setText(posseBola0.i + "%  " + posseBola1.i + "%"); 
+    }
+  } else if (jogador === 2) {
+    if (contagem0 === 0) {
+      textoPosseBola.setText(jogador2PosseBola0.a + "%  " + jogador2PosseBola1.a + "%"); 
+    } else if (contagem0 === 1) {
+      textoPosseBola.setText(jogador2PosseBola0.b + "%  " + jogador2PosseBola1.b + "%"); 
+    } else if (contagem0 === 2) {
+      textoPosseBola.setText(jogador2PosseBola0.c + "%  " + jogador2PosseBola1.c + "%"); 
+    } else if (contagem0 === 3) {
+      textoPosseBola.setText(jogador2PosseBola0.d + "%  " + jogador2PosseBola1.d + "%"); 
+    } else if (contagem0 === 4) {
+      textoPosseBola.setText(jogador2PosseBola0.e + "%  " + jogador2PosseBola1.e + "%"); 
+    } else if (contagem0 === 5) {
+      textoPosseBola.setText(jogador2PosseBola0.f + "%  " + jogador2PosseBola1.f + "%"); 
+    } else if (contagem0 === 6) {
+      textoPosseBola.setText(jogador2PosseBola0.g + "%  " + jogador2PosseBola1.g + "%"); 
+    } else if (contagem0 === 7) {
+      textoPosseBola.setText(jogador2PosseBola0.h + "%  " + jogador2PosseBola1.h + "%"); 
+    } else if (contagem0 === 8) {
+      textoPosseBola.setText(jogador2PosseBola0.i + "%  " + jogador2PosseBola1.i + "%"); 
+    }
+    console.log(`jogador2PosseBola0: ${jogador2PosseBola0} \njogador2PosseBola0.a: ${jogador2PosseBola0.a}`)
+  } 
   contagem0++;
 }
 
@@ -836,9 +861,6 @@ cena1.create = function () {
   posseBola1.b = 100 - posseBola0.b;
   posseBola0.c = Phaser.Math.Between(35, 65);
   posseBola1.c = 100 - posseBola0.c;
-
-  console.log(`posseBola0.a: ${posseBola0.a}`);
-  console.log(`posseBola1.a: ${posseBola1.a}`);
     
   posseBola0.d = Phaser.Math.Between(45, 55);
   posseBola1.d = 100 - posseBola0.d;
@@ -964,6 +986,8 @@ cena1.create = function () {
       });
 
       socket.on("iniciarCena2", () => {
+        this.start.scene(cena2);
+        /*
         fundo1.setVisible(false);
         fundo2.setVisible(false);
         fundo3.setVisible(false);
@@ -986,10 +1010,12 @@ cena1.create = function () {
         parabensReal0.setVisible(false);
         parabensReal1.setVisible(false);
         retirarTodosClubes();
+        */
       });    
 
       socket.on("posseBola", (posseBola0, posseBola1) => {        
-        textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
+        posseBola0 = jogador2PosseBola0;
+        possebola1 = jogador2PosseBola1;
       });
     } 
   });
