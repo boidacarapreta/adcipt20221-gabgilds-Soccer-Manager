@@ -58,8 +58,8 @@ var time;
 var chanceGol;
 var gols0 = 0;
 var gols1 = 0;
-var contagem0; //Variável para a posse de bola
-var contagem1; //Variável para o placar
+var contagem0 = 0; //Variável para a posse de bola
+var contagem1 = 0; //Variável para o placar
 var jogador;
 var tipoDeJogo;
 //Variáveis e funções para o funcionamento da partida
@@ -907,7 +907,37 @@ cena1.create = function () {
     }
 
     //Cada player seleciona o seu clube
-    if (jogador === 2) {
+    if (jogador === 1) {
+      //Deixando apenas o botão específico do player
+      botao1.setVisible(true);
+
+      //Sicronizando as escolhas dos clubes da direita
+      socket.on("contagemClube1", (contagemClube1) => {
+        if (contagemClube1 === 0) {
+          escolhaBayern1();
+        } else if (contagemClube1 === 1) {
+          escolhaReal1();
+        } else if (contagemClube1 === 2) {
+          escolhaCity1();
+        } else if (contagemClube1 === 3) {
+          escolhaPsg1();
+        }
+      })
+
+      socket.emit("posseBola", posseBola0, posseBola1);
+      
+      socket.emit("gols", gols0, gols1);
+
+      console.log(jogadores); //Mostra os players conectados
+      //Os dois players precisam estar conectados para o jogo começar
+      if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
+        botao0.setVisible(true);
+      } else if (jogadores.primeiro === undefined || jogadores.segundo === undefined) {
+        botao0.setVisible(false);
+        botao1.setVisible(false);
+        botao2.setVisible(false);
+      }
+    } else if (jogador === 2) {
       //Deixando apenas o botão específico do player
       botao2.setVisible(true);
 
@@ -961,38 +991,6 @@ cena1.create = function () {
       socket.on("posseBola", (posseBola0, posseBola1) => {        
         textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
       });
-
-
-    } else if (jogador === 1) {
-      //Deixando apenas o botão específico do player
-      botao1.setVisible(true);
-
-      //Sicronizando as escolhas dos clubes da direita
-      socket.on("contagemClube1", (contagemClube1) => {
-        if (contagemClube1 === 0) {
-          escolhaBayern1();
-        } else if (contagemClube1 === 1) {
-          escolhaReal1();
-        } else if (contagemClube1 === 2) {
-          escolhaCity1();
-        } else if (contagemClube1 === 3) {
-          escolhaPsg1();
-        }
-      })
-
-      socket.emit("posseBola", posseBola0, posseBola1);
-      
-      socket.emit("gols", gols0, gols1);
-
-      console.log(jogadores); //Mostra os players conectados
-      //Os dois players precisam estar conectados para o jogo começar
-      if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
-        botao0.setVisible(true);
-      } else if (jogadores.primeiro === undefined || jogadores.segundo === undefined) {
-        botao0.setVisible(false);
-        botao1.setVisible(false);
-        botao2.setVisible(false);
-      }
     } 
   });
 
