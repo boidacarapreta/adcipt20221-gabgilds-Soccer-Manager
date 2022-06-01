@@ -49,8 +49,27 @@ var fonteTexto1 = {font: "bold 28px Arial", fill: "#FFFFFF"};
 var fonteTexto2 = {font: "bold 28px Mont", fill: "#000000"};
 var textoPlacar;
 var textoPosseBola;
-var posseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
-var posseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
+
+var posseBola0A = 0;
+var posseBola0B = 0;
+var posseBola0C = 0;
+var posseBola0D = 0;
+var posseBola0E = 0;
+var posseBola0F = 0;
+var posseBola0G = 0;
+var posseBola0H = 0;
+var posseBola0I = 0;
+
+var posseBola1A = 0;
+var posseBola1B = 0;
+var posseBola1C = 0;
+var posseBola1D = 0;
+var posseBola1E = 0;
+var posseBola1F = 0;
+var posseBola1G = 0;
+var posseBola1H = 0;
+var posseBola1I = 0;
+
 var jogador2PosseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
 var jogador2PosseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
 var minutos;
@@ -484,23 +503,23 @@ function atualizarPosseBola() {
   //Determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
   if (jogador === 1) {
     if (contagem0 === 0) {
-      textoPosseBola.setText(posseBola0.a + "%  " + posseBola1.a + "%"); 
+      textoPosseBola.setText(posseBola0A + "%  " + posseBola1A + "%"); 
     } else if (contagem0 === 1) {
-      textoPosseBola.setText(posseBola0.b + "%  " + posseBola1.b + "%"); 
+      textoPosseBola.setText(posseBola0B + "%  " + posseBola1B + "%"); 
     } else if (contagem0 === 2) {
-      textoPosseBola.setText(posseBola0.c + "%  " + posseBola1.c + "%"); 
+      textoPosseBola.setText(posseBola0C + "%  " + posseBola1C + "%"); 
     } else if (contagem0 === 3) {
-      textoPosseBola.setText(posseBola0.d + "%  " + posseBola1.d + "%"); 
+      textoPosseBola.setText(posseBola0D + "%  " + posseBola1D + "%"); 
     } else if (contagem0 === 4) {
-      textoPosseBola.setText(posseBola0.e + "%  " + posseBola1.e + "%"); 
+      textoPosseBola.setText(posseBola0E + "%  " + posseBola1E + "%"); 
     } else if (contagem0 === 5) {
-      textoPosseBola.setText(posseBola0.f + "%  " + posseBola1.f + "%"); 
+      textoPosseBola.setText(posseBola0F + "%  " + posseBola1F + "%"); 
     } else if (contagem0 === 6) {
-      textoPosseBola.setText(posseBola0.g + "%  " + posseBola1.g + "%"); 
+      textoPosseBola.setText(posseBola0G + "%  " + posseBola1G + "%"); 
     } else if (contagem0 === 7) {
-      textoPosseBola.setText(posseBola0.h + "%  " + posseBola1.h + "%"); 
+      textoPosseBola.setText(posseBola0H + "%  " + posseBola1H + "%"); 
     } else if (contagem0 === 8) {
-      textoPosseBola.setText(posseBola0.i + "%  " + posseBola1.i + "%"); 
+      textoPosseBola.setText(posseBola0I + "%  " + posseBola1I + "%"); 
     }
   } else if (jogador === 2) {
     if (contagem0 === 0) {
@@ -855,26 +874,26 @@ cena1.create = function () {
   escolhaClubePadrao();
   
   //Criando os valores de posse de bola que serão usados na partida
-  posseBola0.a = Phaser.Math.Between(35, 65);
-  posseBola1.a = 100 - posseBola0.a;
-  posseBola0.b = Phaser.Math.Between(35, 65);
-  posseBola1.b = 100 - posseBola0.b;
-  posseBola0.c = Phaser.Math.Between(35, 65);
-  posseBola1.c = 100 - posseBola0.c;
+  posseBola0A = Phaser.Math.Between(35, 65);
+  posseBola1A = 100 - posseBola0A;
+  posseBola0B = Phaser.Math.Between(35, 65);
+  posseBola1B = 100 - posseBola0B;
+  posseBola0C = Phaser.Math.Between(35, 65);
+  posseBola1C = 100 - posseBola0C;
     
-  posseBola0.d = Phaser.Math.Between(45, 55);
-  posseBola1.d = 100 - posseBola0.d;
-  posseBola0.e = Phaser.Math.Between(45, 55);
-  posseBola1.e = 100 - posseBola0.e;
-  posseBola0.f = Phaser.Math.Between(45, 55);
-  posseBola1.f = 100 - posseBola0.f;
+  posseBola0D = Phaser.Math.Between(45, 55);
+  posseBola1D = 100 - posseBola0D;
+  posseBola0E = Phaser.Math.Between(45, 55);
+  posseBola1E = 100 - posseBola0E;
+  posseBola0F = Phaser.Math.Between(45, 55);
+  posseBola1F = 100 - posseBola0F;
 
-  posseBola0.g = Phaser.Math.Between(47, 53);
-  posseBola1.g = 100 - posseBola0.g;
-  posseBola0.h = Phaser.Math.Between(47, 53);
-  posseBola1.h = 100 - posseBola0.h;
-  posseBola0.i = Phaser.Math.Between(47, 53);
-  posseBola1.i = 100 - posseBola0.i;
+  posseBola0G = Phaser.Math.Between(47, 53);
+  posseBola1G = 100 - posseBola0G;
+  posseBola0H = Phaser.Math.Between(47, 53);
+  posseBola1H = 100 - posseBola0H;
+  posseBola0I = Phaser.Math.Between(47, 53);
+  posseBola1I = 100 - posseBola0I;
 
   this.socket = io("https://secure-meadow-69283.herokuapp.com/"); //Conectar ao servidor do Heroku via WebSocket
 
@@ -946,10 +965,10 @@ cena1.create = function () {
         }
       })
 
-      socket.emit("posseBola", posseBola0.a, posseBola0.b, posseBola0.c, posseBola0.d,
-      posseBola0.e, posseBola0.f, posseBola0.g, posseBola0.h, posseBola0.i, 
-      posseBola1.a, posseBola1.b, posseBola1.c, posseBola1.d, posseBola1.e,
-      posseBola1.f, posseBola1.g, posseBola1.h, posseBola1.i);
+      socket.emit("posseBola", posseBola0A, posseBola0B, posseBola0C, posseBola0D, 
+      posseBola0E, posseBola0F, posseBola0G, posseBola0H, posseBola0I, 
+      posseBola1A, posseBola1B, posseBola1C, posseBola1D, posseBola1E, posseBola1F, 
+      posseBola1G, posseBola1H, posseBola1I);
       
       socket.emit("gols", gols0, gols1);
 
