@@ -68,8 +68,8 @@ io.on("connection", function (socket) {
   socket.on("jogarNovamente", () => {
     socket.broadcast.emit("jogarNovamente");
   });
-  socket.on("iniciarCena2", () => {
-    socket.broadcast.emit("iniciarCena2");
+  socket.on("fimDoJogo", () => {
+    socket.broadcast.emit("fimDoJogo");
   });
 
   socket.on("posseBola", (posseBola0A, posseBola0B, posseBola0C, posseBola0D, 

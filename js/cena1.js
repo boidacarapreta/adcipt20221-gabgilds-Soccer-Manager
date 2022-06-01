@@ -1,5 +1,3 @@
-import { cena2 } from "./cena2.js";
-
 var cena1 = new Phaser.Scene("Cena 1");
 
 //Variáveis gerais da cena1
@@ -50,25 +48,84 @@ var fonteTexto2 = {font: "bold 28px Mont", fill: "#000000"};
 var textoPlacar;
 var textoPosseBola;
 
-var posseBola0A = 0;
-var posseBola0B = 0;
-var posseBola0C = 0;
-var posseBola0D = 0;
-var posseBola0E = 0;
-var posseBola0F = 0;
-var posseBola0G = 0;
-var posseBola0H = 0;
-var posseBola0I = 0;
+var posseBola0Inicial = 50;
+var posseBola1Inicial = 50;
 
-var posseBola1A = 0;
-var posseBola1B = 0;
-var posseBola1C = 0;
-var posseBola1D = 0;
-var posseBola1E = 0;
-var posseBola1F = 0;
-var posseBola1G = 0;
-var posseBola1H = 0;
-var posseBola1I = 0;
+var jogo0PosseBola0A = 0;
+var jogo0PosseBola0B = 0;
+var jogo0PosseBola0C = 0;
+var jogo0PosseBola0D = 0;
+var jogo0PosseBola0E = 0;
+var jogo0PosseBola0F = 0;
+var jogo0PosseBola0G = 0;
+var jogo0PosseBola0H = 0;
+var jogo0PosseBola0I = 0;
+var jogo0PosseBola1A = 0;
+var jogo0PosseBola1B = 0;
+var jogo0PosseBola1C = 0;
+var jogo0PosseBola1D = 0;
+var jogo0PosseBola1E = 0;
+var jogo0PosseBola1F = 0;
+var jogo0PosseBola1G = 0;
+var jogo0PosseBola1H = 0;
+var jogo0PosseBola1I = 0;
+
+var jogo1PosseBola0A = 0;
+var jogo1PosseBola0B = 0;
+var jogo1PosseBola0C = 0;
+var jogo1PosseBola0D = 0;
+var jogo1PosseBola0E = 0;
+var jogo1PosseBola0F = 0;
+var jogo1PosseBola0G = 0;
+var jogo1PosseBola0H = 0;
+var jogo1PosseBola0I = 0;
+var jogo1PosseBola1A = 0;
+var jogo1PosseBola1B = 0;
+var jogo1PosseBola1C = 0;
+var jogo1PosseBola1D = 0;
+var jogo1PosseBola1E = 0;
+var jogo1PosseBola1F = 0;
+var jogo1PosseBola1G = 0;
+var jogo1PosseBola1H = 0;
+var jogo1PosseBola1I = 0;
+
+var jogo2PosseBola0A = 0;
+var jogo2PosseBola0B = 0;
+var jogo2PosseBola0C = 0;
+var jogo2PosseBola0D = 0;
+var jogo2PosseBola0E = 0;
+var jogo2PosseBola0F = 0;
+var jogo2PosseBola0G = 0;
+var jogo2PosseBola0H = 0;
+var jogo2PosseBola0I = 0;
+var jogo2PosseBola1A = 0;
+var jogo2PosseBola1B = 0;
+var jogo2PosseBola1C = 0;
+var jogo2PosseBola1D = 0;
+var jogo2PosseBola1E = 0;
+var jogo2PosseBola1F = 0;
+var jogo2PosseBola1G = 0;
+var jogo2PosseBola1H = 0;
+var jogo2PosseBola1I = 0;
+
+var jogo3PosseBola0A = 0;
+var jogo3PosseBola0B = 0;
+var jogo3PosseBola0C = 0;
+var jogo3PosseBola0D = 0;
+var jogo3PosseBola0E = 0;
+var jogo3PosseBola0F = 0;
+var jogo3PosseBola0G = 0;
+var jogo3PosseBola0H = 0;
+var jogo3PosseBola0I = 0;
+var jogo3PosseBola1A = 0;
+var jogo3PosseBola1B = 0;
+var jogo3PosseBola1C = 0;
+var jogo3PosseBola1D = 0;
+var jogo3PosseBola1E = 0;
+var jogo3PosseBola1F = 0;
+var jogo3PosseBola1G = 0;
+var jogo3PosseBola1H = 0;
+var jogo3PosseBola1I = 0;
 
 var jogador2PosseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
 var jogador2PosseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
@@ -301,7 +358,6 @@ function aparecerFundo2() {
         //Se o gol ocorrer, atualiza o placar
         if (chanceGol === 1) {
           atualizarPlacar();
-          //this.socket.emit("gols", gols0, gols1);
         }
 
         //Se não tiver ocorrido nenhum gol durante a partida
@@ -309,15 +365,12 @@ function aparecerFundo2() {
           if (forçaClube0Escolhido > forçaClube1Escolhido) {
             gols0++;
             textoPlacar.setText(gols0 + "     " + gols1); //Atualiza os valores do placar
-            //this.socket.emit("gols", gols0, gols1);
           } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
             gols1++;
             textoPlacar.setText(gols0 + "     " + gols1);
-            //this.socket.emit("gols", gols0, gols1);
           } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
             gols0++;
             textoPlacar.setText(gols0 + "     " + gols1);
-            //this.socket.emit("gols", gols0, gols1);
           }
         }
       }
@@ -363,28 +416,7 @@ function aparecerFundo3() {
 
   //Resetando as variáveis necessárias e o tempo para conseguir rejogar
   time.removeEvent(passagemTempo); //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
-  
-  posseBola0A = 0;
-  posseBola0B = 0;
-  posseBola0C = 0;
-  posseBola0D = 0;
-  posseBola0E = 0;
-  posseBola0F = 0;
-  posseBola0G = 0;
-  posseBola0H = 0;
-  posseBola0I = 0;
-  
-  posseBola1A = 0;
-  posseBola1B = 0;
-  posseBola1C = 0;
-  posseBola1D = 0;
-  posseBola1E = 0;
-  posseBola1F = 0;
-  posseBola1G = 0;
-  posseBola1H = 0;
-  posseBola1I = 0;
-
-  textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+  textoPosseBola.setText(posseBola0Inicial + "%  " + posseBola1Inicial + "%"); //Atualiza os valores de posse de bola inciais
   gols0 = 0;
   gols1 = 0;
   textoPlacar.setText(gols0 + "     " + gols1); //Atualiza o valor de placar
@@ -397,48 +429,76 @@ function aparecerFundo3() {
 }
 //Função quando clica em jogar novamente
 function aparecerFundo1Novamente() {
-  if (jogador === 1) {
-    //Definindo a força dos clubes de novo para definir o resultado da nova partida
-    definindoForçaClubes();
-    botao0.setVisible(true);
-    botao1.setVisible(true);
-  } else if (jogador === 2) {
-    botao2.setVisible(true);
+  if (contadorPartidas !== 4) {
+    if (jogador === 1) {
+      //Definindo a força dos clubes de novo para definir o resultado da nova partida
+      definindoForçaClubes();
+      botao0.setVisible(true);
+      botao1.setVisible(true);
+    } else if (jogador === 2) {
+      botao2.setVisible(true);
+    }
+  
+    //Coloca as imagens corretas
+    fundo1.setVisible(true);
+    fundo2.setVisible(false);
+    fundo3.setVisible(false);
+    textoCronometro.setVisible(false);
+    textoPlacar.setVisible(false);
+    textoPosseBola.setVisible(false);
+    botaoSim.setVisible(false);
+    botaoNao.setVisible(false);
+    botaoJogarDeNovo.setVisible(false);
+    muller.setVisible(false);
+    neymar.setVisible(false);
+    benzema.setVisible(false);
+    deBruyne.setVisible(false);
+    parabensPsg0.setVisible(false);
+    parabensBayern0.setVisible(false);
+    parabensCity0.setVisible(false);
+    parabensReal0.setVisible(false);
+    parabensPsg1.setVisible(false);
+    parabensBayern1.setVisible(false);
+    parabensCity1.setVisible(false);
+    parabensReal1.setVisible(false);
+  
+    //Colocando o soundtrack novamente e tirando a música de vitória
+    somVencedor.pause();
+    soundtrack.play();
+  
+    //Coloca os clubes que aparecem primeiro para serem escolhidos
+    escolhaClubePadrao();
+  
+    //Adicionando valor no contador de partidas
+    contadorPartidas++;
+    textoContadorPartidas1.setText(contadorPartidas);
+  } else if (contadorPartidas === 4) {
+    fundo1.setVisible(false);
+    fundo2.setVisible(false);
+    fundo3.setVisible(false);
+    textoCronometro.setVisible(false);
+    textoPlacar.setVisible(false);
+    textoPosseBola.setVisible(false);
+    botaoSim.setVisible(false);
+    botaoNao.setVisible(false);
+    botaoJogarDeNovo.setVisible(false);
+    muller.setVisible(false);
+    neymar.setVisible(false);
+    benzema.setVisible(false);
+    deBruyne.setVisible(false);
+    parabensBayern0.setVisible(false);
+    parabensBayern1.setVisible(false);
+    parabensCity0.setVisible(false);
+    parabensCity1.setVisible(false);
+    parabensPsg0.setVisible(false);
+    parabensPsg1.setVisible(false);
+    parabensReal0.setVisible(false);
+    parabensReal1.setVisible(false);
+    retirarTodosClubes();
+    botaoTelaCheia.setVisible(false);
+    textoContadorPartidas0.setVisible(false);
+    textoContadorPartidas1.setVisible(false);
   }
-
-  //Coloca as imagens corretas
-  fundo1.setVisible(true);
-  fundo2.setVisible(false);
-  fundo3.setVisible(false);
-  textoCronometro.setVisible(false);
-  textoPlacar.setVisible(false);
-  textoPosseBola.setVisible(false);
-  botaoSim.setVisible(false);
-  botaoNao.setVisible(false);
-  botaoJogarDeNovo.setVisible(false);
-  muller.setVisible(false);
-  neymar.setVisible(false);
-  benzema.setVisible(false);
-  deBruyne.setVisible(false);
-  parabensPsg0.setVisible(false);
-  parabensBayern0.setVisible(false);
-  parabensCity0.setVisible(false);
-  parabensReal0.setVisible(false);
-  parabensPsg1.setVisible(false);
-  parabensBayern1.setVisible(false);
-  parabensCity1.setVisible(false);
-  parabensReal1.setVisible(false);
-
-  //Colocando o soundtrack novamente e tirando a música de vitória
-  somVencedor.pause();
-  soundtrack.play();
-
-  //Coloca os clubes que aparecem primeiro para serem escolhidos
-  escolhaClubePadrao();
-
-  //Adicionando valor no contador de partidas
-  contadorPartidas++;
-  textoContadorPartidas1.setText(contadorPartidas);
 }
 function clube0vencendo() {
   //Aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
@@ -521,25 +581,92 @@ function formatarTempo(segundos) {
 function atualizarPosseBola() {
   //Determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
   if (jogador === 1) {
-    if (contagem0 === 0) {
-      textoPosseBola.setText(posseBola0A + "%  " + posseBola1A + "%"); 
-    } else if (contagem0 === 1) {
-      textoPosseBola.setText(posseBola0B + "%  " + posseBola1B + "%"); 
-    } else if (contagem0 === 2) {
-      textoPosseBola.setText(posseBola0C + "%  " + posseBola1C + "%"); 
-    } else if (contagem0 === 3) {
-      textoPosseBola.setText(posseBola0D + "%  " + posseBola1D + "%"); 
-    } else if (contagem0 === 4) {
-      textoPosseBola.setText(posseBola0E + "%  " + posseBola1E + "%"); 
-    } else if (contagem0 === 5) {
-      textoPosseBola.setText(posseBola0F + "%  " + posseBola1F + "%"); 
-    } else if (contagem0 === 6) {
-      textoPosseBola.setText(posseBola0G + "%  " + posseBola1G + "%"); 
-    } else if (contagem0 === 7) {
-      textoPosseBola.setText(posseBola0H + "%  " + posseBola1H + "%"); 
-    } else if (contagem0 === 8) {
-      textoPosseBola.setText(posseBola0I + "%  " + posseBola1I + "%"); 
-    }
+    if (contadorPartidas === 0) {
+      if (contagem0 === 0) {
+        textoPosseBola.setText(jogo0PosseBola0A + "%  " + jogo0PosseBola1A + "%"); 
+      } else if (contagem0 === 1) {
+        textoPosseBola.setText(jogo0PosseBola0B + "%  " + jogo0PosseBola1B + "%"); 
+      } else if (contagem0 === 2) {
+        textoPosseBola.setText(jogo0PosseBola0C + "%  " + jogo0PosseBola1C + "%"); 
+      } else if (contagem0 === 3) {
+        textoPosseBola.setText(jogo0PosseBola0D + "%  " + jogo0PosseBola1D + "%"); 
+      } else if (contagem0 === 4) {
+        textoPosseBola.setText(jogo0PosseBola0E + "%  " + jogo0PosseBola1E + "%"); 
+      } else if (contagem0 === 5) {
+        textoPosseBola.setText(jogo0PosseBola0F + "%  " + jogo0PosseBola1F + "%"); 
+      } else if (contagem0 === 6) {
+        textoPosseBola.setText(jogo0PosseBola0G + "%  " + jogo0PosseBola1G + "%"); 
+      } else if (contagem0 === 7) {
+        textoPosseBola.setText(jogo0PosseBola0H + "%  " + jogo0PosseBola1H + "%"); 
+      } else if (contagem0 === 8) {
+        textoPosseBola.setText(jogo0PosseBola0I + "%  " + jogo0PosseBola1I + "%"); 
+      }
+      contagem0++;
+    } else if (contadorPartidas === 1) {
+      if (contagem0 === 0) {
+        textoPosseBola.setText(jogo1PosseBola0A + "%  " + jogo1PosseBola1A + "%"); 
+      } else if (contagem0 === 1) {
+        textoPosseBola.setText(jogo1PosseBola0B + "%  " + jogo1PosseBola1B + "%"); 
+      } else if (contagem0 === 2) {
+        textoPosseBola.setText(jogo1PosseBola0C + "%  " + jogo1PosseBola1C + "%"); 
+      } else if (contagem0 === 3) {
+        textoPosseBola.setText(jogo1PosseBola0D + "%  " + jogo1PosseBola1D + "%"); 
+      } else if (contagem0 === 4) {
+        textoPosseBola.setText(jogo1PosseBola0E + "%  " + jogo1PosseBola1E + "%"); 
+      } else if (contagem0 === 5) {
+        textoPosseBola.setText(jogo1PosseBola0F + "%  " + jogo1PosseBola1F + "%"); 
+      } else if (contagem0 === 6) {
+        textoPosseBola.setText(jogo1PosseBola0G + "%  " + jogo1PosseBola1G + "%"); 
+      } else if (contagem0 === 7) {
+        textoPosseBola.setText(jogo1PosseBola0H + "%  " + jogo1PosseBola1H + "%"); 
+      } else if (contagem0 === 8) {
+        textoPosseBola.setText(jogo1PosseBola0I + "%  " + jogo1PosseBola1I + "%");      
+      }
+      contagem0++;
+    } else if (contadorPartidas === 2) {
+      if (contagem0 === 0) {
+        textoPosseBola.setText(jogo2PosseBola0A + "%  " + jogo2PosseBola1A + "%"); 
+      } else if (contagem0 === 1) {
+        textoPosseBola.setText(jogo2PosseBola0B + "%  " + jogo2PosseBola1B + "%"); 
+      } else if (contagem0 === 2) {
+        textoPosseBola.setText(jogo2PosseBola0C + "%  " + jogo2PosseBola1C + "%"); 
+      } else if (contagem0 === 3) {
+        textoPosseBola.setText(jogo2PosseBola0D + "%  " + jogo2PosseBola1D + "%"); 
+      } else if (contagem0 === 4) {
+        textoPosseBola.setText(jogo2PosseBola0E + "%  " + jogo2PosseBola1E + "%"); 
+      } else if (contagem0 === 5) {
+        textoPosseBola.setText(jogo2PosseBola0F + "%  " + jogo2PosseBola1F + "%"); 
+      } else if (contagem0 === 6) {
+        textoPosseBola.setText(jogo2PosseBola0G + "%  " + jogo2PosseBola1G + "%"); 
+      } else if (contagem0 === 7) {
+        textoPosseBola.setText(jogo2PosseBola0H + "%  " + jogo2PosseBola1H + "%"); 
+      } else if (contagem0 === 8) {
+        textoPosseBola.setText(jogo2PosseBola0I + "%  " + jogo2PosseBola1I + "%");      
+      }
+      contagem0++;
+    } else if (contadorPartidas === 3) {
+      if (contagem0 === 0) {
+        textoPosseBola.setText(jogo3PosseBola0A + "%  " + jogo3PosseBola1A + "%"); 
+      } else if (contagem0 === 1) {
+        textoPosseBola.setText(jogo3PosseBola0B + "%  " + jogo3PosseBola1B + "%"); 
+      } else if (contagem0 === 2) {
+        textoPosseBola.setText(jogo3PosseBola0C + "%  " + jogo3PosseBola1C + "%"); 
+      } else if (contagem0 === 3) {
+        textoPosseBola.setText(jogo3PosseBola0D + "%  " + jogo3PosseBola1D + "%"); 
+      } else if (contagem0 === 4) {
+        textoPosseBola.setText(jogo3PosseBola0E + "%  " + jogo3PosseBola1E + "%"); 
+      } else if (contagem0 === 5) {
+        textoPosseBola.setText(jogo3PosseBola0F + "%  " + jogo3PosseBola1F + "%"); 
+      } else if (contagem0 === 6) {
+        textoPosseBola.setText(jogo3PosseBola0G + "%  " + jogo3PosseBola1G + "%"); 
+      } else if (contagem0 === 7) {
+        textoPosseBola.setText(jogo3PosseBola0H + "%  " + jogo3PosseBola1H + "%"); 
+      } else if (contagem0 === 8) {
+        textoPosseBola.setText(jogo3PosseBola0I + "%  " + jogo3PosseBola1I + "%");      
+      }
+      contagem0++;
+    } 
+
   } else if (jogador === 2) {
     if (contagem0 === 0) {
       textoPosseBola.setText(jogador2PosseBola0.a + "%  " + jogador2PosseBola1.a + "%"); 
@@ -892,7 +1019,7 @@ cena1.create = function () {
   aparecerFundo1();
   escolhaClubePadrao();
   
-  //Criando os valores de posse de bola que serão usados na partida
+  //Criando os valores de posse de bola que serão usados nas 4 partidas
   posseBola0A = Phaser.Math.Between(35, 65);
   posseBola1A = 100 - posseBola0A;
   posseBola0B = Phaser.Math.Between(35, 65);
@@ -1026,7 +1153,7 @@ cena1.create = function () {
         aparecerFundo1Novamente();
       });
 
-      socket.on("iniciarCena2", () => {
+      socket.on("fimDoJogo", () => {
         fundo1.setVisible(false);
         fundo2.setVisible(false);
         fundo3.setVisible(false);
@@ -1184,9 +1311,33 @@ cena1.create = function () {
     "pointerdown",
     function () {
       //Finaliza o jogo
-      this.scene.start(cena2);
+      fundo1.setVisible(false);
+      fundo2.setVisible(false);
+      fundo3.setVisible(false);
+      textoCronometro.setVisible(false);
+      textoPlacar.setVisible(false);
+      textoPosseBola.setVisible(false);
+      botaoSim.setVisible(false);
+      botaoNao.setVisible(false);
+      botaoJogarDeNovo.setVisible(false);
+      muller.setVisible(false);
+      neymar.setVisible(false);
+      benzema.setVisible(false);
+      deBruyne.setVisible(false);
+      parabensBayern0.setVisible(false);
+      parabensBayern1.setVisible(false);
+      parabensCity0.setVisible(false);
+      parabensCity1.setVisible(false);
+      parabensPsg0.setVisible(false);
+      parabensPsg1.setVisible(false);
+      parabensReal0.setVisible(false);
+      parabensReal1.setVisible(false);
+      retirarTodosClubes();
+      botaoTelaCheia.setVisible(false);
+      textoContadorPartidas0.setVisible(false);
+      textoContadorPartidas1.setVisible(false);
       somVencedor.pause();
-      socket.emit("iniciarCena2");
+      socket.emit("fimDoJogo");
     },
     this
   );
