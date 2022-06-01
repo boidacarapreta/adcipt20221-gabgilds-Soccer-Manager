@@ -1024,15 +1024,15 @@ cena1.create = function () {
         posseBola0.h = jogador2PosseBola0.h;
         posseBola0.i = jogador2PosseBola0.i;
         
-        posseBola1.a = jogador2posseBola1.a;
-        posseBola1.b = jogador2posseBola1.b;
-        posseBola1.c = jogador2posseBola1.c;
-        posseBola1.d = jogador2posseBola1.d;
-        posseBola1.e = jogador2posseBola1.e;
-        posseBola1.f = jogador2posseBola1.f;
-        posseBola1.g = jogador2posseBola1.g;
-        posseBola1.h = jogador2posseBola1.h;
-        posseBola1.i = jogador2posseBola1.i;
+        posseBola1.a = jogador2PosseBola1.a;
+        posseBola1.b = jogador2PosseBola1.b;
+        posseBola1.c = jogador2PosseBola1.c;
+        posseBola1.d = jogador2PosseBola1.d;
+        posseBola1.e = jogador2PosseBola1.e;
+        posseBola1.f = jogador2PosseBola1.f;
+        posseBola1.g = jogador2PosseBola1.g;
+        posseBola1.h = jogador2PosseBola1.h;
+        posseBola1.i = jogador2PosseBola1.i;
       });
     } 
   });
