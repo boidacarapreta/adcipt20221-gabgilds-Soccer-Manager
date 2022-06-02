@@ -14,6 +14,7 @@ Para ter o servidor local basta colocar 'this.socket = io()'.
 Enviando o código para o servidor Heroku:
 
 'heroku login -i';
+
 'git remote -v';
 'heroku git:remote -a secure-meadow-69283' (caso não tenha um link atrelado ao heroku);
 'git push heroku main'.
