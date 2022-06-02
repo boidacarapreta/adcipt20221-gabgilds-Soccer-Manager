@@ -1,9 +1,13 @@
-Shortcuts importantes para o projeto:
+Informações importantes para o projeto:
 
 'Ctrl + Shift + P' -> Mostra todos os comandos;
 'Ctrl + Shift + E' -> Mostra o explorador;
 'Ctrl + Shift + G' -> Mostra o controlador de versões;
 'Ctrl + "' -> Abrir o terminal.
+
+chrome://inspect -> Analisar as informações da rede no Google Chrome.
+
+Para ter o servidor local basta colocar 'this.socket = io()'.
 
 -------------------------------------------------------------------------------
 

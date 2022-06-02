@@ -60,3 +60,5 @@ Tradução de endereços
 20/05/2022:
 
 Pode utilizar redundâncias físicas em um dispositivo virtual. 5 Switches são 1 switch virtual.
+
+socket.broadcast.emit envia a informação para todos menos para ele mesmo.
