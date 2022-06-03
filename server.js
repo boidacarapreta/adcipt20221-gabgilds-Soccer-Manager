@@ -65,13 +65,16 @@ io.on("connection", function (socket) {
   socket.on("começarPartida", () => {
     socket.broadcast.emit("começarPartida");
   });
+  socket.on("fimDaPartida", () => {
+    socket.broadcast.emit("fimDaPartida");
+  });
   socket.on("jogarNovamente", () => {
     socket.broadcast.emit("jogarNovamente");
   });
   socket.on("fimDoJogo", () => {
     socket.broadcast.emit("fimDoJogo");
   });
-
+  
   //Servidor recebendo a informação da posse de bola
   socket.on("posseBola", (posseBola0, posseBola1) => {
     socket.broadcast.emit("posseBola", posseBola0, posseBola1);

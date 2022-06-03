@@ -345,6 +345,8 @@ function aparecerFundo3() {
   if (jogador === 1) {
     botaoSim.setVisible(true);
     botaoNao.setVisible(true);
+    //Envia a mensagem para o player 2 finalizar a partida
+    socket.emit("fimDaPartida");
   } else if (jogador === 2) {
     botaoSim.setVisible(false);
     botaoNao.setVisible(false);
@@ -936,6 +938,9 @@ cena1.create = function () {
       //Recebendo o comunicado do player 1 para começar a partida
       socket.on("começarPartida", () => {
         aparecerFundo2();
+      });
+      socket.on("fimDaPartida", () => {
+        aparecerFundo3();
       });
       //Recebendo o comunicado do player 1 para rejogar a partida
       socket.on("jogarNovamente", () => {
