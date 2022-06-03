@@ -296,28 +296,29 @@ function aparecerFundo2() {
       //A cada x ms (delay) adiciona 15 segundos do tempo inicial
       tempoInicial += 15; 
       textoCronometro.setText(formatarTempo(tempoInicial));
-      //Fim da partida
-      if (tempoInicial === 5400) {
-        aparecerFundo3();          
-      }
-
-      //Atualização da posse de bola
-      if (tempoInicial % 495 === 0) {
-        atualizarPosseBola();
-      }
-
-      //Atualização e criação dos valores do placar do jogo pelo jogador 1
       if (jogador === 1) {
+        //Fim da partida
+        if (tempoInicial === 5400) {
+          aparecerFundo3();          
+        }
+
+        //Atualização da posse de bola
+        if (tempoInicial % 495 === 0) {
+          atualizarPosseBola();
+        }
+
+        //Atualização e criação dos valores do placar do jogo pelo jogador 1
+      
         if (tempoInicial % 120 === 0) {
           //Possibilidade de ocorrer um gol
           chanceGol = Phaser.Math.Between(0, 20); 
           console.log(`chanceGol: ${chanceGol}`);
-  
+
           //Se o gol ocorrer, atualiza o placar
           if (chanceGol === 1) {
             atualizarPlacar();
           }
-  
+
           //Se não tiver ocorrido nenhum gol durante a partida
           if (tempoInicial === 4800 && gols0 === 0 && gols1 === 0) {
             if (forçaClube0Escolhido > forçaClube1Escolhido) {
