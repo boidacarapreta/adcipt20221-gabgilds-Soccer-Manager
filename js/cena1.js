@@ -54,6 +54,7 @@ var posseBola1 = 50;
 var jogador2PosseBola0 = 50;
 var jogador2PosseBola1 = 50;
 
+
 /*
 //Posses de bola do player 1 da partida 0
 var jogador1_Partida0_PosseBola0_A = 50;
