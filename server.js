@@ -72,6 +72,11 @@ io.on("connection", function (socket) {
     socket.broadcast.emit("fimDoJogo");
   });
 
+  //Servidor recebendo a informação da posse de bola
+  socket.on("posseBola", (posseBola0, posseBola1) => {
+    socket.broadcast.emit("fimDoJogo", posseBola0, posseBola1);
+  });
+  /*
   socket.on("posseBola", (
     //jogo0
     jogo0PosseBola0A, jogo0PosseBola0B, jogo0PosseBola0C, jogo0PosseBola0D, 
@@ -85,6 +90,7 @@ io.on("connection", function (socket) {
     jogo0PosseBola1A, jogo0PosseBola1B, jogo0PosseBola1C, jogo0PosseBola1D, jogo0PosseBola1E, jogo0PosseBola1F, 
     jogo0PosseBola1G, jogo0PosseBola1H, jogo0PosseBola1I);
   });
+  */
 });
 
 app.use(express.static("./"));

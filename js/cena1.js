@@ -1,6 +1,7 @@
 var cena1 = new Phaser.Scene("Cena 1");
 
 //Variáveis para o multiplayer
+var socket;
 var ice_servers = {
   iceServers: [{urls: "stun:stun.l.google.com:19302"}],
 };
@@ -48,97 +49,165 @@ var fonteTexto1 = {font: "bold 28px Arial", fill: "#FFFFFF"};
 var fonteTexto2 = {font: "bold 28px Mont", fill: "#000000"};
 var textoPlacar;
 var textoPosseBola;
+var posseBola0 = 50;
+var posseBola1 = 50;
+var jogador2PosseBola0 = 50;
+var jogador2PosseBola1 = 50;
 
-var posseBola0Inicial = 50;
-var posseBola1Inicial = 50;
-
-var partida0_PosseBola0A = 0;
-var partida0_PosseBola0B = 0;
-var partida0_PosseBola0C = 0;
-var partida0_PosseBola0D = 0;
-var partida0_PosseBola0E = 0;
-var partida0_PosseBola0F = 0;
-var partida0_PosseBola0G = 0;
-var partida0_PosseBola0H = 0;
-var partida0_PosseBola0I = 0;
-var partida0_PosseBola1A = 0;
-var partida0_PosseBola1B = 0;
-var partida0_PosseBola1C = 0;
-var partida0_PosseBola1D = 0;
-var partida0_PosseBola1E = 0;
-var partida0_PosseBola1F = 0;
-var partida0_PosseBola1G = 0;
-var partida0_PosseBola1H = 0;
-var partida0_PosseBola1I = 0;
-
-var partida1_PosseBola0A = 0;
-var partida1_PosseBola0B = 0;
-var partida1_PosseBola0C = 0;
-var partida1_PosseBola0D = 0;
-var partida1_PosseBola0E = 0;
-var partida1_PosseBola0F = 0;
-var partida1_PosseBola0G = 0;
-var partida1_PosseBola0H = 0;
-var partida1_PosseBola0I = 0;
-var partida1_PosseBola1A = 0;
-var partida1_PosseBola1B = 0;
-var partida1_PosseBola1C = 0;
-var partida1_PosseBola1D = 0;
-var partida1_PosseBola1E = 0;
-var partida1_PosseBola1F = 0;
-var partida1_PosseBola1G = 0;
-var partida1_PosseBola1H = 0;
-var partida1_PosseBola1I = 0;
-
-var partida2_PosseBola0A = 0;
-var partida2_PosseBola0B = 0;
-var partida2_PosseBola0C = 0;
-var partida2_PosseBola0D = 0;
-var partida2_PosseBola0E = 0;
-var partida2_PosseBola0F = 0;
-var partida2_PosseBola0G = 0;
-var partida2_PosseBola0H = 0;
-var partida2_PosseBola0I = 0;
-var partida2_PosseBola1A = 0;
-var partida2_PosseBola1B = 0;
-var partida2_PosseBola1C = 0;
-var partida2_PosseBola1D = 0;
-var partida2_PosseBola1E = 0;
-var partida2_PosseBola1F = 0;
-var partida2_PosseBola1G = 0;
-var partida2_PosseBola1H = 0;
-var partida2_PosseBola1I = 0;
-
-var partida3_PosseBola0A = 0;
-var partida3_PosseBola0B = 0;
-var partida3_PosseBola0C = 0;
-var partida3_PosseBola0D = 0;
-var partida3_PosseBola0E = 0;
-var partida3_PosseBola0F = 0;
-var partida3_PosseBola0G = 0;
-var partida3_PosseBola0H = 0;
-var partida3_PosseBola0I = 0;
-var partida3_PosseBola1A = 0;
-var partida3_PosseBola1B = 0;
-var partida3_PosseBola1C = 0;
-var partida3_PosseBola1D = 0;
-var partida3_PosseBola1E = 0;
-var partida3_PosseBola1F = 0;
-var partida3_PosseBola1G = 0;
-var partida3_PosseBola1H = 0;
-var partida3_PosseBola1I = 0;
-
-var jogador2partida0_PosseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
-var jogador2partida0_PosseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
-
-var jogador2partida1_PosseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
-var jogador2partida1_PosseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
-
-var jogador2partida2_PosseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
-var jogador2partida2_PosseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
-
-var jogador2partida3_PosseBola0 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
-var jogador2partida3_PosseBola1 = {a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0};
+/*
+//Posses de bola do player 1 da partida 0
+var jogador1_Partida0_PosseBola0_A = 50;
+var jogador1_Partida0_PosseBola0_B = 50;
+var jogador1_Partida0_PosseBola0_C = 50;
+var jogador1_Partida0_PosseBola0_D = 50;
+var jogador1_Partida0_PosseBola0_E = 50;
+var jogador1_Partida0_PosseBola0_F = 50;
+var jogador1_Partida0_PosseBola0_G = 50;
+var jogador1_Partida0_PosseBola0_H = 50;
+var jogador1_Partida0_PosseBola0_I = 50;
+var jogador1_Partida0_PosseBola1_A = 50;
+var jogador1_Partida0_PosseBola1_B = 50;
+var jogador1_Partida0_PosseBola1_C = 50;
+var jogador1_Partida0_PosseBola1_D = 50;
+var jogador1_Partida0_PosseBola1_E = 50;
+var jogador1_Partida0_PosseBola1_F = 50;
+var jogador1_Partida0_PosseBola1_G = 50;
+var jogador1_Partida0_PosseBola1_H = 50;
+var jogador1_Partida0_PosseBola1_I = 50;
+//Posses de bola do player 1 da partida 1
+var jogador1_Partida1_PosseBola0_A = 50;
+var jogador1_Partida1_PosseBola0_B = 50;
+var jogador1_Partida1_PosseBola0_C = 50;
+var jogador1_Partida1_PosseBola0_D = 50;
+var jogador1_Partida1_PosseBola0_E = 50;
+var jogador1_Partida1_PosseBola0_F = 50;
+var jogador1_Partida1_PosseBola0_G = 50;
+var jogador1_Partida1_PosseBola0_H = 50;
+var jogador1_Partida1_PosseBola0_I = 50;
+var jogador1_Partida1_PosseBola1_A = 50;
+var jogador1_Partida1_PosseBola1_B = 50;
+var jogador1_Partida1_PosseBola1_C = 50;
+var jogador1_Partida1_PosseBola1_D = 50;
+var jogador1_Partida1_PosseBola1_E = 50;
+var jogador1_Partida1_PosseBola1_F = 50;
+var jogador1_Partida1_PosseBola1_G = 50;
+var jogador1_Partida1_PosseBola1_H = 50;
+var jogador1_Partida1_PosseBola1_I = 50;
+//Posses de bola do player 1 da partida 2
+var jogador1_Partida2_PosseBola0_A = 50;
+var jogador1_Partida2_PosseBola0_B = 50;
+var jogador1_Partida2_PosseBola0_C = 50;
+var jogador1_Partida2_PosseBola0_D = 50;
+var jogador1_Partida2_PosseBola0_E = 50;
+var jogador1_Partida2_PosseBola0_F = 50;
+var jogador1_Partida2_PosseBola0_G = 50;
+var jogador1_Partida2_PosseBola0_H = 50;
+var jogador1_Partida2_PosseBola0_I = 50;
+var jogador1_Partida2_PosseBola1_A = 50;
+var jogador1_Partida2_PosseBola1_B = 50;
+var jogador1_Partida2_PosseBola1_C = 50;
+var jogador1_Partida2_PosseBola1_D = 50;
+var jogador1_Partida2_PosseBola1_E = 50;
+var jogador1_Partida2_PosseBola1_F = 50;
+var jogador1_Partida2_PosseBola1_G = 50;
+var jogador1_Partida2_PosseBola1_H = 50;
+var jogador1_Partida2_PosseBola1_I = 50;
+//Posses de bola do player 1 da partida 3
+var jogador1_Partida3_PosseBola0_A = 50;
+var jogador1_Partida3_PosseBola0_B = 50;
+var jogador1_Partida3_PosseBola0_C = 50;
+var jogador1_Partida3_PosseBola0_D = 50;
+var jogador1_Partida3_PosseBola0_E = 50;
+var jogador1_Partida3_PosseBola0_F = 50;
+var jogador1_Partida3_PosseBola0_G = 50;
+var jogador1_Partida3_PosseBola0_H = 50;
+var jogador1_Partida3_PosseBola0_I = 50;
+var jogador1_Partida3_PosseBola1_A = 50;
+var jogador1_Partida3_PosseBola1_B = 50;
+var jogador1_Partida3_PosseBola1_C = 50;
+var jogador1_Partida3_PosseBola1_D = 50;
+var jogador1_Partida3_PosseBola1_E = 50;
+var jogador1_Partida3_PosseBola1_F = 50;
+var jogador1_Partida3_PosseBola1_G = 50;
+var jogador1_Partida3_PosseBola1_H = 50;
+var jogador1_Partida3_PosseBola1_I = 50;
+//Posses de bola do player 2 da partida 0
+var jogador2_Partida0_PosseBola0_A = 50;
+var jogador2_Partida0_PosseBola0_B = 50;
+var jogador2_Partida0_PosseBola0_C = 50;
+var jogador2_Partida0_PosseBola0_D = 50;
+var jogador2_Partida0_PosseBola0_E = 50;
+var jogador2_Partida0_PosseBola0_F = 50;
+var jogador2_Partida0_PosseBola0_G = 50;
+var jogador2_Partida0_PosseBola0_H = 50;
+var jogador2_Partida0_PosseBola0_I = 50;
+var jogador2_Partida0_PosseBola1_A = 50;
+var jogador2_Partida0_PosseBola1_B = 50;
+var jogador2_Partida0_PosseBola1_C = 50;
+var jogador2_Partida0_PosseBola1_D = 50;
+var jogador2_Partida0_PosseBola1_E = 50;
+var jogador2_Partida0_PosseBola1_F = 50;
+var jogador2_Partida0_PosseBola1_G = 50;
+var jogador2_Partida0_PosseBola1_H = 50;
+var jogador2_Partida0_PosseBola1_I = 50;
+//Posses de bola do player 2 da partida 1
+var jogador2_Partida1_PosseBola0_A = 50;
+var jogador2_Partida1_PosseBola0_B = 50;
+var jogador2_Partida1_PosseBola0_C = 50;
+var jogador2_Partida1_PosseBola0_D = 50;
+var jogador2_Partida1_PosseBola0_E = 50;
+var jogador2_Partida1_PosseBola0_F = 50;
+var jogador2_Partida1_PosseBola0_G = 50;
+var jogador2_Partida1_PosseBola0_H = 50;
+var jogador2_Partida1_PosseBola0_I = 50;
+var jogador2_Partida1_PosseBola1_A = 50;
+var jogador2_Partida1_PosseBola1_B = 50;
+var jogador2_Partida1_PosseBola1_C = 50;
+var jogador2_Partida1_PosseBola1_D = 50;
+var jogador2_Partida1_PosseBola1_E = 50;
+var jogador2_Partida1_PosseBola1_F = 50;
+var jogador2_Partida1_PosseBola1_G = 50;
+var jogador2_Partida1_PosseBola1_H = 50;
+var jogador2_Partida1_PosseBola1_I = 50;
+//Posses de bola do player 2 da partida 2
+var jogador2_Partida2_PosseBola0_A = 50;
+var jogador2_Partida2_PosseBola0_B = 50;
+var jogador2_Partida2_PosseBola0_C = 50;
+var jogador2_Partida2_PosseBola0_D = 50;
+var jogador2_Partida2_PosseBola0_E = 50;
+var jogador2_Partida2_PosseBola0_F = 50;
+var jogador2_Partida2_PosseBola0_G = 50;
+var jogador2_Partida2_PosseBola0_H = 50;
+var jogador2_Partida2_PosseBola0_I = 50;
+var jogador2_Partida2_PosseBola1_A = 50;
+var jogador2_Partida2_PosseBola1_B = 50;
+var jogador2_Partida2_PosseBola1_C = 50;
+var jogador2_Partida2_PosseBola1_D = 50;
+var jogador2_Partida2_PosseBola1_E = 50;
+var jogador2_Partida2_PosseBola1_F = 50;
+var jogador2_Partida2_PosseBola1_G = 50;
+var jogador2_Partida2_PosseBola1_H = 50;
+var jogador2_Partida2_PosseBola1_I = 50;
+//Posses de bola do player 2 da partida 3
+var jogador2_Partida3_PosseBola0_A = 50;
+var jogador2_Partida3_PosseBola0_B = 50;
+var jogador2_Partida3_PosseBola0_C = 50;
+var jogador2_Partida3_PosseBola0_D = 50;
+var jogador2_Partida3_PosseBola0_E = 50;
+var jogador2_Partida3_PosseBola0_F = 50;
+var jogador2_Partida3_PosseBola0_G = 50;
+var jogador2_Partida3_PosseBola0_H = 50;
+var jogador2_Partida3_PosseBola0_I = 50;
+var jogador2_Partida3_PosseBola1_A = 50;
+var jogador2_Partida3_PosseBola1_B = 50;
+var jogador2_Partida3_PosseBola1_C = 50;
+var jogador2_Partida3_PosseBola1_D = 50;
+var jogador2_Partida3_PosseBola1_E = 50;
+var jogador2_Partida3_PosseBola1_F = 50;
+var jogador2_Partida3_PosseBola1_G = 50;
+var jogador2_Partida3_PosseBola1_H = 50;
+var jogador2_Partida3_PosseBola1_I = 50;
+*/
 
 var minutos;
 var parteEmSegundos;
@@ -147,8 +216,8 @@ var time;
 var chanceGol;
 var gols0 = 0;
 var gols1 = 0;
-//Variável para a posse de bola
-var contagem0 = 0; 
+//Variáveis para a posse de bola
+var contagem0 = 0;
 var jogador;
 var tipoDeJogo;
 //Variáveis e funções para o funcionamento da partida
@@ -450,8 +519,10 @@ function aparecerFundo3() {
   }
   //<--- Resetando as variáveis necessárias e o tempo para conseguir rejogar --->
   //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
-  time.removeEvent(passagemTempo); 
-  textoPosseBola.setText(posseBola0Inicial + "%  " + posseBola1Inicial + "%"); //Atualiza os valores de posse de bola inciais
+  time.removeEvent(passagemTempo);
+  posseBola0 = 50;
+  posseBola1 = 50;
+  textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola inciais
   gols0 = 0;
   gols1 = 0;
   textoPlacar.setText(gols0 + "     " + gols1); 
@@ -586,6 +657,40 @@ function formatarTempo(segundos) {
 function atualizarPosseBola() {
   //Determina os valores de posse de bola dos clubes, fazendo com que quanto mais o jogo passa, menos varia a posse de bola
   if (jogador === 1) {
+    if (contagem0 < 3) {
+      posseBola0 = Phaser.Math.Between(35, 65);
+      posseBola1 = 100 - posseBola0;
+      textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+    } else if (2 < contagem0 < 6) {
+      posseBola0 = Phaser.Math.Between(45, 55);
+      posseBola1 = 100 - posseBola0;
+      textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
+    } else if (contagem0 > 5) {
+      posseBola0 = Phaser.Math.Between(47, 53);
+      posseBola1 = 100 - posseBola0;
+      textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
+    }
+    contagem0++;
+    //Envia as variáveis de posse de bola do player 1
+    socket.emit("posseBola", posseBola0, posseBola1);
+  } else if (jogador === 2) {
+    //Recebendo as variáveis de posse de bola do player 1
+    socket.on("posseBola", (posseBola0, posseBola1) => {
+      posseBola0 = jogador2PosseBola0;
+      posseBola1 = jogador2PosseBola1;
+      console.log(`jogador2PosseBola0: ${jogador2PosseBola0} \njogador2PosseBola1: ${jogador2PosseBola1}`)
+      if (contagem0 < 3) {
+        textoPosseBola.setText(jogador2PosseBola0 + "%  " + jogador2PosseBola1 + "%"); 
+      } else if (2 < contagem0 < 6) {
+        textoPosseBola.setText(jogador2PosseBola0 + "%  " + jogador2PosseBola1 + "%"); 
+      } else if (contagem0 > 5) {
+        textoPosseBola.setText(jogador2PosseBola0 + "%  " + jogador2PosseBola1 + "%"); 
+      }
+      contagem0++;
+    });
+  }
+
+    /*
     if (contadorPartidas === 0) {
       if (contagem0 === 0) {
         textoPosseBola.setText(partida0_PosseBola0A + "%  " + partida0_PosseBola1A + "%"); 
@@ -673,27 +778,29 @@ function atualizarPosseBola() {
     } 
   } else if (jogador === 2) {
     if (contagem0 === 0) {
-      textoPosseBola.setText(jogador2partida0_PosseBola0.a + "%  " + jogador2partida0_PosseBola1.a + "%"); 
+      textoPosseBola.setText(jogador2_Partida0_PosseBola0.a + "%  " + jogador2_Partida0_PosseBola1.a + "%"); 
     } else if (contagem0 === 1) {
-      textoPosseBola.setText(jogador2partida0_PosseBola0.b + "%  " + jogador2partida0_PosseBola1.b + "%"); 
+      textoPosseBola.setText(jogador2_Partida0_PosseBola0.b + "%  " + jogador2_Partida0_PosseBola1.b + "%"); 
     } else if (contagem0 === 2) {
-      textoPosseBola.setText(jogador2partida0_PosseBola0.c + "%  " + jogador2partida0_PosseBola1.c + "%"); 
+      textoPosseBola.setText(jogador2_Partida0_PosseBola0.c + "%  " + jogador2_Partida0_PosseBola1.c + "%"); 
     } else if (contagem0 === 3) {
-      textoPosseBola.setText(jogador2partida0_PosseBola0.d + "%  " + jogador2partida0_PosseBola1.d + "%"); 
+      textoPosseBola.setText(jogador2_Partida0_PosseBola0.d + "%  " + jogador2_Partida0_PosseBola1.d + "%"); 
     } else if (contagem0 === 4) {
-      textoPosseBola.setText(jogador2partida0_PosseBola0.e + "%  " + jogador2partida0_PosseBola1.e + "%"); 
+      textoPosseBola.setText(jogador2_Partida0_PosseBola0.e + "%  " + jogador2_Partida0_PosseBola1.e + "%"); 
     } else if (contagem0 === 5) {
-      textoPosseBola.setText(jogador2partida0_PosseBola0.f + "%  " + jogador2partida0_PosseBola1.f + "%"); 
+      textoPosseBola.setText(jogador2_Partida0_PosseBola0.f + "%  " + jogador2_Partida0_PosseBola1.f + "%"); 
     } else if (contagem0 === 6) {
-      textoPosseBola.setText(jogador2partida0_PosseBola0.g + "%  " + jogador2partida0_PosseBola1.g + "%"); 
+      textoPosseBola.setText(jogador2_Partida0_PosseBola0.g + "%  " + jogador2_Partida0_PosseBola1.g + "%"); 
     } else if (contagem0 === 7) {
-      textoPosseBola.setText(jogador2partida0_PosseBola0.h + "%  " + jogador2partida0_PosseBola1.h + "%"); 
+      textoPosseBola.setText(jogador2_Partida0_PosseBola0.h + "%  " + jogador2_Partida0_PosseBola1.h + "%"); 
     } else if (contagem0 === 8) {
-      textoPosseBola.setText(jogador2partida0_PosseBola0.i + "%  " + jogador2partida0_PosseBola1.i + "%"); 
+      textoPosseBola.setText(jogador2_Partida0_PosseBola0.i + "%  " + jogador2_Partida0_PosseBola1.i + "%"); 
     }
-  } 
-  contagem0++;
-}
+  */
+} 
+  //contagem0++;
+  
+
 function atualizarPlacar() {
   //Se o clube0 for mais forte
   if (forçaClube0Escolhido > forçaClube1Escolhido) { 
@@ -997,6 +1104,8 @@ cena1.create = function () {
   //Mostra no início apenas a tela de escolha de clubes e os dois primeiros clubes
   aparecerFundo1();
   escolhaClubePadrao();
+
+  /*
   //<--- Criando os valores de posse de bola que serão usados nas 4 partidas --->
   //Partida 0
   partida0_PosseBola0A = Phaser.Math.Between(35, 65);
@@ -1074,12 +1183,12 @@ cena1.create = function () {
   partida3_PosseBola1H = 100 - partida3_PosseBola0H;
   partida3_PosseBola0I = Phaser.Math.Between(47, 53);
   partida3_PosseBola1I = 100 - partida3_PosseBola0I;
+  */
 
   //Conectar ao servidor do Heroku via socket.io (WebSocket). Link do Heroku: "https://secure-meadow-69283.herokuapp.com/"
   this.socket = io("https://secure-meadow-69283.herokuapp.com/"); 
   //Tornar as variáveis utilizáveis dentro desse escopo
   var self = this;
-  var socket = this.socket;
   
   //Defindo os players e a comunicação
   socket.on("jogadores", function (jogadores) { 
@@ -1144,12 +1253,15 @@ cena1.create = function () {
           escolhaPsg1();
         }
       })
-      //Envia as variáveis de posse de bola
+      
+      /*
       socket.emit("posseBola", 
       partida0_PosseBola0A, partida0_PosseBola0B, partida0_PosseBola0C, partida0_PosseBola0D, 
       partida0_PosseBola0E, partida0_PosseBola0F, partida0_PosseBola0G, partida0_PosseBola0H, partida0_PosseBola0I, 
       partida0_PosseBola1A, partida0_PosseBola1B, partida0_PosseBola1C, partida0_PosseBola1D, partida0_PosseBola1E, partida0_PosseBola1F, 
-      partida0_PosseBola1G, partida0_PosseBola1H, partida0_PosseBola1I); 
+      partida0_PosseBola1G, partida0_PosseBola1H, partida0_PosseBola1I);
+      */
+
       //Envia as variáveis de gols
       socket.emit("gols", gols0, gols1);
       //Mostra os players conectados
@@ -1191,6 +1303,8 @@ cena1.create = function () {
         apagarTela();
       });    
       //Recebendo os valores de posse de bola gerados pelo player 1
+
+      /*
       socket.on("posseBola", (partida0_PosseBola0A, partida0_PosseBola0B, partida0_PosseBola0C, partida0_PosseBola0D, 
         partida0_PosseBola0E, partida0_PosseBola0F, partida0_PosseBola0G, partida0_PosseBola0H, partida0_PosseBola0I, 
         partida0_PosseBola1A, partida0_PosseBola1B, partida0_PosseBola1C, partida0_PosseBola1D, partida0_PosseBola1E, partida0_PosseBola1F, 
@@ -1198,88 +1312,90 @@ cena1.create = function () {
         //Confirmando que o comunicado foi recebido
         console.log("jogador 2 recebendo possebola");
         //Partida 0
-        partida0_PosseBola0A = jogador2partida0_PosseBola0.a;
-        partida0_PosseBola0B = jogador2partida0_PosseBola0.b;
-        partida0_PosseBola0C = jogador2partida0_PosseBola0.c;
-        partida0_PosseBola0D = jogador2partida0_PosseBola0.d;
-        partida0_PosseBola0E = jogador2partida0_PosseBola0.e;
-        partida0_PosseBola0F = jogador2partida0_PosseBola0.f;
-        partida0_PosseBola0G = jogador2partida0_PosseBola0.g;
-        partida0_PosseBola0H = jogador2partida0_PosseBola0.h;
-        partida0_PosseBola0I = jogador2partida0_PosseBola0.i;
-        
-        partida0_PosseBola1A = jogador2partida0_PosseBola1.a;
-        partida0_PosseBola1B = jogador2partida0_PosseBola1.b;
-        partida0_PosseBola1C = jogador2partida0_PosseBola1.c;
-        partida0_PosseBola1D = jogador2partida0_PosseBola1.d;
-        partida0_PosseBola1E = jogador2partida0_PosseBola1.e;
-        partida0_PosseBola1F = jogador2partida0_PosseBola1.f;
-        partida0_PosseBola1G = jogador2partida0_PosseBola1.g;
-        partida0_PosseBola1H = jogador2partida0_PosseBola1.h;
-        partida0_PosseBola1I = jogador2partida0_PosseBola1.i;
+        partida0_PosseBola0A = jogador2_Partida0_PosseBola0_A;
+        partida0_PosseBola0B = jogador2_Partida0_PosseBola0_B;
+        partida0_PosseBola0C = jogador2_Partida0_PosseBola0_C;
+        partida0_PosseBola0D = jogador2_Partida0_PosseBola0_D;
+        partida0_PosseBola0E = jogador2_Partida0_PosseBola0_E;
+        partida0_PosseBola0F = jogador2_Partida0_PosseBola0_F;
+        partida0_PosseBola0G = jogador2_Partida0_PosseBola0_G;
+        partida0_PosseBola0H = jogador2_Partida0_PosseBola0_H;
+        partida0_PosseBola0I = jogador2_Partida0_PosseBola0_I;
+
+        partida0_PosseBola1A = jogador2_Partida0_PosseBola1_A;
+        partida0_PosseBola1B = jogador2_Partida0_PosseBola1_B;
+        partida0_PosseBola1C = jogador2_Partida0_PosseBola1_C;
+        partida0_PosseBola1D = jogador2_Partida0_PosseBola1_D;
+        partida0_PosseBola1E = jogador2_Partida0_PosseBola1_E;
+        partida0_PosseBola1F = jogador2_Partida0_PosseBola1_F;
+        partida0_PosseBola1G = jogador2_Partida0_PosseBola1_G;
+        partida0_PosseBola1H = jogador2_Partida0_PosseBola1_H;
+        partida0_PosseBola1I = jogador2_Partida0_PosseBola1_I;
         //Partida 1
-        partida1_PosseBola0A = jogador2partida1_PosseBola0.a;
-        partida1_PosseBola0B = jogador2partida1_PosseBola0.b;
-        partida1_PosseBola0C = jogador2partida1_PosseBola0.c;
-        partida1_PosseBola0D = jogador2partida1_PosseBola0.d;
-        partida1_PosseBola0E = jogador2partida1_PosseBola0.e;
-        partida1_PosseBola0F = jogador2partida1_PosseBola0.f;
-        partida1_PosseBola0G = jogador2partida1_PosseBola0.g;
-        partida1_PosseBola0H = jogador2partida1_PosseBola0.h;
-        partida1_PosseBola0I = jogador2partida1_PosseBola0.i;
+        partida1_PosseBola0A = jogador2_Partida1_PosseBola0_A;
+        partida1_PosseBola0B = jogador2_Partida1_PosseBola0_B;
+        partida1_PosseBola0C = jogador2_Partida1_PosseBola0_C;
+        partida1_PosseBola0D = jogador2_Partida1_PosseBola0_D;
+        partida1_PosseBola0E = jogador2_Partida1_PosseBola0_E;
+        partida1_PosseBola0F = jogador2_Partida1_PosseBola0_F;
+        partida1_PosseBola0G = jogador2_Partida1_PosseBola0_G;
+        partida1_PosseBola0H = jogador2_Partida1_PosseBola0_H;
+        partida1_PosseBola0I = jogador2_Partida1_PosseBola0_I;
         
-        partida1_PosseBola1A = jogador2partida1_PosseBola1.a;
-        partida1_PosseBola1B = jogador2partida1_PosseBola1.b;
-        partida1_PosseBola1C = jogador2partida1_PosseBola1.c;
-        partida1_PosseBola1D = jogador2partida1_PosseBola1.d;
-        partida1_PosseBola1E = jogador2partida1_PosseBola1.e;
-        partida1_PosseBola1F = jogador2partida1_PosseBola1.f;
-        partida1_PosseBola1G = jogador2partida1_PosseBola1.g;
-        partida1_PosseBola1H = jogador2partida1_PosseBola1.h;
-        partida1_PosseBola1I = jogador2partida1_PosseBola1.i;
+        partida1_PosseBola1A = jogador2_Partida1_PosseBola1_A;
+        partida1_PosseBola1B = jogador2_Partida1_PosseBola1_B;
+        partida1_PosseBola1C = jogador2_Partida1_PosseBola1_C;
+        partida1_PosseBola1D = jogador2_Partida1_PosseBola1_D;
+        partida1_PosseBola1E = jogador2_Partida1_PosseBola1_E;
+        partida1_PosseBola1F = jogador2_Partida1_PosseBola1_F;
+        partida1_PosseBola1G = jogador2_Partida1_PosseBola1_G;
+        partida1_PosseBola1H = jogador2_Partida1_PosseBola1_H;
+        partida1_PosseBola1I = jogador2_Partida1_PosseBola1_I;
         //Partida 2
-        partida2_PosseBola0A = jogador2partida2_PosseBola0.a;
-        partida2_PosseBola0B = jogador2partida2_PosseBola0.b;
-        partida2_PosseBola0C = jogador2partida2_PosseBola0.c;
-        partida2_PosseBola0D = jogador2partida2_PosseBola0.d;
-        partida2_PosseBola0E = jogador2partida2_PosseBola0.e;
-        partida2_PosseBola0F = jogador2partida2_PosseBola0.f;
-        partida2_PosseBola0G = jogador2partida2_PosseBola0.g;
-        partida2_PosseBola0H = jogador2partida2_PosseBola0.h;
-        partida2_PosseBola0I = jogador2partida2_PosseBola0.i;
+        partida2_PosseBola0A = jogador2_Partida2_PosseBola0_A;
+        partida2_PosseBola0B = jogador2_Partida2_PosseBola0_B;
+        partida2_PosseBola0C = jogador2_Partida2_PosseBola0_C;
+        partida2_PosseBola0D = jogador2_Partida2_PosseBola0_D;
+        partida2_PosseBola0E = jogador2_Partida2_PosseBola0_E;
+        partida2_PosseBola0F = jogador2_Partida2_PosseBola0_F;
+        partida2_PosseBola0G = jogador2_Partida2_PosseBola0_G;
+        partida2_PosseBola0H = jogador2_Partida2_PosseBola0_H;
+        partida2_PosseBola0I = jogador2_Partida2_PosseBola0_I;
         
-        partida2_PosseBola1A = jogador2partida2_PosseBola1.a;
-        partida2_PosseBola1B = jogador2partida2_PosseBola1.b;
-        partida2_PosseBola1C = jogador2partida2_PosseBola1.c;
-        partida2_PosseBola1D = jogador2partida2_PosseBola1.d;
-        partida2_PosseBola1E = jogador2partida2_PosseBola1.e;
-        partida2_PosseBola1F = jogador2partida2_PosseBola1.f;
-        partida2_PosseBola1G = jogador2partida2_PosseBola1.g;
-        partida2_PosseBola1H = jogador2partida2_PosseBola1.h;
-        partida2_PosseBola1I = jogador2partida2_PosseBola1.i;
+        partida2_PosseBola1A = jogador2_Partida2_PosseBola1_A;
+        partida2_PosseBola1B = jogador2_Partida2_PosseBola1_B;
+        partida2_PosseBola1C = jogador2_Partida2_PosseBola1_C;
+        partida2_PosseBola1D = jogador2_Partida2_PosseBola1_D;
+        partida2_PosseBola1E = jogador2_Partida2_PosseBola1_E;
+        partida2_PosseBola1F = jogador2_Partida2_PosseBola1_F;
+        partida2_PosseBola1G = jogador2_Partida2_PosseBola1_G;
+        partida2_PosseBola1H = jogador2_Partida2_PosseBola1_H;
+        partida2_PosseBola1I = jogador2_Partida2_PosseBola1_I;
         //Partida 3
-        partida3_PosseBola0A = jogador2partida3_PosseBola0.a;
-        partida3_PosseBola0B = jogador2partida3_PosseBola0.b;
-        partida3_PosseBola0C = jogador2partida3_PosseBola0.c;
-        partida3_PosseBola0D = jogador2partida3_PosseBola0.d;
-        partida3_PosseBola0E = jogador2partida3_PosseBola0.e;
-        partida3_PosseBola0F = jogador2partida3_PosseBola0.f;
-        partida3_PosseBola0G = jogador2partida3_PosseBola0.g;
-        partida3_PosseBola0H = jogador2partida3_PosseBola0.h;
-        partida3_PosseBola0I = jogador2partida3_PosseBola0.i;
+        partida3_PosseBola0A = jogador2_Partida3_PosseBola0_A;
+        partida3_PosseBola0B = jogador2_Partida3_PosseBola0_B;
+        partida3_PosseBola0C = jogador2_Partida3_PosseBola0_C;
+        partida3_PosseBola0D = jogador2_Partida3_PosseBola0_D;
+        partida3_PosseBola0E = jogador2_Partida3_PosseBola0_E;
+        partida3_PosseBola0F = jogador2_Partida3_PosseBola0_F;
+        partida3_PosseBola0G = jogador2_Partida3_PosseBola0_G;
+        partida3_PosseBola0H = jogador2_Partida3_PosseBola0_H;
+        partida3_PosseBola0I = jogador2_Partida3_PosseBola0_I;
         
-        partida3_PosseBola1A = jogador2partida3_PosseBola1.a;
-        partida3_PosseBola1B = jogador2partida3_PosseBola1.b;
-        partida3_PosseBola1C = jogador2partida3_PosseBola1.c;
-        partida3_PosseBola1D = jogador2partida3_PosseBola1.d;
-        partida3_PosseBola1E = jogador2partida3_PosseBola1.e;
-        partida3_PosseBola1F = jogador2partida3_PosseBola1.f;
-        partida3_PosseBola1G = jogador2partida3_PosseBola1.g;
-        partida3_PosseBola1H = jogador2partida3_PosseBola1.h;
-        partida3_PosseBola1I = jogador2partida3_PosseBola1.i;
+        partida3_PosseBola1A = jogador2_Partida3_PosseBola1_A;
+        partida3_PosseBola1B = jogador2_Partida3_PosseBola1_B;
+        partida3_PosseBola1C = jogador2_Partida3_PosseBola1_C;
+        partida3_PosseBola1D = jogador2_Partida3_PosseBola1_D;
+        partida3_PosseBola1E = jogador2_Partida3_PosseBola1_E;
+        partida3_PosseBola1F = jogador2_Partida3_PosseBola1_F;
+        partida3_PosseBola1G = jogador2_Partida3_PosseBola1_G;
+        partida3_PosseBola1H = jogador2_Partida3_PosseBola1_H;
+        partida3_PosseBola1I = jogador2_Partida3_PosseBola1_I;
       });
+      */
     } 
   });
+
   //Recebendo as informações para estabelecer a comunicação 
   socket.on("offer", (socketId, description) => {
     remoteConnection = new RTCPeerConnection(ice_servers);
