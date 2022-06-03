@@ -321,12 +321,10 @@ function aparecerFundo2() {
             textoPlacar.setText(gols0 + "     " + gols1); 
           } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
             gols1++;
-            //Enviando valores gols para player 2
             socket.emit("gols", gols0, gols1);
             textoPlacar.setText(gols0 + "     " + gols1);
           } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
             gols0++;
-            //Enviando valores gols para player 2
             socket.emit("gols", gols0, gols1);
             textoPlacar.setText(gols0 + "     " + gols1);
           }
@@ -359,7 +357,7 @@ function aparecerFundo3() {
   }
   //Toca o som da tela de vitória, retira todas as informações do clube e o soundtrack
   somVencedor.play();
-  soundtrack.pause();
+  //soundtrack.pause();
   retirarTodosNomesClubes();
   //Definindo o resultado da partida
   if (gols0 > gols1) {
@@ -549,17 +547,20 @@ function atualizarPlacar() {
     if (tipoDeJogo > 2) {
       if (gols0 < 2) {
         gols0++;
+        socket.emit("gols", gols0, gols1);
         //Atualiza os valores do placar
-        textoPlacar.setText(gols0 + "     " + gols1); 
+        textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
     //Zebra que pode ser uma virada do clube mais forte se der tempo
     if (tipoDeJogo === 0) {
       if (gols1 < 2) {
         gols1++;
+        socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "     " + gols1);
       } else if (gols0 < gols1) {
         gols0++;
+        socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
@@ -567,6 +568,7 @@ function atualizarPlacar() {
     if (tipoDeJogo === 1) {
       if (gols0 < 5) {
         gols0++;
+        socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
@@ -579,6 +581,7 @@ function atualizarPlacar() {
     if (tipoDeJogo > 2) {
       if (gols1 < 2) {
         gols1++;
+        socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
@@ -586,9 +589,11 @@ function atualizarPlacar() {
     if (tipoDeJogo === 0) {
       if (gols0 < 2) {
         gols0++;
+        socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "     " + gols1);
       } else if (gols1 < gols0) {
         gols1++;
+        socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
@@ -609,6 +614,7 @@ function atualizarPlacar() {
     if (tipoDeJogo > 2) {
       if (gols0 < 2) {
         gols0++;
+        socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
@@ -616,9 +622,11 @@ function atualizarPlacar() {
     if (tipoDeJogo === 0) {
       if (gols1 < 2) {
         gols1++;
+        socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "     " + gols1);
       } else if (gols0 < gols1) {
         gols0++;
+        socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
@@ -626,6 +634,7 @@ function atualizarPlacar() {
     if (tipoDeJogo === 1) {
       if (gols0 < 5) {
         gols0++;
+        socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "     " + gols1);
       }
     }
@@ -641,7 +650,7 @@ cena1.preload = function () {
     "textoContadorPartidas",
     "./assets/texto/textoContadorPartidas.png"
   );
-  this.load.audio("soundtrack", "./assets/soundtrack.mp3");
+  //this.load.audio("soundtrack", "./assets/soundtrack.mp3");
   this.load.spritesheet("botaoTelaCheia", "./assets/botaoTelaCheia.png", {
     frameWidth: 50,
     frameHeight: 50,
@@ -698,9 +707,9 @@ cena1.create = function () {
   //Deixando a variável tempo utilizável para o cena1
   time = this.time;
   //Colocando a musica no jogo
-  soundtrack = this.sound.add("soundtrack");
-  soundtrack.loop = true;
-  soundtrack.play();
+  //soundtrack = this.sound.add("soundtrack");
+  //soundtrack.loop = true;
+  //soundtrack.play();
   //Definindo as imagens de fundo da cena de escolhendo os clubes, da partida e do fim do jogo
   fundo1 = this.add.image(400, 300, "fundo1");
   fundo2 = this.add.image(400, 300, "fundo2");
@@ -912,9 +921,6 @@ cena1.create = function () {
           escolhaPsg1();
         }
       })
-
-      //Envia as variáveis de gols
-      socket.emit("gols", gols0, gols1);
       //Mostra os players conectados
       console.log(jogadores); 
       //Os dois players precisam estar conectados para o jogo começar
@@ -942,7 +948,7 @@ cena1.create = function () {
         }
       })
       //Recebendo o comunicado do player 1 para começar a partida
-      socket.on("começarPartida", () => {
+      socket.on("comecarPartida", () => {
         aparecerFundo2();
       });
       socket.on("fimDaPartida", () => {
@@ -1095,7 +1101,7 @@ cena1.create = function () {
     function () {
       //Inicia a partida
       aparecerFundo2();
-      socket.emit("começarPartida");
+      socket.emit("comecarPartida");
     },
     this
   );

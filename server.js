@@ -62,8 +62,8 @@ io.on("connection", function (socket) {
   });
 
   //Servidor recebendo a informação de quando começar, acabar e repetir a partida
-  socket.on("começarPartida", () => {
-    socket.broadcast.emit("começarPartida");
+  socket.on("comecarPartida", () => {
+    socket.broadcast.emit("comecarPartida");
   });
   socket.on("fimDaPartida", () => {
     socket.broadcast.emit("fimDaPartida");
