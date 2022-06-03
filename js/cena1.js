@@ -271,6 +271,12 @@ function aparecerFundo1() {
   parabensPsg1.setVisible(false);
   parabensReal0.setVisible(false);
   parabensReal1.setVisible(false);
+  //Deixando apenas o botão específico do player escolher o seu clube
+  if (jogador === 1) {
+    botao1.setVisible(true);
+  } else if (jogador === 2) {
+    botao2.setVisible(true);
+  }
 }
 function aparecerFundo2() {
   fundo1.setVisible(false);
@@ -907,10 +913,8 @@ cena1.create = function () {
         })
         .catch((error) => console.log(error));
     }
-    //Player 1 cria o jogo e envia para o outro player apresentar
+    //Player 1 comanda o jogo e envia os valores para o outro player apresentar
     if (jogador === 1) {
-      //Deixando apenas o botão específico do player escolher o seu clube
-      botao1.setVisible(true);
       //Sicronizando as escolhas dos clubes da direita
       socket.on("contagemClube1", (contagemClube1) => {
         if (contagemClube1 === 0) {
@@ -935,8 +939,6 @@ cena1.create = function () {
       }
     //Player 1 cria o jogo e envia para o outro player apresentar
     } else if (jogador === 2) {
-      //Deixando apenas o botão específico do player escolher o seu clube
-      botao2.setVisible(true);
       //Sicronizando as escolhas dos clubes da esquerda
       socket.on("contagemClube0", (contagemClube0) => {
         if (contagemClube0 === 0) {
