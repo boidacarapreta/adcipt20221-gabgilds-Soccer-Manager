@@ -312,7 +312,6 @@ function aparecerFundo2() {
         if (tempoInicial % 120 === 0) {
           //Possibilidade de ocorrer um gol
           chanceGol = Phaser.Math.Between(0, 20); 
-          console.log(`chanceGol: ${chanceGol}`);
 
           //Se o gol ocorrer, atualiza o placar
           if (chanceGol === 1) {
@@ -345,7 +344,6 @@ function aparecerFundo2() {
   });
   //Aleatoriedade para definir o tipo de jogo que vai ocorrer, uma goleada, jogo pegado, virada
   tipoDeJogo = Phaser.Math.Between(0, 10);
-  console.log(`tipoDeJogo: ${tipoDeJogo}`);
 }
 function aparecerFundo3() {
   fundo2.setVisible(false);
@@ -386,9 +384,6 @@ function aparecerFundo3() {
   gols1 = 0;
   textoPlacar.setText(gols0 + "     " + gols1); 
   contagem0 = 0;
-  console.log(
-    `Forças dos clubes:\npsg0: ${forçaPsg0} \nbayern0: ${forçaBayern0} \ncity0: ${forçaCity0} \nreal0: ${forçaReal0} \npsg1: ${forçaPsg1} \nbayern1: ${forçaBayern1} \ncity1: ${forçaCity1} \nreal1: ${forçaReal1}`
-  );
 }
 //Função quando clica em jogar novamente
 function aparecerFundo1Novamente() {
@@ -537,7 +532,6 @@ function atualizarPosseBola() {
     socket.on("posseBola", (posseBola0, posseBola1) => {
       posseBola0 = jogador2PosseBola0;
       posseBola1 = jogador2PosseBola1;
-      console.log(`jogador2PosseBola0: ${jogador2PosseBola0} \njogador2PosseBola1: ${jogador2PosseBola1}`)
       if (contagem0 < 3) {
         textoPosseBola.setText(jogador2PosseBola0 + "%  " + jogador2PosseBola1 + "%"); 
       } else if (2 < contagem0 < 6) {
