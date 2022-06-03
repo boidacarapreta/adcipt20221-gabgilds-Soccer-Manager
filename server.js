@@ -74,7 +74,7 @@ io.on("connection", function (socket) {
 
   //Servidor recebendo a informação da posse de bola
   socket.on("posseBola", (posseBola0, posseBola1) => {
-    socket.broadcast.emit("fimDoJogo", posseBola0, posseBola1);
+    socket.broadcast.emit("posseBola", posseBola0, posseBola1);
   });
 });
 
