@@ -840,13 +840,11 @@ cena1.create = function () {
 
   //Conectar ao servidor do Heroku via socket.io (WebSocket). Link do Heroku: "https://secure-meadow-69283.herokuapp.com/"
   socket = io("https://secure-meadow-69283.herokuapp.com/"); 
-  //Tornar as variáveis utilizáveis dentro desse escopo
-  var self = this;
   
   //Defindo os players e a comunicação
   socket.on("jogadores", function (jogadores) { 
     //Dispara evento quando player entrar na partida
-    if (jogadores.primeiro === self.socket.id) { 
+    if (jogadores.primeiro === socket.id) { 
       //Define o primeiro player
       jogador = 1;
       //Estabelece a comunicação
@@ -856,7 +854,7 @@ cena1.create = function () {
           midias = stream;
         })
         .catch((error) => console.log(error));
-    } else if (jogadores.segundo === self.socket.id) {
+    } else if (jogadores.segundo === socket.id) {
       //Define o segundo player
       jogador = 2;
 
