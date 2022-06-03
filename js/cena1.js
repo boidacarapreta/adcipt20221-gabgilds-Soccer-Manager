@@ -315,13 +315,19 @@ function aparecerFundo2() {
         if (tempoInicial === 4800 && gols0 === 0 && gols1 === 0) {
           if (forçaClube0Escolhido > forçaClube1Escolhido) {
             gols0++;
+            //Enviando valores gols para player 2
+            socket.emit("gols", gols0, gols1);
             //Atualiza os valores do placar
             textoPlacar.setText(gols0 + "     " + gols1); 
           } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
             gols1++;
+            //Enviando valores gols para player 2
+            socket.emit("gols", gols0, gols1);
             textoPlacar.setText(gols0 + "     " + gols1);
           } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
             gols0++;
+            //Enviando valores gols para player 2
+            socket.emit("gols", gols0, gols1);
             textoPlacar.setText(gols0 + "     " + gols1);
           }
         }
@@ -949,7 +955,11 @@ cena1.create = function () {
       //Recebendo o comunicado do player 1 para acabar com a partida
       socket.on("fimDoJogo", () => {
         apagarTela();
-      });    
+      }); 
+      //Atualizando os valores de gols gerados pelo player 1
+      socket.on("gols", (gols0, gols1) => {
+        textoPlacar.setText(gols0 + "     " + gols1);
+      });
     } 
   });
   //Recebendo as informações para estabelecer a comunicação 

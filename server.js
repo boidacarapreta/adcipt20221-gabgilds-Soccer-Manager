@@ -75,10 +75,15 @@ io.on("connection", function (socket) {
     socket.broadcast.emit("fimDoJogo");
   });
   
-  //Servidor recebendo a informação da posse de bola
+  //Servidor recebendo os valores da posse de bola
   socket.on("posseBola", (posseBola0, posseBola1) => {
     socket.broadcast.emit("posseBola", posseBola0, posseBola1);
   });
+
+  //Servidor recebendo os valores dos gols
+  socket.on("gols", (gols0, gols1) => {
+    socket.broadcast.emit("gols", gols0, gols1);
+  })
 });
 
 app.use(express.static("./"));
