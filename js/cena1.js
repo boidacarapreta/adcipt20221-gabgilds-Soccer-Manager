@@ -357,7 +357,6 @@ function aparecerFundo3() {
   somVencedor.play();
   soundtrack.pause();
   retirarTodosNomesClubes();
-  console.log(`clube0Escolhido: ${clube0Escolhido}\nclube1Escolhido: ${clube1Escolhido}`);
   //Definindo o resultado da partida
   if (gols0 > gols1) {
     clube0vencendo();
@@ -387,6 +386,7 @@ function aparecerFundo1Novamente() {
       botao1.setVisible(true);
     } else if (jogador === 2) {
       botao2.setVisible(true);
+    }
     //Coloca as imagens corretas
     fundo1.setVisible(true);
     fundo2.setVisible(false);
@@ -417,7 +417,6 @@ function aparecerFundo1Novamente() {
     //Adicionando valor no contador de partidas
     contadorPartidas++;
     textoContadorPartidas1.setText(contadorPartidas);
-  }
 }
 function clube0vencendo() {
   //Aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
