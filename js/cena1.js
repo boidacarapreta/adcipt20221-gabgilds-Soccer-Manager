@@ -285,60 +285,57 @@ function aparecerFundo2() {
   //<--- Iniciando o cronômetro --->
   //Define o tempo inicial
   tempoInicial = 0;
-  passagemTempo = time.addEvent({
-    delay: 80,
-    callback: function () {
-      //A cada x ms (delay) adiciona 15 segundos do tempo inicial
-      tempoInicial += 15; 
-      textoCronometro.setText(formatarTempo(tempoInicial));
-      //Sicronizando o tempo do jogo
-      socket.emit("tempoInicial", tempoInicial);
-      if (jogador === 1) {
-        //Fim da partida
-        if (tempoInicial === 5400) {
-          aparecerFundo3();          
-        }
-
-        //Atualização da posse de bola
-        if (tempoInicial % 495 === 0) {
-          atualizarPosseBola();
-        }
-
-        //Atualização e criação dos valores do placar do jogo pelo jogador 1
-      
-        if (tempoInicial % 120 === 0) {
-          //Possibilidade de ocorrer um gol
-          chanceGol = Phaser.Math.Between(0, 20); 
-
-          //Se o gol ocorrer, atualiza o placar
-          if (chanceGol === 1) {
-            atualizarPlacar();
+  if (jogador === 1) {
+    passagemTempo = time.addEvent({
+      delay: 80,
+      callback: function () {
+        //A cada x ms (delay) adiciona 15 segundos do tempo inicial
+        tempoInicial += 15; 
+        textoCronometro.setText(formatarTempo(tempoInicial));
+        //Sicronizando o tempo do jogo
+        socket.emit("tempoInicial", tempoInicial);
+        if (jogador === 1) {
+          //Fim da partida
+          if (tempoInicial === 5400) {
+            aparecerFundo3();          
           }
-
-          //Se não tiver ocorrido nenhum gol durante a partida
-          if (tempoInicial === 4800 && gols0 === 0 && gols1 === 0) {
-            if (forçaClube0Escolhido > forçaClube1Escolhido) {
-              gols0++;
-              //Enviando valores gols para player 2
-              socket.emit("gols", gols0, gols1);
-              //Atualiza os valores do placar
-              textoPlacar.setText(gols0 + "     " + gols1); 
-            } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
-              gols1++;
-              socket.emit("gols", gols0, gols1);
-              textoPlacar.setText(gols0 + "     " + gols1);
-            } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
-              gols0++;
-              socket.emit("gols", gols0, gols1);
-              textoPlacar.setText(gols0 + "     " + gols1);
+          //Atualização da posse de bola
+          if (tempoInicial % 495 === 0) {
+            atualizarPosseBola();
+          }
+          //Atualização e criação dos valores do placar do jogo pelo jogador 1
+          if (tempoInicial % 120 === 0) {
+            //Possibilidade de ocorrer um gol
+            chanceGol = Phaser.Math.Between(0, 20); 
+            //Se o gol ocorrer, atualiza o placar
+            if (chanceGol === 1) {
+              atualizarPlacar();
+            }
+            //Se não tiver ocorrido nenhum gol durante a partida
+            if (tempoInicial === 4800 && gols0 === 0 && gols1 === 0) {
+              if (forçaClube0Escolhido > forçaClube1Escolhido) {
+                gols0++;
+                //Enviando valores gols para player 2
+                socket.emit("gols", gols0, gols1);
+                //Atualiza os valores do placar
+                textoPlacar.setText(gols0 + "     " + gols1); 
+              } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
+                gols1++;
+                socket.emit("gols", gols0, gols1);
+                textoPlacar.setText(gols0 + "     " + gols1);
+              } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
+                gols0++;
+                socket.emit("gols", gols0, gols1);
+                textoPlacar.setText(gols0 + "     " + gols1);
+              }
             }
           }
         }
-      }
-    },
-    callbackScope: this,
-    loop: true,
-  });
+      },
+      callbackScope: this,
+      loop: true,
+    });
+  }
   //Aleatoriedade para definir o tipo de jogo que vai ocorrer, uma goleada, jogo pegado, virada
   tipoDeJogo = Phaser.Math.Between(0, 10);
 }
