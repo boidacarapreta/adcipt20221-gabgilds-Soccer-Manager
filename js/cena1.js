@@ -527,20 +527,6 @@ function atualizarPosseBola() {
     contagem0++;
     //Envia as variáveis de posse de bola do player 1
     socket.emit("posseBola", posseBola0, posseBola1);
-  } else if (jogador === 2) {
-    //Recebendo as variáveis de posse de bola do player 1
-    socket.on("posseBola", (posseBola0, posseBola1) => {
-      posseBola0 = jogador2PosseBola0;
-      posseBola1 = jogador2PosseBola1;
-      if (contagem0 < 3) {
-        textoPosseBola.setText(jogador2PosseBola0 + "%  " + jogador2PosseBola1 + "%"); 
-      } else if (2 < contagem0 < 6) {
-        textoPosseBola.setText(jogador2PosseBola0 + "%  " + jogador2PosseBola1 + "%"); 
-      } else if (contagem0 > 5) {
-        textoPosseBola.setText(jogador2PosseBola0 + "%  " + jogador2PosseBola1 + "%"); 
-      }
-      contagem0++;
-    });
   }
 } 
 function atualizarPlacar() {
@@ -961,9 +947,12 @@ cena1.create = function () {
       socket.on("fimDoJogo", () => {
         apagarTela();
       }); 
-      //Atualizando os valores de gols gerados pelo player 1
+      //Atualizando os valores de gols e posse de bola gerados pelo player 1
       socket.on("gols", (gols0, gols1) => {
         textoPlacar.setText(gols0 + "     " + gols1);
+      });
+      socket.on("posseBola", (posseBola0, posseBola1) => {
+        textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%");
       });
     } 
   });
