@@ -74,15 +74,17 @@ io.on("connection", function (socket) {
   socket.on("fimDoJogo", () => {
     socket.broadcast.emit("fimDoJogo");
   });
-  
   //Servidor recebendo os valores da posse de bola
   socket.on("posseBola", (posseBola0, posseBola1) => {
     socket.broadcast.emit("posseBola", posseBola0, posseBola1);
   });
-
   //Servidor recebendo os valores dos gols
   socket.on("gols", (gols0, gols1) => {
     socket.broadcast.emit("gols", gols0, gols1);
+  })
+  //Servidor recebendo o valor do tempo do jogo
+  socket.on("tempoInicial", (tempoInicial) => {
+    socket.broadcast.emit("tempoInicial", tempoInicial);
   })
 });
 

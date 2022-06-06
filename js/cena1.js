@@ -291,6 +291,8 @@ function aparecerFundo2() {
       //A cada x ms (delay) adiciona 15 segundos do tempo inicial
       tempoInicial += 15; 
       textoCronometro.setText(formatarTempo(tempoInicial));
+      //Sicronizando o tempo do jogo
+      socket.emit("tempoInicial", tempoInicial);
       if (jogador === 1) {
         //Fim da partida
         if (tempoInicial === 5400) {
@@ -956,6 +958,10 @@ cena1.create = function () {
       });
       socket.on("posseBola", (posseBola0, posseBola1) => {
         textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%");
+      });
+      //Sicronizando o cronômetro do jogo
+      socket.on("tempoInicial", (tempoInicial) => {
+        textoCronometro.setText(formatarTempo(tempoInicial));
       });
     } 
   });
