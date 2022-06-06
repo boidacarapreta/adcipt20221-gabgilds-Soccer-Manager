@@ -904,7 +904,7 @@ cena1.create = function () {
       //Mostra os players conectados
       console.log(jogadores); 
       //Os dois players precisam estar conectados para o jogo começar
-      if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined) {
+      if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined && jogoIniciado !== "Sim") {
         botao0.setVisible(true);
       } else if (jogadores.primeiro === undefined || jogadores.segundo === undefined) {
         botao0.setVisible(false);
