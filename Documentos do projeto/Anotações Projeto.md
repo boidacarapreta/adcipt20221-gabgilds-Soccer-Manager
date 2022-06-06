@@ -30,20 +30,12 @@ Cronômetro da partida: https://phaser.discourse.group/t/countdown-timer/2471
 
 -------------------------------------------------------------------------------
 
-Variáveis do jogador 1 que serão enviadas para o jogador 2:
-
-posseBola0, posseBola1, gols0, gols1, tempoInicial, escolhaClube0, escolhaClube1
-
--------------------------------------------------------------------------------
-
-Essencial para o jogo (até dia 31/05/2022):
-1º Fazer o multiplayer.
-
 Melhorias do jogo:
 1º Aperfeiçoar sistema de posse de bola e gols*;
 2º Botar uma bolhinha do lado do jogador quando fazer gol;
 3º Empate;
-4º Intervalo do jogo.
+4º Intervalo do jogo;
+5º Sala de espera para jogadores em excesso e desconectar quando jogo acabar.
 
 Informação do jogo:
 - Cada partida dura 28,8 segundos na vida real;

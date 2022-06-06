@@ -16,6 +16,7 @@ var textoContadorPartidas1;
 var soundtrack;
 var botaoTelaCheia;
 var teclaF;
+var jogoIniciado;
 //Variáveis da cena de escolher os clubes
 var fundo1;
 var botao0;
@@ -51,8 +52,6 @@ var textoPlacar;
 var textoPosseBola;
 var posseBola0 = 50;
 var posseBola1 = 50;
-var jogador2PosseBola0 = 50;
-var jogador2PosseBola1 = 50;
 var minutos;
 var parteEmSegundos;
 var tempoInicial;
@@ -271,12 +270,6 @@ function aparecerFundo1() {
   parabensPsg1.setVisible(false);
   parabensReal0.setVisible(false);
   parabensReal1.setVisible(false);
-  //Deixando apenas o botão específico do player escolher o seu clube
-  if (jogador === 1) {
-    botao1.setVisible(true);
-  } else if (jogador === 2) {
-    botao2.setVisible(true);
-  }
 }
 function aparecerFundo2() {
   fundo1.setVisible(false);
@@ -287,6 +280,8 @@ function aparecerFundo2() {
   textoCronometro.setVisible(true);
   textoPlacar.setVisible(true);
   textoPosseBola.setVisible(true);
+  //Variável para impedir os jogadores de entrarem após o jogo ser inicado
+  jogoIniciado = "Sim";
   //<--- Iniciando o cronômetro --->
   //Define o tempo inicial
   tempoInicial = 0;
@@ -896,6 +891,10 @@ cena1.create = function () {
     }
     //Player 1 comanda o jogo e envia os valores para o outro player apresentar
     if (jogador === 1) {
+      //Colocando o botão para o player 1 escolher o clube somente no inicio do jogo
+      if (jogoIniciado !== "Sim") {
+        botao1.setVisible(true);
+      }
       //Sicronizando as escolhas dos clubes da direita
       socket.on("contagemClube1", (contagemClube1) => {
         if (contagemClube1 === 0) {
@@ -920,6 +919,10 @@ cena1.create = function () {
       }
     //Player 1 cria o jogo e envia para o outro player apresentar
     } else if (jogador === 2) {
+      //Colocando o botão para o player 2 escolher o clube somente no inicio do jogo
+      if (jogoIniciado !== "Sim") {
+        botao2.setVisible(true);
+      }
       //Sicronizando as escolhas dos clubes da esquerda
       socket.on("contagemClube0", (contagemClube0) => {
         if (contagemClube0 === 0) {
