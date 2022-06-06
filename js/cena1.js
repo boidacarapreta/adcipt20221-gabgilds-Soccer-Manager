@@ -381,7 +381,6 @@ function aparecerFundo3() {
 }
 //Função quando clica em jogar novamente
 function aparecerFundo1Novamente() {
-  if (contadorPartidas !== 4) {
     if (jogador === 1) {
       //Definindo a força dos clubes de novo para definir o resultado da nova partida
       definindoForçaClubes();
@@ -389,7 +388,6 @@ function aparecerFundo1Novamente() {
       botao1.setVisible(true);
     } else if (jogador === 2) {
       botao2.setVisible(true);
-    }
     //Coloca as imagens corretas
     fundo1.setVisible(true);
     fundo2.setVisible(false);
@@ -420,8 +418,6 @@ function aparecerFundo1Novamente() {
     //Adicionando valor no contador de partidas
     contadorPartidas++;
     textoContadorPartidas1.setText(contadorPartidas);
-  } else if (contadorPartidas === 4) {
-    apagarTela();
   }
 }
 function clube0vencendo() {
