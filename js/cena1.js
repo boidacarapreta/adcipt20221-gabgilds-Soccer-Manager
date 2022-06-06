@@ -352,20 +352,19 @@ function aparecerFundo3() {
     botaoNao.setVisible(true);
     //Envia a mensagem para o player 2 finalizar a partida
     socket.emit("fimDaPartida");
-  } else if (jogador === 2) {
-    botaoSim.setVisible(false);
-    botaoNao.setVisible(false);
   }
   //Toca o som da tela de vitória, retira todas as informações do clube e o soundtrack
   somVencedor.play();
   soundtrack.pause();
   retirarTodosNomesClubes();
+  console.log(`clube0Escolhido: ${clube0Escolhido}\nclube1Escolhido: ${clube1Escolhido}`);
   //Definindo o resultado da partida
   if (gols0 > gols1) {
     clube0vencendo();
   } else if (gols0 < gols1) {
     clube1vencendo();
-  } else if (gols0 === gols1) { //Por enquanto não tem empate
+  } else if (gols0 === gols1) { 
+    //Por enquanto não tem empate
     clube0vencendo();
   }
   //<--- Resetando as variáveis necessárias e o tempo para conseguir rejogar --->
