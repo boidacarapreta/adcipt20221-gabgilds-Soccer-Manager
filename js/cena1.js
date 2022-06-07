@@ -97,7 +97,7 @@ var benzema;
 var neymar;
 var botaoSim;
 var botaoNao;
-var botaoJogarDeNovo;
+var textoJogarDeNovo;
 //Funções da cena de escolher os clubes
 function escolhaBayern0() {
   psg0.setVisible(false);
@@ -224,7 +224,7 @@ function apagarTela() {
   textoPosseBola.setVisible(false);
   botaoSim.setVisible(false);
   botaoNao.setVisible(false);
-  botaoJogarDeNovo.setVisible(false);
+  textoJogarDeNovo.setVisible(false);
   muller.setVisible(false);
   neymar.setVisible(false);
   benzema.setVisible(false);
@@ -257,7 +257,7 @@ function aparecerFundo1() {
   textoPosseBola.setVisible(false);
   botaoSim.setVisible(false);
   botaoNao.setVisible(false);
-  botaoJogarDeNovo.setVisible(false);
+  textoJogarDeNovo.setVisible(false);
   muller.setVisible(false);
   neymar.setVisible(false);
   benzema.setVisible(false);
@@ -345,7 +345,7 @@ function aparecerFundo3() {
   textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
-  botaoJogarDeNovo.setVisible(true);
+  textoJogarDeNovo.setVisible(true);
   //Coloca os botões específicos para cada player
   if (jogador === 1) {
     botaoSim.setVisible(true);
@@ -396,7 +396,7 @@ function aparecerFundo1Novamente() {
     textoPosseBola.setVisible(false);
     botaoSim.setVisible(false);
     botaoNao.setVisible(false);
-    botaoJogarDeNovo.setVisible(false);
+    textoJogarDeNovo.setVisible(false);
     muller.setVisible(false);
     neymar.setVisible(false);
     benzema.setVisible(false);
@@ -674,7 +674,7 @@ cena1.preload = function () {
     frameWidth: 200,
     frameHeight: 200,
   });
-  this.load.image("botaoJogarDeNovo", "./assets/texto/botaoJogarDeNovo.png");
+  this.load.image("textoJogarDeNovo", "./assets/texto/textoJogarDeNovo.png");
   this.load.image("botaoSim", "./assets/texto/botaoSim.png");
   this.load.image("botaoNao", "./assets/texto/botaoNao.png");
 };
@@ -778,7 +778,7 @@ cena1.create = function () {
   //Botões para jogar novamente
   botaoSim = this.add.image(360, 580, "botaoSim").setInteractive();
   botaoNao = this.add.image(440, 580, "botaoNao").setInteractive();
-  botaoJogarDeNovo = this.add.image(180, 580, "botaoJogarDeNovo");
+  textoJogarDeNovo = this.add.image(180, 580, "textoJogarDeNovo");
   //Animação dos vencedores
   muller = this.physics.add.sprite(600, 450, "muller");
   neymar = this.physics.add.sprite(600, 450, "neymar");
@@ -1060,7 +1060,7 @@ cena1.create = function () {
       textoPosseBola.setVisible(false);
       botaoSim.setVisible(false);
       botaoNao.setVisible(false);
-      botaoJogarDeNovo.setVisible(false);
+      textoJogarDeNovo.setVisible(false);
       muller.setVisible(false);
       neymar.setVisible(false);
       benzema.setVisible(false);
