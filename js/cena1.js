@@ -41,6 +41,10 @@ var nomeReal1;
 var somMouse;
 var contagemClube0 = 0;
 var contagemClube1 = 0;
+var bayernEscudo;
+var cityEscudo;
+var psgEscudo;
+var realMadridEscudo;
 //Variáveis da cena do jogo acontecendo
 var fundo2;
 var textoCronometro;
@@ -647,6 +651,10 @@ cena1.preload = function () {
   this.load.image("nomePsg", "./assets/clubes/nomePsg.png");
   this.load.image("nomeBayern", "./assets/clubes/nomeBayern.png");
   this.load.audio("somMouse", "./assets/somMouse.mp3");
+  this.load.image("bayernEscudo", "./assets/clubes/bayernEscudo.png");
+  this.load.image("cityEscudo", "./assets/clubes/cityEscudo.png");
+  this.load.image("psgEscudo", "./assets/clubes/psgEscudo.png");
+  this.load.image("realMadridEscudo", "./assets/clubes/realMadridEscudo.png");
   //Carregando as imagens e áudio que serão usados na cena do jogo
   this.load.image("fundo2", "./assets/fundo2.png");
   //Carregando as imagens e áudio que serão usados na cena de fim do jogo
@@ -696,8 +704,8 @@ cena1.create = function () {
   //<--- Cena de escolhendo os clubes --->
   //Define e adiciona os botões da cena1
   botao0 = this.add.image(400, 300, "botao0").setInteractive().setVisible(false);
-  botao1 = this.add.image(280, 70, "botao1").setInteractive().setVisible(false);
-  botao2 = this.add.image(735, 70, "botao1").setInteractive().setVisible(false);
+  botao1 = this.add.image(280, 80, "botao1").setInteractive().setVisible(false);
+  botao2 = this.add.image(735, 80, "botao1").setInteractive().setVisible(false);
   //Colocando os textos de seleção dos clubes do lado esquerdo
   real0 = this.add.image(110, 70, "real");
   city0 = this.add.image(100, 70, "city");
@@ -716,6 +724,11 @@ cena1.create = function () {
   nomeCity1 = this.add.image(630, 335, "nomeCity");
   nomePsg1 = this.add.image(629, 335, "nomePsg");
   nomeReal1 = this.add.image(625, 335, "nomeReal");
+  //Colocando os escudos dos clubes
+  bayernEscudo = this.add.image(566, 70, "bayernEscudo");
+  cityEscudo = this.add.image(566, 70, "cityEscudo");
+  psgEscudo = this.add.image(566, 70, "psgEscudo");
+  realMadridEscudo = this.add.image(566, 70, "realMadridEscudo");
   //Colocando os textos de vitórias de cada clube
   parabensBayern0 = this.add.image(400, 105, "bayern0");
   parabensBayern1 = this.add.image(400, 105, "bayern1");
