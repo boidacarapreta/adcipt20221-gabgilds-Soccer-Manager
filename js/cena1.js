@@ -241,6 +241,8 @@ function apagarTela() {
   botaoTelaCheia.setVisible(false);
   textoContadorPartidas0.setVisible(false);
   textoContadorPartidas1.setVisible(false);
+  soundtrack.pause();
+  somVencedor.pause();
 }
 //Função para definir os clubes que aparecem por padrão
 function escolhaClubePadrao() {
@@ -1052,32 +1054,7 @@ cena1.create = function () {
     "pointerdown",
     function () {
       //Finaliza o jogo
-      fundo1.setVisible(false);
-      fundo2.setVisible(false);
-      fundo3.setVisible(false);
-      textoCronometro.setVisible(false);
-      textoPlacar.setVisible(false);
-      textoPosseBola.setVisible(false);
-      botaoSim.setVisible(false);
-      botaoNao.setVisible(false);
-      textoJogarDeNovo.setVisible(false);
-      muller.setVisible(false);
-      neymar.setVisible(false);
-      benzema.setVisible(false);
-      deBruyne.setVisible(false);
-      parabensBayern0.setVisible(false);
-      parabensBayern1.setVisible(false);
-      parabensCity0.setVisible(false);
-      parabensCity1.setVisible(false);
-      parabensPsg0.setVisible(false);
-      parabensPsg1.setVisible(false);
-      parabensReal0.setVisible(false);
-      parabensReal1.setVisible(false);
-      retirarTodosNomesClubes();
-      botaoTelaCheia.setVisible(false);
-      textoContadorPartidas0.setVisible(false);
-      textoContadorPartidas1.setVisible(false);
-      somVencedor.pause();
+      apagarTela();
       //Envia o comunicado para o player 2 encerrar a partida
       socket.emit("fimDoJogo");
     },
