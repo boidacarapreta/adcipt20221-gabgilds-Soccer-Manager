@@ -302,7 +302,7 @@ function aparecerFundo2() {
         socket.emit("tempoInicial", tempoInicial);
         if (jogador === 1) {
           //Fim da partida
-          if (tempoInicial === 5400) {
+          if (tempoInicial === 400) {
             aparecerFundo3();          
           }
           //Atualização da posse de bola
@@ -324,15 +324,15 @@ function aparecerFundo2() {
                 //Enviando valores gols para player 2
                 socket.emit("gols", gols0, gols1);
                 //Atualiza os valores do placar
-                textoPlacar.setText(gols0 + "  :  " + gols1); 
+                textoPlacar.setText(gols0 + "  x  " + gols1); 
               } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
                 gols1++;
                 socket.emit("gols", gols0, gols1);
-                textoPlacar.setText(gols0 + "  :  " + gols1);
+                textoPlacar.setText(gols0 + "  x  " + gols1);
               } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
                 gols0++;
                 socket.emit("gols", gols0, gols1);
-                textoPlacar.setText(gols0 + "  :  " + gols1);
+                textoPlacar.setText(gols0 + "  x  " + gols1);
               }
             }
           }
@@ -377,10 +377,10 @@ function aparecerFundo3() {
   time.removeEvent(passagemTempo);
   posseBola0 = 50;
   posseBola1 = 50;
-  textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola inciais
+  textoPosseBola.setText(posseBola0 + "% | " + posseBola1 + "%"); //Atualiza os valores de posse de bola inciais
   gols0 = 0;
   gols1 = 0;
-  textoPlacar.setText(gols0 + "  :  " + gols1); 
+  textoPlacar.setText(gols0 + "  x  " + gols1); 
   contagem0 = 0;
 }
 //Função quando clica em jogar novamente
@@ -508,15 +508,15 @@ function atualizarPosseBola() {
     if (contagem0 < 3) {
       posseBola0 = Phaser.Math.Between(35, 65);
       posseBola1 = 100 - posseBola0;
-      textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); //Atualiza os valores de posse de bola
+      textoPosseBola.setText(posseBola0 + "% | " + posseBola1 + "%"); //Atualiza os valores de posse de bola
     } else if (2 < contagem0 < 6) {
       posseBola0 = Phaser.Math.Between(45, 55);
       posseBola1 = 100 - posseBola0;
-      textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
+      textoPosseBola.setText(posseBola0 + "% | " + posseBola1 + "%"); 
     } else if (contagem0 > 5) {
       posseBola0 = Phaser.Math.Between(47, 53);
       posseBola1 = 100 - posseBola0;
-      textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%"); 
+      textoPosseBola.setText(posseBola0 + "% | " + posseBola1 + "%"); 
     }
     contagem0++;
     //Envia as variáveis de posse de bola do player 1
@@ -532,7 +532,7 @@ function atualizarPlacar() {
         gols0++;
         socket.emit("gols", gols0, gols1);
         //Atualiza os valores do placar
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
     //Zebra que pode ser uma virada do clube mais forte se der tempo
@@ -540,11 +540,11 @@ function atualizarPlacar() {
       if (gols1 < 2) {
         gols1++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       } else if (gols0 < gols1) {
         gols0++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
     //Goleada do clube vencedor
@@ -552,7 +552,7 @@ function atualizarPlacar() {
       if (gols0 < 5) {
         gols0++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
     //Vitória no final do jogo
@@ -565,7 +565,7 @@ function atualizarPlacar() {
       if (gols1 < 2) {
         gols1++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
     //Virada do clube vencedor
@@ -573,18 +573,18 @@ function atualizarPlacar() {
       if (gols0 < 2) {
         gols0++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       } else if (gols1 < gols0) {
         gols1++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
     //Goleada do clube vencedor
     if (tipoDeJogo === 1) {
       if (gols1 < 5) {
         gols1++;
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
     //Vitória no final do jogo
@@ -598,7 +598,7 @@ function atualizarPlacar() {
       if (gols0 < 2) {
         gols0++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
     //Virada do clube vencedor
@@ -606,11 +606,11 @@ function atualizarPlacar() {
       if (gols1 < 2) {
         gols1++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       } else if (gols0 < gols1) {
         gols0++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
     //Goleada do clube vencedor
@@ -618,7 +618,7 @@ function atualizarPlacar() {
       if (gols0 < 5) {
         gols0++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
     //Vitória no final do jogo
@@ -787,9 +787,9 @@ cena1.create = function () {
     fonteTexto0
   );
   //Adiciona o placar
-  textoPlacar = this.add.text(360, 325, gols0 + "  :  " + gols1, fonteTexto0);
+  textoPlacar = this.add.text(356, 325, gols0 + "  x  " + gols1, fonteTexto0);
   //Adiciona o texto da posse de bola
-  textoPosseBola = this.add.text(342, 473, "50%  50%", fonteTexto2);
+  textoPosseBola = this.add.text(342, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto2);
   //<--- Cena do fim do jogo --->
   //Botões para jogar novamente
   botaoSim = this.add.image(360, 580, "botaoSim").setInteractive();
@@ -961,10 +961,10 @@ cena1.create = function () {
       }); 
       //Atualizando os valores de gols e posse de bola gerados pelo player 1
       socket.on("gols", (gols0, gols1) => {
-        textoPlacar.setText(gols0 + "  :  " + gols1);
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       });
       socket.on("posseBola", (posseBola0, posseBola1) => {
-        textoPosseBola.setText(posseBola0 + "%  " + posseBola1 + "%");
+        textoPosseBola.setText(posseBola0 + "% | " + posseBola1 + "%");
       });
       //Sicronizando o cronômetro do jogo
       socket.on("tempoInicial", (tempoInicial) => {
