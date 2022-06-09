@@ -51,7 +51,7 @@ var textoCronometro;
 var passagemTempo;
 var fonteTexto0 = {font: "bold 35px Mont", fill: "#000000"};
 var fonteTexto1 = {font: "bold 28px Arial", fill: "#FFFFFF"};
-var fonteTexto2 = {font: "bold 28px Mont", fill: "#000000"};
+var fonteTexto2 = {font: "bold 26px Mont", fill: "#000000"};
 var textoPlacar;
 var textoPosseBola;
 var posseBola0 = 50;
@@ -707,19 +707,19 @@ cena1.create = function () {
   botao1 = this.add.image(280, 80, "botao1").setInteractive().setVisible(false);
   botao2 = this.add.image(735, 80, "botao1").setInteractive().setVisible(false);
   //Colocando os textos de seleção dos clubes do lado esquerdo
-  real0 = this.add.image(110, 70, "real");
-  city0 = this.add.image(100, 70, "city");
-  psg0 = this.add.image(94, 70, "psg");
-  bayern0 = this.add.image(145, 70, "bayern");
+  real0 = this.add.image(110, 82, "real");
+  city0 = this.add.image(100, 82, "city");
+  psg0 = this.add.image(94, 82, "psg");
+  bayern0 = this.add.image(145, 82, "bayern");
   nomeBayern0 = this.add.image(173, 335, "nomeBayern");
   nomeCity0 = this.add.image(175, 335, "nomeCity");
   nomePsg0 = this.add.image(175, 335, "nomePsg");
   nomeReal0 = this.add.image(170, 335, "nomeReal");
   //Colocando os textos de seleção dos clubes do lado direito
-  real1 = this.add.image(566, 70, "real");
-  city1 = this.add.image(553, 70, "city");
-  psg1 = this.add.image(552, 70, "psg");
-  bayern1 = this.add.image(600, 70, "bayern");
+  real1 = this.add.image(566, 82, "real");
+  city1 = this.add.image(553, 82, "city");
+  psg1 = this.add.image(552, 82, "psg");
+  bayern1 = this.add.image(600, 82, "bayern");
   nomeBayern1 = this.add.image(628, 335, "nomeBayern");
   nomeCity1 = this.add.image(630, 335, "nomeCity");
   nomePsg1 = this.add.image(629, 335, "nomePsg");
@@ -730,10 +730,10 @@ cena1.create = function () {
   psgEscudo = this.add.image(566, 70, "psgEscudo");
   realMadridEscudo = this.add.image(566, 70, "realMadridEscudo");
   //Colocando os textos de vitórias de cada clube
-  parabensBayern0 = this.add.image(400, 105, "bayern0");
-  parabensBayern1 = this.add.image(400, 105, "bayern1");
-  parabensCity0 = this.add.image(400, 105, "city0");
-  parabensCity1 = this.add.image(400, 105, "city1");
+  parabensBayern0 = this.add.image(400, 100, "bayern0");
+  parabensBayern1 = this.add.image(400, 100, "bayern1");
+  parabensCity0 = this.add.image(400, 100, "city0");
+  parabensCity1 = this.add.image(400, 100, "city1");
   parabensPsg0 = this.add.image(400, 100, "psg0");
   parabensPsg1 = this.add.image(400, 100, "psg1");
   parabensReal0 = this.add.image(400, 100, "real0");
@@ -780,15 +780,15 @@ cena1.create = function () {
   //<--- Cena do jogo acontecendo --->
   //Adiciona o cronômetro
   textoCronometro = this.add.text(
-    356,
-    170,
+    351,
+    185,
     formatarTempo(this.tempoInicial),
     fonteTexto0
   );
   //Adiciona o placar
-  textoPlacar = this.add.text(360, 287, gols0 + "     " + gols1, fonteTexto0);
+  textoPlacar = this.add.text(360, 315, gols0 + "     " + gols1, fonteTexto0);
   //Adiciona o texto da posse de bola
-  textoPosseBola = this.add.text(342, 462, "50%  50%", fonteTexto2);
+  textoPosseBola = this.add.text(340, 465, "50%  50%", fonteTexto2);
   //<--- Cena do fim do jogo --->
   //Botões para jogar novamente
   botaoSim = this.add.image(360, 580, "botaoSim").setInteractive();
