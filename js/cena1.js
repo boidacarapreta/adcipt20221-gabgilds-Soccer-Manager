@@ -41,10 +41,14 @@ var nomeReal1;
 var somMouse;
 var contagemClube0 = 0;
 var contagemClube1 = 0;
-var bayernEscudo;
-var cityEscudo;
-var psgEscudo;
-var realMadridEscudo;
+var bayernEscudo0;
+var cityEscudo0;
+var psgEscudo0;
+var realEscudo0;
+var bayernEscudo1;
+var cityEscudo1;
+var psgEscudo1;
+var realEscudo1;
 //Variáveis da cena do jogo acontecendo
 var fundo2;
 var textoCronometro;
@@ -112,6 +116,10 @@ function escolhaBayern0() {
   nomeReal0.setVisible(false);
   city0.setVisible(false);
   nomeCity0.setVisible(false);
+  bayernEscudo0.setVisible(true);
+  cityEscudo0.setVisible(false);
+  realEscudo0.setVisible(false);
+  psgEscudo0.setVisible(false);
   forçaClube0Escolhido = forçaBayern0;
   clube0Escolhido = "bayern";
 }
@@ -124,6 +132,10 @@ function escolhaPsg0() {
   nomeReal0.setVisible(false);
   city0.setVisible(false);
   nomeCity0.setVisible(false);
+  bayernEscudo0.setVisible(false);
+  cityEscudo0.setVisible(false);
+  realEscudo0.setVisible(false);
+  psgEscudo0.setVisible(true);  
   forçaClube0Escolhido = forçaPsg0;
   clube0Escolhido = "psg";
 }
@@ -136,6 +148,10 @@ function escolhaCity0() {
   nomeReal0.setVisible(false);
   city0.setVisible(true);
   nomeCity0.setVisible(true);
+  bayernEscudo0.setVisible(false);
+  cityEscudo0.setVisible(true);
+  realEscudo0.setVisible(false);
+  psgEscudo0.setVisible(false);  
   forçaClube0Escolhido = forçaCity0;
   clube0Escolhido = "city";
 }
@@ -148,6 +164,10 @@ function escolhaReal0() {
   nomeReal0.setVisible(true);
   city0.setVisible(false);
   nomeCity0.setVisible(false);
+  bayernEscudo0.setVisible(false);
+  cityEscudo0.setVisible(false);
+  realEscudo0.setVisible(true);
+  psgEscudo0.setVisible(false);  
   forçaClube0Escolhido = forçaReal0;
   clube0Escolhido = "real";
 }
@@ -160,6 +180,10 @@ function escolhaPsg1() {
   nomeReal1.setVisible(false);
   city1.setVisible(false);
   nomeCity1.setVisible(false);
+  bayernEscudo1.setVisible(false);
+  cityEscudo1.setVisible(false);
+  realEscudo1.setVisible(false);
+  psgEscudo1.setVisible(true);  
   forçaClube1Escolhido = forçaPsg1;
   clube1Escolhido = "psg";
 }
@@ -172,6 +196,10 @@ function escolhaBayern1() {
   nomeReal1.setVisible(false);
   city1.setVisible(false);
   nomeCity1.setVisible(false);
+  bayernEscudo1.setVisible(true);
+  cityEscudo1.setVisible(false);
+  realEscudo1.setVisible(false);
+  psgEscudo1.setVisible(false);    
   forçaClube1Escolhido = forçaBayern1;
   clube1Escolhido = "bayern";
 }
@@ -184,6 +212,10 @@ function escolhaCity1() {
   nomeReal1.setVisible(false);
   city1.setVisible(true);
   nomeCity1.setVisible(true);
+  bayernEscudo1.setVisible(false);
+  cityEscudo1.setVisible(true);
+  realEscudo1.setVisible(false);
+  psgEscudo1.setVisible(false);    
   forçaClube1Escolhido = forçaCity1;
   clube1Escolhido = "city";
 }
@@ -196,6 +228,10 @@ function escolhaReal1() {
   nomeReal1.setVisible(true);
   city1.setVisible(false);
   nomeCity1.setVisible(false);
+  bayernEscudo1.setVisible(false);
+  cityEscudo1.setVisible(false);
+  realEscudo1.setVisible(true);
+  psgEscudo1.setVisible(false);    
   forçaClube1Escolhido = forçaReal1;
   clube1Escolhido = "real";
 }
@@ -302,7 +338,7 @@ function aparecerFundo2() {
         socket.emit("tempoInicial", tempoInicial);
         if (jogador === 1) {
           //Fim da partida
-          if (tempoInicial === 400) {
+          if (tempoInicial === 405) {
             aparecerFundo3();          
           }
           //Atualização da posse de bola
@@ -654,7 +690,7 @@ cena1.preload = function () {
   this.load.image("bayernEscudo", "./assets/clubes/bayernEscudo.png");
   this.load.image("cityEscudo", "./assets/clubes/cityEscudo.png");
   this.load.image("psgEscudo", "./assets/clubes/psgEscudo.png");
-  this.load.image("realMadridEscudo", "./assets/clubes/realMadridEscudo.png");
+  this.load.image("realEscudo", "./assets/clubes/realEscudo.png");
   //Carregando as imagens e áudio que serão usados na cena do jogo
   this.load.image("fundo2", "./assets/fundo2.png");
   //Carregando as imagens e áudio que serão usados na cena de fim do jogo
@@ -705,30 +741,34 @@ cena1.create = function () {
   //Define e adiciona os botões da cena1
   botao0 = this.add.image(400, 300, "botao0").setInteractive().setVisible(false);
   botao1 = this.add.image(280, 80, "botao1").setInteractive().setVisible(false);
-  botao2 = this.add.image(735, 80, "botao1").setInteractive().setVisible(false);
+  botao2 = this.add.image(730, 82, "botao1").setInteractive().setVisible(false);
   //Colocando os textos de seleção dos clubes do lado esquerdo
-  real0 = this.add.image(110, 82, "real");
-  city0 = this.add.image(100, 82, "city");
-  psg0 = this.add.image(94, 82, "psg");
-  bayern0 = this.add.image(145, 82, "bayern");
-  nomeBayern0 = this.add.image(173, 335, "nomeBayern");
+  real0 = this.add.image(160, 80, "real");
+  city0 = this.add.image(160, 83, "city");
+  psg0 = this.add.image(160, 82, "psg");
+  bayern0 = this.add.image(174, 84, "bayern");
+  nomeBayern0 = this.add.image(173, 337, "nomeBayern");
   nomeCity0 = this.add.image(175, 335, "nomeCity");
   nomePsg0 = this.add.image(175, 335, "nomePsg");
   nomeReal0 = this.add.image(170, 335, "nomeReal");
   //Colocando os textos de seleção dos clubes do lado direito
-  real1 = this.add.image(566, 82, "real");
-  city1 = this.add.image(553, 82, "city");
-  psg1 = this.add.image(552, 82, "psg");
-  bayern1 = this.add.image(600, 82, "bayern");
+  real1 = this.add.image(610, 80, "real");
+  city1 = this.add.image(610, 83, "city");
+  psg1 = this.add.image(610, 82, "psg");
+  bayern1 = this.add.image(625, 84, "bayern");
   nomeBayern1 = this.add.image(628, 335, "nomeBayern");
   nomeCity1 = this.add.image(630, 335, "nomeCity");
   nomePsg1 = this.add.image(629, 335, "nomePsg");
   nomeReal1 = this.add.image(625, 335, "nomeReal");
   //Colocando os escudos dos clubes
-  bayernEscudo = this.add.image(566, 70, "bayernEscudo");
-  cityEscudo = this.add.image(566, 70, "cityEscudo");
-  psgEscudo = this.add.image(566, 70, "psgEscudo");
-  realMadridEscudo = this.add.image(566, 70, "realMadridEscudo");
+  bayernEscudo0 = this.add.image(70, 80, "bayernEscudo");
+  cityEscudo0 = this.add.image(70, 82, "cityEscudo");
+  psgEscudo0 = this.add.image(70, 82, "psgEscudo");
+  realEscudo0 = this.add.image(70, 82, "realEscudo");
+  bayernEscudo1 = this.add.image(520, 82, "bayernEscudo");
+  cityEscudo1 = this.add.image(520, 82, "cityEscudo");
+  psgEscudo1 = this.add.image(520, 82, "psgEscudo");
+  realEscudo1 = this.add.image(520, 82, "realEscudo");
   //Colocando os textos de vitórias de cada clube
   parabensBayern0 = this.add.image(400, 95, "bayern0");
   parabensBayern1 = this.add.image(400, 95, "bayern1");
