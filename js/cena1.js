@@ -55,7 +55,7 @@ var textoCronometro;
 var passagemTempo;
 var fonteTexto0 = {font: "bold 35px Mont", fill: "#000000"};
 var fonteTexto1 = {font: "bold 28px Arial", fill: "#FFFFFF"};
-var fonteTexto2 = {font: "bold 26px Mont", fill: "#000000"};
+var fonteTexto2 = {font: "bold 24px Mont", fill: "#000000"};
 var textoPlacar;
 var textoPosseBola;
 var posseBola0 = 50;
@@ -338,7 +338,7 @@ function aparecerFundo2() {
         socket.emit("tempoInicial", tempoInicial);
         if (jogador === 1) {
           //Fim da partida
-          if (tempoInicial === 405) {
+          if (tempoInicial === 5400) {
             aparecerFundo3();          
           }
           //Atualização da posse de bola
@@ -781,7 +781,7 @@ cena1.create = function () {
   //Colocando o som do mouse para sair clicar nos botões
   somMouse = this.sound.add("somMouse");
   //Colocando o contador de partidas jogadas
-  textoContadorPartidas0 = this.add.image(630, 580, "textoContadorPartidas");
+  textoContadorPartidas0 = this.add.image(624, 580, "textoContadorPartidas");
   textoContadorPartidas1 = this.add.text(732, 564, "0", fonteTexto1);
   //Botão de ativar/desativar tela cheia
   botaoTelaCheia = this.add
@@ -822,14 +822,14 @@ cena1.create = function () {
   //Adiciona o cronômetro
   textoCronometro = this.add.text(
     351,
-    185,
+    187,
     formatarTempo(this.tempoInicial),
     fonteTexto0
   );
   //Adiciona o placar
   textoPlacar = this.add.text(356, 325, gols0 + "  x  " + gols1, fonteTexto0);
   //Adiciona o texto da posse de bola
-  textoPosseBola = this.add.text(342, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto2);
+  textoPosseBola = this.add.text(343, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto2);
   //<--- Cena do fim do jogo --->
   //Botões para jogar novamente
   botaoSim = this.add.image(360, 580, "botaoSim").setInteractive();
