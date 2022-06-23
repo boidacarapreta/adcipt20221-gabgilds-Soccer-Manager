@@ -344,9 +344,8 @@ function aparecerFundo2() {
         textoCronometro.setText(formatarTempo(tempoInicial));
         //Sicronizando o tempo do jogo
         socket.emit("tempoInicial", tempoInicial);
-        if (jogador === 1) {
           //Fim da partida (90 minutos de jogo = 5400)
-          if (tempoInicial === 150) {
+          if (tempoInicial === 5400) {
             aparecerFundo3();          
           }
           //Atualização da posse de bola
@@ -380,7 +379,6 @@ function aparecerFundo2() {
               }
             }
           }
-        }
       },
       callbackScope: this,
       loop: true,
@@ -579,14 +577,10 @@ function atualizarPlacar() {
         textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
-    //Zebra que pode ser uma virada do clube mais forte se der tempo
+    //Zebra
     if (tipoDeJogo === 0) {
       if (gols1 < 2) {
         gols1++;
-        socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  x  " + gols1);
-      } else if (gols0 < gols1) {
-        gols0++;
         socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "  x  " + gols1);
       }
@@ -612,14 +606,10 @@ function atualizarPlacar() {
         textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
-    //Virada do clube vencedor
+    //Zebra
     if (tipoDeJogo === 0) {
       if (gols0 < 2) {
         gols0++;
-        socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  x  " + gols1);
-      } else if (gols1 < gols0) {
-        gols1++;
         socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "  x  " + gols1);
       }
@@ -645,14 +635,10 @@ function atualizarPlacar() {
         textoPlacar.setText(gols0 + "  x  " + gols1);
       }
     }
-    //Virada do clube vencedor
+    //Zebra
     if (tipoDeJogo === 0) {
       if (gols1 < 2) {
         gols1++;
-        socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  x  " + gols1);
-      } else if (gols0 < gols1) {
-        gols0++;
         socket.emit("gols", gols0, gols1);
         textoPlacar.setText(gols0 + "  x  " + gols1);
       }
