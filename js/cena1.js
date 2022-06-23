@@ -253,6 +253,14 @@ function retirarTodosNomesClubes() {
   nomeReal1.setVisible(false);
   city1.setVisible(false);
   nomeCity1.setVisible(false);
+  bayernEscudo0.setVisible(false);
+  bayernEscudo1.setVisible(false);
+  psgEscudo0.setVisible(false);
+  psgEscudo1.setVisible(false);
+  cityEscudo0.setVisible(false);
+  cityEscudo1.setVisible(false);
+  realEscudo0.setVisible(false);
+  realEscudo1.setVisible(false);  
 }
 //Função para deixar a tela preta
 function apagarTela() {
@@ -337,8 +345,8 @@ function aparecerFundo2() {
         //Sicronizando o tempo do jogo
         socket.emit("tempoInicial", tempoInicial);
         if (jogador === 1) {
-          //Fim da partida
-          if (tempoInicial === 5400) {
+          //Fim da partida (90 minutos de jogo = 5400)
+          if (tempoInicial === 150) {
             aparecerFundo3();          
           }
           //Atualização da posse de bola
@@ -747,19 +755,19 @@ cena1.create = function () {
   city0 = this.add.image(160, 83, "city");
   psg0 = this.add.image(160, 82, "psg");
   bayern0 = this.add.image(174, 84, "bayern");
-  nomeBayern0 = this.add.image(173, 337, "nomeBayern");
-  nomeCity0 = this.add.image(175, 335, "nomeCity");
-  nomePsg0 = this.add.image(175, 335, "nomePsg");
-  nomeReal0 = this.add.image(170, 335, "nomeReal");
+  nomeBayern0 = this.add.image(170, 335, "nomeBayern");
+  nomeCity0 = this.add.image(152, 335, "nomeCity");
+  nomePsg0 = this.add.image(158, 339, "nomePsg");
+  nomeReal0 = this.add.image(146, 334, "nomeReal");
   //Colocando os textos de seleção dos clubes do lado direito
   real1 = this.add.image(610, 80, "real");
   city1 = this.add.image(610, 83, "city");
   psg1 = this.add.image(610, 82, "psg");
   bayern1 = this.add.image(625, 84, "bayern");
-  nomeBayern1 = this.add.image(628, 335, "nomeBayern");
-  nomeCity1 = this.add.image(630, 335, "nomeCity");
-  nomePsg1 = this.add.image(629, 335, "nomePsg");
-  nomeReal1 = this.add.image(625, 335, "nomeReal");
+  nomeBayern1 = this.add.image(618, 335, "nomeBayern");
+  nomeCity1 = this.add.image(600, 335, "nomeCity");
+  nomePsg1 = this.add.image(606, 339, "nomePsg");
+  nomeReal1 = this.add.image(594, 334, "nomeReal");
   //Colocando os escudos dos clubes
   bayernEscudo0 = this.add.image(70, 80, "bayernEscudo");
   cityEscudo0 = this.add.image(70, 82, "cityEscudo");
@@ -832,8 +840,8 @@ cena1.create = function () {
   textoPosseBola = this.add.text(343, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto2);
   //<--- Cena do fim do jogo --->
   //Botões para jogar novamente
-  botaoSim = this.add.image(360, 580, "botaoSim").setInteractive();
-  botaoNao = this.add.image(440, 580, "botaoNao").setInteractive();
+  botaoSim = this.add.image(300, 580, "botaoSim").setInteractive();
+  botaoNao = this.add.image(355, 580, "botaoNao").setInteractive();
   textoJogarDeNovo = this.add.image(180, 580, "textoJogarDeNovo");
   //Animação dos vencedores
   muller = this.physics.add.sprite(600, 450, "muller");

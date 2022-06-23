@@ -31,7 +31,7 @@ Cronômetro da partida: https://phaser.discourse.group/t/countdown-timer/2471
 -------------------------------------------------------------------------------
 
 Melhorias do jogo:
-1ºSala de espera para jogadores em excesso e desconectar quando jogo acabar;
+1º Sala de espera para jogadores simultâneos e desconectar quando jogo acabar;
 2º Aperfeiçoar sistema de posse de bola e gols*;
 3º Botar uma bolhinha do lado do jogador quando fazer gol;
 4º Empate;
