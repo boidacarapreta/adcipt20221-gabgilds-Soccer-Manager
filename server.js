@@ -89,7 +89,11 @@ io.on("connection", function (socket) {
   //Servidor recebendo o valor de contagem da partida
   socket.on("contadorPartidas", (contadorPartidas) => {
     socket.broadcast.emit("contadorPartidas", contadorPartidas);
-  });  
+  });
+  //Servidor recebendo o valor das forças dos clubes
+  socket.on("forçaClubes", (forçaBayern0, forçaPsg0, forçaCity0, forçaReal0, forçaBayern1, forçaPsg1, forçaCity1, forçaReal1) => {
+    socket.broadcast.emit("forçaClubes", forçaBayern0, forçaPsg0, forçaCity0, forçaReal0, forçaBayern1, forçaPsg1, forçaCity1, forçaReal1);
+  });     
 });
 
 app.use(express.static("./"));

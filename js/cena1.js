@@ -438,7 +438,7 @@ function aparecerFundo3() {
 function aparecerFundo1Novamente() {
     if (jogador === 1) {
       //Definindo a força dos clubes de novo para definir o resultado da nova partida
-      definindoForçaClubes();
+      definirForçaClubes();
       botao0.setVisible(true);
       botao1.setVisible(true);
       //Adicionando valor no contador de partidas
@@ -534,7 +534,7 @@ function clube1vencendo() {
   }
 }
 //Definindo os valores que serão usados na partida para decidir o vencedor, adicionado a um valor aleatório
-function definindoForçaClubes() {
+function definirForçaClubes() {
   forçaBayern0 = statusBayern.atk + Phaser.Math.Between(0, 10);
   forçaPsg0 = statusPsg.atk + Phaser.Math.Between(0, 10);
   forçaCity0 = statusCity.atk + Phaser.Math.Between(0, 10);
@@ -544,6 +544,7 @@ function definindoForçaClubes() {
   forçaCity1 = statusCity.atk + Phaser.Math.Between(0, 10);
   forçaReal1 = statusReal.atk + Phaser.Math.Between(0, 10);
   console.log(`Forças dos clubes:\npsg0: ${forçaPsg0} \nbayern0: ${forçaBayern0} \ncity0: ${forçaCity0} \nreal0: ${forçaReal0} \npsg1: ${forçaPsg1} \nbayern1: ${forçaBayern1} \ncity1: ${forçaCity1} \nreal1: ${forçaReal1}`);
+  socket.emit("forçaClubes", forçaBayern0, forçaPsg0, forçaCity0, forçaReal0, forçaBayern1, forçaPsg1, forçaCity1, forçaReal1);
 }
 //Função para o cronômetro funcionar
 function formatarTempo(segundos) {
@@ -731,8 +732,10 @@ cena1.preload = function () {
   this.load.image("botaoNao", "./assets/texto/botaoNao.png");
 };
 cena1.create = function () {
-  //Definindo a força dos clubes para definir o resultado da partida
-  definindoForçaClubes();
+  //Player 1 definindo a força dos clubes para definir o resultado da partida
+  if (jogador === 1) {
+    definirForçaClubes();
+  }
   //Deixando a variável tempo utilizável para o cena1
   time = this.time;
   //Colocando a musica no jogo
@@ -1016,8 +1019,20 @@ cena1.create = function () {
       socket.on("tempoInicial", (tempoInicial) => {
         textoCronometro.setText(formatarTempo(tempoInicial));
       });
+      //Sicronizando o contador das partidas
       socket.on("contadorPartidas", (contadorPartidas) => {
         textoContadorPartidas1.setText(contadorPartidas);
+      });
+      //Sicronizando a força dos clubes
+      socket.on("forçaClubes", (forçaBayern0, forçaPsg0, forçaCity0, forçaReal0, forçaBayern1, forçaPsg1, forçaCity1, forçaReal1) => {
+        forçaBayern0 = forçaBayern0;
+        forçaPsg0 = forçaPsg0;
+        forçaCity0 = forçaCity0;
+        forçaReal0 = forçaReal0;
+        forçaBayern1 = forçaBayern1;
+        forçaPsg1 = forçaPsg1;
+        forçaCity1 = forçaCity1;
+        forçaReal1 = forçaReal1;
       });
     } 
   });
