@@ -1007,7 +1007,7 @@ cena1.create = function () {
       }); 
       //Atualizando os valores de gols e posse de bola gerados pelo player 1
       socket.on("gols", (gols0, gols1) => {
-        atualizarTextoPlacar();
+        textoPlacar.setText(gols0 + "  x  " + gols1);
       });
       socket.on("posseBola", (posseBola0, posseBola1) => {
         textoPosseBola.setText(posseBola0 + "% | " + posseBola1 + "%");
@@ -1017,7 +1017,7 @@ cena1.create = function () {
         textoCronometro.setText(formatarTempo(tempoInicial));
       });
       socket.on("contadorPartidas", (contadorPartidas) => {
-        atualizarContadorPartidas();
+        textoContadorPartidas1.setText(contadorPartidas);
       });
     } 
   });
