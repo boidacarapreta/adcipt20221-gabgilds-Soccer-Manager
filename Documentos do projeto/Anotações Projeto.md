@@ -37,7 +37,7 @@ Melhorias do jogo:
 2º Aperfeiçoar sistema de posse de bola e gols*;
 3º Botar uma bolhinha do lado do jogador quando fazer gol;
 4º Empate;
-5º Intervalo do jogo.
+5º Intervalo do jogo -> Com propaganda.
 
 Informação do jogo:
 - Cada partida dura 28,8 segundos na vida real;
