@@ -31,6 +31,8 @@ Cronômetro da partida: https://phaser.discourse.group/t/countdown-timer/2471
 -------------------------------------------------------------------------------
 
 Melhorias do jogo:
+
+0º Bug dos resultados diferentes é pq as forças são geradas pelos 2 players;
 1º Sala de espera para jogadores simultâneos e desconectar quando jogo acabar;
 2º Aperfeiçoar sistema de posse de bola e gols*;
 3º Botar uma bolhinha do lado do jogador quando fazer gol;
