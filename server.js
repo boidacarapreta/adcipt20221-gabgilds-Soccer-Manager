@@ -86,6 +86,10 @@ io.on("connection", function (socket) {
   socket.on("tempoInicial", (tempoInicial) => {
     socket.broadcast.emit("tempoInicial", tempoInicial);
   })
+  //Servidor recebendo o valor de contagem da partida
+  socket.on("contadorPartidas", (contadorPartidas) => {
+    socket.broadcast.emit("contadorPartidas", contadorPartidas);
+  });  
 });
 
 app.use(express.static("./"));

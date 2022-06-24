@@ -297,6 +297,14 @@ function escolhaClubePadrao() {
   escolhaBayern0();
   escolhaCity1();
 }
+//Função para atualizar o texto do placar do jogo
+function atualizarTextoPlacar() {
+  textoPlacar.setText(gols0 + "  x  " + gols1);
+}
+//Função para atualizar o texto do contador de partidas
+function atualizarContadorPartidas() {
+  textoContadorPartidas1.setText(contadorPartidas);
+}
 //Funções para mostrar as telas do jogo
 function aparecerFundo1() {
   fundo1.setVisible(true);
@@ -337,7 +345,7 @@ function aparecerFundo2() {
   tempoInicial = 0;
   if (jogador === 1) {
     passagemTempo = time.addEvent({
-      delay: 80,
+      delay: 20, //delay padrão = "delay: 80,"
       callback: function () {
         //A cada x ms (delay) adiciona 15 segundos do tempo inicial
         tempoInicial += 15; 
@@ -356,6 +364,7 @@ function aparecerFundo2() {
           if (tempoInicial % 120 === 0) {
             //Possibilidade de ocorrer um gol
             chanceGol = Phaser.Math.Between(0, 20); 
+            console.log(`chanceGol: ${chanceGol}`);
             //Se o gol ocorrer, atualiza o placar
             if (chanceGol === 1) {
               atualizarPlacar();
@@ -364,18 +373,18 @@ function aparecerFundo2() {
             if (tempoInicial === 4800 && gols0 === 0 && gols1 === 0) {
               if (forçaClube0Escolhido > forçaClube1Escolhido) {
                 gols0++;
-                //Enviando valores gols para player 2
+                //Enviando valores gols para o player 2
                 socket.emit("gols", gols0, gols1);
                 //Atualiza os valores do placar
-                textoPlacar.setText(gols0 + "  x  " + gols1); 
+                atualizarTextoPlacar();
               } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
                 gols1++;
                 socket.emit("gols", gols0, gols1);
-                textoPlacar.setText(gols0 + "  x  " + gols1);
+                atualizarTextoPlacar();
               } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
                 gols0++;
                 socket.emit("gols", gols0, gols1);
-                textoPlacar.setText(gols0 + "  x  " + gols1);
+                atualizarTextoPlacar();
               }
             }
           }
@@ -422,7 +431,7 @@ function aparecerFundo3() {
   textoPosseBola.setText(posseBola0 + "% | " + posseBola1 + "%"); //Atualiza os valores de posse de bola inciais
   gols0 = 0;
   gols1 = 0;
-  textoPlacar.setText(gols0 + "  x  " + gols1); 
+  atualizarTextoPlacar(); 
   contagem0 = 0;
 }
 //Função quando clica em jogar novamente
@@ -432,6 +441,11 @@ function aparecerFundo1Novamente() {
       definindoForçaClubes();
       botao0.setVisible(true);
       botao1.setVisible(true);
+      //Adicionando valor no contador de partidas
+      contadorPartidas++;
+      atualizarContadorPartidas();
+      //Enviando o valor do contador de partidas para o player 2
+      socket.emit("contadorPartidas", contadorPartidas);
     } else if (jogador === 2) {
       botao2.setVisible(true);
     }
@@ -462,9 +476,6 @@ function aparecerFundo1Novamente() {
     soundtrack.play();
     //Coloca os clubes que aparecem primeiro para serem escolhidos
     escolhaClubePadrao();
-    //Adicionando valor no contador de partidas
-    contadorPartidas++;
-    textoContadorPartidas1.setText(contadorPartidas);
 }
 function clube0vencendo() {
   //Aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
@@ -532,6 +543,7 @@ function definindoForçaClubes() {
   forçaPsg1 = statusPsg.atk + Phaser.Math.Between(0, 10);
   forçaCity1 = statusCity.atk + Phaser.Math.Between(0, 10);
   forçaReal1 = statusReal.atk + Phaser.Math.Between(0, 10);
+  console.log(`Forças dos clubes:\npsg0: ${forçaPsg0} \nbayern0: ${forçaBayern0} \ncity0: ${forçaCity0} \nreal0: ${forçaReal0} \npsg1: ${forçaPsg1} \nbayern1: ${forçaBayern1} \ncity1: ${forçaCity1} \nreal1: ${forçaReal1}`);
 }
 //Função para o cronômetro funcionar
 function formatarTempo(segundos) {
@@ -574,7 +586,7 @@ function atualizarPlacar() {
         gols0++;
         socket.emit("gols", gols0, gols1);
         //Atualiza os valores do placar
-        textoPlacar.setText(gols0 + "  x  " + gols1);
+        atualizarTextoPlacar();
       }
     }
     //Zebra
@@ -582,7 +594,7 @@ function atualizarPlacar() {
       if (gols1 < 2) {
         gols1++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  x  " + gols1);
+        atualizarTextoPlacar();
       }
     }
     //Goleada do clube vencedor
@@ -590,7 +602,7 @@ function atualizarPlacar() {
       if (gols0 < 5) {
         gols0++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  x  " + gols1);
+        atualizarTextoPlacar();
       }
     }
     //Vitória no final do jogo
@@ -603,7 +615,7 @@ function atualizarPlacar() {
       if (gols1 < 2) {
         gols1++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  x  " + gols1);
+        atualizarTextoPlacar();
       }
     }
     //Zebra
@@ -611,14 +623,14 @@ function atualizarPlacar() {
       if (gols0 < 2) {
         gols0++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  x  " + gols1);
+        atualizarTextoPlacar();
       }
     }
     //Goleada do clube vencedor
     if (tipoDeJogo === 1) {
       if (gols1 < 5) {
         gols1++;
-        textoPlacar.setText(gols0 + "  x  " + gols1);
+        atualizarTextoPlacar();
       }
     }
     //Vitória no final do jogo
@@ -632,7 +644,7 @@ function atualizarPlacar() {
       if (gols0 < 2) {
         gols0++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  x  " + gols1);
+        atualizarTextoPlacar();
       }
     }
     //Zebra
@@ -640,7 +652,7 @@ function atualizarPlacar() {
       if (gols1 < 2) {
         gols1++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  x  " + gols1);
+        atualizarTextoPlacar();
       }
     }
     //Goleada do clube vencedor
@@ -648,7 +660,7 @@ function atualizarPlacar() {
       if (gols0 < 5) {
         gols0++;
         socket.emit("gols", gols0, gols1);
-        textoPlacar.setText(gols0 + "  x  " + gols1);
+        atualizarTextoPlacar();
       }
     }
     //Vitória no final do jogo
@@ -995,7 +1007,7 @@ cena1.create = function () {
       }); 
       //Atualizando os valores de gols e posse de bola gerados pelo player 1
       socket.on("gols", (gols0, gols1) => {
-        textoPlacar.setText(gols0 + "  x  " + gols1);
+        atualizarTextoPlacar();
       });
       socket.on("posseBola", (posseBola0, posseBola1) => {
         textoPosseBola.setText(posseBola0 + "% | " + posseBola1 + "%");
@@ -1003,6 +1015,9 @@ cena1.create = function () {
       //Sicronizando o cronômetro do jogo
       socket.on("tempoInicial", (tempoInicial) => {
         textoCronometro.setText(formatarTempo(tempoInicial));
+      });
+      socket.on("contadorPartidas", (contadorPartidas) => {
+        atualizarContadorPartidas();
       });
     } 
   });
