@@ -1025,14 +1025,25 @@ cena1.create = function () {
       });
       //Sicronizando a força dos clubes
       socket.on("forçaClubes", (forçaBayern0, forçaPsg0, forçaCity0, forçaReal0, forçaBayern1, forçaPsg1, forçaCity1, forçaReal1) => {
-        forçaBayern0 = forçaBayern0;
-        forçaPsg0 = forçaPsg0;
-        forçaCity0 = forçaCity0;
-        forçaReal0 = forçaReal0;
-        forçaBayern1 = forçaBayern1;
-        forçaPsg1 = forçaPsg1;
-        forçaCity1 = forçaCity1;
-        forçaReal1 = forçaReal1;
+        if (forçaClube0Escolhido === forçaBayern0) {
+          forçaClube0Escolhido = forçaBayern0;
+        } else if (forçaClube0Escolhido === forçaPsg0) {
+          forçaClube0Escolhido = forçaPsg0;
+        } else if (forçaClube0Escolhido === forçaCity0) {
+          forçaClube0Escolhido = forçaCity0;
+        } else if (forçaClube0Escolhido === forçaReal0) {
+          forçaClube0Escolhido = forçaReal0;
+        }
+        if (forçaClube1Escolhido === forçaBayern1) {
+          forçaClube1Escolhido = forçaBayern1;
+        } else if (forçaClube1Escolhido === forçaPsg1) {
+          forçaClube1Escolhido = forçaPsg1;
+        } else if (forçaClube1Escolhido === forçaCity1) {
+          forçaClube1Escolhido = forçaCity1;
+        } else if (forçaClube1Escolhido === forçaReal1) {
+          forçaClube1Escolhido = forçaReal1;
+        } 
+        console.log(`forçaClube0Escolhido: ${forçaClube0Escolhido}\nforçaClube1Escolhido: ${forçaClube1Escolhido}`);
       });
     } 
   });
