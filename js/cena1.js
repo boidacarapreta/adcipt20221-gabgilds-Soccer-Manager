@@ -732,10 +732,6 @@ cena1.preload = function () {
   this.load.image("botaoNao", "./assets/texto/botaoNao.png");
 };
 cena1.create = function () {
-  //Player 1 definindo a força dos clubes para definir o resultado da partida
-  if (jogador === 1) {
-    definirForçaClubes();
-  }
   //Deixando a variável tempo utilizável para o cena1
   time = this.time;
   //Colocando a musica no jogo
@@ -748,7 +744,10 @@ cena1.create = function () {
   fundo3 = this.add.image(400, 300, "fundo3");
   //<--- Cena de escolhendo os clubes --->
   //Define e adiciona os botões da cena1
-  botao0 = this.add.image(400, 300, "botao0").setInteractive().setVisible(false);
+  botao0 = this.add
+    .image(400, 300, "botao0")
+    .setInteractive()
+    .setVisible(false);
   botao1 = this.add.image(280, 80, "botao1").setInteractive().setVisible(false);
   botao2 = this.add.image(730, 82, "botao1").setInteractive().setVisible(false);
   //Colocando os textos de seleção dos clubes do lado esquerdo
@@ -838,7 +837,12 @@ cena1.create = function () {
   //Adiciona o placar
   textoPlacar = this.add.text(356, 325, gols0 + "  x  " + gols1, fonteTexto0);
   //Adiciona o texto da posse de bola
-  textoPosseBola = this.add.text(343, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto2);
+  textoPosseBola = this.add.text(
+    343,
+    473,
+    posseBola0 + "% | " + posseBola1 + "%",
+    fonteTexto2
+  );
   //<--- Cena do fim do jogo --->
   //Botões para jogar novamente
   botaoSim = this.add.image(300, 580, "botaoSim").setInteractive();
@@ -898,12 +902,12 @@ cena1.create = function () {
   escolhaClubePadrao();
 
   //Conectar ao servidor do Heroku via socket.io (WebSocket). Link do Heroku: "https://secure-meadow-69283.herokuapp.com/"
-  socket = io("https://secure-meadow-69283.herokuapp.com/"); 
-  
+  socket = io("https://secure-meadow-69283.herokuapp.com/");
+
   //Defindo os players e a comunicação
-  socket.on("jogadores", function (jogadores) { 
+  socket.on("jogadores", function (jogadores) {
     //Dispara evento quando player entrar na partida
-    if (jogadores.primeiro === socket.id) { 
+    if (jogadores.primeiro === socket.id) {
       //Define o primeiro player
       jogador = 1;
       //Estabelece a comunicação
@@ -964,18 +968,25 @@ cena1.create = function () {
         } else if (contagemClube1 === 3) {
           escolhaPsg1();
         }
-      })
+      });
       //Mostra os players conectados
-      console.log(jogadores); 
+      console.log(jogadores);
       //Os dois players precisam estar conectados para o jogo começar
-      if (jogadores.primeiro !== undefined && jogadores.segundo !== undefined && jogoIniciado !== "Sim") {
+      if (
+        jogadores.primeiro !== undefined &&
+        jogadores.segundo !== undefined &&
+        jogoIniciado !== "Sim"
+      ) {
         botao0.setVisible(true);
-      } else if (jogadores.primeiro === undefined || jogadores.segundo === undefined) {
+      } else if (
+        jogadores.primeiro === undefined ||
+        jogadores.segundo === undefined
+      ) {
         botao0.setVisible(false);
         botao1.setVisible(false);
         botao2.setVisible(false);
       }
-    //Player 1 cria o jogo e envia para o outro player apresentar
+      //Player 1 cria o jogo e envia para o outro player apresentar
     } else if (jogador === 2) {
       //Colocando o botão para o player 2 escolher o clube somente no inicio do jogo
       if (jogoIniciado !== "Sim") {
@@ -992,7 +1003,7 @@ cena1.create = function () {
         } else if (contagemClube0 === 3) {
           escolhaPsg0();
         }
-      })
+      });
       //Recebendo o comunicado do player 1 para começar a partida
       socket.on("comecarPartida", () => {
         aparecerFundo2();
@@ -1007,7 +1018,7 @@ cena1.create = function () {
       //Recebendo o comunicado do player 1 para acabar com a partida
       socket.on("fimDoJogo", () => {
         apagarTela();
-      }); 
+      });
       //Atualizando os valores de gols e posse de bola gerados pelo player 1
       socket.on("gols", (gols0, gols1) => {
         textoPlacar.setText(gols0 + "  x  " + gols1);
@@ -1024,30 +1035,44 @@ cena1.create = function () {
         textoContadorPartidas1.setText(contadorPartidas);
       });
       //Sicronizando a força dos clubes
-      socket.on("forçaClubes", (forçaBayern0, forçaPsg0, forçaCity0, forçaReal0, forçaBayern1, forçaPsg1, forçaCity1, forçaReal1) => {
-        if (forçaClube0Escolhido === forçaBayern0) {
-          forçaClube0Escolhido = forçaBayern0;
-        } else if (forçaClube0Escolhido === forçaPsg0) {
-          forçaClube0Escolhido = forçaPsg0;
-        } else if (forçaClube0Escolhido === forçaCity0) {
-          forçaClube0Escolhido = forçaCity0;
-        } else if (forçaClube0Escolhido === forçaReal0) {
-          forçaClube0Escolhido = forçaReal0;
+      socket.on(
+        "forçaClubes",
+        (
+          forçaBayern0,
+          forçaPsg0,
+          forçaCity0,
+          forçaReal0,
+          forçaBayern1,
+          forçaPsg1,
+          forçaCity1,
+          forçaReal1
+        ) => {
+          if (forçaClube0Escolhido === forçaBayern0) {
+            forçaClube0Escolhido = forçaBayern0;
+          } else if (forçaClube0Escolhido === forçaPsg0) {
+            forçaClube0Escolhido = forçaPsg0;
+          } else if (forçaClube0Escolhido === forçaCity0) {
+            forçaClube0Escolhido = forçaCity0;
+          } else if (forçaClube0Escolhido === forçaReal0) {
+            forçaClube0Escolhido = forçaReal0;
+          }
+          if (forçaClube1Escolhido === forçaBayern1) {
+            forçaClube1Escolhido = forçaBayern1;
+          } else if (forçaClube1Escolhido === forçaPsg1) {
+            forçaClube1Escolhido = forçaPsg1;
+          } else if (forçaClube1Escolhido === forçaCity1) {
+            forçaClube1Escolhido = forçaCity1;
+          } else if (forçaClube1Escolhido === forçaReal1) {
+            forçaClube1Escolhido = forçaReal1;
+          }
+          console.log(
+            `forçaClube0Escolhido: ${forçaClube0Escolhido}\nforçaClube1Escolhido: ${forçaClube1Escolhido}`
+          );
         }
-        if (forçaClube1Escolhido === forçaBayern1) {
-          forçaClube1Escolhido = forçaBayern1;
-        } else if (forçaClube1Escolhido === forçaPsg1) {
-          forçaClube1Escolhido = forçaPsg1;
-        } else if (forçaClube1Escolhido === forçaCity1) {
-          forçaClube1Escolhido = forçaCity1;
-        } else if (forçaClube1Escolhido === forçaReal1) {
-          forçaClube1Escolhido = forçaReal1;
-        } 
-        console.log(`forçaClube0Escolhido: ${forçaClube0Escolhido}\nforçaClube1Escolhido: ${forçaClube1Escolhido}`);
-      });
-    } 
+      );
+    }
   });
-  //Recebendo as informações para estabelecer a comunicação 
+  //Recebendo as informações para estabelecer a comunicação
   socket.on("offer", (socketId, description) => {
     remoteConnection = new RTCPeerConnection(ice_servers);
     midias
@@ -1124,7 +1149,7 @@ cena1.create = function () {
         break;
     }
     //Envia o clube escolhido para o player 1
-    socket.emit("contagemClube1", contagemClube1);   
+    socket.emit("contagemClube1", contagemClube1);
     contagemClube1++;
     contagemClube1 = contagemClube1 % 4;
   });
@@ -1159,6 +1184,10 @@ cena1.create = function () {
     },
     this
   );
+  //Player 1 definindo a força dos clubes para definir o resultado da partida
+  if (jogador === 1) {
+    definirForçaClubes();
+  }
 };
 cena1.update = function () {};
 export { cena1 };
