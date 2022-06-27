@@ -120,8 +120,11 @@ function escolhaBayern0() {
   cityEscudo0.setVisible(false);
   realEscudo0.setVisible(false);
   psgEscudo0.setVisible(false);
-  forçaClube0Escolhido = forçaBayern0;
   clube0Escolhido = "bayern";
+  if (jogador === 1) {
+    forçaClube0Escolhido = forçaBayern0;
+    socket.emit("forçaBayern0", forçaBayern0);
+  } 
 }
 function escolhaPsg0() {
   psg0.setVisible(true);
@@ -135,9 +138,12 @@ function escolhaPsg0() {
   bayernEscudo0.setVisible(false);
   cityEscudo0.setVisible(false);
   realEscudo0.setVisible(false);
-  psgEscudo0.setVisible(true);  
-  forçaClube0Escolhido = forçaPsg0;
+  psgEscudo0.setVisible(true);
   clube0Escolhido = "psg";
+  if (jogador === 1) {
+    forçaClube0Escolhido = forçaPsg0;
+    socket.emit("forçaPsg0", forçaPsg0);
+  }   
 }
 function escolhaCity0() {
   psg0.setVisible(false);
@@ -151,9 +157,12 @@ function escolhaCity0() {
   bayernEscudo0.setVisible(false);
   cityEscudo0.setVisible(true);
   realEscudo0.setVisible(false);
-  psgEscudo0.setVisible(false);  
-  forçaClube0Escolhido = forçaCity0;
+  psgEscudo0.setVisible(false);
   clube0Escolhido = "city";
+  if (jogador === 1) {
+    forçaClube0Escolhido = forçaCity0;
+    socket.emit("forçaCity0", forçaCity0);
+  }   
 }
 function escolhaReal0() {
   psg0.setVisible(false);
@@ -167,9 +176,12 @@ function escolhaReal0() {
   bayernEscudo0.setVisible(false);
   cityEscudo0.setVisible(false);
   realEscudo0.setVisible(true);
-  psgEscudo0.setVisible(false);  
-  forçaClube0Escolhido = forçaReal0;
+  psgEscudo0.setVisible(false);
   clube0Escolhido = "real";
+  if (jogador === 1) {
+    forçaClube0Escolhido = forçaReal0;
+    socket.emit("forçaReal0", forçaReal0);
+  }   
 }
 function escolhaPsg1() {
   psg1.setVisible(true);
@@ -183,9 +195,12 @@ function escolhaPsg1() {
   bayernEscudo1.setVisible(false);
   cityEscudo1.setVisible(false);
   realEscudo1.setVisible(false);
-  psgEscudo1.setVisible(true);  
-  forçaClube1Escolhido = forçaPsg1;
+  psgEscudo1.setVisible(true);
   clube1Escolhido = "psg";
+  if (jogador === 1) {
+    forçaClube1Escolhido = forçaPsg1;
+    socket.emit("forçaPsg1", forçaPsg1);
+  }   
 }
 function escolhaBayern1() {
   psg1.setVisible(false);
@@ -199,9 +214,12 @@ function escolhaBayern1() {
   bayernEscudo1.setVisible(true);
   cityEscudo1.setVisible(false);
   realEscudo1.setVisible(false);
-  psgEscudo1.setVisible(false);    
-  forçaClube1Escolhido = forçaBayern1;
+  psgEscudo1.setVisible(false);
   clube1Escolhido = "bayern";
+  if (jogador === 1) {
+    forçaClube1Escolhido = forçaBayern1;
+    socket.emit("forçaBayern1", forçaBayern1);
+  }   
 }
 function escolhaCity1() {
   psg1.setVisible(false);
@@ -215,9 +233,12 @@ function escolhaCity1() {
   bayernEscudo1.setVisible(false);
   cityEscudo1.setVisible(true);
   realEscudo1.setVisible(false);
-  psgEscudo1.setVisible(false);    
-  forçaClube1Escolhido = forçaCity1;
+  psgEscudo1.setVisible(false);
   clube1Escolhido = "city";
+  if (jogador === 1) {
+    forçaClube1Escolhido = forçaCity1;
+    socket.emit("forçaCity1", forçaCity1);
+  }   
 }
 function escolhaReal1() {
   psg1.setVisible(false);
@@ -231,9 +252,12 @@ function escolhaReal1() {
   bayernEscudo1.setVisible(false);
   cityEscudo1.setVisible(false);
   realEscudo1.setVisible(true);
-  psgEscudo1.setVisible(false);    
-  forçaClube1Escolhido = forçaReal1;
+  psgEscudo1.setVisible(false);
   clube1Escolhido = "real";
+  if (jogador === 1) {
+    forçaClube1Escolhido = forçaReal1;
+    socket.emit("forçaReal1", forçaReal1);
+  }  
 }
 //Função para retirar todos os nomes dos clubes da tela
 function retirarTodosNomesClubes() {
@@ -544,7 +568,6 @@ function definirForçaClubes() {
   forçaCity1 = statusCity.atk + Phaser.Math.Between(0, 10);
   forçaReal1 = statusReal.atk + Phaser.Math.Between(0, 10);
   console.log(`Forças dos clubes:\npsg0: ${forçaPsg0} \nbayern0: ${forçaBayern0} \ncity0: ${forçaCity0} \nreal0: ${forçaReal0} \npsg1: ${forçaPsg1} \nbayern1: ${forçaBayern1} \ncity1: ${forçaCity1} \nreal1: ${forçaReal1}`);
-  socket.emit("forçaClubes", forçaBayern0, forçaPsg0, forçaCity0, forçaReal0, forçaBayern1, forçaPsg1, forçaCity1, forçaReal1);
 }
 //Função para o cronômetro funcionar
 function formatarTempo(segundos) {
@@ -732,6 +755,10 @@ cena1.preload = function () {
   this.load.image("botaoNao", "./assets/texto/botaoNao.png");
 };
 cena1.create = function () {
+  //Player 1 definindo a força dos clubes para definir o resultado da partida
+  if (jogador === 1) {
+    definirForçaClubes();
+  }
   //Deixando a variável tempo utilizável para o cena1
   time = this.time;
   //Colocando a musica no jogo
@@ -1035,41 +1062,38 @@ cena1.create = function () {
         textoContadorPartidas1.setText(contadorPartidas);
       });
       //Sicronizando a força dos clubes
-      socket.on(
-        "forçaClubes",
-        (
-          forçaBayern0,
-          forçaPsg0,
-          forçaCity0,
-          forçaReal0,
-          forçaBayern1,
-          forçaPsg1,
-          forçaCity1,
-          forçaReal1
-        ) => {
-          if (forçaClube0Escolhido === forçaBayern0) {
-            forçaClube0Escolhido = forçaBayern0;
-          } else if (forçaClube0Escolhido === forçaPsg0) {
-            forçaClube0Escolhido = forçaPsg0;
-          } else if (forçaClube0Escolhido === forçaCity0) {
-            forçaClube0Escolhido = forçaCity0;
-          } else if (forçaClube0Escolhido === forçaReal0) {
-            forçaClube0Escolhido = forçaReal0;
-          }
-          if (forçaClube1Escolhido === forçaBayern1) {
-            forçaClube1Escolhido = forçaBayern1;
-          } else if (forçaClube1Escolhido === forçaPsg1) {
-            forçaClube1Escolhido = forçaPsg1;
-          } else if (forçaClube1Escolhido === forçaCity1) {
-            forçaClube1Escolhido = forçaCity1;
-          } else if (forçaClube1Escolhido === forçaReal1) {
-            forçaClube1Escolhido = forçaReal1;
-          }
-          console.log(
-            `forçaClube0Escolhido: ${forçaClube0Escolhido}\nforçaClube1Escolhido: ${forçaClube1Escolhido}`
-          );
-        }
-      );
+      socket.on("forçaBayern0", (forçaBayern0) => {
+        forçaClube0Escolhido = forçaBayern0;
+        console.log(`forçaClube0Escolhido: ${forçaClube0Escolhido}`);
+      });
+      socket.on("forçaCity0", (forçaCity0) => {
+        forçaClube0Escolhido = forçaCity0;
+        console.log(`forçaClube0Escolhido: ${forçaClube0Escolhido}`);
+      });
+      socket.on("forçaReal0", (forçaReal0) => {
+        forçaClube0Escolhido = forçaReal0;
+        console.log(`forçaClube0Escolhido: ${forçaClube0Escolhido}`);
+      });
+      socket.on("forçaPsg0", (forçaPsg0) => {
+        forçaClube0Escolhido = forçaPsg0;
+        console.log(`forçaClube0Escolhido: ${forçaClube0Escolhido}`);
+      });
+      socket.on("forçaBayern1", (forçaBayern1) => {
+        forçaClube1Escolhido = forçaBayern1;
+        console.log(`forçaClube1Escolhido: ${forçaClube1Escolhido}`);
+      });
+      socket.on("forçaCity1", (forçaCity1) => {
+        forçaClube1Escolhido = forçaCity1;
+        console.log(`forçaClube1Escolhido: ${forçaClube1Escolhido}`);
+      });      
+      socket.on("forçaReal1", (forçaReal1) => {
+        forçaClube1Escolhido = forçaReal1;
+        console.log(`forçaClube1Escolhido: ${forçaClube1Escolhido}`);
+      });
+      socket.on("forçaPsg1", (forçaPsg1) => {
+        forçaClube1Escolhido = forçaPsg1;
+        console.log(`forçaClube1Escolhido: ${forçaClube1Escolhido}`);
+      });      
     }
   });
   //Recebendo as informações para estabelecer a comunicação
@@ -1184,10 +1208,6 @@ cena1.create = function () {
     },
     this
   );
-  //Player 1 definindo a força dos clubes para definir o resultado da partida
-  if (jogador === 1) {
-    definirForçaClubes();
-  }
 };
 cena1.update = function () {};
 export { cena1 };

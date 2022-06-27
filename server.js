@@ -91,9 +91,30 @@ io.on("connection", function (socket) {
     socket.broadcast.emit("contadorPartidas", contadorPartidas);
   });
   //Servidor recebendo o valor das forças dos clubes
-  socket.on("forçaClubes", (forçaBayern0, forçaPsg0, forçaCity0, forçaReal0, forçaBayern1, forçaPsg1, forçaCity1, forçaReal1) => {
-    socket.broadcast.emit("forçaClubes", forçaBayern0, forçaPsg0, forçaCity0, forçaReal0, forçaBayern1, forçaPsg1, forçaCity1, forçaReal1);
-  });     
+  socket.on("forçaBayern0", (forçaBayern0) => {
+    socket.broadcast.emit("forçaBayern0", forçaBayern0);
+  });
+  socket.on("forçaPsg0", (forçaPsg0) => {
+    socket.broadcast.emit("forçaPsg0", forçaPsg0);
+  });
+  socket.on("forçaCity0", (forçaCity0) => {
+    socket.broadcast.emit("forçaCity0", forçaCity0);
+  });
+  socket.on("forçaReal0", (forçaReal0) => {
+    socket.broadcast.emit("forçaReal0", forçaReal0);
+  });
+  socket.on("forçaPsg1", (forçaPsg1) => {
+    socket.broadcast.emit("forçaPsg1", forçaPsg1);
+  });
+  socket.on("forçaBayern1", (forçaBayern1) => {
+    socket.broadcast.emit("forçaBayern1", forçaBayern1);
+  });
+  socket.on("forçaCity1", (forçaCity1) => {
+    socket.broadcast.emit("forçaCity1", forçaCity1);
+  });
+  socket.on("forçaReal1", (forçaReal1) => {
+    socket.broadcast.emit("forçaReal1", forçaReal1);
+  });  
 });
 
 app.use(express.static("./"));
