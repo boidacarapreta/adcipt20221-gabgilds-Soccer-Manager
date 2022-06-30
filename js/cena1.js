@@ -10,11 +10,11 @@ var remoteConnection;
 var midias;
 const audio = document.querySelector("audio");
 var sala;
-//var mensagem;
-//var mensagemEntrada;
 var botaoSala1;
 var botaoSala2;
 var botaoSala3;
+var botaoSala4;
+var botaoSala5;
 //Variáveis gerais da cena
 var contadorPartidas = 0;
 var textoContadorPartidas0;
@@ -336,6 +336,13 @@ function atualizarContadorPartidas() {
   textoContadorPartidas1.setText(contadorPartidas);
 }
 //Funções para mostrar as telas do jogo
+function aparecerEscolhasClubes() {
+  botaoSala1.setVisible(false);
+  botaoSala2.setVisible(false);
+  botaoSala3.setVisible(false);
+  botaoSala4.setVisible(false);
+  botaoSala5.setVisible(false);
+}
 function aparecerFundo1() {
   fundo1.setVisible(true);
   fundo2.setVisible(false);
@@ -938,67 +945,44 @@ cena1.create = function () {
   //Conectar ao servidor do Heroku via socket.io (WebSocket). Link do Heroku: "https://secure-meadow-69283.herokuapp.com/"
   socket = io("https://secure-meadow-69283.herokuapp.com/");
 
-  //Permitir os jogadores escolherem a sala para entrar
-  /*
-  mensagem = this.add.text(10, 10, "Sala para entrar:", {
-    font: "32px Courier",
-    fill: "#ffffff",
-  });
-  mensagemEntrada = this.add.text(10, 50, "", {
-    font: "32px Courier",
-    fill: "#ffff00",
-  });
-
-  this.input.keyboard.on("keydown", function (event) {
-    if (event.keyCode === 8 && mensagemEntrada.text.length > 0) {
-      mensagemEntrada.text = mensagemEntrada.text.substr(
-        0,
-        mensagemEntrada.text.length - 1
-      );
-    } else if (
-      event.keyCode === 32 ||
-      (event.keyCode >= 48 && event.keyCode < 90)
-    ) {
-      mensagemEntrada.text += event.key;
-    } else if (event.keyCode === 13) {
-      sala = mensagemEntrada.text;
-      console.log("Pedido de entrada na sala %s.", sala);
-      socket.emit("entrar-na-sala", sala);
-      mensagem.destroy();
-      mensagemEntrada.destroy();
-    }
-  });  
-  */
-
-  botaoSala1 = this.add.image(200, 300, "botaoSala").setInteractive();
-  botaoSala2 = this.add.image(350, 300, "botaoSala").setInteractive();
+  //Criando os botões para escolher a sala
+  botaoSala1 = this.add.image(300, 300, "botaoSala").setInteractive();
+  botaoSala2 = this.add.image(400, 300, "botaoSala").setInteractive();
   botaoSala3 = this.add.image(500, 300, "botaoSala").setInteractive();
-
+  botaoSala4 = this.add.image(600, 300, "botaoSala").setInteractive();
+  botaoSala5 = this.add.image(700, 300, "botaoSala").setInteractive();
+  //Quando clicar em cada botão, vai para uma sala específica
   botaoSala1.on("pointerdown", function () {
     sala = 1;
     console.log("Um player selecionou a sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    botaoSala1.setVisible(false);
-    botaoSala2.setVisible(false);
-    botaoSala3.setVisible(false);
+    aparecerEscolhasClubes();
     }
   );
   botaoSala2.on("pointerdown", function () {
     sala = 2;
     console.log("Pedido de entrada na sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    botaoSala1.setVisible(false);
-    botaoSala2.setVisible(false);
-    botaoSala3.setVisible(false);    
+    aparecerEscolhasClubes(); 
   }); 
   botaoSala3.on("pointerdown", function () {
     sala = 3;
     console.log("Pedido de entrada na sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    botaoSala1.setVisible(false);
-    botaoSala2.setVisible(false);
-    botaoSala3.setVisible(false);    
-  });   
+    aparecerEscolhasClubes();    
+  });  
+  botaoSala4.on("pointerdown", function () {
+    sala = 4;
+    console.log("Pedido de entrada na sala %s.", sala);
+    socket.emit("entrar-na-sala", sala);
+    aparecerEscolhasClubes();
+  });
+  botaoSala5.on("pointerdown", function () {
+    sala = 5;
+    console.log("Pedido de entrada na sala %s.", sala);
+    socket.emit("entrar-na-sala", sala);
+    aparecerEscolhasClubes();
+  });  
   
   //Defindo os players e a comunicação
   socket.on("jogadores", function (jogadores) {

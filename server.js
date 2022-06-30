@@ -8,20 +8,20 @@ const io = require("socket.io")(server, {
 });
 const PORT = process.env.PORT || 3000;
 
-// Disparar evento quando jogador entrar na partida
+//Disparar evento quando jogador entrar na partida
 io.on("connection", function (socket) {
-  // Aguardar pelo jogador enviar o nome da sala
+  //Aguardar pelo jogador enviar o nome da sala
   socket.on("entrar-na-sala", (sala) => {
     socket.join(sala);
     var jogadores = {};
     if (io.sockets.adapter.rooms.get(sala).size === 1) {
-      // 1 jogador
+      //Jogador 1
       jogadores = {
         primeiro: socket.id,
         segundo: undefined,
       };
     } else if (io.sockets.adapter.rooms.get(sala).size === 2) {
-      // 2 jogadores
+      //Jogador 2
       let [primeiro] = io.sockets.adapter.rooms.get(sala);
       jogadores = {
         primeiro: primeiro,
@@ -29,42 +29,27 @@ io.on("connection", function (socket) {
       };
     }
     console.log("Sala %s: %s", sala, jogadores);
-    // Envia a todos a lista atual de jogadores (mesmo incompleta)
+    //Envia a todos a lista atual de jogadores (mesmo incompleta)
     io.to(sala).emit("jogadores", jogadores);
   });
 
-  // Sinalização de áudio: oferta
+  //Sinalização de áudio: oferta
   socket.on("offer", (sala, description) => {
     socket.broadcast.to(sala).emit("offer", socket.id, description);
   });
 
-  // Sinalização de áudio: atendimento da oferta
+  //Sinalização de áudio: atendimento da oferta
   socket.on("answer", (sala, description) => {
     socket.broadcast.to(sala).emit("answer", description);
   });
 
-  // Sinalização de áudio: envio dos candidatos de caminho
+  //Sinalização de áudio: envio dos candidatos de caminho
   socket.on("candidate", (sala, signal) => {
     socket.broadcast.to(sala).emit("candidate", signal);
   });
 
-  // Disparar evento quando jogador sair da partida
-  socket.on("disconnect", function () {
-    /*
-    if (jogadores.primeiro === socket.id) {
-      jogadores.primeiro = undefined;
-    }
-    if (jogadores.segundo === socket.id) {
-      jogadores.segundo = undefined;
-    }
-    io.emit("jogadores", jogadores);
-    console.log("-Lista de jogadores: %s", jogadores);
-    */
-  });
-
-  socket.on("estadoDoJogador", function (sala, estado) {
-    socket.broadcast.to(sala).emit("desenharOutroJogador", estado);
-  });
+  //Disparar evento quando jogador sair da partida
+  socket.on("disconnect", function () {}); //redefinir os jogadores como undefined e colocar as opções de sala novamente?
 
   //Servidor recebendo a variável para enviar para os jogadores
   socket.on("contagemClube0", (sala, contagemClube0) => {
