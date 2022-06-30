@@ -971,12 +971,12 @@ cena1.create = function () {
   */
 
   botaoSala1 = this.add.image(200, 300, "botaoSala").setInteractive();
-  botaoSala2 = this.add.image(250, 300, "botaoSala").setInteractive();
-  botaoSala3 = this.add.image(300, 300, "botaoSala").setInteractive();
+  botaoSala2 = this.add.image(350, 300, "botaoSala").setInteractive();
+  botaoSala3 = this.add.image(500, 300, "botaoSala").setInteractive();
 
   botaoSala1.on("pointerdown", function () {
     sala = 1;
-    console.log("Pedido de entrada na sala %s.", sala);
+    console.log("Um player selecionou a sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
     botaoSala1.setVisible(false);
     botaoSala2.setVisible(false);
