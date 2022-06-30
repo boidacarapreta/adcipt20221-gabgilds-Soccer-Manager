@@ -9,6 +9,9 @@ var localConnection;
 var remoteConnection;
 var midias;
 const audio = document.querySelector("audio");
+var sala;
+var mensagem;
+var mensagemEntrada;
 //Variáveis gerais da cena
 var contadorPartidas = 0;
 var textoContadorPartidas0;
@@ -123,7 +126,7 @@ function escolhaBayern0() {
   clube0Escolhido = "bayern";
   if (jogador === 1) {
     forçaClube0Escolhido = forçaBayern0;
-    socket.emit("forçaBayern0", forçaBayern0);
+    socket.emit("forçaBayern0", sala, forçaBayern0);
   } 
 }
 function escolhaPsg0() {
@@ -142,7 +145,7 @@ function escolhaPsg0() {
   clube0Escolhido = "psg";
   if (jogador === 1) {
     forçaClube0Escolhido = forçaPsg0;
-    socket.emit("forçaPsg0", forçaPsg0);
+    socket.emit("forçaPsg0", sala, forçaPsg0);
   }   
 }
 function escolhaCity0() {
@@ -161,7 +164,7 @@ function escolhaCity0() {
   clube0Escolhido = "city";
   if (jogador === 1) {
     forçaClube0Escolhido = forçaCity0;
-    socket.emit("forçaCity0", forçaCity0);
+    socket.emit("forçaCity0", sala, forçaCity0);
   }   
 }
 function escolhaReal0() {
@@ -180,7 +183,7 @@ function escolhaReal0() {
   clube0Escolhido = "real";
   if (jogador === 1) {
     forçaClube0Escolhido = forçaReal0;
-    socket.emit("forçaReal0", forçaReal0);
+    socket.emit("forçaReal0", sala, forçaReal0);
   }   
 }
 function escolhaPsg1() {
@@ -199,7 +202,7 @@ function escolhaPsg1() {
   clube1Escolhido = "psg";
   if (jogador === 1) {
     forçaClube1Escolhido = forçaPsg1;
-    socket.emit("forçaPsg1", forçaPsg1);
+    socket.emit("forçaPsg1", sala, forçaPsg1);
   }   
 }
 function escolhaBayern1() {
@@ -218,7 +221,7 @@ function escolhaBayern1() {
   clube1Escolhido = "bayern";
   if (jogador === 1) {
     forçaClube1Escolhido = forçaBayern1;
-    socket.emit("forçaBayern1", forçaBayern1);
+    socket.emit("forçaBayern1", sala, forçaBayern1);
   }   
 }
 function escolhaCity1() {
@@ -237,7 +240,7 @@ function escolhaCity1() {
   clube1Escolhido = "city";
   if (jogador === 1) {
     forçaClube1Escolhido = forçaCity1;
-    socket.emit("forçaCity1", forçaCity1);
+    socket.emit("forçaCity1", sala, forçaCity1);
   }   
 }
 function escolhaReal1() {
@@ -256,7 +259,7 @@ function escolhaReal1() {
   clube1Escolhido = "real";
   if (jogador === 1) {
     forçaClube1Escolhido = forçaReal1;
-    socket.emit("forçaReal1", forçaReal1);
+    socket.emit("forçaReal1", sala, forçaReal1);
   }  
 }
 //Função para retirar todos os nomes dos clubes da tela
@@ -375,7 +378,7 @@ function aparecerFundo2() {
         tempoInicial += 15; 
         textoCronometro.setText(formatarTempo(tempoInicial));
         //Sicronizando o tempo do jogo
-        socket.emit("tempoInicial", tempoInicial);
+        socket.emit("tempoInicial", sala, tempoInicial);
           //Fim da partida (90 minutos de jogo = 5400)
           if (tempoInicial === 5400) {
             aparecerFundo3();          
@@ -398,16 +401,16 @@ function aparecerFundo2() {
               if (forçaClube0Escolhido > forçaClube1Escolhido) {
                 gols0++;
                 //Enviando valores gols para o player 2
-                socket.emit("gols", gols0, gols1);
+                socket.emit("gols", sala, gols0, gols1);
                 //Atualiza os valores do placar
                 atualizarTextoPlacar();
               } else if (forçaClube0Escolhido < forçaClube1Escolhido) {
                 gols1++;
-                socket.emit("gols", gols0, gols1);
+                socket.emit("gols", sala, gols0, gols1);
                 atualizarTextoPlacar();
               } else if (forçaClube0Escolhido === forçaClube1Escolhido) {
                 gols0++;
-                socket.emit("gols", gols0, gols1);
+                socket.emit("gols", sala, gols0, gols1);
                 atualizarTextoPlacar();
               }
             }
@@ -432,7 +435,7 @@ function aparecerFundo3() {
     botaoSim.setVisible(true);
     botaoNao.setVisible(true);
     //Envia a mensagem para o player 2 finalizar a partida
-    socket.emit("fimDaPartida");
+    socket.emit("fimDaPartida", sala);
   }
   //Toca o som da tela de vitória, retira todas as informações do clube e o soundtrack
   somVencedor.play();
@@ -469,7 +472,7 @@ function aparecerFundo1Novamente() {
       contadorPartidas++;
       atualizarContadorPartidas();
       //Enviando o valor do contador de partidas para o player 2
-      socket.emit("contadorPartidas", contadorPartidas);
+      socket.emit("contadorPartidas", sala, contadorPartidas);
     } else if (jogador === 2) {
       botao2.setVisible(true);
     }
@@ -598,7 +601,7 @@ function atualizarPosseBola() {
     }
     contagem0++;
     //Envia as variáveis de posse de bola do player 1
-    socket.emit("posseBola", posseBola0, posseBola1);
+    socket.emit("posseBola", sala, posseBola0, posseBola1);
   }
 } 
 function atualizarPlacar() {
@@ -608,7 +611,7 @@ function atualizarPlacar() {
     if (tipoDeJogo > 2) {
       if (gols0 < 2) {
         gols0++;
-        socket.emit("gols", gols0, gols1);
+        socket.emit("gols", sala, gols0, gols1);
         //Atualiza os valores do placar
         atualizarTextoPlacar();
       }
@@ -617,7 +620,7 @@ function atualizarPlacar() {
     if (tipoDeJogo === 0) {
       if (gols1 < 2) {
         gols1++;
-        socket.emit("gols", gols0, gols1);
+        socket.emit("gols", sala, gols0, gols1);
         atualizarTextoPlacar();
       }
     }
@@ -625,7 +628,7 @@ function atualizarPlacar() {
     if (tipoDeJogo === 1) {
       if (gols0 < 5) {
         gols0++;
-        socket.emit("gols", gols0, gols1);
+        socket.emit("gols", sala, gols0, gols1);
         atualizarTextoPlacar();
       }
     }
@@ -638,7 +641,7 @@ function atualizarPlacar() {
     if (tipoDeJogo > 2) {
       if (gols1 < 2) {
         gols1++;
-        socket.emit("gols", gols0, gols1);
+        socket.emit("gols", sala, gols0, gols1);
         atualizarTextoPlacar();
       }
     }
@@ -646,7 +649,7 @@ function atualizarPlacar() {
     if (tipoDeJogo === 0) {
       if (gols0 < 2) {
         gols0++;
-        socket.emit("gols", gols0, gols1);
+        socket.emit("gols", sala, gols0, gols1);
         atualizarTextoPlacar();
       }
     }
@@ -667,7 +670,7 @@ function atualizarPlacar() {
     if (tipoDeJogo > 2) {
       if (gols0 < 2) {
         gols0++;
-        socket.emit("gols", gols0, gols1);
+        socket.emit("gols", sala, gols0, gols1);
         atualizarTextoPlacar();
       }
     }
@@ -675,7 +678,7 @@ function atualizarPlacar() {
     if (tipoDeJogo === 0) {
       if (gols1 < 2) {
         gols1++;
-        socket.emit("gols", gols0, gols1);
+        socket.emit("gols", sala, gols0, gols1);
         atualizarTextoPlacar();
       }
     }
@@ -683,7 +686,7 @@ function atualizarPlacar() {
     if (tipoDeJogo === 1) {
       if (gols0 < 5) {
         gols0++;
-        socket.emit("gols", gols0, gols1);
+        socket.emit("gols", sala, gols0, gols1);
         atualizarTextoPlacar();
       }
     }
@@ -931,6 +934,36 @@ cena1.create = function () {
   //Conectar ao servidor do Heroku via socket.io (WebSocket). Link do Heroku: "https://secure-meadow-69283.herokuapp.com/"
   socket = io("https://secure-meadow-69283.herokuapp.com/");
 
+  //Permitir os jogadores escolherem a sala para entrar
+  mensagem = this.add.text(10, 10, "Sala para entrar:", {
+    font: "32px Courier",
+    fill: "#ffffff",
+  });
+  mensagemEntrada = this.add.text(10, 50, "", {
+    font: "32px Courier",
+    fill: "#ffff00",
+  });
+
+  this.input.keyboard.on("keydown", function (event) {
+    if (event.keyCode === 8 && mensagemEntrada.text.length > 0) {
+      mensagemEntrada.text = mensagemEntrada.text.substr(
+        0,
+        mensagemEntrada.text.length - 1
+      );
+    } else if (
+      event.keyCode === 32 ||
+      (event.keyCode >= 48 && event.keyCode < 90)
+    ) {
+      mensagemEntrada.text += event.key;
+    } else if (event.keyCode === 13) {
+      sala = mensagemEntrada.text;
+      console.log("Pedido de entrada na sala %s.", sala);
+      socket.emit("entrar-na-sala", sala);
+      mensagem.destroy();
+      mensagemEntrada.destroy();
+    }
+  });  
+
   //Defindo os players e a comunicação
   socket.on("jogadores", function (jogadores) {
     //Dispara evento quando player entrar na partida
@@ -959,7 +992,7 @@ cena1.create = function () {
             .forEach((track) => localConnection.addTrack(track, midias));
           localConnection.onicecandidate = ({ candidate }) => {
             candidate &&
-              socket.emit("candidate", jogadores.primeiro, candidate);
+              socket.emit("candidate", sala, jogadores.primeiro, candidate);
           };
           console.log(midias);
           localConnection.ontrack = ({ streams: [midias] }) => {
@@ -971,6 +1004,7 @@ cena1.create = function () {
             .then(() => {
               socket.emit(
                 "offer",
+                sala,
                 jogadores.primeiro,
                 localConnection.localDescription
               );
@@ -1103,7 +1137,7 @@ cena1.create = function () {
       .getTracks()
       .forEach((track) => remoteConnection.addTrack(track, midias));
     remoteConnection.onicecandidate = ({ candidate }) => {
-      candidate && socket.emit("candidate", socketId, candidate);
+      candidate && socket.emit("candidate", sala, socketId, candidate);
     };
     remoteConnection.ontrack = ({ streams: [midias] }) => {
       audio.srcObject = midias;
@@ -1113,7 +1147,7 @@ cena1.create = function () {
       .then(() => remoteConnection.createAnswer())
       .then((answer) => remoteConnection.setLocalDescription(answer))
       .then(() => {
-        socket.emit("answer", socketId, remoteConnection.localDescription);
+        socket.emit("answer", sala, socketId, remoteConnection.localDescription);
       });
   });
   socket.on("answer", (description) => {
@@ -1146,7 +1180,7 @@ cena1.create = function () {
         break;
     }
     //Envia o clube escolhido para o player 2
-    socket.emit("contagemClube0", contagemClube0);
+    socket.emit("contagemClube0", sala, contagemClube0);
     contagemClube0++;
     contagemClube0 = contagemClube0 % 4;
   });
@@ -1173,7 +1207,7 @@ cena1.create = function () {
         break;
     }
     //Envia o clube escolhido para o player 1
-    socket.emit("contagemClube1", contagemClube1);
+    socket.emit("contagemClube1", sala, contagemClube1);
     contagemClube1++;
     contagemClube1 = contagemClube1 % 4;
   });
@@ -1184,7 +1218,7 @@ cena1.create = function () {
       //Volta para escolher os clubes para jogar a partida novamente
       aparecerFundo1Novamente();
       //Envia o comunicado para o player 2 jogar novamente
-      socket.emit("jogarNovamente");
+      socket.emit("jogarNovamente", sala);
     },
     this
   );
@@ -1194,7 +1228,7 @@ cena1.create = function () {
       //Finaliza o jogo
       apagarTela();
       //Envia o comunicado para o player 2 encerrar a partida
-      socket.emit("fimDoJogo");
+      socket.emit("fimDoJogo", sala);
     },
     this
   );
@@ -1204,7 +1238,7 @@ cena1.create = function () {
     function () {
       //Inicia a partida
       aparecerFundo2();
-      socket.emit("comecarPartida");
+      socket.emit("comecarPartida", sala);
     },
     this
   );

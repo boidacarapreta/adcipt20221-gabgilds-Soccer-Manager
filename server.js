@@ -5,39 +5,52 @@ const io = require("socket.io")(server, {
   cors: {
     origins: ["https://soccermanager.ifsc.cloud", "https://*.gitpod.io"]
   },
-});const PORT = process.env.PORT || 3000;
-var jogadores = {
-  primeiro: undefined,
-  segundo: undefined,
-};
+});
+const PORT = process.env.PORT || 3000;
 
 // Disparar evento quando jogador entrar na partida
 io.on("connection", function (socket) {
-  if (jogadores.primeiro === undefined) {
-    jogadores.primeiro = socket.id;
-  } else if (jogadores.segundo === undefined) {
-    jogadores.segundo = socket.id;
-  }
-  io.emit("jogadores", jogadores);
-  console.log("+Lista de jogadores: %s", jogadores);
+  // Aguardar pelo jogador enviar o nome da sala
+  socket.on("entrar-na-sala", (sala) => {
+    socket.join(sala);
+    var jogadores = {};
+    if (io.sockets.adapter.rooms.get(sala).size === 1) {
+      // 1 jogador
+      jogadores = {
+        primeiro: socket.id,
+        segundo: undefined,
+      };
+    } else if (io.sockets.adapter.rooms.get(sala).size === 2) {
+      // 2 jogadores
+      let [primeiro] = io.sockets.adapter.rooms.get(sala);
+      jogadores = {
+        primeiro: primeiro,
+        segundo: socket.id,
+      };
+    }
+    console.log("Sala %s: %s", sala, jogadores);
+    // Envia a todos a lista atual de jogadores (mesmo incompleta)
+    io.to(sala).emit("jogadores", jogadores);
+  });
 
   // Sinalização de áudio: oferta
-  socket.on("offer", (socketId, description) => {
-    socket.to(socketId).emit("offer", socket.id, description);
+  socket.on("offer", (sala, description) => {
+    socket.broadcast.to(sala).emit("offer", socket.id, description);
   });
 
   // Sinalização de áudio: atendimento da oferta
-  socket.on("answer", (socketId, description) => {
-    socket.to(socketId).emit("answer", description);
+  socket.on("answer", (sala, description) => {
+    socket.broadcast.to(sala).emit("answer", description);
   });
 
   // Sinalização de áudio: envio dos candidatos de caminho
-  socket.on("candidate", (socketId, signal) => {
-    socket.to(socketId).emit("candidate", signal);
+  socket.on("candidate", (sala, signal) => {
+    socket.broadcast.to(sala).emit("candidate", signal);
   });
 
   // Disparar evento quando jogador sair da partida
   socket.on("disconnect", function () {
+    /*
     if (jogadores.primeiro === socket.id) {
       jogadores.primeiro = undefined;
     }
@@ -46,75 +59,76 @@ io.on("connection", function (socket) {
     }
     io.emit("jogadores", jogadores);
     console.log("-Lista de jogadores: %s", jogadores);
+    */
   });
 
-  socket.on("estadoDoJogador", function (estado) {
-    socket.broadcast.emit("desenharOutroJogador", estado);
+  socket.on("estadoDoJogador", function (sala, estado) {
+    socket.broadcast.to(sala).emit("desenharOutroJogador", estado);
   });
 
   //Servidor recebendo a variável para enviar para os jogadores
-  socket.on("contagemClube0", (contagemClube0) => {
-    socket.broadcast.emit("contagemClube0", contagemClube0);
+  socket.on("contagemClube0", (sala, contagemClube0) => {
+    socket.broadcast.to(sala).emit("contagemClube0", contagemClube0);
   });
 
-  socket.on("contagemClube1", (contagemClube1) => {
-    socket.broadcast.emit("contagemClube1", contagemClube1);
+  socket.on("contagemClube1", (sala, contagemClube1) => {
+    socket.broadcast.to(sala).emit("contagemClube1", contagemClube1);
   });
 
   //Servidor recebendo a informação de quando começar, acabar e repetir a partida
-  socket.on("comecarPartida", () => {
-    socket.broadcast.emit("comecarPartida");
+  socket.on("comecarPartida", (sala) => {
+    socket.broadcast.to(sala).emit("comecarPartida");
   });
-  socket.on("fimDaPartida", () => {
-    socket.broadcast.emit("fimDaPartida");
+  socket.on("fimDaPartida", (sala) => {
+    socket.broadcast.to(sala).emit("fimDaPartida");
   });
-  socket.on("jogarNovamente", () => {
-    socket.broadcast.emit("jogarNovamente");
+  socket.on("jogarNovamente", (sala) => {
+    socket.broadcast.to(sala).emit("jogarNovamente");
   });
-  socket.on("fimDoJogo", () => {
-    socket.broadcast.emit("fimDoJogo");
+  socket.on("fimDoJogo", (sala) => {
+    socket.broadcast.to(sala).emit("fimDoJogo");
   });
   //Servidor recebendo os valores da posse de bola
-  socket.on("posseBola", (posseBola0, posseBola1) => {
-    socket.broadcast.emit("posseBola", posseBola0, posseBola1);
+  socket.on("posseBola", (sala, posseBola0, posseBola1) => {
+    socket.broadcast.to(sala).emit("posseBola", posseBola0, posseBola1);
   });
   //Servidor recebendo os valores dos gols
-  socket.on("gols", (gols0, gols1) => {
-    socket.broadcast.emit("gols", gols0, gols1);
-  })
+  socket.on("gols", (sala, gols0, gols1) => {
+    socket.broadcast.to(sala).emit("gols", gols0, gols1);
+  });
   //Servidor recebendo o valor do tempo do jogo
-  socket.on("tempoInicial", (tempoInicial) => {
-    socket.broadcast.emit("tempoInicial", tempoInicial);
-  })
+  socket.on("tempoInicial", (sala, tempoInicial) => {
+    socket.broadcast.to(sala).emit("tempoInicial", tempoInicial);
+  });
   //Servidor recebendo o valor de contagem da partida
-  socket.on("contadorPartidas", (contadorPartidas) => {
-    socket.broadcast.emit("contadorPartidas", contadorPartidas);
+  socket.on("contadorPartidas", (sala, contadorPartidas) => {
+    socket.broadcast.to(sala).emit("contadorPartidas", contadorPartidas);
   });
   //Servidor recebendo o valor das forças dos clubes
-  socket.on("forçaBayern0", (forçaBayern0) => {
-    socket.broadcast.emit("forçaBayern0", forçaBayern0);
+  socket.on("forçaBayern0", (sala, forçaBayern0) => {
+    socket.broadcast.to(sala).emit("forçaBayern0", forçaBayern0);
   });
-  socket.on("forçaPsg0", (forçaPsg0) => {
-    socket.broadcast.emit("forçaPsg0", forçaPsg0);
+  socket.on("forçaPsg0", (sala, forçaPsg0) => {
+    socket.broadcast.to(sala).emit("forçaPsg0", forçaPsg0);
   });
-  socket.on("forçaCity0", (forçaCity0) => {
-    socket.broadcast.emit("forçaCity0", forçaCity0);
+  socket.on("forçaCity0", (sala, forçaCity0) => {
+    socket.broadcast.to(sala).emit("forçaCity0", forçaCity0);
   });
-  socket.on("forçaReal0", (forçaReal0) => {
-    socket.broadcast.emit("forçaReal0", forçaReal0);
+  socket.on("forçaReal0", (sala, forçaReal0) => {
+    socket.broadcast.to(sala).emit("forçaReal0", forçaReal0);
   });
-  socket.on("forçaPsg1", (forçaPsg1) => {
-    socket.broadcast.emit("forçaPsg1", forçaPsg1);
+  socket.on("forçaPsg1", (sala, forçaPsg1) => {
+    socket.broadcast.to(sala).emit("forçaPsg1", forçaPsg1);
   });
-  socket.on("forçaBayern1", (forçaBayern1) => {
-    socket.broadcast.emit("forçaBayern1", forçaBayern1);
+  socket.on("forçaBayern1", (sala, forçaBayern1) => {
+    socket.broadcast.to(sala).emit("forçaBayern1", forçaBayern1);
   });
-  socket.on("forçaCity1", (forçaCity1) => {
-    socket.broadcast.emit("forçaCity1", forçaCity1);
+  socket.on("forçaCity1", (sala, forçaCity1) => {
+    socket.broadcast.to(sala).emit("forçaCity1", forçaCity1);
   });
-  socket.on("forçaReal1", (forçaReal1) => {
-    socket.broadcast.emit("forçaReal1", forçaReal1);
-  });  
+  socket.on("forçaReal1", (sala, forçaReal1) => {
+    socket.broadcast.to(sala).emit("forçaReal1", forçaReal1);
+  });
 });
 
 app.use(express.static("./"));
