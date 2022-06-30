@@ -31,15 +31,16 @@ Cronômetro da partida: https://phaser.discourse.group/t/countdown-timer/2471
 -------------------------------------------------------------------------------
 
 Melhorias do jogo:
-1ºSala de espera para jogadores em excesso e desconectar quando jogo acabar;
-2º Aperfeiçoar sistema de posse de bola e gols*;
-3º Botar uma bolhinha do lado do jogador quando fazer gol;
+
+0º Arrumar bug dos resultados diferentes (forças são geradas pelos 2 players);
+1º Desconectar jogadores quando jogo acabar;
+2º Aperfeiçoar sistema de posse de bola e gols (sistema de gols pode levar em consideração a diferença de força entre os times para determinar a probabilidade de uma goleada);
+3º Colocar bolhinha do lado do jogador quando fazer gol;
 4º Empate;
-5º Intervalo do jogo.
+5º Intervalo do jogo -> Com propaganda.
+
+-------------------------------------------------------------------------------
 
 Informação do jogo:
 - Cada partida dura 28,8 segundos na vida real;
 - TempoInicial === 5400 para ter 90 minutos de partida.
-
-
-*O sistema de gols pode levar em consideração a diferença de força entre os times para determinar a probabilidade de uma goleada.
