@@ -10,8 +10,11 @@ var remoteConnection;
 var midias;
 const audio = document.querySelector("audio");
 var sala;
-var mensagem;
-var mensagemEntrada;
+//var mensagem;
+//var mensagemEntrada;
+var botaoSala1;
+var botaoSala2;
+var botaoSala3;
 //Variáveis gerais da cena
 var contadorPartidas = 0;
 var textoContadorPartidas0;
@@ -724,6 +727,7 @@ cena1.preload = function () {
   this.load.image("cityEscudo", "./assets/clubes/cityEscudo.png");
   this.load.image("psgEscudo", "./assets/clubes/psgEscudo.png");
   this.load.image("realEscudo", "./assets/clubes/realEscudo.png");
+  this.load.image("botaoSala", "./assets/botao1.png");
   //Carregando as imagens e áudio que serão usados na cena do jogo
   this.load.image("fundo2", "./assets/fundo2.png");
   //Carregando as imagens e áudio que serão usados na cena de fim do jogo
@@ -935,6 +939,7 @@ cena1.create = function () {
   socket = io("https://secure-meadow-69283.herokuapp.com/");
 
   //Permitir os jogadores escolherem a sala para entrar
+  /*
   mensagem = this.add.text(10, 10, "Sala para entrar:", {
     font: "32px Courier",
     fill: "#ffffff",
@@ -963,7 +968,38 @@ cena1.create = function () {
       mensagemEntrada.destroy();
     }
   });  
+  */
 
+  botaoSala1 = this.add.image(200, 300, "botaoSala").setInteractive();
+  botaoSala2 = this.add.image(250, 300, "botaoSala").setInteractive();
+  botaoSala3 = this.add.image(300, 300, "botaoSala").setInteractive();
+
+  botaoSala1.on("pointerdown", function () {
+    sala = 1;
+    console.log("Pedido de entrada na sala %s.", sala);
+    socket.emit("entrar-na-sala", sala);
+    botaoSala1.setVisible(false);
+    botaoSala2.setVisible(false);
+    botaoSala3.setVisible(false);
+    }
+  );
+  botaoSala2.on("pointerdown", function () {
+    sala = 2;
+    console.log("Pedido de entrada na sala %s.", sala);
+    socket.emit("entrar-na-sala", sala);
+    botaoSala1.setVisible(false);
+    botaoSala2.setVisible(false);
+    botaoSala3.setVisible(false);    
+  }); 
+  botaoSala3.on("pointerdown", function () {
+    sala = 3;
+    console.log("Pedido de entrada na sala %s.", sala);
+    socket.emit("entrar-na-sala", sala);
+    botaoSala1.setVisible(false);
+    botaoSala2.setVisible(false);
+    botaoSala3.setVisible(false);    
+  });   
+  
   //Defindo os players e a comunicação
   socket.on("jogadores", function (jogadores) {
     //Dispara evento quando player entrar na partida
@@ -1119,7 +1155,7 @@ cena1.create = function () {
       socket.on("forçaCity1", (forçaCity1) => {
         forçaClube1Escolhido = forçaCity1;
         console.log(`forçaClube1Escolhido: ${forçaClube1Escolhido}`);
-      });      
+      });
       socket.on("forçaReal1", (forçaReal1) => {
         forçaClube1Escolhido = forçaReal1;
         console.log(`forçaClube1Escolhido: ${forçaClube1Escolhido}`);
@@ -1127,7 +1163,7 @@ cena1.create = function () {
       socket.on("forçaPsg1", (forçaPsg1) => {
         forçaClube1Escolhido = forçaPsg1;
         console.log(`forçaClube1Escolhido: ${forçaClube1Escolhido}`);
-      });      
+      });
     }
   });
   //Recebendo as informações para estabelecer a comunicação
@@ -1147,7 +1183,12 @@ cena1.create = function () {
       .then(() => remoteConnection.createAnswer())
       .then((answer) => remoteConnection.setLocalDescription(answer))
       .then(() => {
-        socket.emit("answer", sala, socketId, remoteConnection.localDescription);
+        socket.emit(
+          "answer",
+          sala,
+          socketId,
+          remoteConnection.localDescription
+        );
       });
   });
   socket.on("answer", (description) => {
