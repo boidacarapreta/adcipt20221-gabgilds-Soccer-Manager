@@ -796,18 +796,18 @@ cena1.create = function () {
   city0 = this.add.image(160, 83, "city");
   psg0 = this.add.image(160, 82, "psg");
   bayern0 = this.add.image(174, 84, "bayern");
-  nomeBayern0 = this.add.image(170, 335, "nomeBayern");
+  nomeBayern0 = this.add.image(150, 335, "nomeBayern");
   nomeCity0 = this.add.image(152, 335, "nomeCity");
-  nomePsg0 = this.add.image(158, 339, "nomePsg");
+  nomePsg0 = this.add.image(149, 338, "nomePsg");
   nomeReal0 = this.add.image(146, 334, "nomeReal");
   //Colocando os textos de seleção dos clubes do lado direito
   real1 = this.add.image(610, 80, "real");
   city1 = this.add.image(610, 83, "city");
   psg1 = this.add.image(610, 82, "psg");
   bayern1 = this.add.image(625, 84, "bayern");
-  nomeBayern1 = this.add.image(618, 335, "nomeBayern");
+  nomeBayern1 = this.add.image(598, 335, "nomeBayern");
   nomeCity1 = this.add.image(600, 335, "nomeCity");
-  nomePsg1 = this.add.image(606, 339, "nomePsg");
+  nomePsg1 = this.add.image(597, 338, "nomePsg");
   nomeReal1 = this.add.image(594, 334, "nomeReal");
   //Colocando os escudos dos clubes
   bayernEscudo0 = this.add.image(70, 80, "bayernEscudo");
