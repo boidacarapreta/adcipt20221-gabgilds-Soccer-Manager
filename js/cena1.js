@@ -9,13 +9,7 @@ var localConnection;
 var remoteConnection;
 var midias;
 const audio = document.querySelector("audio");
-var sala;
-var botaoSala1;
-var botaoSala2;
-var botaoSala3;
-var botaoSala4;
-var botaoSala5;
-//Variáveis gerais da cena
+//Variáveis gerais do jogo
 var contadorPartidas = 0;
 var textoContadorPartidas0;
 var textoContadorPartidas1;
@@ -23,8 +17,17 @@ var soundtrack;
 var botaoTelaCheia;
 var teclaF;
 var jogoIniciado;
-//Variáveis da cena de escolher os clubes
+//Variáveis de escolher a sala
 var fundo1;
+var fundo2;
+var sala;
+var botaoSala1;
+var botaoSala2;
+var botaoSala3;
+var botaoSala4;
+var botaoSala5;
+//Variáveis da cena de escolher os clubes
+var fundo3;
 var botao0;
 var botao1;
 var botao2;
@@ -56,7 +59,7 @@ var cityEscudo1;
 var psgEscudo1;
 var realEscudo1;
 //Variáveis da cena do jogo acontecendo
-var fundo2;
+var fundo4;
 var textoCronometro;
 var passagemTempo;
 var fonteTexto0 = {font: "bold 35px Mont", fill: "#000000"};
@@ -95,7 +98,7 @@ var forçaPsg1;
 var forçaCity1;
 var forçaReal1;
 //Variáveis da cena do fim de jogo
-var fundo3;
+var fundo5;
 var parabensBayern0;
 var parabensCity0;
 var parabensPsg0;
@@ -336,39 +339,30 @@ function atualizarContadorPartidas() {
   textoContadorPartidas1.setText(contadorPartidas);
 }
 //Funções para mostrar as telas do jogo
-function aparecerEscolhasClubes() {
+//Escolhendo as salas
+function aparecerFundo1() {
+  fundo1.setVisible(true);
+}
+//Esperando o outro jogador
+function aparecerFundo2() {
+  fundo1.setVisible(false);
+  fundo2.setVisible(true);
   botaoSala1.setVisible(false);
   botaoSala2.setVisible(false);
   botaoSala3.setVisible(false);
   botaoSala4.setVisible(false);
   botaoSala5.setVisible(false);
 }
-function aparecerFundo1() {
-  fundo1.setVisible(true);
+//Escolhendo os clubes
+function aparecerFundo3() {
   fundo2.setVisible(false);
-  fundo3.setVisible(false);
-  textoCronometro.setVisible(false);
-  textoPlacar.setVisible(false);
-  textoPosseBola.setVisible(false);
-  botaoSim.setVisible(false);
-  botaoNao.setVisible(false);
-  textoJogarDeNovo.setVisible(false);
-  muller.setVisible(false);
-  neymar.setVisible(false);
-  benzema.setVisible(false);
-  deBruyne.setVisible(false);
-  parabensBayern0.setVisible(false);
-  parabensBayern1.setVisible(false);
-  parabensCity0.setVisible(false);
-  parabensCity1.setVisible(false);
-  parabensPsg0.setVisible(false);
-  parabensPsg1.setVisible(false);
-  parabensReal0.setVisible(false);
-  parabensReal1.setVisible(false);
+  fundo3.setVisible(true);
+  escolhaClubePadrao();
 }
-function aparecerFundo2() {
-  fundo1.setVisible(false);
-  fundo2.setVisible(true);
+//Jogo acontecendo
+function aparecerFundo4() {
+  fundo3.setVisible(false);
+  fundo4.setVisible(true);
   botao0.setVisible(false);
   botao1.setVisible(false);
   botao2.setVisible(false);
@@ -391,7 +385,7 @@ function aparecerFundo2() {
         socket.emit("tempoInicial", sala, tempoInicial);
           //Fim da partida (90 minutos de jogo = 5400)
           if (tempoInicial === 5400) {
-            aparecerFundo3();          
+            aparecerFundo5();          
           }
           //Atualização da posse de bola
           if (tempoInicial % 495 === 0) {
@@ -433,9 +427,9 @@ function aparecerFundo2() {
   //Aleatoriedade para definir o tipo de jogo que vai ocorrer, uma goleada, jogo pegado, virada
   tipoDeJogo = Phaser.Math.Between(0, 10);
 }
-function aparecerFundo3() {
-  fundo2.setVisible(false);
-  fundo3.setVisible(true);
+function aparecerFundo5() {
+  fundo4.setVisible(false);
+  fundo5.setVisible(true);
   textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
@@ -472,7 +466,7 @@ function aparecerFundo3() {
   contagem0 = 0;
 }
 //Função quando clica em jogar novamente
-function aparecerFundo1Novamente() {
+function aparecerFundo3Novamente() {
     if (jogador === 1) {
       //Definindo a força dos clubes de novo para definir o resultado da nova partida
       definirForçaClubes();
@@ -717,8 +711,16 @@ cena1.preload = function () {
     frameWidth: 50,
     frameHeight: 50,
   });
+  //Carregando as imagens que serão usadas na cena de escolhendo a sala
+  this.load.image("fundo1", "./assets/fundo2.png");
+  this.load.image("fundo2", "./assets/fundo2.png"); //pedir para o Gilds um novo fundo
+  this.load.image("botaoSala1", "./assets/botaoSala1.png");
+  this.load.image("botaoSala2", "./assets/botaoSala2.png");
+  this.load.image("botaoSala3", "./assets/botaoSala3.png");
+  this.load.image("botaoSala4", "./assets/botaoSala4.png");
+  this.load.image("botaoSala5", "./assets/botaoSala5.png");  
   //Carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
-  this.load.image("fundo1", "./assets/fundo1.png");
+  this.load.image("fundo3", "./assets/fundo3.png");
   this.load.image("botao0", "./assets/botao0.png");
   this.load.image("real", "./assets/clubes/real.png");
   this.load.image("city", "./assets/clubes/city.png");
@@ -734,11 +736,10 @@ cena1.preload = function () {
   this.load.image("cityEscudo", "./assets/clubes/cityEscudo.png");
   this.load.image("psgEscudo", "./assets/clubes/psgEscudo.png");
   this.load.image("realEscudo", "./assets/clubes/realEscudo.png");
-  this.load.image("botaoSala", "./assets/botao1.png");
   //Carregando as imagens e áudio que serão usados na cena do jogo
-  this.load.image("fundo2", "./assets/fundo2.png");
+  this.load.image("fundo4", "./assets/fundo4.png");
   //Carregando as imagens e áudio que serão usados na cena de fim do jogo
-  this.load.image("fundo3", "./assets/fundo3.png");
+  this.load.image("fundo5", "./assets/fundo5.png");
   this.load.image("bayern0", "./assets/clubes/parabens/bayern0.png");
   this.load.image("bayern1", "./assets/clubes/parabens/bayern1.png");
   this.load.image("city0", "./assets/clubes/parabens/city0.png");
@@ -775,14 +776,16 @@ cena1.create = function () {
   }
   //Deixando a variável tempo utilizável para o cena1
   time = this.time;
-  //Colocando a musica no jogo
+  //Adicionando a musica no jogo
   soundtrack = this.sound.add("soundtrack");
   soundtrack.loop = true;
   soundtrack.play();
-  //Definindo as imagens de fundo da cena de escolhendo os clubes, da partida e do fim do jogo
-  fundo1 = this.add.image(400, 300, "fundo1");
-  fundo2 = this.add.image(400, 300, "fundo2");
-  fundo3 = this.add.image(400, 300, "fundo3");
+  //Definindo as imagens de fundo das cenas do jogo
+  fundo1 = this.add.image(400, 300, "fundo1").setVisible(false);
+  fundo2 = this.add.image(400, 300, "fundo2").setVisible(false);
+  fundo3 = this.add.image(400, 300, "fundo3").setVisible(false);
+  fundo4 = this.add.image(400, 300, "fundo4").setVisible(false);
+  fundo5 = this.add.image(400, 300, "fundo5").setVisible(false);  
   //<--- Cena de escolhendo os clubes --->
   //Define e adiciona os botões da cena1
   botao0 = this.add
@@ -791,47 +794,51 @@ cena1.create = function () {
     .setVisible(false);
   botao1 = this.add.image(280, 80, "botao1").setInteractive().setVisible(false);
   botao2 = this.add.image(730, 82, "botao1").setInteractive().setVisible(false);
-  //Colocando os textos de seleção dos clubes do lado esquerdo
-  real0 = this.add.image(160, 80, "real");
-  city0 = this.add.image(160, 83, "city");
-  psg0 = this.add.image(160, 82, "psg");
-  bayern0 = this.add.image(174, 84, "bayern");
-  nomeBayern0 = this.add.image(170, 335, "nomeBayern");
-  nomeCity0 = this.add.image(152, 335, "nomeCity");
-  nomePsg0 = this.add.image(158, 339, "nomePsg");
-  nomeReal0 = this.add.image(146, 334, "nomeReal");
-  //Colocando os textos de seleção dos clubes do lado direito
-  real1 = this.add.image(610, 80, "real");
-  city1 = this.add.image(610, 83, "city");
-  psg1 = this.add.image(610, 82, "psg");
-  bayern1 = this.add.image(625, 84, "bayern");
-  nomeBayern1 = this.add.image(618, 335, "nomeBayern");
-  nomeCity1 = this.add.image(600, 335, "nomeCity");
-  nomePsg1 = this.add.image(606, 339, "nomePsg");
-  nomeReal1 = this.add.image(594, 334, "nomeReal");
-  //Colocando os escudos dos clubes
-  bayernEscudo0 = this.add.image(70, 80, "bayernEscudo");
-  cityEscudo0 = this.add.image(70, 82, "cityEscudo");
-  psgEscudo0 = this.add.image(70, 82, "psgEscudo");
-  realEscudo0 = this.add.image(70, 82, "realEscudo");
-  bayernEscudo1 = this.add.image(520, 82, "bayernEscudo");
-  cityEscudo1 = this.add.image(520, 82, "cityEscudo");
-  psgEscudo1 = this.add.image(520, 82, "psgEscudo");
-  realEscudo1 = this.add.image(520, 82, "realEscudo");
-  //Colocando os textos de vitórias de cada clube
-  parabensBayern0 = this.add.image(400, 95, "bayern0");
-  parabensBayern1 = this.add.image(400, 95, "bayern1");
-  parabensCity0 = this.add.image(400, 95, "city0");
-  parabensCity1 = this.add.image(400, 95, "city1");
-  parabensPsg0 = this.add.image(400, 95, "psg0");
-  parabensPsg1 = this.add.image(400, 95, "psg1");
-  parabensReal0 = this.add.image(400, 95, "real0");
-  parabensReal1 = this.add.image(400, 95, "real1");
-  //Colocando o som do mouse para sair clicar nos botões
+  //Adicionando os textos de seleção dos clubes do lado esquerdo
+  real0 = this.add.image(160, 80, "real").setVisible(false);
+  city0 = this.add.image(160, 83, "city").setVisible(false);
+  psg0 = this.add.image(160, 82, "psg").setVisible(false);
+  bayern0 = this.add.image(174, 84, "bayern").setVisible(false);
+  nomeBayern0 = this.add.image(150, 335, "nomeBayern").setVisible(false);
+  nomeCity0 = this.add.image(152, 335, "nomeCity").setVisible(false);
+  nomePsg0 = this.add.image(149, 338, "nomePsg").setVisible(false);
+  nomeReal0 = this.add.image(146, 334, "nomeReal").setVisible(false);
+  //Adicionando os textos de seleção dos clubes do lado direito
+  real1 = this.add.image(610, 80, "real").setVisible(false);
+  city1 = this.add.image(610, 83, "city").setVisible(false);
+  psg1 = this.add.image(610, 82, "psg").setVisible(false);
+  bayern1 = this.add.image(625, 84, "bayern").setVisible(false);
+  nomeBayern1 = this.add.image(598, 335, "nomeBayern").setVisible(false);
+  nomeCity1 = this.add.image(600, 335, "nomeCity").setVisible(false);
+  nomePsg1 = this.add.image(597, 338, "nomePsg").setVisible(false);
+  nomeReal1 = this.add.image(594, 334, "nomeReal").setVisible(false);
+  //Adicionando os escudos dos clubes
+  bayernEscudo0 = this.add.image(70, 80, "bayernEscudo").setVisible(false);
+  cityEscudo0 = this.add.image(70, 82, "cityEscudo").setVisible(false);
+  psgEscudo0 = this.add.image(70, 82, "psgEscudo").setVisible(false);
+  realEscudo0 = this.add.image(70, 82, "realEscudo").setVisible(false);
+  bayernEscudo1 = this.add.image(520, 82, "bayernEscudo").setVisible(false);
+  cityEscudo1 = this.add.image(520, 82, "cityEscudo").setVisible(false);
+  psgEscudo1 = this.add.image(520, 82, "psgEscudo").setVisible(false);
+  realEscudo1 = this.add.image(520, 82, "realEscudo").setVisible(false);
+  //Adicionando os textos de vitórias de cada clube
+  parabensBayern0 = this.add.image(400, 95, "bayern0").setVisible(false);
+  parabensBayern1 = this.add.image(400, 95, "bayern1").setVisible(false);
+  parabensCity0 = this.add.image(400, 95, "city0").setVisible(false);
+  parabensCity1 = this.add.image(400, 95, "city1").setVisible(false);
+  parabensPsg0 = this.add.image(400, 95, "psg0").setVisible(false);
+  parabensPsg1 = this.add.image(400, 95, "psg1").setVisible(false);
+  parabensReal0 = this.add.image(400, 95, "real0").setVisible(false);
+  parabensReal1 = this.add.image(400, 95, "real1").setVisible(false);
+  //Adicionando o som do mouse para sair clicar nos botões
   somMouse = this.sound.add("somMouse");
-  //Colocando o contador de partidas jogadas
-  textoContadorPartidas0 = this.add.image(624, 580, "textoContadorPartidas");
-  textoContadorPartidas1 = this.add.text(732, 564, "0", fonteTexto1);
+  //Adicionando o contador de partidas jogadas
+  textoContadorPartidas0 = this.add
+    .image(624, 580, "textoContadorPartidas")
+    .setVisible(false);
+  textoContadorPartidas1 = this.add
+    .text(732, 564, "0", fonteTexto1)
+    .setVisible(false);
   //Botão de ativar/desativar tela cheia
   botaoTelaCheia = this.add
     .image(40, 600 - 38, "botaoTelaCheia", 0)
@@ -842,6 +849,8 @@ cena1.create = function () {
   botaoTelaCheia.on(
     "pointerup",
     function () {
+      //Som do click no botão
+      somMouse.play();
       if (this.scale.isFullscreen) {
         botaoTelaCheia.setFrame(0);
         this.scale.stopFullscreen();
@@ -869,31 +878,35 @@ cena1.create = function () {
   );
   //<--- Cena do jogo acontecendo --->
   //Adiciona o cronômetro
-  textoCronometro = this.add.text(
-    351,
-    187,
-    formatarTempo(this.tempoInicial),
-    fonteTexto0
-  );
+  textoCronometro = this.add
+    .text(351, 187, formatarTempo(this.tempoInicial), fonteTexto0)
+    .setVisible(false);
   //Adiciona o placar
-  textoPlacar = this.add.text(356, 325, gols0 + "  x  " + gols1, fonteTexto0);
+  textoPlacar = this.add
+    .text(356, 325, gols0 + "  x  " + gols1, fonteTexto0)
+    .setVisible(false);
   //Adiciona o texto da posse de bola
-  textoPosseBola = this.add.text(
-    343,
-    473,
-    posseBola0 + "% | " + posseBola1 + "%",
-    fonteTexto2
-  );
+  textoPosseBola = this.add
+    .text(343, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto2)
+    .setVisible(false);
   //<--- Cena do fim do jogo --->
   //Botões para jogar novamente
-  botaoSim = this.add.image(300, 580, "botaoSim").setInteractive();
-  botaoNao = this.add.image(355, 580, "botaoNao").setInteractive();
-  textoJogarDeNovo = this.add.image(180, 580, "textoJogarDeNovo");
+  botaoSim = this.add
+    .image(300, 580, "botaoSim")
+    .setInteractive()
+    .setVisible(false);
+  botaoNao = this.add
+    .image(355, 580, "botaoNao")
+    .setInteractive()
+    .setVisible(false);
+  textoJogarDeNovo = this.add
+    .image(180, 580, "textoJogarDeNovo")
+    .setVisible(false);
   //Animação dos vencedores
-  muller = this.physics.add.sprite(600, 450, "muller");
-  neymar = this.physics.add.sprite(600, 450, "neymar");
-  deBruyne = this.physics.add.sprite(600, 450, "deBruyne");
-  benzema = this.physics.add.sprite(600, 450, "benzema");
+  muller = this.physics.add.sprite(600, 450, "muller").setVisible(false);
+  neymar = this.physics.add.sprite(600, 450, "neymar").setVisible(false);
+  deBruyne = this.physics.add.sprite(600, 450, "deBruyne").setVisible(false);
+  benzema = this.physics.add.sprite(600, 450, "benzema").setVisible(false);
   this.anims.create({
     key: "vitoriaMuller",
     frames: this.anims.generateFrameNumbers("muller", {
@@ -935,11 +948,12 @@ cena1.create = function () {
   deBruyne.anims.play("vitoriaDeBruyne", true);
   benzema.anims.play("vitoriaBenzema", true);
   neymar.anims.play("vitoriaNeymar", true);
-  //Colocando o som final
+  //Adicionando o som final
   somVencedor = this.sound.add("somVencedor");
   somVencedor.loop = true;
-  //Mostra no início apenas a tela de escolha de clubes e os dois primeiros clubes
+  //Mostra no início apenas a tela de escolha de salas
   aparecerFundo1();
+<<<<<<< HEAD
   escolhaClubePadrao();
 <<<<<<< HEAD
   
@@ -1033,47 +1047,55 @@ cena1.create = function () {
   var socket = this.socket;
 =======
 >>>>>>> 29d405ce6006615e56b28624352175ed27ddb70c
+=======
+  
+>>>>>>> 841d436d8a095526da4fdc0a892ba38fd80e523b
 
   //Conectar ao servidor do Heroku via socket.io (WebSocket). Link do Heroku: "https://secure-meadow-69283.herokuapp.com/"
   socket = io("https://secure-meadow-69283.herokuapp.com/");
 
-  //Criando os botões para escolher a sala
-  botaoSala1 = this.add.image(300, 300, "botaoSala").setInteractive();
-  botaoSala2 = this.add.image(400, 300, "botaoSala").setInteractive();
-  botaoSala3 = this.add.image(500, 300, "botaoSala").setInteractive();
-  botaoSala4 = this.add.image(600, 300, "botaoSala").setInteractive();
-  botaoSala5 = this.add.image(700, 300, "botaoSala").setInteractive();
+  //Criando e colocando os botões para escolher a sala
+  botaoSala1 = this.add.image(80, 300, "botaoSala1").setInteractive();
+  botaoSala2 = this.add.image(240, 300, "botaoSala2").setInteractive();
+  botaoSala3 = this.add.image(400, 300, "botaoSala3").setInteractive();
+  botaoSala4 = this.add.image(560, 300, "botaoSala4").setInteractive();
+  botaoSala5 = this.add.image(720, 300, "botaoSala5").setInteractive();
   //Quando clicar em cada botão, vai para uma sala específica
   botaoSala1.on("pointerdown", function () {
+    somMouse.play();
     sala = 1;
     console.log("Um player selecionou a sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    aparecerEscolhasClubes();
+    aparecerFundo2(); 
     }
   );
   botaoSala2.on("pointerdown", function () {
+    somMouse.play();
     sala = 2;
     console.log("Pedido de entrada na sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    aparecerEscolhasClubes(); 
+    aparecerFundo2(); 
   }); 
   botaoSala3.on("pointerdown", function () {
+    somMouse.play();
     sala = 3;
     console.log("Pedido de entrada na sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    aparecerEscolhasClubes();    
+    aparecerFundo2();    
   });  
   botaoSala4.on("pointerdown", function () {
+    somMouse.play();
     sala = 4;
     console.log("Pedido de entrada na sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    aparecerEscolhasClubes();
+    aparecerFundo2();
   });
   botaoSala5.on("pointerdown", function () {
+    somMouse.play();
     sala = 5;
     console.log("Pedido de entrada na sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    aparecerEscolhasClubes();
+    aparecerFundo2();
   });  
   
   //Defindo os players e a comunicação
@@ -1092,7 +1114,10 @@ cena1.create = function () {
     } else if (jogadores.segundo === socket.id) {
       //Define o segundo player
       jogador = 2;
-
+      //Muda a tela do segundo player quando se conecta
+      aparecerFundo3();
+      //Envia a mensagem para o primeiro player mudar a tela também
+      socket.emit("escolhaClubes", sala);
       //Conectando a comunicação dos players
       navigator.mediaDevices
         .getUserMedia({ video: false, audio: true })
@@ -1142,6 +1167,10 @@ cena1.create = function () {
           escolhaPsg1();
         }
       });
+      //Sicronizando as telas quando o segundo jogador é conectado
+      socket.on("escolhaClubes", () => {
+        aparecerFundo3();
+      });
       //Mostra os players conectados
       console.log(jogadores);
       //Os dois players precisam estar conectados para o jogo começar
@@ -1179,14 +1208,14 @@ cena1.create = function () {
       });
       //Recebendo o comunicado do player 1 para começar a partida
       socket.on("comecarPartida", () => {
-        aparecerFundo2();
+        aparecerFundo3();
       });
       socket.on("fimDaPartida", () => {
-        aparecerFundo3();
+        aparecerFundo5();
       });
       //Recebendo o comunicado do player 1 para rejogar a partida
       socket.on("jogarNovamente", () => {
-        aparecerFundo1Novamente();
+        aparecerFundo3Novamente();
       });
       //Recebendo o comunicado do player 1 para acabar com a partida
       socket.on("fimDoJogo", () => {
@@ -1303,7 +1332,6 @@ cena1.create = function () {
   });
   //Fazendo a escolha dos clubes da direita por meio dos botões
   botao2.on("pointerdown", function () {
-    //Som de click do mouse
     somMouse.play();
     //Escolhando os clubes
     switch (contagemClube1) {
@@ -1332,8 +1360,9 @@ cena1.create = function () {
   botaoSim.on(
     "pointerdown",
     function () {
+      somMouse.play();
       //Volta para escolher os clubes para jogar a partida novamente
-      aparecerFundo1Novamente();
+      aparecerFundo3Novamente();
       //Envia o comunicado para o player 2 jogar novamente
       socket.emit("jogarNovamente", sala);
     },
@@ -1342,6 +1371,7 @@ cena1.create = function () {
   botaoNao.on(
     "pointerdown",
     function () {
+      somMouse.play();
       //Finaliza o jogo
       apagarTela();
       //Envia o comunicado para o player 2 encerrar a partida
@@ -1353,8 +1383,9 @@ cena1.create = function () {
   botao0.on(
     "pointerdown",
     function () {
+      somMouse.play();
       //Inicia a partida
-      aparecerFundo2();
+      aparecerFundo4();
       socket.emit("comecarPartida", sala);
     },
     this

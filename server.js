@@ -51,7 +51,7 @@ io.on("connection", function (socket) {
   //Disparar evento quando jogador sair da partida
   socket.on("disconnect", function () {}); //redefinir os jogadores como undefined e colocar as opções de sala novamente?
 
-  //Servidor recebendo a variável para enviar para os jogadores
+  //Servidor recebendo e enviando a variável para enviar para os jogadores
   socket.on("contagemClube0", (sala, contagemClube0) => {
     socket.broadcast.to(sala).emit("contagemClube0", contagemClube0);
   });
@@ -60,7 +60,11 @@ io.on("connection", function (socket) {
     socket.broadcast.to(sala).emit("contagemClube1", contagemClube1);
   });
 
-  //Servidor recebendo a informação de quando começar, acabar e repetir a partida
+  //Servidor recebendo e enviando a informação de quando mudar a tela do primeiro player
+  socket.on("escolhaClubes", (sala) => {
+    socket.broadcast.to(sala).emit("escolhaClubes");
+  });
+  //Servidor recebendo e enviando a informação de quando começar, acabar e repetir a partida
   socket.on("comecarPartida", (sala) => {
     socket.broadcast.to(sala).emit("comecarPartida");
   });
@@ -73,23 +77,23 @@ io.on("connection", function (socket) {
   socket.on("fimDoJogo", (sala) => {
     socket.broadcast.to(sala).emit("fimDoJogo");
   });
-  //Servidor recebendo os valores da posse de bola
+  //Servidor recebendo e enviando os valores da posse de bola
   socket.on("posseBola", (sala, posseBola0, posseBola1) => {
     socket.broadcast.to(sala).emit("posseBola", posseBola0, posseBola1);
   });
-  //Servidor recebendo os valores dos gols
+  //Servidor recebendo e enviando os valores dos gols
   socket.on("gols", (sala, gols0, gols1) => {
     socket.broadcast.to(sala).emit("gols", gols0, gols1);
   });
-  //Servidor recebendo o valor do tempo do jogo
+  //Servidor recebendo e enviando o valor do tempo do jogo
   socket.on("tempoInicial", (sala, tempoInicial) => {
     socket.broadcast.to(sala).emit("tempoInicial", tempoInicial);
   });
-  //Servidor recebendo o valor de contagem da partida
+  //Servidor recebendo e enviando o valor de contagem da partida
   socket.on("contadorPartidas", (sala, contadorPartidas) => {
     socket.broadcast.to(sala).emit("contadorPartidas", contadorPartidas);
   });
-  //Servidor recebendo o valor das forças dos clubes
+  //Servidor recebendo e enviando o valor das forças dos clubes
   socket.on("forçaBayern0", (sala, forçaBayern0) => {
     socket.broadcast.to(sala).emit("forçaBayern0", forçaBayern0);
   });
