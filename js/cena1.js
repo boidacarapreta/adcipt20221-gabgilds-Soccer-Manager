@@ -1018,9 +1018,10 @@ cena1.create = function () {
     } else if (jogadores.segundo === socket.id) {
       //Define o segundo player
       jogador = 2;
-      //Muda a cena quando o segundo player se conecta
-      console.log("shazam!");
+      //Muda a tela do segundo player quando se conecta
       aparecerFundo3();
+      //Envia a mensagem para o primeiro player mudar a tela também
+      socket.emit("escolhaClubes", sala);
       //Conectando a comunicação dos players
       navigator.mediaDevices
         .getUserMedia({ video: false, audio: true })
@@ -1051,7 +1052,6 @@ cena1.create = function () {
             });
         })
         .catch((error) => console.log(error));
-      console.log("shazam!!!!!!");
     }
     //Player 1 comanda o jogo e envia os valores para o outro player apresentar
     if (jogador === 1) {
@@ -1070,6 +1070,10 @@ cena1.create = function () {
         } else if (contagemClube1 === 3) {
           escolhaPsg1();
         }
+      });
+      //Sicronizando as telas quando o segundo jogador é conectado
+      socket.on("escolhaClubes", () => {
+        aparecerFundo3();
       });
       //Mostra os players conectados
       console.log(jogadores);
