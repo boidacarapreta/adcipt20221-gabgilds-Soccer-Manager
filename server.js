@@ -61,7 +61,7 @@ io.on("connection", function (socket) {
   });
 
   //Servidor recebendo e enviando a informação de quando mudar a tela do primeiro player
-  socket.on("escolhaClubes", () => {
+  socket.on("escolhaClubes", (sala) => {
     socket.broadcast.to(sala).emit("escolhaClubes");
   });
   //Servidor recebendo e enviando a informação de quando começar, acabar e repetir a partida
