@@ -970,7 +970,7 @@ cena1.create = function () {
     sala = 1;
     console.log("Um player selecionou a sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    
+    aparecerFundo2(); 
     }
   );
   botaoSala2.on("pointerdown", function () {
@@ -1018,7 +1018,9 @@ cena1.create = function () {
     } else if (jogadores.segundo === socket.id) {
       //Define o segundo player
       jogador = 2;
-
+      //Muda a cena quando o segundo player se conecta
+      console.log("shazam!");
+      aparecerFundo3();
       //Conectando a comunicação dos players
       navigator.mediaDevices
         .getUserMedia({ video: false, audio: true })
@@ -1049,6 +1051,7 @@ cena1.create = function () {
             });
         })
         .catch((error) => console.log(error));
+      console.log("shazam!!!!!!");
     }
     //Player 1 comanda o jogo e envia os valores para o outro player apresentar
     if (jogador === 1) {
