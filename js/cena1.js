@@ -13,6 +13,7 @@ const audio = document.querySelector("audio");
 var contadorPartidas = 0;
 var textoContadorPartidas0;
 var textoContadorPartidas1;
+var textoSalaConectada;
 var soundtrack;
 var botaoTelaCheia;
 var teclaF;
@@ -300,6 +301,8 @@ function apagarTela() {
   fundo1.setVisible(false);
   fundo2.setVisible(false);
   fundo3.setVisible(false);
+  fundo4.setVisible(false);
+  fundo5.setVisible(false);
   textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
@@ -357,6 +360,9 @@ function aparecerFundo2() {
 function aparecerFundo3() {
   fundo2.setVisible(false);
   fundo3.setVisible(true);
+  textoContadorPartidas0.setVisible(true);
+  textoContadorPartidas1.setVisible(true);
+  textoSalaConectada.setVisible(true);
   escolhaClubePadrao();
 }
 //Jogo acontecendo
@@ -481,9 +487,8 @@ function aparecerFundo3Novamente() {
       botao2.setVisible(true);
     }
     //Coloca as imagens corretas
-    fundo1.setVisible(true);
-    fundo2.setVisible(false);
-    fundo3.setVisible(false);
+    fundo3.setVisible(true);
+    fundo5.setVisible(false);
     textoCronometro.setVisible(false);
     textoPlacar.setVisible(false);
     textoPosseBola.setVisible(false);
@@ -889,6 +894,9 @@ cena1.create = function () {
   textoPosseBola = this.add
     .text(343, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto2)
     .setVisible(false);
+  textoSalaConectada = this.add
+    .text(300, 15, "Sala:" + sala, fonteTexto2)
+    .setVisible(false);
   //<--- Cena do fim do jogo --->
   //Botões para jogar novamente
   botaoSim = this.add
@@ -896,7 +904,7 @@ cena1.create = function () {
     .setInteractive()
     .setVisible(false);
   botaoNao = this.add
-    .image(355, 580, "botaoNao")
+    .image(358, 580, "botaoNao")
     .setInteractive()
     .setVisible(false);
   textoJogarDeNovo = this.add
@@ -953,7 +961,6 @@ cena1.create = function () {
   somVencedor.loop = true;
   //Mostra no início apenas a tela de escolha de salas
   aparecerFundo1();
-  
 
   //Conectar ao servidor do Heroku via socket.io (WebSocket). Link do Heroku: "https://secure-meadow-69283.herokuapp.com/"
   socket = io("https://secure-meadow-69283.herokuapp.com/");
@@ -970,22 +977,21 @@ cena1.create = function () {
     sala = 1;
     console.log("Um player selecionou a sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    aparecerFundo2(); 
-    }
-  );
+    aparecerFundo2();
+  });
   botaoSala2.on("pointerdown", function () {
     somMouse.play();
     sala = 2;
     console.log("Pedido de entrada na sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    aparecerFundo2(); 
+    aparecerFundo2();
   }); 
   botaoSala3.on("pointerdown", function () {
     somMouse.play();
     sala = 3;
     console.log("Pedido de entrada na sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    aparecerFundo2();    
+    aparecerFundo2();  
   });  
   botaoSala4.on("pointerdown", function () {
     somMouse.play();
@@ -1112,7 +1118,7 @@ cena1.create = function () {
       });
       //Recebendo o comunicado do player 1 para começar a partida
       socket.on("comecarPartida", () => {
-        aparecerFundo3();
+        aparecerFundo4();
       });
       socket.on("fimDaPartida", () => {
         aparecerFundo5();
