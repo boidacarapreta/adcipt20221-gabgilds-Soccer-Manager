@@ -13,6 +13,7 @@ const audio = document.querySelector("audio");
 var contadorPartidas = 0;
 var textoContadorPartidas0;
 var textoContadorPartidas1;
+var textoSalaConectada;
 var soundtrack;
 var botaoTelaCheia;
 var teclaF;
@@ -300,6 +301,8 @@ function apagarTela() {
   fundo1.setVisible(false);
   fundo2.setVisible(false);
   fundo3.setVisible(false);
+  fundo4.setVisible(false);
+  fundo5.setVisible(false);
   textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
@@ -357,6 +360,9 @@ function aparecerFundo2() {
 function aparecerFundo3() {
   fundo2.setVisible(false);
   fundo3.setVisible(true);
+  textoContadorPartidas0.setVisible(true);
+  textoContadorPartidas1.setVisible(true);
+  textoSalaConectada.setVisible(true);
   escolhaClubePadrao();
 }
 //Jogo acontecendo
@@ -481,9 +487,8 @@ function aparecerFundo3Novamente() {
       botao2.setVisible(true);
     }
     //Coloca as imagens corretas
-    fundo1.setVisible(true);
-    fundo2.setVisible(false);
-    fundo3.setVisible(false);
+    fundo3.setVisible(true);
+    fundo5.setVisible(false);
     textoCronometro.setVisible(false);
     textoPlacar.setVisible(false);
     textoPosseBola.setVisible(false);
@@ -889,6 +894,9 @@ cena1.create = function () {
   textoPosseBola = this.add
     .text(343, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto2)
     .setVisible(false);
+  textoSalaConectada = this.add
+    .text(300, 15, "Sala:" + sala, fonteTexto2)
+    .setVisible(false);
   //<--- Cena do fim do jogo --->
   //Botões para jogar novamente
   botaoSim = this.add
@@ -896,7 +904,7 @@ cena1.create = function () {
     .setInteractive()
     .setVisible(false);
   botaoNao = this.add
-    .image(355, 580, "botaoNao")
+    .image(358, 580, "botaoNao")
     .setInteractive()
     .setVisible(false);
   textoJogarDeNovo = this.add
@@ -953,103 +961,7 @@ cena1.create = function () {
   somVencedor.loop = true;
   //Mostra no início apenas a tela de escolha de salas
   aparecerFundo1();
-<<<<<<< HEAD
   escolhaClubePadrao();
-<<<<<<< HEAD
-  
-  //Criando os valores de posse de bola que serão usados nas 4 partidas
-  //Partida 0
-  jogo0PosseBola0A = Phaser.Math.Between(35, 65);
-  jogo0PosseBola1A = 100 - jogo0PosseBola0A;
-  jogo0PosseBola0B = Phaser.Math.Between(35, 65);
-  jogo0PosseBola1B = 100 - jogo0PosseBola0B;
-  jogo0PosseBola0C = Phaser.Math.Between(35, 65);
-  jogo0PosseBola1C = 100 - jogo0PosseBola0C;
-  jogo0PosseBola0D = Phaser.Math.Between(45, 55);
-  jogo0PosseBola1D = 100 - jogo0PosseBola0D;
-  jogo0PosseBola0E = Phaser.Math.Between(45, 55);
-  jogo0PosseBola1E = 100 - jogo0PosseBola0E;
-  jogo0PosseBola0F = Phaser.Math.Between(45, 55);
-  jogo0PosseBola1F = 100 - jogo0PosseBola0F;
-  jogo0PosseBola0G = Phaser.Math.Between(47, 53);
-  jogo0PosseBola1G = 100 - jogo0PosseBola0G;
-  jogo0PosseBola0H = Phaser.Math.Between(47, 53);
-  jogo0PosseBola1H = 100 - jogo0PosseBola0H;
-  jogo0PosseBola0I = Phaser.Math.Between(47, 53);
-  jogo0PosseBola1I = 100 - jogo0PosseBola0I;
-
-  /*
-  //Partida 1
-  jogo1PosseBola0A = Phaser.Math.Between(35, 65);
-  jogo1PosseBola1A = 100 - jogo1PosseBola0A;
-  jogo1PosseBola0B = Phaser.Math.Between(35, 65);
-  jogo1PosseBola1B = 100 - jogo1PosseBola0B;
-  jogo1PosseBola0C = Phaser.Math.Between(35, 65);
-  jogo1PosseBola1C = 100 - jogo1PosseBola0C;
-  jogo1PosseBola0D = Phaser.Math.Between(45, 55);
-  jogo1PosseBola1D = 100 - jogo1PosseBola0D;
-  jogo1PosseBola0E = Phaser.Math.Between(45, 55);
-  jogo1PosseBola1E = 100 - jogo1PosseBola0E;
-  jogo1PosseBola0F = Phaser.Math.Between(45, 55);
-  jogo1PosseBola1F = 100 - jogo1PosseBola0F;
-  jogo1PosseBola0G = Phaser.Math.Between(47, 53);
-  jogo1PosseBola1G = 100 - jogo1PosseBola0G;
-  jogo1PosseBola0H = Phaser.Math.Between(47, 53);
-  jogo1PosseBola1H = 100 - jogo1PosseBola0H;
-  jogo1PosseBola0I = Phaser.Math.Between(47, 53);
-  jogo1PosseBola1I = 100 - jogo1PosseBola0I;
-
-  //Partida 2
-  jogo2PosseBola0A = Phaser.Math.Between(35, 65);
-  jogo2PosseBola1A = 100 - jogo2PosseBola0A;
-  jogo2PosseBola0B = Phaser.Math.Between(35, 65);
-  jogo2PosseBola1B = 100 - jogo2PosseBola0B;
-  jogo2PosseBola0C = Phaser.Math.Between(35, 65);
-  jogo2PosseBola1C = 100 - jogo2PosseBola0C;
-  jogo2PosseBola0D = Phaser.Math.Between(45, 55);
-  jogo2PosseBola1D = 100 - jogo2PosseBola0D;
-  jogo2PosseBola0E = Phaser.Math.Between(45, 55);
-  jogo2PosseBola1E = 100 - jogo2PosseBola0E;
-  jogo2PosseBola0F = Phaser.Math.Between(45, 55);
-  jogo2PosseBola1F = 100 - jogo2PosseBola0F;
-  jogo2PosseBola0G = Phaser.Math.Between(47, 53);
-  jogo2PosseBola1G = 100 - jogo2PosseBola0G;
-  jogo2PosseBola0H = Phaser.Math.Between(47, 53);
-  jogo2PosseBola1H = 100 - jogo2PosseBola0H;
-  jogo2PosseBola0I = Phaser.Math.Between(47, 53);
-  jogo2PosseBola1I = 100 - jogo2PosseBola0I;
-
-  //Partida 3
-  jogo3PosseBola0A = Phaser.Math.Between(35, 65);
-  jogo3PosseBola1A = 100 - jogo3PosseBola0A;
-  jogo3PosseBola0B = Phaser.Math.Between(35, 65);
-  jogo3PosseBola1B = 100 - jogo3PosseBola0B;
-  jogo3PosseBola0C = Phaser.Math.Between(35, 65);
-  jogo3PosseBola1C = 100 - jogo3PosseBola0C;
-  jogo3PosseBola0D = Phaser.Math.Between(45, 55);
-  jogo3PosseBola1D = 100 - jogo3PosseBola0D;
-  jogo3PosseBola0E = Phaser.Math.Between(45, 55);
-  jogo3PosseBola1E = 100 - jogo3PosseBola0E;
-  jogo3PosseBola0F = Phaser.Math.Between(45, 55);
-  jogo3PosseBola1F = 100 - jogo3PosseBola0F;
-  jogo3PosseBola0G = Phaser.Math.Between(47, 53);
-  jogo3PosseBola1G = 100 - jogo3PosseBola0G;
-  jogo3PosseBola0H = Phaser.Math.Between(47, 53);
-  jogo3PosseBola1H = 100 - jogo3PosseBola0H;
-  jogo3PosseBola0I = Phaser.Math.Between(47, 53);
-  jogo3PosseBola1I = 100 - jogo3PosseBola0I;
-  */
-
-  this.socket = io(); //Conectar ao servidor do Heroku via WebSocket
-
-  //Tornar as variáveis utilizáveis dentro desse escopo
-  var self = this;
-  var socket = this.socket;
-=======
->>>>>>> 29d405ce6006615e56b28624352175ed27ddb70c
-=======
-  
->>>>>>> 841d436d8a095526da4fdc0a892ba38fd80e523b
 
   //Conectar ao servidor do Heroku via socket.io (WebSocket). Link do Heroku: "https://secure-meadow-69283.herokuapp.com/"
   socket = io("https://secure-meadow-69283.herokuapp.com/");
@@ -1066,22 +978,21 @@ cena1.create = function () {
     sala = 1;
     console.log("Um player selecionou a sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    aparecerFundo2(); 
-    }
-  );
+    aparecerFundo2();
+  });
   botaoSala2.on("pointerdown", function () {
     somMouse.play();
     sala = 2;
     console.log("Pedido de entrada na sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    aparecerFundo2(); 
+    aparecerFundo2();
   }); 
   botaoSala3.on("pointerdown", function () {
     somMouse.play();
     sala = 3;
     console.log("Pedido de entrada na sala %s.", sala);
     socket.emit("entrar-na-sala", sala);
-    aparecerFundo2();    
+    aparecerFundo2();  
   });  
   botaoSala4.on("pointerdown", function () {
     somMouse.play();
@@ -1208,7 +1119,7 @@ cena1.create = function () {
       });
       //Recebendo o comunicado do player 1 para começar a partida
       socket.on("comecarPartida", () => {
-        aparecerFundo3();
+        aparecerFundo4();
       });
       socket.on("fimDaPartida", () => {
         aparecerFundo5();
