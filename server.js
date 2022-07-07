@@ -49,7 +49,9 @@ io.on("connection", function (socket) {
   });
 
   //Disparar evento quando jogador sair da partida
-  socket.on("disconnect", function () {}); //redefinir os jogadores como undefined e colocar as opções de sala novamente?
+  socket.on("disconnect", function (sala) {
+    socket.broadcast.to(sala).emit("disconnect");
+  }); //redefinir os jogadores como undefined e colocar as opções de sala novamente?
 
   //Servidor recebendo e enviando a variável para enviar para os jogadores
   socket.on("contagemClube0", (sala, contagemClube0) => {
