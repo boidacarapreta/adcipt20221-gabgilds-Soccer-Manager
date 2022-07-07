@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 //Disparar evento quando jogador entrar na partida
 io.on("connection", function (socket) {
   //Aguardar pelo jogador enviar o nome da sala
-  socket.on("entrar-na-sala", (sala) => {
+  socket.on("entrarNaSala", (sala) => {
     socket.join(sala);
     var jogadores = {};
     if (io.sockets.adapter.rooms.get(sala).size === 1) {
@@ -49,8 +49,8 @@ io.on("connection", function (socket) {
   });
 
   //Disparar evento quando jogador sair da partida
-  socket.on("disconnect", function (sala) {
-    socket.broadcast.to(sala).emit("disconnect");
+  socket.on("disconectar", function (sala) {
+    socket.broadcast.to(sala).emit("disconectar");
   }); //redefinir os jogadores como undefined e colocar as opções de sala novamente?
 
   //Servidor recebendo e enviando a variável para enviar para os jogadores

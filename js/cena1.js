@@ -13,7 +13,6 @@ const audio = document.querySelector("audio");
 var contadorPartidas = 0;
 var textoContadorPartidas0;
 var textoContadorPartidas1;
-var textoSalaConectada;
 var soundtrack;
 var botaoTelaCheia;
 var teclaF;
@@ -59,6 +58,11 @@ var bayernEscudo1;
 var cityEscudo1;
 var psgEscudo1;
 var realEscudo1;
+var textoSala1;
+var textoSala2;
+var textoSala3;
+var textoSala4;
+var textoSala5;
 //Variáveis da cena do jogo acontecendo
 var fundo4;
 var textoCronometro;
@@ -359,7 +363,17 @@ function aparecerFundo3() {
   fundo3.setVisible(true);
   textoContadorPartidas0.setVisible(true);
   textoContadorPartidas1.setVisible(true);
-  textoSalaConectada.setVisible(true);
+  if (sala === 1) {
+    textoSala1.setVisible(true);
+  } else if (sala === 2) {
+    textoSala2.setVisible(true);
+  } else if (sala === 3) {
+    textoSala3.setVisible(true);
+  } else if (sala === 4) {
+    textoSala4.setVisible(true);
+  } else if (sala === 5) {
+    textoSala5.setVisible(true);
+  }
   escolhaClubePadrao();
 }
 //Jogo acontecendo
@@ -719,6 +733,11 @@ cena1.preload = function () {
   this.load.image("botaoSala3", "./assets/botaoSala3.png");
   this.load.image("botaoSala4", "./assets/botaoSala4.png");
   this.load.image("botaoSala5", "./assets/botaoSala5.png");  
+  this.load.image("textoSala1", "./assets/textoSala1.png");  
+  this.load.image("textoSala2", "./assets/textoSala2.png");
+  this.load.image("textoSala3", "./assets/textoSala3.png");
+  this.load.image("textoSala4", "./assets/textoSala4.png");
+  this.load.image("textoSala5", "./assets/textoSala5.png"); 
   //Carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
   this.load.image("fundo3", "./assets/fundo3.png");
   this.load.image("botao0", "./assets/botao0.png");
@@ -889,9 +908,6 @@ cena1.create = function () {
   textoPosseBola = this.add
     .text(343, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto2)
     .setVisible(false);
-  textoSalaConectada = this.add
-    .text(50, 5, "Sala:" + sala, fonteTexto3)
-    .setVisible(false);
   //<--- Cena do fim do jogo --->
   //Botões para jogar novamente
   botaoSim = this.add
@@ -965,41 +981,42 @@ cena1.create = function () {
   botaoSala2 = this.add.image(240, 300, "botaoSala2").setInteractive();
   botaoSala3 = this.add.image(400, 300, "botaoSala3").setInteractive();
   botaoSala4 = this.add.image(560, 300, "botaoSala4").setInteractive();
-  botaoSala5 = this.add.image(720, 300, "botaoSala5").setInteractive();
+  botaoSala5 = this.add.image(720, 300, "botaoSala5").setInteractive(); 
+  //Criando as indicações sobre qual sala foi escolhida
+  textoSala1 = this.add.image(50, 5, "textoSala1").setVisible(false);
+  textoSala2 = this.add.image(50, 5, "textoSala2").setVisible(false);
+  textoSala3 = this.add.image(50, 5, "textoSala3").setVisible(false);
+  textoSala4 = this.add.image(50, 5, "textoSala4").setVisible(false);
+  textoSala5 = this.add.image(50, 5, "textoSala5").setVisible(false);
   //Quando clicar em cada botão, vai para uma sala específica
   botaoSala1.on("pointerdown", function () {
     somMouse.play();
     sala = 1;
-    textoSalaConectada.setText("Sala:" + sala);
-    socket.emit("entrar-na-sala", sala);
+    socket.emit("entrarNaSala", sala);
     aparecerFundo2();
   });
   botaoSala2.on("pointerdown", function () {
     somMouse.play();
     sala = 2;
-    textoSalaConectada.setText("Sala:" + sala);
-    socket.emit("entrar-na-sala", sala);
+    socket.emit("entrarNaSala", sala);
     aparecerFundo2();
   }); 
   botaoSala3.on("pointerdown", function () {
     somMouse.play();
     sala = 3;
-    textoSalaConectada.setText("Sala:" + sala);
-    socket.emit("entrar-na-sala", sala);
+    socket.emit("entrarNaSala", sala);
     aparecerFundo2();  
   });  
   botaoSala4.on("pointerdown", function () {
     somMouse.play();
     sala = 4;
-    textoSalaConectada.setText("Sala:" + sala);
-    socket.emit("entrar-na-sala", sala);
+    socket.emit("entrarNaSala", sala);
     aparecerFundo2();
   });
   botaoSala5.on("pointerdown", function () {
     somMouse.play();
     sala = 5;
-    textoSalaConectada.setText("Sala:" + sala);
-    socket.emit("entrar-na-sala", sala);
+    socket.emit("entrarNaSala", sala);
     aparecerFundo2();
   });  
   
@@ -1097,7 +1114,7 @@ cena1.create = function () {
         }
       });
       //Desconecta o player 1 quando o player 2 é desconectado
-      socket.on("disconnect", () => {
+      socket.on("disconectar", () => {
         apagarTela();
       });
       //Recebendo o comunicado do player 1 para começar a partida
