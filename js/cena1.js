@@ -16,7 +16,6 @@ var textoContadorPartidas1;
 var soundtrack;
 var botaoTelaCheia;
 var teclaF;
-var jogoIniciado;
 //Variáveis de escolher a sala
 var fundo1;
 var fundo2;
@@ -363,6 +362,7 @@ function aparecerFundo3() {
   fundo3.setVisible(true);
   textoContadorPartidas0.setVisible(true);
   textoContadorPartidas1.setVisible(true);
+  //Colocando a identificação da sala selecionada
   if (sala === 1) {
     textoSala1.setVisible(true);
   } else if (sala === 2) {
@@ -374,6 +374,13 @@ function aparecerFundo3() {
   } else if (sala === 5) {
     textoSala5.setVisible(true);
   }
+  //Colocando o botão de cada player para escolher os seus respectivos clubes
+  if (jogador === 1) {
+    botao1.setVisible(true);
+  } else if (jogador === 2) {
+    botao2.setVisible(true);
+  }
+  //Colocando os clubes padrão para escolher os clubes
   escolhaClubePadrao();
 }
 //Jogo acontecendo
@@ -386,8 +393,6 @@ function aparecerFundo4() {
   textoCronometro.setVisible(true);
   textoPlacar.setVisible(true);
   textoPosseBola.setVisible(true);
-  //Variável para impedir os jogadores de entrarem após o jogo ser inicado
-  jogoIniciado = "Sim";
   //<--- Iniciando o cronômetro --->
   //Define o tempo inicial
   tempoInicial = 0;
@@ -589,6 +594,9 @@ function definirForçaClubes() {
   forçaPsg1 = statusPsg.atk + Phaser.Math.Between(0, 10);
   forçaCity1 = statusCity.atk + Phaser.Math.Between(0, 10);
   forçaReal1 = statusReal.atk + Phaser.Math.Between(0, 10);
+  console.log(
+    `forçaBayern0:${forçaBayern0}\nforçaPsg0:${forçaPsg0}\nforçaCity0:${forçaCity0}\nforçaReal0:${forçaReal0}\nforçaBayern1:${forçaBayern1}\nforçaPsg1:${forçaPsg1}\nforçaCity1:${forçaCity1}\nforçaReal1:${forçaReal1}`
+  );
 }
 //Função para o cronômetro funcionar
 function formatarTempo(segundos) {
@@ -983,11 +991,11 @@ cena1.create = function () {
   botaoSala4 = this.add.image(560, 300, "botaoSala4").setInteractive();
   botaoSala5 = this.add.image(720, 300, "botaoSala5").setInteractive(); 
   //Criando as indicações sobre qual sala foi escolhida
-  textoSala1 = this.add.image(50, 5, "textoSala1").setVisible(false);
-  textoSala2 = this.add.image(50, 5, "textoSala2").setVisible(false);
-  textoSala3 = this.add.image(50, 5, "textoSala3").setVisible(false);
-  textoSala4 = this.add.image(50, 5, "textoSala4").setVisible(false);
-  textoSala5 = this.add.image(50, 5, "textoSala5").setVisible(false);
+  textoSala1 = this.add.image(71, 28, "textoSala1").setVisible(false);
+  textoSala2 = this.add.image(71, 28, "textoSala2").setVisible(false);
+  textoSala3 = this.add.image(71, 28, "textoSala3").setVisible(false);
+  textoSala4 = this.add.image(71, 28, "textoSala4").setVisible(false);
+  textoSala5 = this.add.image(71, 28, "textoSala5").setVisible(false);
   //Quando clicar em cada botão, vai para uma sala específica
   botaoSala1.on("pointerdown", function () {
     somMouse.play();
@@ -1073,10 +1081,6 @@ cena1.create = function () {
     }
     //Player 1 comanda o jogo e envia os valores para o outro player apresentar
     if (jogador === 1) {
-      //Colocando o botão para o player 1 escolher o clube somente no inicio do jogo
-      if (jogoIniciado !== "Sim") {
-        botao1.setVisible(true);
-      }
       //Sicronizando as escolhas dos clubes da direita
       socket.on("contagemClube1", (contagemClube1) => {
         if (contagemClube1 === 0) {
@@ -1089,6 +1093,10 @@ cena1.create = function () {
           escolhaPsg1();
         }
       });
+      //Jogo não roda se o outro player não estiver conectado
+      if (jogadores.segundo === undefined) {
+        apagarTela();
+      }
       //Sicronizando as telas quando o segundo jogador é conectado
       socket.on("escolhaClubes", () => {
         aparecerFundo3();
@@ -1097,10 +1105,6 @@ cena1.create = function () {
       console.log(jogadores);
       //Player 1 cria o jogo e envia para o outro player apresentar
     } else if (jogador === 2) {
-      //Colocando o botão para o player 2 escolher o clube somente no inicio do jogo
-      if (jogoIniciado !== "Sim") {
-        botao2.setVisible(true);
-      }
       //Sicronizando as escolhas dos clubes da esquerda
       socket.on("contagemClube0", (contagemClube0) => {
         if (contagemClube0 === 0) {
@@ -1113,10 +1117,10 @@ cena1.create = function () {
           escolhaPsg0();
         }
       });
-      //Desconecta o player 1 quando o player 2 é desconectado
-      socket.on("disconectar", () => {
+      //Jogo não roda se o outro player não estiver conectado
+      if (jogadores.primeiro === undefined) {
         apagarTela();
-      });
+      }
       //Recebendo o comunicado do player 1 para começar a partida
       socket.on("comecarPartida", () => {
         aparecerFundo4();
@@ -1150,27 +1154,35 @@ cena1.create = function () {
       //Sicronizando a força dos clubes
       socket.on("forçaBayern0", (forçaBayern0) => {
         forçaClube0Escolhido = forçaBayern0;
+        console.log(`forçaClube0Escolhido:${forçaBayern0}`);
       });
       socket.on("forçaCity0", (forçaCity0) => {
         forçaClube0Escolhido = forçaCity0;
+        console.log(`forçaClube0Escolhido:${forçaCity0}`);
       });
       socket.on("forçaReal0", (forçaReal0) => {
         forçaClube0Escolhido = forçaReal0;
+        console.log(`forçaClube0Escolhido:${forçaReal0}`);
       });
       socket.on("forçaPsg0", (forçaPsg0) => {
         forçaClube0Escolhido = forçaPsg0;
+        console.log(`forçaClube0Escolhido:${forçaPsg0}`);
       });
       socket.on("forçaBayern1", (forçaBayern1) => {
         forçaClube1Escolhido = forçaBayern1;
+        console.log(`forçaClube0Escolhido:${forçaBayern1}`);
       });
       socket.on("forçaCity1", (forçaCity1) => {
         forçaClube1Escolhido = forçaCity1;
+        console.log(`forçaClube0Escolhido:${forçaCity1}`);
       });
       socket.on("forçaReal1", (forçaReal1) => {
         forçaClube1Escolhido = forçaReal1;
+        console.log(`forçaClube0Escolhido:${forçaReal1}`);
       });
       socket.on("forçaPsg1", (forçaPsg1) => {
         forçaClube1Escolhido = forçaPsg1;
+        console.log(`forçaClube0Escolhido:${forçaPsg1}`);
       });
     }
   });

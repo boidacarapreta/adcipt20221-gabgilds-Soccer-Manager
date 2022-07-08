@@ -48,11 +48,6 @@ io.on("connection", function (socket) {
     socket.broadcast.to(sala).emit("candidate", signal);
   });
 
-  //Disparar evento quando jogador sair da partida
-  socket.on("disconectar", function (sala) {
-    socket.broadcast.to(sala).emit("disconectar");
-  }); //redefinir os jogadores como undefined e colocar as opções de sala novamente?
-
   //Servidor recebendo e enviando a variável para enviar para os jogadores
   socket.on("contagemClube0", (sala, contagemClube0) => {
     socket.broadcast.to(sala).emit("contagemClube0", contagemClube0);
