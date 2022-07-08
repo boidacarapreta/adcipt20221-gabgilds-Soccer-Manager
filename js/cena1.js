@@ -377,6 +377,9 @@ function aparecerFundo3() {
   //Colocando o botão de cada player para escolher os seus respectivos clubes
   if (jogador === 1) {
     botao1.setVisible(true);
+    botao0.setVisible(true);
+    //Definindo a força dos clubes e enviando para o player 2
+    definirForçaClubes();
   } else if (jogador === 2) {
     botao2.setVisible(true);
   }
@@ -797,10 +800,6 @@ cena1.preload = function () {
   this.load.image("botaoNao", "./assets/texto/botaoNao.png");
 };
 cena1.create = function () {
-  //Player 1 definindo a força dos clubes para definir o resultado da partida
-  if (jogador === 1) {
-    definirForçaClubes();
-  }
   //Deixando a variável tempo utilizável para o cena1
   time = this.time;
   //Adicionando a musica no jogo
