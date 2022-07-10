@@ -13,11 +13,9 @@ const audio = document.querySelector("audio");
 var contadorPartidas = 0;
 var textoContadorPartidas0;
 var textoContadorPartidas1;
-var textoSalaConectada;
 var soundtrack;
 var botaoTelaCheia;
 var teclaF;
-var jogoIniciado;
 //Variáveis de escolher a sala
 var fundo1;
 var fundo2;
@@ -59,13 +57,19 @@ var bayernEscudo1;
 var cityEscudo1;
 var psgEscudo1;
 var realEscudo1;
+var textoSala1;
+var textoSala2;
+var textoSala3;
+var textoSala4;
+var textoSala5;
 //Variáveis da cena do jogo acontecendo
 var fundo4;
 var textoCronometro;
 var passagemTempo;
 var fonteTexto0 = {font: "bold 35px Mont", fill: "#000000"};
 var fonteTexto1 = {font: "bold 28px Arial", fill: "#FFFFFF"};
-var fonteTexto2 = {font: "bold 24px Mont", fill: "#000000"};
+var fonteTexto2 = {font: "bold 24px Mont", fill: "#000000" };
+var fonteTexto3 = {font: "bold 35px Mont", fill: "#000000"}
 var textoPlacar;
 var textoPosseBola;
 var posseBola0 = 50;
@@ -131,10 +135,13 @@ function escolhaBayern0() {
   realEscudo0.setVisible(false);
   psgEscudo0.setVisible(false);
   clube0Escolhido = "bayern";
+  forçaClube0Escolhido = forçaBayern0;
+  /*
   if (jogador === 1) {
     forçaClube0Escolhido = forçaBayern0;
     socket.emit("forçaBayern0", sala, forçaBayern0);
   } 
+  */
 }
 function escolhaPsg0() {
   psg0.setVisible(true);
@@ -150,10 +157,13 @@ function escolhaPsg0() {
   realEscudo0.setVisible(false);
   psgEscudo0.setVisible(true);
   clube0Escolhido = "psg";
+  forçaClube0Escolhido = forçaPsg0;
+  /*
   if (jogador === 1) {
     forçaClube0Escolhido = forçaPsg0;
     socket.emit("forçaPsg0", sala, forçaPsg0);
   }   
+  */
 }
 function escolhaCity0() {
   psg0.setVisible(false);
@@ -169,10 +179,13 @@ function escolhaCity0() {
   realEscudo0.setVisible(false);
   psgEscudo0.setVisible(false);
   clube0Escolhido = "city";
+  forçaClube0Escolhido = forçaCity0;
+  /*
   if (jogador === 1) {
     forçaClube0Escolhido = forçaCity0;
     socket.emit("forçaCity0", sala, forçaCity0);
-  }   
+  } 
+  */
 }
 function escolhaReal0() {
   psg0.setVisible(false);
@@ -188,10 +201,13 @@ function escolhaReal0() {
   realEscudo0.setVisible(true);
   psgEscudo0.setVisible(false);
   clube0Escolhido = "real";
+  forçaClube0Escolhido = forçaReal0;
+  /*
   if (jogador === 1) {
     forçaClube0Escolhido = forçaReal0;
     socket.emit("forçaReal0", sala, forçaReal0);
   }   
+  */
 }
 function escolhaPsg1() {
   psg1.setVisible(true);
@@ -207,10 +223,13 @@ function escolhaPsg1() {
   realEscudo1.setVisible(false);
   psgEscudo1.setVisible(true);
   clube1Escolhido = "psg";
+  forçaClube1Escolhido = forçaPsg1;
+  /*
   if (jogador === 1) {
     forçaClube1Escolhido = forçaPsg1;
     socket.emit("forçaPsg1", sala, forçaPsg1);
-  }   
+  } 
+  */
 }
 function escolhaBayern1() {
   psg1.setVisible(false);
@@ -226,10 +245,13 @@ function escolhaBayern1() {
   realEscudo1.setVisible(false);
   psgEscudo1.setVisible(false);
   clube1Escolhido = "bayern";
+  forçaClube1Escolhido = forçaBayern1;
+  /*
   if (jogador === 1) {
     forçaClube1Escolhido = forçaBayern1;
     socket.emit("forçaBayern1", sala, forçaBayern1);
-  }   
+  }
+  */
 }
 function escolhaCity1() {
   psg1.setVisible(false);
@@ -245,10 +267,13 @@ function escolhaCity1() {
   realEscudo1.setVisible(false);
   psgEscudo1.setVisible(false);
   clube1Escolhido = "city";
+  forçaClube1Escolhido = forçaCity1;
+  /*
   if (jogador === 1) {
     forçaClube1Escolhido = forçaCity1;
     socket.emit("forçaCity1", sala, forçaCity1);
-  }   
+  }
+  */
 }
 function escolhaReal1() {
   psg1.setVisible(false);
@@ -264,10 +289,13 @@ function escolhaReal1() {
   realEscudo1.setVisible(true);
   psgEscudo1.setVisible(false);
   clube1Escolhido = "real";
+  forçaClube1Escolhido = forçaReal1;
+  /*
   if (jogador === 1) {
     forçaClube1Escolhido = forçaReal1;
     socket.emit("forçaReal1", sala, forçaReal1);
-  }  
+  } 
+  */
 }
 //Função para retirar todos os nomes dos clubes da tela
 function retirarTodosNomesClubes() {
@@ -298,10 +326,6 @@ function retirarTodosNomesClubes() {
 }
 //Função para deixar a tela preta
 function apagarTela() {
-  fundo1.setVisible(false);
-  fundo2.setVisible(false);
-  fundo3.setVisible(false);
-  fundo4.setVisible(false);
   fundo5.setVisible(false);
   textoCronometro.setVisible(false);
   textoPlacar.setVisible(false);
@@ -321,6 +345,11 @@ function apagarTela() {
   parabensPsg1.setVisible(false);
   parabensReal0.setVisible(false);
   parabensReal1.setVisible(false);
+  textoSala1.setVisible(false);
+  textoSala2.setVisible(false);
+  textoSala3.setVisible(false);
+  textoSala4.setVisible(false);
+  textoSala5.setVisible(false);
   retirarTodosNomesClubes();
   botaoTelaCheia.setVisible(false);
   textoContadorPartidas0.setVisible(false);
@@ -339,6 +368,7 @@ function atualizarTextoPlacar() {
 }
 //Função para atualizar o texto do contador de partidas
 function atualizarContadorPartidas() {
+  contadorPartidas++;
   textoContadorPartidas1.setText(contadorPartidas);
 }
 //Funções para mostrar as telas do jogo
@@ -362,7 +392,32 @@ function aparecerFundo3() {
   fundo3.setVisible(true);
   textoContadorPartidas0.setVisible(true);
   textoContadorPartidas1.setVisible(true);
-  textoSalaConectada.setVisible(true);
+  definirForçaClubes();
+  botaoTelaCheia.setVisible(true);
+  //Colocando a identificação da sala selecionada
+  if (sala === 1) {
+    textoSala1.setVisible(true);
+  } else if (sala === 2) {
+    textoSala2.setVisible(true);
+  } else if (sala === 3) {
+    textoSala3.setVisible(true);
+  } else if (sala === 4) {
+    textoSala4.setVisible(true);
+  } else if (sala === 5) {
+    textoSala5.setVisible(true);
+  }
+  //Colocando o botão de cada player para escolher os seus respectivos clubes
+  if (jogador === 1) {
+    botao1.setVisible(true);
+    botao0.setVisible(true);
+    /*
+    //Definindo a força dos clubes e enviando para o player 2
+    definirForçaClubes();
+    */
+  } else if (jogador === 2) {
+    botao2.setVisible(true);
+  }
+  //Colocando os clubes padrão para escolher os clubes
   escolhaClubePadrao();
 }
 //Jogo acontecendo
@@ -375,14 +430,12 @@ function aparecerFundo4() {
   textoCronometro.setVisible(true);
   textoPlacar.setVisible(true);
   textoPosseBola.setVisible(true);
-  //Variável para impedir os jogadores de entrarem após o jogo ser inicado
-  jogoIniciado = "Sim";
   //<--- Iniciando o cronômetro --->
   //Define o tempo inicial
   tempoInicial = 0;
   if (jogador === 1) {
     passagemTempo = time.addEvent({
-      delay: 20, //delay padrão = "delay: 80,"
+      delay: 80, //delay padrão = "delay: 80,"
       callback: function () {
         //A cada x ms (delay) adiciona 15 segundos do tempo inicial
         tempoInicial += 15; 
@@ -401,7 +454,6 @@ function aparecerFundo4() {
           if (tempoInicial % 120 === 0) {
             //Possibilidade de ocorrer um gol
             chanceGol = Phaser.Math.Between(0, 20); 
-            console.log(`chanceGol: ${chanceGol}`);
             //Se o gol ocorrer, atualiza o placar
             if (chanceGol === 1) {
               atualizarPlacar();
@@ -473,45 +525,44 @@ function aparecerFundo5() {
 }
 //Função quando clica em jogar novamente
 function aparecerFundo3Novamente() {
-    if (jogador === 1) {
-      //Definindo a força dos clubes de novo para definir o resultado da nova partida
-      definirForçaClubes();
-      botao0.setVisible(true);
-      botao1.setVisible(true);
-      //Adicionando valor no contador de partidas
-      contadorPartidas++;
-      atualizarContadorPartidas();
-      //Enviando o valor do contador de partidas para o player 2
-      socket.emit("contadorPartidas", sala, contadorPartidas);
-    } else if (jogador === 2) {
-      botao2.setVisible(true);
-    }
-    //Coloca as imagens corretas
-    fundo3.setVisible(true);
-    fundo5.setVisible(false);
-    textoCronometro.setVisible(false);
-    textoPlacar.setVisible(false);
-    textoPosseBola.setVisible(false);
-    botaoSim.setVisible(false);
-    botaoNao.setVisible(false);
-    textoJogarDeNovo.setVisible(false);
-    muller.setVisible(false);
-    neymar.setVisible(false);
-    benzema.setVisible(false);
-    deBruyne.setVisible(false);
-    parabensPsg0.setVisible(false);
-    parabensBayern0.setVisible(false);
-    parabensCity0.setVisible(false);
-    parabensReal0.setVisible(false);
-    parabensPsg1.setVisible(false);
-    parabensBayern1.setVisible(false);
-    parabensCity1.setVisible(false);
-    parabensReal1.setVisible(false);
-    //Colocando a soundtrack correta
-    somVencedor.pause();
-    soundtrack.play();
-    //Coloca os clubes que aparecem primeiro para serem escolhidos
-    escolhaClubePadrao();
+  //Definindo a força dos clubes de novo para definir o resultado da nova partida
+  definirForçaClubes();
+  if (jogador === 1) {
+    botao0.setVisible(true);
+    botao1.setVisible(true);
+    //Adicionando valor no contador de partidas
+    atualizarContadorPartidas();
+    //Enviando o valor do contador de partidas para o player 2
+    socket.emit("contadorPartidas", sala, contadorPartidas);
+  } else if (jogador === 2) {
+    botao2.setVisible(true);
+  }
+  //Coloca as imagens corretas
+  fundo3.setVisible(true);
+  fundo5.setVisible(false);
+  textoCronometro.setVisible(false);
+  textoPlacar.setVisible(false);
+  textoPosseBola.setVisible(false);
+  botaoSim.setVisible(false);
+  botaoNao.setVisible(false);
+  textoJogarDeNovo.setVisible(false);
+  muller.setVisible(false);
+  neymar.setVisible(false);
+  benzema.setVisible(false);
+  deBruyne.setVisible(false);
+  parabensPsg0.setVisible(false);
+  parabensBayern0.setVisible(false);
+  parabensCity0.setVisible(false);
+  parabensReal0.setVisible(false);
+  parabensPsg1.setVisible(false);
+  parabensBayern1.setVisible(false);
+  parabensCity1.setVisible(false);
+  parabensReal1.setVisible(false);
+  //Colocando a soundtrack correta
+  somVencedor.pause();
+  soundtrack.play();
+  //Coloca os clubes que aparecem primeiro para serem escolhidos
+  escolhaClubePadrao();
 }
 function clube0vencendo() {
   //Aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
@@ -579,7 +630,9 @@ function definirForçaClubes() {
   forçaPsg1 = statusPsg.atk + Phaser.Math.Between(0, 10);
   forçaCity1 = statusCity.atk + Phaser.Math.Between(0, 10);
   forçaReal1 = statusReal.atk + Phaser.Math.Between(0, 10);
-  console.log(`Forças dos clubes:\npsg0: ${forçaPsg0} \nbayern0: ${forçaBayern0} \ncity0: ${forçaCity0} \nreal0: ${forçaReal0} \npsg1: ${forçaPsg1} \nbayern1: ${forçaBayern1} \ncity1: ${forçaCity1} \nreal1: ${forçaReal1}`);
+  console.log(
+    `forçaBayern0:${forçaBayern0}\nforçaReal0:${forçaReal0}\nforçaCity0:${forçaCity0}\nforçaPsg0:${forçaPsg0}\nforçaBayern1:${forçaBayern1}\nforçaReal1:${forçaReal1}\nforçaCity1:${forçaCity1}\nforçaPsg1:${forçaPsg1}`
+  );
 }
 //Função para o cronômetro funcionar
 function formatarTempo(segundos) {
@@ -717,13 +770,18 @@ cena1.preload = function () {
     frameHeight: 50,
   });
   //Carregando as imagens que serão usadas na cena de escolhendo a sala
-  this.load.image("fundo1", "./assets/fundo2.png");
+  this.load.image("fundo1", "./assets/fundo1.png");
   this.load.image("fundo2", "./assets/fundo2.png"); //pedir para o Gilds um novo fundo
   this.load.image("botaoSala1", "./assets/botaoSala1.png");
   this.load.image("botaoSala2", "./assets/botaoSala2.png");
   this.load.image("botaoSala3", "./assets/botaoSala3.png");
   this.load.image("botaoSala4", "./assets/botaoSala4.png");
   this.load.image("botaoSala5", "./assets/botaoSala5.png");  
+  this.load.image("textoSala1", "./assets/textoSala1.png");  
+  this.load.image("textoSala2", "./assets/textoSala2.png");
+  this.load.image("textoSala3", "./assets/textoSala3.png");
+  this.load.image("textoSala4", "./assets/textoSala4.png");
+  this.load.image("textoSala5", "./assets/textoSala5.png"); 
   //Carregando as imagens e áudio que serão usados na cena de escolhendo os clubes
   this.load.image("fundo3", "./assets/fundo3.png");
   this.load.image("botao0", "./assets/botao0.png");
@@ -775,10 +833,6 @@ cena1.preload = function () {
   this.load.image("botaoNao", "./assets/texto/botaoNao.png");
 };
 cena1.create = function () {
-  //Player 1 definindo a força dos clubes para definir o resultado da partida
-  if (jogador === 1) {
-    definirForçaClubes();
-  }
   //Deixando a variável tempo utilizável para o cena1
   time = this.time;
   //Adicionando a musica no jogo
@@ -790,7 +844,7 @@ cena1.create = function () {
   fundo2 = this.add.image(400, 300, "fundo2").setVisible(false);
   fundo3 = this.add.image(400, 300, "fundo3").setVisible(false);
   fundo4 = this.add.image(400, 300, "fundo4").setVisible(false);
-  fundo5 = this.add.image(400, 300, "fundo5").setVisible(false);  
+  fundo5 = this.add.image(400, 300, "fundo5").setVisible(false);
   //<--- Cena de escolhendo os clubes --->
   //Define e adiciona os botões da cena1
   botao0 = this.add
@@ -894,9 +948,6 @@ cena1.create = function () {
   textoPosseBola = this.add
     .text(343, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto2)
     .setVisible(false);
-  textoSalaConectada = this.add
-    .text(300, 15, "Sala:" + sala, fonteTexto2)
-    .setVisible(false);
   //<--- Cena do fim do jogo --->
   //Botões para jogar novamente
   botaoSim = this.add
@@ -972,43 +1023,44 @@ cena1.create = function () {
   botaoSala3 = this.add.image(400, 300, "botaoSala3").setInteractive();
   botaoSala4 = this.add.image(560, 300, "botaoSala4").setInteractive();
   botaoSala5 = this.add.image(720, 300, "botaoSala5").setInteractive();
+  //Criando as indicações sobre qual sala foi escolhida
+  textoSala1 = this.add.image(71, 28, "textoSala1").setVisible(false);
+  textoSala2 = this.add.image(71, 28, "textoSala2").setVisible(false);
+  textoSala3 = this.add.image(71, 28, "textoSala3").setVisible(false);
+  textoSala4 = this.add.image(71, 28, "textoSala4").setVisible(false);
+  textoSala5 = this.add.image(71, 28, "textoSala5").setVisible(false);
   //Quando clicar em cada botão, vai para uma sala específica
   botaoSala1.on("pointerdown", function () {
     somMouse.play();
     sala = 1;
-    console.log("Um player selecionou a sala %s.", sala);
-    socket.emit("entrar-na-sala", sala);
+    socket.emit("entrarNaSala", sala);
     aparecerFundo2();
   });
   botaoSala2.on("pointerdown", function () {
     somMouse.play();
     sala = 2;
-    console.log("Pedido de entrada na sala %s.", sala);
-    socket.emit("entrar-na-sala", sala);
+    socket.emit("entrarNaSala", sala);
     aparecerFundo2();
-  }); 
+  });
   botaoSala3.on("pointerdown", function () {
     somMouse.play();
     sala = 3;
-    console.log("Pedido de entrada na sala %s.", sala);
-    socket.emit("entrar-na-sala", sala);
-    aparecerFundo2();  
-  });  
+    socket.emit("entrarNaSala", sala);
+    aparecerFundo2();
+  });
   botaoSala4.on("pointerdown", function () {
     somMouse.play();
     sala = 4;
-    console.log("Pedido de entrada na sala %s.", sala);
-    socket.emit("entrar-na-sala", sala);
+    socket.emit("entrarNaSala", sala);
     aparecerFundo2();
   });
   botaoSala5.on("pointerdown", function () {
     somMouse.play();
     sala = 5;
-    console.log("Pedido de entrada na sala %s.", sala);
-    socket.emit("entrar-na-sala", sala);
+    socket.emit("entrarNaSala", sala);
     aparecerFundo2();
-  });  
-  
+  });
+
   //Defindo os players e a comunicação
   socket.on("jogadores", function (jogadores) {
     //Dispara evento quando player entrar na partida
@@ -1062,10 +1114,6 @@ cena1.create = function () {
     }
     //Player 1 comanda o jogo e envia os valores para o outro player apresentar
     if (jogador === 1) {
-      //Colocando o botão para o player 1 escolher o clube somente no inicio do jogo
-      if (jogoIniciado !== "Sim") {
-        botao1.setVisible(true);
-      }
       //Sicronizando as escolhas dos clubes da direita
       socket.on("contagemClube1", (contagemClube1) => {
         if (contagemClube1 === 0) {
@@ -1084,27 +1132,8 @@ cena1.create = function () {
       });
       //Mostra os players conectados
       console.log(jogadores);
-      //Os dois players precisam estar conectados para o jogo começar
-      if (
-        jogadores.primeiro !== undefined &&
-        jogadores.segundo !== undefined &&
-        jogoIniciado !== "Sim"
-      ) {
-        botao0.setVisible(true);
-      } else if (
-        jogadores.primeiro === undefined ||
-        jogadores.segundo === undefined
-      ) {
-        botao0.setVisible(false);
-        botao1.setVisible(false);
-        botao2.setVisible(false);
-      }
       //Player 1 cria o jogo e envia para o outro player apresentar
     } else if (jogador === 2) {
-      //Colocando o botão para o player 2 escolher o clube somente no inicio do jogo
-      if (jogoIniciado !== "Sim") {
-        botao2.setVisible(true);
-      }
       //Sicronizando as escolhas dos clubes da esquerda
       socket.on("contagemClube0", (contagemClube0) => {
         if (contagemClube0 === 0) {
@@ -1148,38 +1177,40 @@ cena1.create = function () {
         textoContadorPartidas1.setText(contadorPartidas);
       });
       //Sicronizando a força dos clubes
+      /*
       socket.on("forçaBayern0", (forçaBayern0) => {
         forçaClube0Escolhido = forçaBayern0;
-        console.log(`forçaClube0Escolhido: ${forçaClube0Escolhido}`);
+        console.log(`forçaClube0Escolhido:${forçaBayern0}`);
       });
       socket.on("forçaCity0", (forçaCity0) => {
         forçaClube0Escolhido = forçaCity0;
-        console.log(`forçaClube0Escolhido: ${forçaClube0Escolhido}`);
+        console.log(`forçaClube0Escolhido:${forçaCity0}`);
       });
       socket.on("forçaReal0", (forçaReal0) => {
         forçaClube0Escolhido = forçaReal0;
-        console.log(`forçaClube0Escolhido: ${forçaClube0Escolhido}`);
+        console.log(`forçaClube0Escolhido:${forçaReal0}`);
       });
       socket.on("forçaPsg0", (forçaPsg0) => {
         forçaClube0Escolhido = forçaPsg0;
-        console.log(`forçaClube0Escolhido: ${forçaClube0Escolhido}`);
+        console.log(`forçaClube0Escolhido:${forçaPsg0}`);
       });
       socket.on("forçaBayern1", (forçaBayern1) => {
         forçaClube1Escolhido = forçaBayern1;
-        console.log(`forçaClube1Escolhido: ${forçaClube1Escolhido}`);
+        console.log(`forçaClube1Escolhido:${forçaBayern1}`);
       });
       socket.on("forçaCity1", (forçaCity1) => {
         forçaClube1Escolhido = forçaCity1;
-        console.log(`forçaClube1Escolhido: ${forçaClube1Escolhido}`);
+        console.log(`forçaClube1Escolhido:${forçaCity1}`);
       });
       socket.on("forçaReal1", (forçaReal1) => {
         forçaClube1Escolhido = forçaReal1;
-        console.log(`forçaClube1Escolhido: ${forçaClube1Escolhido}`);
+        console.log(`forçaClube1Escolhido:${forçaReal1}`);
       });
       socket.on("forçaPsg1", (forçaPsg1) => {
         forçaClube1Escolhido = forçaPsg1;
-        console.log(`forçaClube1Escolhido: ${forçaClube1Escolhido}`);
+        console.log(`forçaClube1Escolhido:${forçaPsg1}`);
       });
+      */
     }
   });
   //Recebendo as informações para estabelecer a comunicação
