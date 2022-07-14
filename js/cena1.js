@@ -465,26 +465,30 @@ function aparecerFundo5() {
   textoPlacar.setVisible(false);
   textoPosseBola.setVisible(false);
   textoJogarDeNovo.setVisible(true);
-  //Coloca os botões específicos para cada player
   if (jogador === 1) {
+    //Coloca os botões específicos para cada player
     botaoSim.setVisible(true);
     botaoNao.setVisible(true);
     //Envia a mensagem para o player 2 finalizar a partida
     socket.emit("fimDaPartida", sala);
+    //Definindo o resultado da partida
+    if (gols0 > gols1) {
+      clube0Vencendo();
+      //Envia a mensagem para o player 2 mostrar o vencendo da partida
+      socket.emit("clube0Vencendo", sala);
+    } else if (gols0 < gols1) {
+      clube1Vencendo();
+      socket.emit("clube1Vencendo", sala);
+    } else if (gols0 === gols1) {
+      //Por enquanto não tem empate
+      clube0Vencendo();
+      socket.emit("clube0Vencendo", sala);
+    }
   }
   //Toca o som da tela de vitória, retira todas as informações do clube e o soundtrack
   somVencedor.play();
   soundtrack.pause();
   retirarTodosNomesClubes();
-  //Definindo o resultado da partida
-  if (gols0 > gols1) {
-    clube0vencendo();
-  } else if (gols0 < gols1) {
-    clube1vencendo();
-  } else if (gols0 === gols1) { 
-    //Por enquanto não tem empate
-    clube0vencendo();
-  }
   //<--- Resetando as variáveis necessárias e o tempo para conseguir rejogar --->
   //Evita que tenha 2 ou mais cronômetros funcionando simultaneamente
   time.removeEvent(passagemTempo);
@@ -537,7 +541,7 @@ function aparecerFundo3Novamente() {
   //Coloca os clubes que aparecem primeiro para serem escolhidos
   escolhaClubePadrao();
 }
-function clube0vencendo() {
+function clube0Vencendo() {
   //Aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
   if (clube0Escolhido === "psg") {
     parabensPsg0.setVisible(true);
@@ -565,7 +569,7 @@ function clube0vencendo() {
     benzema.setVisible(true);
   }
 }
-function clube1vencendo() {
+function clube1Vencendo() {
   //Decorrer da partida que no final o clube da direita vai ganhar, com aleatoriedades
   if (clube1Escolhido === "psg") {
     parabensPsg1.setVisible(true);
@@ -1185,6 +1189,13 @@ cena1.create = function () {
       socket.on("forçaPsg1", (forçaPsg1) => {
         forçaClube1Escolhido = forçaPsg1;
         console.log(`forçaClube1Escolhido:${forçaPsg1}`);
+      });
+      //Sicronizando o vencedor da partida
+      socket.on("clube0Vencendo", () => {
+        clube0Vencendo();
+      });
+      socket.on("clube1Vencendo", () => {
+        clube1Vencendo();
       });
     }
   });

@@ -115,6 +115,13 @@ io.on("connection", function (socket) {
   socket.on("forçaReal1", (sala, forçaReal1) => {
     socket.broadcast.to(sala).emit("forçaReal1", forçaReal1);
   });
+  //Servidor recebendo e enviado o vencedor da partida
+  socket.on("clube0Vencendo", (sala) => {
+    socket.broadcast.to(sala).emit("clube0Vencendo");
+  });
+  socket.on("clube1Vencendo", (sala) => {
+    socket.broadcast.to(sala).emit("clube1Vencendo");
+  });  
 });
 
 app.use(express.static("./"));
