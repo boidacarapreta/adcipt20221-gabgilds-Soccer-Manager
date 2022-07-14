@@ -34,7 +34,6 @@ Cronômetro da partida: https://phaser.discourse.group/t/countdown-timer/2471
 
 Melhorias do jogo:
 
-0º Arrumar bug dos resultados diferentes (forças são geradas pelos 2 players);
 1º Desconectar jogadores quando jogo acabar;
 2º Aperfeiçoar sistema de posse de bola e gols (sistema de gols pode levar em consideração a diferença de força entre os times para determinar a probabilidade de uma goleada);
 3º Colocar bolhinha do lado do jogador quando fazer gol;
