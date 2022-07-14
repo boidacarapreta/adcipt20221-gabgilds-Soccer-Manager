@@ -90,31 +90,6 @@ io.on("connection", function (socket) {
   socket.on("contadorPartidas", (sala, contadorPartidas) => {
     socket.broadcast.to(sala).emit("contadorPartidas", contadorPartidas);
   });
-  //Servidor recebendo e enviando o valor das forças dos clubes
-  socket.on("forçaBayern0", (sala, forçaBayern0) => {
-    socket.broadcast.to(sala).emit("forçaBayern0", forçaBayern0);
-  });
-  socket.on("forçaPsg0", (sala, forçaPsg0) => {
-    socket.broadcast.to(sala).emit("forçaPsg0", forçaPsg0);
-  });
-  socket.on("forçaCity0", (sala, forçaCity0) => {
-    socket.broadcast.to(sala).emit("forçaCity0", forçaCity0);
-  });
-  socket.on("forçaReal0", (sala, forçaReal0) => {
-    socket.broadcast.to(sala).emit("forçaReal0", forçaReal0);
-  });
-  socket.on("forçaPsg1", (sala, forçaPsg1) => {
-    socket.broadcast.to(sala).emit("forçaPsg1", forçaPsg1);
-  });
-  socket.on("forçaBayern1", (sala, forçaBayern1) => {
-    socket.broadcast.to(sala).emit("forçaBayern1", forçaBayern1);
-  });
-  socket.on("forçaCity1", (sala, forçaCity1) => {
-    socket.broadcast.to(sala).emit("forçaCity1", forçaCity1);
-  });
-  socket.on("forçaReal1", (sala, forçaReal1) => {
-    socket.broadcast.to(sala).emit("forçaReal1", forçaReal1);
-  });
   //Servidor recebendo e enviado o vencedor da partida
   socket.on("clube0Vencendo", (sala) => {
     socket.broadcast.to(sala).emit("clube0Vencendo");

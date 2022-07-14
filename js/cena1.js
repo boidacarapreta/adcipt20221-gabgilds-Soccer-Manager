@@ -137,7 +137,6 @@ function escolhaBayern0() {
   clube0Escolhido = "bayern";
   if (jogador === 1) {
     forçaClube0Escolhido = forçaBayern0;
-    socket.emit("forçaBayern0", sala, forçaBayern0);
   } 
 }
 function escolhaPsg0() {
@@ -156,7 +155,6 @@ function escolhaPsg0() {
   clube0Escolhido = "psg";
   if (jogador === 1) {
     forçaClube0Escolhido = forçaPsg0;
-    socket.emit("forçaPsg0", sala, forçaPsg0);
   }   
 }
 function escolhaCity0() {
@@ -175,7 +173,6 @@ function escolhaCity0() {
   clube0Escolhido = "city";
   if (jogador === 1) {
     forçaClube0Escolhido = forçaCity0;
-    socket.emit("forçaCity0", sala, forçaCity0);
   } 
 }
 function escolhaReal0() {
@@ -194,7 +191,6 @@ function escolhaReal0() {
   clube0Escolhido = "real";
   if (jogador === 1) {
     forçaClube0Escolhido = forçaReal0;
-    socket.emit("forçaReal0", sala, forçaReal0);
   }   
 }
 function escolhaPsg1() {
@@ -213,7 +209,6 @@ function escolhaPsg1() {
   clube1Escolhido = "psg";
   if (jogador === 1) {
     forçaClube1Escolhido = forçaPsg1;
-    socket.emit("forçaPsg1", sala, forçaPsg1);
   } 
 }
 function escolhaBayern1() {
@@ -232,7 +227,6 @@ function escolhaBayern1() {
   clube1Escolhido = "bayern";
   if (jogador === 1) {
     forçaClube1Escolhido = forçaBayern1;
-    socket.emit("forçaBayern1", sala, forçaBayern1);
   }
 }
 function escolhaCity1() {
@@ -251,7 +245,6 @@ function escolhaCity1() {
   clube1Escolhido = "city";
   if (jogador === 1) {
     forçaClube1Escolhido = forçaCity1;
-    socket.emit("forçaCity1", sala, forçaCity1);
   }
 }
 function escolhaReal1() {
@@ -270,7 +263,6 @@ function escolhaReal1() {
   clube1Escolhido = "real";
   if (jogador === 1) {
     forçaClube1Escolhido = forçaReal1;
-    socket.emit("forçaReal1", sala, forçaReal1);
   } 
 }
 //Função para retirar todos os nomes dos clubes da tela
@@ -607,9 +599,6 @@ function definirForçaClubes() {
   forçaPsg1 = statusPsg.atk + Phaser.Math.Between(0, 10);
   forçaCity1 = statusCity.atk + Phaser.Math.Between(0, 10);
   forçaReal1 = statusReal.atk + Phaser.Math.Between(0, 10);
-  console.log(
-    `forçaBayern0:${forçaBayern0}\nforçaReal0:${forçaReal0}\nforçaCity0:${forçaCity0}\nforçaPsg0:${forçaPsg0}\nforçaBayern1:${forçaBayern1}\nforçaReal1:${forçaReal1}\nforçaCity1:${forçaCity1}\nforçaPsg1:${forçaPsg1}`
-  );
 }
 //Função para o cronômetro funcionar
 function formatarTempo(segundos) {
@@ -1112,7 +1101,7 @@ cena1.create = function () {
         aparecerFundo3();
       });
       //Mostra os players conectados
-      console.log(jogadores);
+      //console.log(jogadores);
       //Player 1 cria o jogo e envia para o outro player apresentar
     } else if (jogador === 2) {
       //Sicronizando as escolhas dos clubes da esquerda
@@ -1156,39 +1145,6 @@ cena1.create = function () {
       //Sicronizando o contador das partidas
       socket.on("contadorPartidas", (contadorPartidas) => {
         textoContadorPartidas1.setText(contadorPartidas);
-      });
-      //Sicronizando a força dos clubes
-      socket.on("forçaBayern0", (forçaBayern0) => {
-        forçaClube0Escolhido = forçaBayern0;
-        console.log(`forçaClube0Escolhido:${forçaBayern0}`);
-      });
-      socket.on("forçaCity0", (forçaCity0) => {
-        forçaClube0Escolhido = forçaCity0;
-        console.log(`forçaClube0Escolhido:${forçaCity0}`);
-      });
-      socket.on("forçaReal0", (forçaReal0) => {
-        forçaClube0Escolhido = forçaReal0;
-        console.log(`forçaClube0Escolhido:${forçaReal0}`);
-      });
-      socket.on("forçaPsg0", (forçaPsg0) => {
-        forçaClube0Escolhido = forçaPsg0;
-        console.log(`forçaClube0Escolhido:${forçaPsg0}`);
-      });
-      socket.on("forçaBayern1", (forçaBayern1) => {
-        forçaClube1Escolhido = forçaBayern1;
-        console.log(`forçaClube1Escolhido:${forçaBayern1}`);
-      });
-      socket.on("forçaCity1", (forçaCity1) => {
-        forçaClube1Escolhido = forçaCity1;
-        console.log(`forçaClube1Escolhido:${forçaCity1}`);
-      });
-      socket.on("forçaReal1", (forçaReal1) => {
-        forçaClube1Escolhido = forçaReal1;
-        console.log(`forçaClube1Escolhido:${forçaReal1}`);
-      });
-      socket.on("forçaPsg1", (forçaPsg1) => {
-        forçaClube1Escolhido = forçaPsg1;
-        console.log(`forçaClube1Escolhido:${forçaPsg1}`);
       });
       //Sicronizando o vencedor da partida
       socket.on("clube0Vencendo", () => {
