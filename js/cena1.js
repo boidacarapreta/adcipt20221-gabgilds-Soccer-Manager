@@ -850,10 +850,10 @@ cena1.create = function () {
   somMouse = this.sound.add("somMouse");
   //Adicionando os contadores de partidas ganhas de cada player
   textoContadorVencedor0 = this.add
-    .text(600, 564, contadorVencedor0, fonteTexto2)
+    .text(635, 570, contadorVencedor0, fonteTexto2)
     .setVisible(false);
   textoContadorVencedor1 = this.add
-    .text(720, 564, contadorVencedor1, fonteTexto3)
+    .text(750, 570, contadorVencedor1, fonteTexto3)
     .setVisible(false);
   //Botão de ativar/desativar tela cheia
   botaoTelaCheia = this.add
