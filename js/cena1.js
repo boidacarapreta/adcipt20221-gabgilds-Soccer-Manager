@@ -338,11 +338,11 @@ function atualizarTextoPlacar() {
 //Função para atualizar o texto do contador de partidas ganhas
 function atualizarContadorVencedor0() {
   contadorVencedor0++;
-  textoContadorVencedor0.setText(contadorVencedor0);
+  textoContadorVencedor0.setText(`Vitórias: ${contadorVencedor0}`);
 }
 function atualizarContadorVencedor1() {
   contadorVencedor1++;
-  textoContadorVencedor1.setText(contadorVencedor1);
+  textoContadorVencedor1.setText(`Vitórias: ${contadorVencedor1}`);
 }
 //Funções para mostrar as telas do jogo
 //Escolhendo as salas
@@ -393,7 +393,7 @@ function aparecerFundo4() {
   tempoInicial = 0;
   if (jogador === 1) {
     passagemTempo = time.addEvent({
-      delay: 80, //delay padrão = "delay: 80,"
+      delay: 5, //delay padrão = "delay: 80,"
       callback: function () {
         //A cada x ms (delay) adiciona 15 segundos do tempo inicial
         tempoInicial += 15; 
@@ -850,7 +850,7 @@ cena1.create = function () {
   somMouse = this.sound.add("somMouse");
   //Adicionando os contadores de partidas ganhas de cada player
   textoContadorVencedor0 = this.add
-    .text(210, 564, "Vitórias: 0", fonteTexto2)
+    .text(500, 564, "Vitórias: 0", fonteTexto2)
     .setVisible(false);
   textoContadorVencedor1 = this.add
     .text(660, 564, "Vitórias: 0", fonteTexto3)
