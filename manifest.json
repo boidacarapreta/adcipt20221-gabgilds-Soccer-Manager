@@ -10,23 +10,23 @@
   "orientation": "landscape",
   "icons": [
     {
-      "src": "assets/fundo0.png",
+      "src": "assets/logo.png",
       "sizes": "128x128"
     },
     {
-      "src": "assets/fundo0.png",
+      "src": "assets/logo.png",
       "sizes": "192x192"
     },
     {
-      "src": "assets/fundo0.png",
+      "src": "assets/logo.png",
       "sizes": "256x256"
     },
     {
-      "src": "assets/fundo0.png",
+      "src": "assets/logo.png",
       "sizes": "384x384"
     },
     {
-      "src": "assets/fundo0.png",
+      "src": "assets/logo.png",
       "sizes": "512x512"
     }
   ]
