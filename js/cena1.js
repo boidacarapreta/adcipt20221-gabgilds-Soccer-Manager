@@ -393,7 +393,7 @@ function aparecerFundo4() {
   tempoInicial = 0;
   if (jogador === 1) {
     passagemTempo = time.addEvent({
-      delay: 5, //delay padrão = "delay: 80,"
+      delay: 80, //delay padrão = "delay: 80,"
       callback: function () {
         //A cada x ms (delay) adiciona 15 segundos do tempo inicial
         tempoInicial += 15; 
