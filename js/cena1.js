@@ -338,11 +338,11 @@ function atualizarTextoPlacar() {
 //Função para atualizar o texto do contador de partidas ganhas
 function atualizarContadorVencedor0() {
   contadorVencedor0++;
-  textoContadorVencedor0.setText(`Vitórias: ${contadorVencedor0}`);
+  textoContadorVencedor0.setText(contadorVencedor0);
 }
 function atualizarContadorVencedor1() {
   contadorVencedor1++;
-  textoContadorVencedor1.setText(`Vitórias: ${contadorVencedor1}`);
+  textoContadorVencedor1.setText(contadorVencedor1);
 }
 //Funções para mostrar as telas do jogo
 //Escolhendo as salas
@@ -1136,11 +1136,11 @@ cena1.create = function () {
       //Sicronizando o vencedor da partida
       socket.on("clube0Vencendo", (contadorVencedor0) => {
         clube0Vencendo();
-        textoContadorVencedor0.setText(`Vitórias: ${contadorVencedor0}`);
+        textoContadorVencedor0.setText(contadorVencedor0);
       });
       socket.on("clube1Vencendo", (contadorVencedor1) => {
         clube1Vencendo();
-        textoContadorVencedor1.setText(`Vitórias: ${contadorVencedor1}`);
+        textoContadorVencedor1.setText(contadorVencedor1);
       });
     }
   });
