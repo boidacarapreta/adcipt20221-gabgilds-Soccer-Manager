@@ -86,16 +86,12 @@ io.on("connection", function (socket) {
   socket.on("tempoInicial", (sala, tempoInicial) => {
     socket.broadcast.to(sala).emit("tempoInicial", tempoInicial);
   });
-  //Servidor recebendo e enviando o valor de contagem da partida
-  socket.on("contadorPartidas", (sala, contadorPartidas) => {
-    socket.broadcast.to(sala).emit("contadorPartidas", contadorPartidas);
-  });
   //Servidor recebendo e enviado o vencedor da partida
-  socket.on("clube0Vencendo", (sala) => {
-    socket.broadcast.to(sala).emit("clube0Vencendo");
+  socket.on("clube0Vencendo", (sala, contadorVencedor0) => {
+    socket.broadcast.to(sala).emit("clube0Vencendo", contadorVencedor0);
   });
-  socket.on("clube1Vencendo", (sala) => {
-    socket.broadcast.to(sala).emit("clube1Vencendo");
+  socket.on("clube1Vencendo", (sala, contadorVencedor1) => {
+    socket.broadcast.to(sala).emit("clube1Vencendo", contadorVencedor1);
   });  
 });
 

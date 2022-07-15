@@ -10,12 +10,13 @@ var remoteConnection;
 var midias;
 const audio = document.querySelector("audio");
 //Variáveis gerais do jogo
-var contadorPartidas = 0;
-var textoContadorPartidas0;
-var textoContadorPartidas1;
 var soundtrack;
 var botaoTelaCheia;
 var teclaF;
+var contadorVencedor0 = 0;
+var contadorVencedor1 = 0;
+var textoContadorVencedor0;
+var textoContadorVencedor1;
 //Variáveis de escolher a sala
 var fundo1;
 var fundo2;
@@ -67,9 +68,9 @@ var fundo4;
 var textoCronometro;
 var passagemTempo;
 var fonteTexto0 = {font: "bold 35px Mont", fill: "#000000"};
-var fonteTexto1 = {font: "bold 28px Arial", fill: "#FFFFFF"};
-var fonteTexto2 = {font: "bold 24px Mont", fill: "#000000" };
-var fonteTexto3 = {font: "bold 35px Mont", fill: "#000000"}
+var fonteTexto1 = { font: "bold 24px Mont", fill: "#000000" };
+var fonteTexto2 = { font: "bold 24px Mont", fill: "#0000FF" };
+var fonteTexto3 = { font: "bold 24px Mont", fill: "#FF0000" };
 var textoPlacar;
 var textoPosseBola;
 var posseBola0 = 50;
@@ -320,8 +321,8 @@ function apagarTela() {
   textoSala5.setVisible(false);
   retirarTodosNomesClubes();
   botaoTelaCheia.setVisible(false);
-  textoContadorPartidas0.setVisible(false);
-  textoContadorPartidas1.setVisible(false);
+  textoContadorVencedor0.setVisible(false);
+  textoContadorVencedor1.setVisible(false);
   soundtrack.pause();
   somVencedor.pause();
 }
@@ -334,10 +335,14 @@ function escolhaClubePadrao() {
 function atualizarTextoPlacar() {
   textoPlacar.setText(gols0 + "  x  " + gols1);
 }
-//Função para atualizar o texto do contador de partidas
-function atualizarContadorPartidas() {
-  contadorPartidas++;
-  textoContadorPartidas1.setText(contadorPartidas);
+//Função para atualizar o texto do contador de partidas ganhas
+function atualizarContadorVencedor0() {
+  contadorVencedor0++;
+  textoContadorVencedor0.setText(contadorVencedor0);
+}
+function atualizarContadorVencedor1() {
+  contadorVencedor1++;
+  textoContadorVencedor1.setText(contadorVencedor1);
 }
 //Funções para mostrar as telas do jogo
 //Escolhendo as salas
@@ -358,21 +363,9 @@ function aparecerFundo2() {
 function aparecerFundo3() {
   fundo2.setVisible(false);
   fundo3.setVisible(true);
-  textoContadorPartidas0.setVisible(true);
-  textoContadorPartidas1.setVisible(true);
   botaoTelaCheia.setVisible(true);
-  //Colocando a identificação da sala selecionada
-  if (sala === 1) {
-    
-  } else if (sala === 2) {
-    
-  } else if (sala === 3) {
-    
-  } else if (sala === 4) {
-    
-  } else if (sala === 5) {
-    
-  }
+  textoContadorVencedor0.setVisible(true);
+  textoContadorVencedor1.setVisible(true);
   //Colocando o botão de cada player para escolher os seus respectivos clubes
   if (jogador === 1) {
     botao1.setVisible(true);
@@ -467,14 +460,14 @@ function aparecerFundo5() {
     if (gols0 > gols1) {
       clube0Vencendo();
       //Envia a mensagem para o player 2 mostrar o vencendo da partida
-      socket.emit("clube0Vencendo", sala);
+      socket.emit("clube0Vencendo", sala, contadorVencedor0);
     } else if (gols0 < gols1) {
       clube1Vencendo();
-      socket.emit("clube1Vencendo", sala);
+      socket.emit("clube1Vencendo", sala, contadorVencedor1);
     } else if (gols0 === gols1) {
       //Por enquanto não tem empate
       clube0Vencendo();
-      socket.emit("clube0Vencendo", sala);
+      socket.emit("clube0Vencendo", sala, contadorVencedor1);
     }
   }
   //Toca o som da tela de vitória, retira todas as informações do clube e o soundtrack
@@ -521,20 +514,19 @@ function aparecerFundo3Novamente() {
   if (jogador === 1) {
     botao0.setVisible(true);
     botao1.setVisible(true);
-    //Adicionando valor no contador de partidas
-    atualizarContadorPartidas();
     //Definindo a força dos clubes de novo para definir o resultado da nova partida
     definirForçaClubes();
-    //Enviando o valor do contador de partidas para o player 2
-    socket.emit("contadorPartidas", sala, contadorPartidas);
   } else if (jogador === 2) {
     botao2.setVisible(true);
   }
   //Coloca os clubes que aparecem primeiro para serem escolhidos
   escolhaClubePadrao();
 }
+//Aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
 function clube0Vencendo() {
-  //Aqui vai ser o decorrer da partida que no final o clube da esquerda vai ganhar, com aleatoriedades
+  if (jogador === 1) {
+    atualizarContadorVencedor0();
+  }
   if (clube0Escolhido === "psg") {
     parabensPsg0.setVisible(true);
     neymar.setVisible(true);
@@ -561,8 +553,11 @@ function clube0Vencendo() {
     benzema.setVisible(true);
   }
 }
+//Decorrer da partida que no final o clube da direita vai ganhar, com aleatoriedades
 function clube1Vencendo() {
-  //Decorrer da partida que no final o clube da direita vai ganhar, com aleatoriedades
+  if (jogador === 1) {
+    atualizarContadorVencedor1();
+  }
   if (clube1Escolhido === "psg") {
     parabensPsg1.setVisible(true);
     neymar.setVisible(true);
@@ -726,10 +721,6 @@ function atualizarPlacar() {
 }
 cena1.preload = function () {
   //Carregando as imagens gerais que serão usados na cena1
-  this.load.image(
-    "textoContadorPartidas",
-    "./assets/texto/textoContadorPartidas.png"
-  );
   this.load.audio("soundtrack", "./assets/soundtrack.mp3");
   this.load.spritesheet("botaoTelaCheia", "./assets/botaoTelaCheia.png", {
     frameWidth: 50,
@@ -857,12 +848,12 @@ cena1.create = function () {
   parabensReal1 = this.add.image(400, 95, "real1").setVisible(false);
   //Adicionando o som do mouse para sair clicar nos botões
   somMouse = this.sound.add("somMouse");
-  //Adicionando o contador de partidas jogadas
-  textoContadorPartidas0 = this.add
-    .image(624, 580, "textoContadorPartidas")
+  //Adicionando os contadores de partidas ganhas de cada player
+  textoContadorVencedor0 = this.add
+    .text(732, 564, "0", fonteTexto2)
     .setVisible(false);
-  textoContadorPartidas1 = this.add
-    .text(732, 564, "0", fonteTexto1)
+  textoContadorVencedor1 = this.add
+    .text(600, 564, "0", fonteTexto3)
     .setVisible(false);
   //Botão de ativar/desativar tela cheia
   botaoTelaCheia = this.add
@@ -912,7 +903,7 @@ cena1.create = function () {
     .setVisible(false);
   //Adiciona o texto da posse de bola
   textoPosseBola = this.add
-    .text(343, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto2)
+    .text(343, 473, posseBola0 + "% | " + posseBola1 + "%", fonteTexto1)
     .setVisible(false);
   //<--- Cena do fim do jogo --->
   //Botões para jogar novamente
@@ -1142,16 +1133,14 @@ cena1.create = function () {
       socket.on("tempoInicial", (tempoInicial) => {
         textoCronometro.setText(formatarTempo(tempoInicial));
       });
-      //Sicronizando o contador das partidas
-      socket.on("contadorPartidas", (contadorPartidas) => {
-        textoContadorPartidas1.setText(contadorPartidas);
-      });
       //Sicronizando o vencedor da partida
-      socket.on("clube0Vencendo", () => {
+      socket.on("clube0Vencendo", (contadorVencedor0) => {
         clube0Vencendo();
+        textoContadorVencedor0.setText(contadorVencedor0);
       });
-      socket.on("clube1Vencendo", () => {
+      socket.on("clube1Vencendo", (contadorVencedor1) => {
         clube1Vencendo();
+        textoContadorVencedor1.setText(contadorVencedor1);
       });
     }
   });
