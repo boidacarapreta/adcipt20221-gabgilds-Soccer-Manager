@@ -850,10 +850,10 @@ cena1.create = function () {
   somMouse = this.sound.add("somMouse");
   //Adicionando os contadores de partidas ganhas de cada player
   textoContadorVencedor0 = this.add
-    .text(732, 564, "0", fonteTexto2)
+    .text(210, 564, "Vitórias: 0", fonteTexto2)
     .setVisible(false);
   textoContadorVencedor1 = this.add
-    .text(600, 564, "0", fonteTexto3)
+    .text(660, 564, "Vitórias: 0", fonteTexto3)
     .setVisible(false);
   //Botão de ativar/desativar tela cheia
   botaoTelaCheia = this.add
@@ -1136,11 +1136,11 @@ cena1.create = function () {
       //Sicronizando o vencedor da partida
       socket.on("clube0Vencendo", (contadorVencedor0) => {
         clube0Vencendo();
-        textoContadorVencedor0.setText(contadorVencedor0);
+        textoContadorVencedor0.setText(`Vitórias: ${contadorVencedor0}`);
       });
       socket.on("clube1Vencendo", (contadorVencedor1) => {
         clube1Vencendo();
-        textoContadorVencedor1.setText(contadorVencedor1);
+        textoContadorVencedor1.setText(`Vitórias: ${contadorVencedor1}`);
       });
     }
   });
