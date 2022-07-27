@@ -1,0 +1,34 @@
+{
+  "name": "Soccer Simulator",
+  "short_name": "SoccerSimulator",
+  "lang": "pt-BR",
+  "id": "./index.html",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "assets/logo128x128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "assets/logo192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "assets/logo256x256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "assets/logo384x384.png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "assets/logo512x512.png",
+      "sizes": "512x512"
+    }
+  ]
+}
+
